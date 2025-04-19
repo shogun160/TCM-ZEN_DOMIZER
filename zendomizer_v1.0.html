@@ -3180,7 +3180,7 @@ body.dark .filter-ignored {
     "era": "Modern"
   },
   {
-    "category": "Motcross",
+    "category": "Motocross",
     "bike": false,
     "brand": "Kawasaki",
     "model": "KX450F",
@@ -3378,7 +3378,7 @@ body.dark .filter-ignored {
     "era": "Modern"
   },
   {
-    "category": "Motcross",
+    "category": "Motocross",
     "bike": false,
     "brand": "KTM",
     "model": "450 EXC",
@@ -3387,7 +3387,7 @@ body.dark .filter-ignored {
     "era": "Modern"
   },
   {
-    "category": "Motcross",
+    "category": "Motocross",
     "bike": false,
     "brand": "KTM",
     "model": "450 EXC Nighthawk Edition",
@@ -3396,7 +3396,7 @@ body.dark .filter-ignored {
     "era": "Modern"
   },
   {
-    "category": "Motcross",
+    "category": "Motocross",
     "bike": false,
     "brand": "KTM",
     "model": "450 EXC Redbull",
@@ -5862,7 +5862,7 @@ body.dark .filter-ignored {
     "era": "Modern"
   },
   {
-    "category": "Motcross",
+    "category": "Motocross",
     "bike": false,
     "brand": "Suzuki",
     "model": "RM-Z 450",
@@ -6123,7 +6123,7 @@ body.dark .filter-ignored {
     "era": "Modern"
   },
   {
-    "category": "Motcross",
+    "category": "Motocross",
     "bike": false,
     "brand": "Yamaha",
     "model": "YZ450F",
@@ -6314,8 +6314,8 @@ function drawRandomVehicles() {
   for (let cat of shuffledCategories) {
     const baseVehicles = vehicles.filter(v =>
       v.category === cat &&
-      (bikeFilterMode === 'bike' ? v.bike === true :
-       bikeFilterMode === 'no_bike' ? v.bike === false : true)
+      (bikeFilterMode === 'bike' ? v.bike === true || v.category === "Motocross" :
+       bikeFilterMode === 'no_bike' ? v.bike === false || v.category === "Motocross" : true)
     );
 
     const allFilters = baseVehicles.filter(v =>
