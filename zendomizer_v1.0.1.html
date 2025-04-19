@@ -6169,7 +6169,6 @@ body.dark .filter-ignored {
   }
 ];</script>
 <h1>🌀 ZENDOMIZER </h1>
-<button onclick="toggleDarkMode()">🌓 Dark Mode</button>
 <div class="section" style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 10px;">
 <button id="bikeFilterBtn" onclick="toggleBikeFilter()">🔄 Bike-Filter: Alle</button>
 <label style="font-weight: bold;">
@@ -6212,7 +6211,8 @@ body.dark .filter-ignored {
     [Enter] Ziehung starten
     
     [C] Auswahl kopieren</div>
-<script>
+<script>let bikeFilterMode = "no_bike";
+
 function updateCountryAndEraDropdowns() {
   const countries = [...new Set(vehicles.map(v => v.country))].sort();
   const eras = [...new Set(vehicles.map(v => v.era))].sort();
@@ -6247,7 +6247,7 @@ function getCurrentFilters() {
 }
 
 
-let bikeFilterMode = 'all';
+
 let lastSelection = [];
 
 function toggleBikeFilter() {
@@ -6412,6 +6412,9 @@ document.addEventListener('keydown', (e) => {
 });
 
 window.onload = () => {
+  bikeFilterMode = "no_bike";
+  const bfb = document.getElementById("bikeFilterBtn");
+  if (bfb) bfb.innerText = "🔄 Bike-Filter: Nur Autos";
   if (localStorage.getItem('darkmode') === 'true') {
     document.body.classList.add('dark');
   }
