@@ -588,8 +588,18 @@ window.onload = () => {
   if (localStorage.getItem('darkmode') === 'true') {
     document.body.classList.add('dark');
   }
-  initializeDropdowns();
-  updatePreview();
+
+  fetch('cars/vehicles.json')
+    .then(response => response.json())
+    .then(data => {
+      vehicles = data;
+      initializeDropdowns();
+      updatePreview();
+    })
+    .catch(err => {
+      console.error("🚨 Fehler beim Laden von vehicles.json:", err);
+      document.getElementById("preview").innerText = "⚠️ Fahrzeugdaten konnten nicht geladen werden.";
+    });
 };
 </script>
 </body>
