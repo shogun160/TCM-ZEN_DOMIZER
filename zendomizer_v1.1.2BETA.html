@@ -569,7 +569,14 @@ function copyToClipboard() {
     }, 3000);
   });
 }
-
+function resetFilters() {
+  document.getElementById('brandSelect').value = '';
+  document.getElementById('countrySelect').value = '';
+  document.getElementById('eraSelect').value = '';
+  bikeFilterMode = "no_bike";
+  updateBikeFilterButtonText();
+  updatePreview();
+}
 
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') drawRandomVehicles();
