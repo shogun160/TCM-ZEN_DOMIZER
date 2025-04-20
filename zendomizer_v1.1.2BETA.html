@@ -353,7 +353,18 @@ function toggleBikeFilter() {
     document.getElementById("bikeFilterBtn").innerText = "Nur Autos";
   }
 }
+function updateBikeFilterButtonText() {
+  const bfb = document.getElementById("bikeFilterBtn");
+  if (!bfb) return;
 
+  if (bikeFilterMode === 'only_bike') {
+    bfb.innerText = "Nur Bikes";
+  } else if (bikeFilterMode === 'no_bike') {
+    bfb.innerText = "Nur Autos";
+  } else {
+    bfb.innerText = "Alle Fahrzeuge";
+  }
+}
 function updateBrandDropdown() {
   const brandSet = new Set(vehicles.map(v => v.brand));
   const dropdown = document.getElementById("brandSelect");
