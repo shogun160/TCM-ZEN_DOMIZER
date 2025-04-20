@@ -505,10 +505,6 @@ function drawRandomVehicles() {
     chosen.push({...vehicle, ignoredFilters: ignored});
   }
 
-  console.log("👉 selectedOrder:", selectedOrder);
-  console.log("👉 Reihenfolge von chosen:", chosen.map(v => v.category));
-  console.log("👉 Mit Index aus selectedOrder:", chosen.map(v => [v.category, selectedOrder.indexOf(v.category)]));
-
   if (chosen.length !== 3) {
     resultsDiv.innerHTML = "<p>⚠️ Nicht genügend Fahrzeuge gefunden.</p>";
     return;
