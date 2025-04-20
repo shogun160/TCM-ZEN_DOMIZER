@@ -27,18 +27,49 @@
             padding: 20px;
         }
         .filter-row {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          display: flex;
+          align-items: start;
           gap: 12px;
           max-width: 960px;
           width: 100%;
           margin: 0 auto 20px auto;
         }
+        .filter-main {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 12px;
+          flex-grow: 1;
+        }
+        .button-row {
+          display: flex;
+          align-items: start;
+          gap: 12px;
+          max-width: 960px;
+          width: 100%;
+          margin: 20px auto 0 auto;
+        }
         #bikeFilterBtn {
         width: 226px;
         text-align: left;
         padding-left: 16px; /* twas Abstand vom Rand */
-  }
+        }
+        #resetFiltersBtn {
+          all: unset;
+          cursor: pointer;
+          font-size: 32px;          /* 👈 leicht größer */
+          color: #666;
+          line-height: 1;
+          padding: 0 6px;
+          opacity: 0.6;
+          display: flex;
+          align-items: center;      /* 👈 vertikal mittig */
+          justify-content: center;
+          height: 100%;             /* 👈 passt sich an Höhe der Filterreihe an */
+        }
+        #resetFiltersBtn:hover {
+          color: #000;
+          opacity: 1;
+        }
         select, button {
             padding: 10px 16px;
             font-size: 16px;
@@ -148,11 +179,19 @@
   border-color: #e0a800;     /* gelber Rahmen */
 }
 </style></head>
-<body><h1>🌀 ZENDOMIZER </h1><div style="max-width: 960px; margin: 0 auto;"><div style="max-width: 960px;"><div class="section filter-row"><button id="bikeFilterBtn" onclick="toggleBikeFilter()">Alle Fahrzeuge</button>
-</select><select id="countrySelect" onchange="updatePreview()" style="margin-left: 5px;"><option disabled="True" selected="True" value="">Land wählen</option></select>
-<select id="brandSelect" onchange="updatePreview()" style="padding: 8px 12px; font-size: 16px; margin-left: 5px;"><option selected value="">Marke wählen</option><option value="">Alle Marken</option></select>
-<select id="eraSelect" onchange="updatePreview()" style="margin-left: 5px;"><option disabled="True" selected="True" value="">Zeitraum wählen</option></select>
-</div><div class="category-grid">
+<body>
+  <h1>🌀 ZENDOMIZER </h1>
+  <div style="max-width: 960px; margin: 0 auto;">
+      <div class="section filter-row">
+        <button id="resetFiltersBtn" onclick="resetFilters()" title="Filter zurücksetzen">⟳</button>
+        <div class="filter-main">
+        <button id="bikeFilterBtn" onclick="toggleBikeFilter()">Alle Fahrzeuge</button>
+        <select id="countrySelect" onchange="updatePreview()" style="padding: 8px 12px; font-size: 16px; margin-left: 5px;"><option disabled selected value="">Land wählen</option><option value="*">Alle Länder</option></select>
+        <select id="brandSelect" onchange="updatePreview()" style="padding: 8px 12px; font-size: 16px; margin-left: 5px;"><option disabled selected value="">Marke wählen</option><option value="*">Alle Marken</option></select>
+        <select id="eraSelect" onchange="updatePreview()" style="padding: 8px 12px; font-size: 16px; margin-left: 5px;"><option disabled selected value="">Zeitraum wählen</option><option value="*">Alle Zeiträume</option></select>
+      </div>
+  </div>
+<div class="category-grid">
 <label class="catLabel" style="background:#0097A7; padding:10px; border-radius:8px; color:white;">
 <input class="catCheckbox" onchange="handleCategoryClick(this)" type="checkbox" value="Street Tier 1"/> Street Tier 1
   </label>
@@ -180,7 +219,21 @@
 <label class="catLabel" style="background:#D32F2F; padding:10px; border-radius:8px; color:white;">
 <input class="catCheckbox" onchange="handleCategoryClick(this)" type="checkbox" value="Monster Truck"/> Monster Truck
   </label>
-</div><div class="preview" id="preview"></div><button onclick="drawRandomVehicles()">Ziehung starten</button><button onclick="copyToClipboard()">📋 Auswahl kopieren</button><div id="copyNotice" style="display: none; margin-top: 10px; color: green; font-weight: bold;">✅ In Zwischenablage kopiert!</div><div class="result-grid" id="results"></div></div><script>const vehicles = [
+</div>
+<div class="preview" id="preview"></div>
+<div class="section button-row">
+<button onclick="drawRandomVehicles()">Ziehung starten</button>
+<button onclick="copyToClipboard()"> Auswahl kopieren</button>
+</div>
+<div id="copyNotice" style="display: none; margin-top: 10px; color: green; font-weight: bold;">✅ In Zwischenablage kopiert!</div>
+<div class="section" style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+</div>
+<p id="copiedMsg" style="color: green;"></p>
+<div class="legend">🎹 Tastatur-Shortcuts:
+    [Enter] Ziehung starten
+    
+    [C] Auswahl kopieren</div>
+<div class="result-grid" id="results"></div></div><script>const vehicles = [
   {
     "category": "Monster Truck",
     "bike": false,
@@ -6284,13 +6337,6 @@
     "era": "Modern"
   }
 ];</script>
-<div class="section" style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
-</div>
-<p id="copiedMsg" style="color: green;"></p>
-<div class="legend">🎹 Tastatur-Shortcuts:
-    [Enter] Ziehung starten
-    
-    [C] Auswahl kopieren</div>
 <script>let selectedOrder = [];
 
 function handleCategoryClick(checkbox) {
@@ -6327,30 +6373,39 @@ function updateCheckboxBadges() {
 
 let bikeFilterMode = "no_bike";
 
-function updateCountryAndEraDropdowns() {
-  const countries = [...new Set(vehicles.map(v => v.country))].sort();
-  const eras = [...new Set(vehicles.map(v => v.era))].sort();
+function initializeDropdowns() {
+const brandSelect = document.getElementById("brandSelect");
+const countrySelect = document.getElementById("countrySelect");
+const eraSelect = document.getElementById("eraSelect");
 
-  const countrySel = document.getElementById("countrySelect");
-  const eraSel = document.getElementById("eraSelect");
+// Marken ergänzen (lassen Platzhalter bestehen)
+const brandSet = new Set(vehicles.map(v => v.brand));
+[...brandSet].sort().forEach(brand => {
+  const option = document.createElement("option");
+  option.value = brand;
+  option.textContent = brand;
+  brandSelect.appendChild(option);
+});
 
-  countrySel.innerHTML = '<option value="">Alle Länder</option>';
-  eraSel.innerHTML = '<option value="">Alle Zeiträume</option>';
+// Länder ergänzen (lassen Platzhalter + "Alle Länder" bestehen)
+const countrySet = new Set(vehicles.map(v => v.country));
+[...countrySet].sort().forEach(country => {
+  const option = document.createElement("option");
+  option.value = country;
+  option.textContent = country;
+  countrySelect.appendChild(option);
+});
 
-  countries.forEach(c => {
-    const opt = document.createElement("option");
-    opt.value = c;
-    opt.innerText = c;
-    countrySel.appendChild(opt);
-  });
-
-  eras.forEach(e => {
-    const opt = document.createElement("option");
-    opt.value = e;
-    opt.innerText = e;
-    eraSel.appendChild(opt);
-  });
+// Zeiträume ergänzen
+const eraSet = new Set(vehicles.map(v => v.era));
+[...eraSet].sort().forEach(era => {
+  const option = document.createElement("option");
+  option.value = era;
+  option.textContent = era;
+  eraSelect.appendChild(option);
+});
 }
+
 
 function getCurrentFilters() {
   return {
@@ -6611,8 +6666,7 @@ window.onload = () => {
   if (localStorage.getItem('darkmode') === 'true') {
     document.body.classList.add('dark');
   }
-  updateBrandDropdown();
-  updateCountryAndEraDropdowns();
+  initializeDropdowns();
   updatePreview();
 };
 </script>
