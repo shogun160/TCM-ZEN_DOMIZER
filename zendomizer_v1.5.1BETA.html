@@ -24,7 +24,25 @@
       max-width: 960px;
       margin: 0 auto;
     }
-
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #222;
+      color: #0f0;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease-in-out;
+      z-index: 9999;
+    }
+    .toast.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
     .control-panel {
       background: rgba(0, 0, 0, 0.7);
       padding: 20px;
@@ -452,24 +470,20 @@
 
     function copyToClipboard() {
       if (!lastSelection || lastSelection.length === 0) {
-        document.getElementById('copiedMsg').innerText = "⚠️ Keine Auswahl zum Kopieren.";
+        showToast("⚠️ Keine Auswahl zum Kopieren.");
         return;
       }
-
+    
       let result = "🎲 ZENDOMIZER Auswahl:\n\n";
-
+    
       lastSelection.forEach(vehicle => {
         result += `|| ${vehicle.category}:\n  ${vehicle.brand} ${vehicle.model} (${vehicle.year})\n\n`;
       });
-
+    
       navigator.clipboard.writeText(result.trim()).then(() => {
-        document.getElementById('copiedMsg').innerText = '✅ In Zwischenablage kopiert!';
-        setTimeout(() => {
-          document.getElementById('copiedMsg').innerText = '';
-        }, 3000);
+        showToast("✅ In Zwischenablage kopiert!");
       });
     }
-
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') drawRandomVehicles();
@@ -496,6 +510,16 @@
           alert("⚠️ Fahrzeugdaten konnten nicht geladen werden.");
         });
     };
+    function showToast(message = "✅ In Zwischenablage kopiert!") {
+      const toast = document.getElementById("toast");
+      toast.innerText = message;
+      toast.classList.add("show");
+    
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 3000);
+    }
   </script>
+<div id="toast" class="toast">✅ In Zwischenablage kopiert!</div>
 </body>
 </html>
