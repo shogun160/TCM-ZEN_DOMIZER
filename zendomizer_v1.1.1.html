@@ -88,7 +88,8 @@
   flex-wrap: wrap;
   gap: 16px;
   justify-content: start;
-  margin-top: 24px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 .result-card {
   background-color: #eeeeee;
@@ -225,15 +226,15 @@
 <button onclick="drawRandomVehicles()">Ziehung starten</button>
 <button onclick="copyToClipboard()"> Auswahl kopieren</button>
 </div>
-<div id="copyNotice" style="display: none; margin-top: 10px; color: green; font-weight: bold;">✅ In Zwischenablage kopiert!</div>
-<div class="section" style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
-</div>
-<p id="copiedMsg" style="color: green;"></p>
-<div class="legend">🎹 Tastatur-Shortcuts:
+<div class="result-grid" id="results"></div>
+<div class="section" style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;"></div>
+<div class="legend"> Tastatur-Shortcuts:
     [Enter] Ziehung starten
     
     [C] Auswahl kopieren</div>
-<div class="result-grid" id="results"></div></div><script>const vehicles = [
+<div id="copyNotice" style="display: none; margin-top: 10px; color: green; font-weight: bold;">✅ In Zwischenablage kopiert!</div>
+<p id="copiedMsg" style="color: green;"></p>
+</div><script>const vehicles = [
   {
     "category": "Monster Truck",
     "bike": false,
