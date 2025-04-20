@@ -139,13 +139,13 @@
 <body>
 <div class="layout"><div class="left-panel"><div class="filter-row">
 <button id="bikeFilterBtn" onclick="toggleBikeFilter()">Nur Autos</button>
-<select id="countrySelect" onchange="updatePreview()">
+<select id="countrySelect">
 <option value="">Land wählen</option>
 </select>
-<select id="brandSelect" onchange="updatePreview()">
+<select id="brandSelect">
 <option value="">Marke wählen</option>
 </select>
-<select id="eraSelect" onchange="updatePreview()">
+<select id="eraSelect">
 <option value="">Zeitraum wählen</option>
 </select>
 </div><div class="category-grid">
@@ -193,7 +193,6 @@
         selectedOrder = selectedOrder.filter(v => v !== value);
       }
       updateCheckboxBadges();
-      updatePreview();
     }
 
     function updateCheckboxBadges() {
@@ -286,27 +285,6 @@
         dropdown.appendChild(opt);
       });
     }
-
-    function updatePreview() {
-      const filters = getCurrentFilters();
-      const selectedCategories = Array.from(document.querySelectorAll('.catCheckbox'))
-        .filter(cb => cb.checked)
-        .map(cb => cb.value);
-      const filterText = bikeFilterMode === 'bike' ? "Nur Bikes"
-                      : bikeFilterMode === 'no_bike' ? "Nur Autos"
-                      : "Alle Fahrzeuge";
-      const brand = document.getElementById("brandSelect").value;
-      const brandText = brand ? `Marke: ${brand}` : "Alle Marken";
-      const country = filters.country;
-      const era = filters.era;
-      const extra = (country ? ` | Land: ${country}` : "") + (era ? ` | Zeitraum: ${era}` : "");
-
-      document.getElementById("preview").innerText =
-        "Auswahl: " + (selectedCategories.join(", ") || "–") + " | Filter: " + filterText + " | " + brandText + extra;
-        "Auswahl: " + (selectedCategories.join(", ") || "–") + " | Filter: " + filterText + " | " + brandText;
-    }
-
-
     function drawRandomVehicles() {
       const filters = getCurrentFilters();
       const selectedCategories = Array.from(document.querySelectorAll('.catCheckbox'))
@@ -512,11 +490,10 @@
         .then(data => {
           vehicles = data;
           initializeDropdowns();
-          updatePreview();
         })
         .catch(err => {
           console.error("🚨 Fehler beim Laden von vehicles.json:", err);
-          document.getElementById("preview").innerText = "⚠️ Fahrzeugdaten konnten nicht geladen werden.";
+          alert("⚠️ Fahrzeugdaten konnten nicht geladen werden.");
         });
     };
   </script>
