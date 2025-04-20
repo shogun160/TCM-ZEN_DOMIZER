@@ -27,10 +27,14 @@
             padding: 20px;
         }
         .filter-row {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          max-width: 960px;
+          width: 100%;
+          margin: 0 auto 20px auto; /* zentriert */
         }
+
         #bikeFilterBtn {
         width: 150px;
         text-align: center;
@@ -144,8 +148,10 @@
   border-color: #e0a800;     /* gelber Rahmen */
 }
 </style></head>
-<body><h1>🌀 ZENDOMIZER </h1><div style="max-width: 960px; margin-left: 0;"><div class="section filter-row"><button id="bikeFilterBtn" onclick="toggleBikeFilter()">Alle Fahrzeuge</button><select id="brandSelect" onchange="updatePreview()" style="padding: 8px 12px; font-size: 16px; margin-left: 5px;"><option disabled="True" selected="True" value="">Marke wählen</option>
-<option value="">Alle Marken</option>
+<body><h1>🌀 ZENDOMIZER </h1><div style="max-width: 960px; margin: 0 auto;"><div style="max-width: 960px; margin-left: 0;"><div class="section filter-row"><button id="bikeFilterBtn" onclick="toggleBikeFilter()">Alle Fahrzeuge</button>
+<select id="brandSelect" onchange="updatePreview()" style="padding: 8px 12px; font-size: 16px; margin-left: 5px;">
+  <option disabled selected value="">Marke wählen</option>
+</select>
 </select><select id="countrySelect" onchange="updatePreview()" style="margin-left: 5px;"><option disabled="True" selected="True" value="">Land wählen</option></select><select id="eraSelect" onchange="updatePreview()" style="margin-left: 5px;"><option disabled="True" selected="True" value="">Zeitraum wählen</option></select></div><div class="category-grid">
 <label class="catLabel" style="background:#0097A7; padding:10px; border-radius:8px; color:white;">
 <input class="catCheckbox" onchange="handleCategoryClick(this)" type="checkbox" value="Street Tier 1"/> Street Tier 1
@@ -6629,7 +6635,6 @@ window.onload = () => {
   navigator.clipboard.writeText(text.trim()).then(() => {
     alert("Auswahl wurde in die Zwischenablage kopiert!");
   });
-}
 </script><script>
 function showCopyNotice() {
   const notice = document.getElementById("copyNotice");
@@ -6650,6 +6655,5 @@ function showCopyNotice() {
   navigator.clipboard.writeText(text).then(() => {
     showCopyNotice();
   });
-}
 </script></body>
 </html>
