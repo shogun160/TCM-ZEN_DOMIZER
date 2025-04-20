@@ -396,8 +396,8 @@ function drawRandomVehicles() {
   resultsDiv.innerHTML = '';
   document.getElementById('copiedMsg').innerText = '';
 
-  if (selectedCategories.length < 3) {
-    resultsDiv.innerHTML = "<p>⚠️ Bitte mindestens 3 Kategorien auswählen.</p>";
+  if (selectedCategories.length !== 3) {
+    resultsDiv.innerHTML = "<p>⚠️ Bitte 3 Kategorien auswählen.</p>";
     return;
   }
 
