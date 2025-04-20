@@ -31,6 +31,10 @@
             gap: 10px;
             margin-bottom: 20px;
         }
+        #bikeFilterBtn {
+        width: 150px;
+        text-align: center;
+  }
         select, button {
             padding: 10px 16px;
             font-size: 16px;
@@ -140,7 +144,7 @@
   border-color: #e0a800;     /* gelber Rahmen */
 }
 </style></head>
-<body><h1>🌀 ZENDOMIZER </h1><div style="max-width: 960px; margin-left: 0;"><div class="section filter-row"><button id="bikeFilterBtn" onclick="toggleBikeFilter()">🔄 Bike-Filter: Alle</button><select id="brandSelect" onchange="updatePreview()" style="padding: 8px 12px; font-size: 16px; margin-left: 5px;"><option disabled="True" selected="True" value="">Marke wählen</option>
+<body><h1>🌀 ZENDOMIZER </h1><div style="max-width: 960px; margin-left: 0;"><div class="section filter-row"><button id="bikeFilterBtn" onclick="toggleBikeFilter()">Alle Fahrzeuge</button><select id="brandSelect" onchange="updatePreview()" style="padding: 8px 12px; font-size: 16px; margin-left: 5px;"><option disabled="True" selected="True" value="">Marke wählen</option>
 <option value="">Alle Marken</option>
 </select><select id="countrySelect" onchange="updatePreview()" style="margin-left: 5px;"><option disabled="True" selected="True" value="">Land wählen</option></select><select id="eraSelect" onchange="updatePreview()" style="margin-left: 5px;"><option disabled="True" selected="True" value="">Zeitraum wählen</option></select></div><div class="category-grid">
 <label class="catLabel" style="background:#0097A7; padding:10px; border-radius:8px; color:white;">
@@ -6355,13 +6359,16 @@ function getCurrentFilters() {
 let lastSelection = [];
 
 function toggleBikeFilter() {
-  if (bikeFilterMode === 'all') bikeFilterMode = 'bike';
-  else if (bikeFilterMode === 'bike') bikeFilterMode = 'no_bike';
-  else bikeFilterMode = 'all';
-
-  document.getElementById("bikeFilterBtn").innerText =
-    "🔄 Bike-Filter: " + (bikeFilterMode === 'bike' ? "Nur Bikes" : bikeFilterMode === 'no_bike' ? "Nur Autos" : "Alle");
-  updatePreview();
+  if (bikeFilterMode === 'no_bike') {
+    bikeFilterMode = 'bike';
+    document.getElementById("bikeFilterBtn").innerText = "Nur Bikes";
+  } else if (bikeFilterMode === 'bike') {
+    bikeFilterMode = 'all';
+    document.getElementById("bikeFilterBtn").innerText = "Alle Fahrzeuge";
+  } else {
+    bikeFilterMode = 'no_bike';
+    document.getElementById("bikeFilterBtn").innerText = "Nur Autos";
+  }
 }
 
 function updateBrandDropdown() {
@@ -6390,8 +6397,8 @@ function updatePreview() {
   const extra = (country ? ` | Land: ${country}` : "") + (era ? ` | Zeitraum: ${era}` : "");
 
   document.getElementById("preview").innerText =
-    "🧩 Auswahl: " + (selectedCategories.join(", ") || "–") + " | Filter: " + filterText + " | " + brandText + extra;
-    "🧩 Auswahl: " + (selectedCategories.join(", ") || "–") + " | Filter: " + filterText + " | " + brandText;
+    "Auswahl: " + (selectedCategories.join(", ") || "–") + " | Filter: " + filterText + " | " + brandText + extra;
+    "Auswahl: " + (selectedCategories.join(", ") || "–") + " | Filter: " + filterText + " | " + brandText;
 }
 
 
@@ -6594,7 +6601,7 @@ document.addEventListener('keydown', (e) => {
 window.onload = () => {
   bikeFilterMode = "no_bike";
   const bfb = document.getElementById("bikeFilterBtn");
-  if (bfb) bfb.innerText = "🔄 Bike-Filter: Nur Autos";
+  if (bfb) bfb.innerText = "Nur Autos";
   if (localStorage.getItem('darkmode') === 'true') {
     document.body.classList.add('dark');
   }
