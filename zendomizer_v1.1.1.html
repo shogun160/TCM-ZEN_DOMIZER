@@ -6442,7 +6442,7 @@ function drawRandomVehicles() {
       );
       if (bikeFallback.length > 0) {
         finalList = bikeFallback;
-        ignored.push("Bike-Filter");
+       ignored.push(bikeFilterMode === 'no_bike' ? 'Nur Autos' : 'Nur Bikes');
       }
     }
 
