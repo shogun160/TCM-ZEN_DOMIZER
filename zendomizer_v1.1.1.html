@@ -6419,53 +6419,94 @@ function drawRandomVehicles() {
     
     let ignored = [];
 
-    let baseVehicles = vehicles.filter(v =>
-      v.category === cat &&
-      (bikeFilterMode === 'no_bike' ? v.bike === false :
-       bikeFilterMode === 'bike' ? v.bike === true : true)
-    );
+    let finalList = [];
 
-    let finalList = baseVehicles.filter(v =>
+    // Schritt 1: Alle aktiven Filter
+    finalList = vehicles.filter(v =>
+      v.category === cat &&
+      (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && v.bike === false) || (bikeFilterMode === 'bike' && v.bike === true)) &&
       (!filters.country || v.country === filters.country) &&
       (!filters.era || v.era === filters.era) &&
       (!filters.brand || v.brand === filters.brand)
     );
 
-    // Bike-Fallback wenn keine Autos gefunden
-    if (finalList.length === 0 && bikeFilterMode === 'no_bike') {
-      const bikeFallback = vehicles.filter(v =>
-        v.category === cat &&
-        v.bike === true &&
-        (!filters.country || v.country === filters.country) &&
-        (!filters.era || v.era === filters.era) &&
-        (!filters.brand || v.brand === filters.brand)
-      );
-      if (bikeFallback.length > 0) {
-        finalList = bikeFallback;
-       ignored.push(bikeFilterMode === 'no_bike' ? 'Nur Autos' : 'Nur Bikes');
+    if (finalList.length === 0) {
+      // Schritt 2: Bike-Filter ignorieren (nur wenn aktiv)
+      if (bikeFilterMode === 'no_bike' || bikeFilterMode === 'bike') {
+        const fallback = vehicles.filter(v =>
+          v.category === cat &&
+          (!filters.country || v.country === filters.country) &&
+          (!filters.era || v.era === filters.era) &&
+          (!filters.brand || v.brand === filters.brand)
+        );
+        if (fallback.length > 0) {
+          finalList = fallback;
+          ignored.push(bikeFilterMode === 'no_bike' ? 'Nur Autos' : 'Nur Bikes');
+        }
       }
     }
 
-    if (finalList.length === 0) {
-      ignored.push("Marke");
-      finalList = vehicles.filter(v =>
+    // Schritt 3–5: Einzelne Filter ignorieren (nur wenn aktiv)
+    if (finalList.length === 0 && filters.era) {
+      const fallback = vehicles.filter(v =>
         v.category === cat &&
+        (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && v.bike === false) || (bikeFilterMode === 'bike' && v.bike === true)) &&
+        (!filters.country || v.country === filters.country) &&
+        (!filters.brand || v.brand === filters.brand)
+      );
+      if (fallback.length > 0) {
+        finalList = fallback;
+        ignored.push(`Zeitraum (${filters.era})`);
+      }
+    }
+
+    if (finalList.length === 0 && filters.brand) {
+      const fallback = vehicles.filter(v =>
+        v.category === cat &&
+        (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && v.bike === false) || (bikeFilterMode === 'bike' && v.bike === true)) &&
         (!filters.country || v.country === filters.country) &&
         (!filters.era || v.era === filters.era)
       );
+      if (fallback.length > 0) {
+        finalList = fallback;
+        ignored.push(`Marke (${filters.brand})`);
+      }
     }
 
-    if (finalList.length === 0) {
-      ignored.push("Land");
-      finalList = vehicles.filter(v =>
+    if (finalList.length === 0 && filters.country) {
+      const fallback = vehicles.filter(v =>
         v.category === cat &&
-        (!filters.era || v.era === filters.era)
+        (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && v.bike === false) || (bikeFilterMode === 'bike' && v.bike === true)) &&
+        (!filters.era || v.era === filters.era) &&
+        (!filters.brand || v.brand === filters.brand)
       );
+      if (fallback.length > 0) {
+        finalList = fallback;
+        ignored.push(`Land (${filters.country})`);
+      }
     }
 
+    // Schritt 6: Alle außer Kategorie & Bike-Filter ignorieren
     if (finalList.length === 0) {
-      ignored.push("Zeitraum");
-      finalList = vehicles.filter(v => v.category === cat);
+      const fallback = vehicles.filter(v =>
+        v.category === cat &&
+        (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && v.bike === false) || (bikeFilterMode === 'bike' && v.bike === true))
+      );
+      if (fallback.length > 0) {
+        finalList = fallback;
+        if (filters.era) ignored.push(`Zeitraum (${filters.era})`);
+        if (filters.brand) ignored.push(`Marke (${filters.brand})`);
+        if (filters.country) ignored.push(`Land (${filters.country})`);
+      }
+    }
+
+    // Schritt 7: Alles ignorieren außer Kategorie
+    if (finalList.length === 0) {
+      const fallback = vehicles.filter(v => v.category === cat);
+      if (fallback.length > 0) {
+        finalList = fallback;
+        ignored.push('Alle');
+      }
     }
 
     if (finalList.length === 0) continue;
