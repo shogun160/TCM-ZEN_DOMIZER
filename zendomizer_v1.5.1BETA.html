@@ -313,7 +313,6 @@
 
       const resultsDiv = document.getElementById('results');
       resultsDiv.innerHTML = '';
-      document.getElementById('copiedMsg').innerText = '';
 
       if (selectedCategories.length < 3) {
         resultsDiv.innerHTML = "<p>⚠️ Bitte 3 Kategorien auswählen.</p>";
@@ -445,7 +444,6 @@
       copyToClipboard();
     }
 
-
     function repeatDraw() {
       if (!lastSelection || lastSelection.length === 0) {
         drawRandomVehicles();
@@ -454,7 +452,6 @@
 
       const resultsDiv = document.getElementById('results');
       resultsDiv.innerHTML = '';
-      document.getElementById('copiedMsg').innerText = '';
 
       lastSelection.forEach(v => {
         const el = document.createElement('div');
