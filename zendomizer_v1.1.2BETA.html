@@ -263,13 +263,19 @@
 
 function handleCategoryClick(checkbox) {
   const value = checkbox.value;
+
+  // Wenn Checkbox aktiviert wird
   if (checkbox.checked) {
-    if (!selectedOrder.includes(value)) {
-      selectedOrder.push(value);
+    if (selectedOrder.length >= 3) {
+      checkbox.checked = false; // neue Auswahl rückgängig machen
+      return;
     }
+    selectedOrder.push(value);
   } else {
+    // Wenn deaktiviert → entfernen
     selectedOrder = selectedOrder.filter(v => v !== value);
   }
+
   updateCheckboxBadges();
   updatePreview();
 }
