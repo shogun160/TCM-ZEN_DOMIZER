@@ -247,28 +247,17 @@
 <div id="copyNotice" style="display: none; margin-top: 10px; color: green; font-weight: bold;">✅ In Zwischenablage kopiert!</div>
 <p id="copiedMsg" style="color: green;"></p>
 </div><script>
-  const vehicles = [
-    {
-      "category": "Monster Truck",
-      "bike": false,
-      "brand": "Abarth",
-      "model": 500,
-      "year": 1930,
-      "country": "Italien",
-      "era": "Modern"
-    },
-    ...
-    {
-      "category": "Hypercar",
-      "bike": false,
-      "brand": "Zenvo",
-      "model": "TSR-SSHMEE150",
-      "year": 2020,
-      "country": "Dänemark",
-      "era": "Modern"
-    }
-  ];
-  </script>
+    let vehicles = [];
+    
+    fetch('cars/vehicles.json')
+      .then(response => response.json())
+      .then(data => {
+        vehicles = data;
+        initializeDropdowns(); // oder: updateBrandDropdown() + updateCountryAndEraDropdowns()
+        updatePreview();       // wichtig, damit Vorschau und Ziehung möglich sind
+      });
+    </script>
+    
   
 <script>let selectedOrder = [];
 
