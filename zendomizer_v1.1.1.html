@@ -6565,26 +6565,25 @@ function repeatDraw() {
 }
 
 function copyToClipboard() {
-  const vehicles = document.querySelectorAll('.vehicle');
-  if (vehicles.length === 0) {
+  if (!lastSelection || lastSelection.length === 0) {
     document.getElementById('copiedMsg').innerText = "⚠️ Keine Auswahl zum Kopieren.";
     return;
   }
 
-  let text = "🎲 ZENDOMIZER Auswahl:\n\n";
-  vehicles.forEach(v => {
-    const parts = v.innerText.trim().split('\n');
-    if (parts.length >= 2) {
-      text += parts[0] + ":\n  " + parts[1] + "\n\n";
-    }
+  let result = "🎲 ZENDOMIZER Auswahl:\n\n";
+
+  lastSelection.forEach(vehicle => {
+    result += `|| ${vehicle.category}:\n  ${vehicle.brand} ${vehicle.model} (${vehicle.year})\n\n`;
   });
 
-  navigator.clipboard.writeText(text).then(() => {
-    document.getElementById('copiedMsg').innerText = "✅ In Zwischenablage kopiert!";
-  }).catch(err => {
-    document.getElementById('copiedMsg').innerText = "❌ Kopieren fehlgeschlagen.";
+  navigator.clipboard.writeText(result.trim()).then(() => {
+    document.getElementById('copiedMsg').innerText = '✅ In Zwischenablage!';
+    setTimeout(() => {
+      document.getElementById('copiedMsg').innerText = '';
+    }, 3000);
   });
 }
+
 
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') drawRandomVehicles();
@@ -6605,12 +6604,6 @@ window.onload = () => {
 };
 </script>
 <script>
-function copyToClipboard() {
-  const vehicles = document.querySelectorAll(".vehicle");
-  if (!vehicles.length) {
-    alert("Keine Auswahl zum Kopieren!");
-    return;
-  }
 
   let text = "🎲 ZENDOMIZER Auswahl:\n\n";
 
@@ -6639,13 +6632,6 @@ function showCopyNotice() {
     notice.style.display = "none";
   }, 3000);
 }
-
-function copyToClipboard() {
-  const vehicles = document.querySelectorAll('.vehicle');
-  if (vehicles.length === 0) {
-    showCopyNotice();
-    return;
-  }
 
   let text = '🎲 ZENDOMIZER Auswahl:\n\n';
   vehicles.forEach(vehicle => {
