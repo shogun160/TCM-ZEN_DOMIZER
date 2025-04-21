@@ -843,13 +843,17 @@ select.filter-control {
 
     window.onload = () => {
       bikeFilterMode = "no_bike";
-      document.getElementById("bikeFilterBtn").innerText = "Nur Autos";
+    
       const bfb = document.getElementById("bikeFilterBtn");
-      if (bfb) bfb.innerText = "Nur Autos";
+      if (bfb) {
+        bfb.innerText = "Nur Autos";
+        bfb.classList.add("bike-active"); // 💡 Button grün glühen lassen
+      }
+    
       if (localStorage.getItem('darkmode') === 'true') {
         document.body.classList.add('dark');
       }
-
+    
       fetch('cars/vehicles.json')
         .then(response => response.json())
         .then(data => {
