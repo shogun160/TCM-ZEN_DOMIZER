@@ -170,7 +170,7 @@
     height: 120px;
     color: #fff;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 18px;
     text-align: center;
     box-sizing: border-box;
     text-shadow: 0 0 2px #000;
@@ -188,7 +188,11 @@
       animation: pulse-yellow 1.5s infinite;
     }
     .catCheckbox:checked + .catLabel.cat-yellow {
-      box-shadow: 0 0 6px #FFD700, 0 0 12px #FFD700;
+      box-shadow: 
+        0 0 6px currentColor,
+        0 0 12px currentColor,
+        0 0 20px currentColor,
+        0 0 40px currentColor;
       animation: none;
     }
     
