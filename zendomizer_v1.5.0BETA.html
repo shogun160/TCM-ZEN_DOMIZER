@@ -77,11 +77,14 @@
       justify-content: flex-end;
       padding: 0 16px;
     }
-    }.button-row {
+    }
+    .button-row {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 12px;
+      margin-top: 8px;     /* 🟢 höher schieben */
+      margin-bottom: 0px;  /* optional: Luft unten */
     }
     /* === NEON-GRUNDSTIL KACHEL === */
     /* === Neon-Badge oben links === */
@@ -236,12 +239,12 @@
     }
     .results-panel {
       margin-top: 20px;
-      margin-bottom: 48px;
+      margin-bottom: 64px; /* ⬆️ mehr Luft nach unten */
       width: 100%;
       max-width: 360px;
       display: grid;
       grid-template-rows: repeat(3, auto);
-      row-gap: 32px;
+      row-gap: 40px; /* ⬆️ mehr Abstand zwischen Slotboxen */
       justify-items: center;
       align-items: start;
       text-align: center;
