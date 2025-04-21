@@ -406,9 +406,6 @@ select.filter-control {
 <div class="machine-wrapper"></div>
 <div class="layout"><div class="left-panel">
 <div class="filter-wrapper">
-  <div class="reset-vertical">
-    <button class="reset-btn-vertical" onclick="resetFilters()">🔄<br>Reset</button>
-  </div>
   <div class="filter-grid">
     <button id="bikeFilterBtn" class="filter-control" onclick="toggleBikeFilter()">Nur Autos</button>
     <select id="countrySelect" class="filter-control">
@@ -465,6 +462,7 @@ select.filter-control {
             <div class="button-top">
                 <button id="goBtn" class="start-btn" onclick="handleGo()">GO</button>
                 <button id="copyBtn" class="copy-btn" onclick="handleCopy()">Ⓒ</button>
+                <button id="resetBtn" class="reset-btn" onclick="resetFilters()">R</button>
             </div>
         </div>
     <div class="right-panel">
