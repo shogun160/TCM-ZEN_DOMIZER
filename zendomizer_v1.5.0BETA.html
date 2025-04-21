@@ -352,6 +352,13 @@
     0 0 12px #39ff14,
     0 0 20px #39ff14;
 }
+.filter-control.bike-active {
+  box-shadow:
+    0 0 6px #39ff14,
+    0 0 12px #39ff14,
+    0 0 20px #39ff14;
+  border-color: #39ff14;
+}
 .filter-control:hover {
   border-color: #666;
   background: rgba(255, 255, 255, 0.05);
@@ -570,10 +577,18 @@ select.filter-control {
       setTimeout(() => {
         btn.classList.remove("clicked");
       }, 500);
-      showToast("⟲ Filter zurückgesetzt!", "#f44336");
+    
+      // Toast
+      showToast("⟲ Filter wurden zurückgesetzt!", "#f44336");
+    
+      // Filter-Glow aktualisieren
       updateFilterHighlighting();
-      document.getElementById("bikeFilterBtn").innerText = "Nur Autos";
+    
+      // Bike-Filter zurücksetzen
       bikeFilterMode = "no_bike";
+      const bfb = document.getElementById("bikeFilterBtn");
+      bfb.innerText = "Nur Autos";
+      bfb.classList.add("bike-active"); // <<< WICHTIG
     }
     function updateFilterHighlighting() {
       const brand = document.getElementById("brandSelect");
@@ -592,18 +607,21 @@ select.filter-control {
     let lastSelection = [];
 
     function toggleBikeFilter() {
+      const btn = document.getElementById("bikeFilterBtn");
       if (bikeFilterMode === 'no_bike') {
         bikeFilterMode = 'bike';
-        document.getElementById("bikeFilterBtn").innerText = "Nur Bikes";
+        btn.innerText = "Nur Bikes";
+        btn.classList.add("bike-active");
       } else if (bikeFilterMode === 'bike') {
         bikeFilterMode = 'all';
-        document.getElementById("bikeFilterBtn").innerText = "Alle Fahrzeuge";
+        btn.innerText = "Alle Fahrzeuge";
+        btn.classList.remove("bike-active");
       } else {
         bikeFilterMode = 'no_bike';
-        document.getElementById("bikeFilterBtn").innerText = "Nur Autos";
+        btn.innerText = "Nur Autos";
+        btn.classList.add("bike-active");
       }
     }
-
     function updateBrandDropdown() {
       const brandSet = new Set(vehicles.map(v => v.brand));
       const dropdown = document.getElementById("brandSelect");
