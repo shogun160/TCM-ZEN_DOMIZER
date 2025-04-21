@@ -1103,10 +1103,23 @@ select.filter-control {
           ? ` <span style="color: orange;">⚠️</span><br><small style="color: gray;">${v.ignoredFilters.join(', ')}</small>`
           : '';
         slot.classList.remove('empty');
+        // falls die Farbkategorie fehlt (z. B. durch Reset), vorsichtshalber nochmal setzen
+        if (!slot.classList.contains('slot-yellow') &&
+            !slot.classList.contains('slot-blue') &&
+            !slot.classList.contains('slot-orange') &&
+            !slot.classList.contains('slot-red')) {
+          const colorClass =
+            v.category.includes('Street') || v.category === 'Hypercar' ? 'slot-yellow' :
+            ['Rally', 'Rally Raid', 'Motocross'].includes(v.category) ? 'slot-blue' :
+            ['Racing', 'AGP'].includes(v.category) ? 'slot-orange' :
+            v.category === 'Monster Truck' ? 'slot-red' : '';
+          if (colorClass) slot.classList.add(colorClass);
+        }
+        
         slot.innerHTML = `
           <div style="font-weight: bold;">${v.category}</div>
           <div style="margin-top: 6px;">${v.brand} ${v.model} (${v.year})</div>
-        ${ignored}
+          ${ignored}
         `;
       });
     
