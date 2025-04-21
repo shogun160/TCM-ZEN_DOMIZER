@@ -145,10 +145,6 @@
     .catCheckbox {
       display: none;
     }
-    .catCheckbox:checked + .catLabel span {
-      animation: pulse-neon 1.2s infinite;
-      font-weight: bold;
-    }
     .catLabel {
       display: flex;
       align-items: center;
@@ -168,6 +164,19 @@
       transition: box-shadow 0.3s ease, border-color 0.3s ease;
       position: relative;
       z-index: 2; /* Wichtig: Text liegt über der Badge */
+    }
+    /* Text lecuhtet wenn Kategorie ausgewählt */
+    .catCheckbox:checked + .catLabel {
+      box-shadow:
+        0 0 8px currentColor,
+        0 0 16px currentColor,
+        0 0 24px currentColor;
+      animation: pulse-neon 1.2s infinite;
+    }
+    
+    .catCheckbox:checked + .catLabel span {
+      animation: pulse-neon 1.2s infinite;
+      font-weight: bold;
     }
     /* === Neon-Kategorien === */
     
@@ -190,14 +199,6 @@
     .catLabel.cat-red {
       border-color: #FF4444;
       color: #FF4444;
-    }
-    /* Gleichmäßiger Neon-Glow bei Auswahl für alle Kategorien */
-    .catCheckbox:checked + .catLabel {
-      box-shadow:
-        0 0 8px currentColor,
-        0 0 16px currentColor,
-        0 0 24px currentColor;
-      animation: none;
     }
     @keyframes pulse-neon {
       0%, 100% {
