@@ -110,20 +110,24 @@
     }
     .category-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
       gap: 12px;
       margin-top: 10px;
+      width: 100%;
     }
     .catLabel {
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: #222; /* wird ggf. durch inline-style überschrieben */
+      background-color: #222;
       color: #fff;
       border-radius: 8px;
       cursor: pointer;
-      height: 130px;
+      width: 100%;
       aspect-ratio: 1 / 1;
+      height: auto;
+      min-width: 110px;
+      min-height: 110px;
       font-weight: bold;
       font-size: 14px;
       text-align: center;
@@ -250,6 +254,11 @@ select.filter-control {
   background-position: right 12px center;
   background-size: 10px;
   padding-right: 32px;
+}
+@media (max-width: 480px) {
+  .category-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+  }
 }
 </style>
 </head>
