@@ -185,6 +185,7 @@ select.filter-control {
 </style>
 </head>
 <body>
+<div class="machine-wrapper"></div>
 <div class="layout"><div class="left-panel"><div class="filter-row">
 <button id="bikeFilterBtn" class="filter-control" onclick="toggleBikeFilter()">Nur Autos</button>
 <select id="countrySelect" class="filter-control">
@@ -226,9 +227,18 @@ select.filter-control {
 <label class="catLabel" style="background:#D32F2F; padding:10px; border-radius:8px; color:white;">
 <input class="catCheckbox" onchange="handleCategoryClick(this)" type="checkbox" value="Monster Truck"/> Monster Truck
             </label>
-</div></div><div class="center-panel"><div class="button-top"><button class="start-btn" onclick="drawRandomVehicles()">START</button><button class="copy-btn" onclick="copyToClipboard()">📋 Auswahl kopieren</button></div><div class="machine-wrapper"></div></div><div class="right-panel"><div class="results-panel" id="results">
-<!-- Fahrzeuge erscheinen hier -->
-</div></div></div>
+</div>
+    </div>
+        <div class="center-panel">
+            <div class="button-top">
+                <button class="start-btn" onclick="drawRandomVehicles()">START</button>
+                <button class="copy-btn" onclick="copyToClipboard()">📋 Auswahl kopieren</button>
+            </div>
+        </div>
+    <div class="right-panel">
+        <div class="results-panel" id="results"></div>
+    </div>
+</div>
 <script src="https://shogun160.github.io/TCM-ZEN_DOMIZER/cars/vehicles.json" type="application/json"></script>
 <script>
     let selectedOrder = [];
