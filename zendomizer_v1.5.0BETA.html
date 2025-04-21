@@ -168,14 +168,17 @@
     /* Text lecuhtet wenn Kategorie ausgewählt */
     .catCheckbox:checked + .catLabel {
       box-shadow:
-        0 0 8px currentColor,
-        0 0 16px currentColor,
-        0 0 24px currentColor;
-      animation: pulse-neon 1.2s infinite;
+        0 0 6px currentColor,
+        0 0 12px currentColor,
+        0 0 20px currentColor,
+        0 0 28px currentColor;
+      animation: none;
     }
-    
     .catCheckbox:checked + .catLabel span {
-      animation: pulse-neon 1.2s infinite;
+      text-shadow:
+        0 0 4px currentColor,
+        0 0 8px currentColor,
+        0 0 12px currentColor;
       font-weight: bold;
     }
     /* === Neon-Kategorien === */
