@@ -110,6 +110,23 @@
       gap: 12px;
     }
     /* === NEON-GRUNDSTIL KACHEL === */
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      justify-items: center;
+      align-items: center;
+    }
+    
+    .catWrapper {
+      position: relative;
+      display: contents; /* wichtig: sorgt dafür, dass nur das Label im Grid zählt */
+    }
+    
+    .catCheckbox {
+      display: none;
+    }
+    
     .catLabel {
       display: flex;
       align-items: center;
@@ -127,21 +144,16 @@
       text-shadow: 0 0 2px #000;
       cursor: pointer;
       transition: box-shadow 0.3s ease, border-color 0.3s ease;
-      position: relative;
     }
     
-    .catCheckbox {
-      display: none;
-    }
+    /* === Neon-Kategorien === */
     
-    /* === KATEGORIEN (angepasst) === */
-    
-    /* GELB – Street & Hypercar */
+    /* GELB */
     .catLabel.cat-yellow:hover {
       animation: pulse-yellow 1.5s infinite;
       border-color: #FFD700;
     }
-    .catCheckbox:checked + label.cat-yellow {
+    .catCheckbox:checked + .catLabel.cat-yellow {
       border-color: #FFD700;
       box-shadow: 0 0 6px #FFD700, 0 0 12px #FFD700;
       animation: none;
@@ -151,12 +163,12 @@
       50% { box-shadow: 0 0 12px #FFD700, 0 0 24px #FFD700; }
     }
     
-    /* BLAU – Rally / Raid / Moto */
+    /* BLAU */
     .catLabel.cat-blue:hover {
       animation: pulse-blue 1.5s infinite;
       border-color: #00E5FF;
     }
-    .catCheckbox:checked + label.cat-blue {
+    .catCheckbox:checked + .catLabel.cat-blue {
       border-color: #00E5FF;
       box-shadow: 0 0 6px #00E5FF, 0 0 12px #00E5FF;
       animation: none;
@@ -166,12 +178,12 @@
       50% { box-shadow: 0 0 12px #00E5FF, 0 0 24px #00E5FF; }
     }
     
-    /* ORANGE – AGP / Racing */
+    /* ORANGE */
     .catLabel.cat-orange:hover {
       animation: pulse-orange 1.5s infinite;
       border-color: #FF9900;
     }
-    .catCheckbox:checked + label.cat-orange {
+    .catCheckbox:checked + .catLabel.cat-orange {
       border-color: #FF9900;
       box-shadow: 0 0 6px #FF9900, 0 0 12px #FF9900;
       animation: none;
@@ -181,12 +193,12 @@
       50% { box-shadow: 0 0 12px #FF9900, 0 0 24px #FF9900; }
     }
     
-    /* ROT – Monster Truck */
+    /* ROT */
     .catLabel.cat-red:hover {
       animation: pulse-red 1.5s infinite;
       border-color: #FF4444;
     }
-    .catCheckbox:checked + label.cat-red {
+    .catCheckbox:checked + .catLabel.cat-red {
       border-color: #FF4444;
       box-shadow: 0 0 6px #FF4444, 0 0 12px #FF4444;
       animation: none;
@@ -399,32 +411,42 @@ select.filter-control {
   </div>
 </div>
 <div class="category-grid">
-  <input class="catCheckbox" type="checkbox" id="cat1" onchange="handleCategoryClick(this)" value="Street Tier 1">
-  <label for="cat1" class="catLabel cat-yellow">Street Tier 1</label>
-
-  <input class="catCheckbox" type="checkbox" id="cat2" onchange="handleCategoryClick(this)" value="Street Tier 2">
-  <label for="cat2" class="catLabel cat-yellow">Street Tier 2</label>
-
-  <input class="catCheckbox" type="checkbox" id="cat3" onchange="handleCategoryClick(this)" value="Rally">
-  <label for="cat3" class="catLabel cat-blue">Rally</label>
-
-  <input class="catCheckbox" type="checkbox" id="cat4" onchange="handleCategoryClick(this)" value="Rally Raid">
-  <label for="cat4" class="catLabel cat-blue">Rally Raid</label>
-
-  <input class="catCheckbox" type="checkbox" id="cat5" onchange="handleCategoryClick(this)" value="Motocross">
-  <label for="cat5" class="catLabel cat-blue">Motocross</label>
-
-  <input class="catCheckbox" type="checkbox" id="cat6" onchange="handleCategoryClick(this)" value="Racing">
-  <label for="cat6" class="catLabel cat-orange">Racing</label>
-
-  <input class="catCheckbox" type="checkbox" id="cat7" onchange="handleCategoryClick(this)" value="AGP">
-  <label for="cat7" class="catLabel cat-orange">AGP</label>
-
-  <input class="catCheckbox" type="checkbox" id="cat8" onchange="handleCategoryClick(this)" value="Hypercar">
-  <label for="cat8" class="catLabel cat-yellow">Hypercar</label>
-
-  <input class="catCheckbox" type="checkbox" id="cat9" onchange="handleCategoryClick(this)" value="Monster Truck">
-  <label for="cat9" class="catLabel cat-red">Monster Truck</label>
+  <div class="catWrapper">
+    <input type="checkbox" id="cat1" class="catCheckbox" onchange="handleCategoryClick(this)" value="Street Tier 1" />
+    <label for="cat1" class="catLabel cat-yellow">Street Tier 1</label>
+  </div>
+  <div class="catWrapper">
+    <input type="checkbox" id="cat2" class="catCheckbox" onchange="handleCategoryClick(this)" value="Street Tier 2" />
+    <label for="cat2" class="catLabel cat-yellow">Street Tier 2</label>
+  </div>
+  <div class="catWrapper">
+    <input type="checkbox" id="cat3" class="catCheckbox" onchange="handleCategoryClick(this)" value="Rally" />
+    <label for="cat3" class="catLabel cat-blue">Rally</label>
+  </div>
+  <div class="catWrapper">
+    <input type="checkbox" id="cat4" class="catCheckbox" onchange="handleCategoryClick(this)" value="Rally Raid" />
+    <label for="cat4" class="catLabel cat-blue">Rally Raid</label>
+  </div>
+  <div class="catWrapper">
+    <input type="checkbox" id="cat5" class="catCheckbox" onchange="handleCategoryClick(this)" value="Motocross" />
+    <label for="cat5" class="catLabel cat-blue">Motocross</label>
+  </div>
+  <div class="catWrapper">
+    <input type="checkbox" id="cat6" class="catCheckbox" onchange="handleCategoryClick(this)" value="Racing" />
+    <label for="cat6" class="catLabel cat-orange">Racing</label>
+  </div>
+  <div class="catWrapper">
+    <input type="checkbox" id="cat7" class="catCheckbox" onchange="handleCategoryClick(this)" value="AGP" />
+    <label for="cat7" class="catLabel cat-orange">AGP</label>
+  </div>
+  <div class="catWrapper">
+    <input type="checkbox" id="cat8" class="catCheckbox" onchange="handleCategoryClick(this)" value="Hypercar" />
+    <label for="cat8" class="catLabel cat-yellow">Hypercar</label>
+  </div>
+  <div class="catWrapper">
+    <input type="checkbox" id="cat9" class="catCheckbox" onchange="handleCategoryClick(this)" value="Monster Truck" />
+    <label for="cat9" class="catLabel cat-red">Monster Truck</label>
+  </div>
 </div>
     </div>
         <div class="center-panel">
