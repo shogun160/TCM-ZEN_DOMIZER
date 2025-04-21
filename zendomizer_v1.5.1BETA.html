@@ -130,6 +130,8 @@
   max-width: 1400px;
   margin: 0 auto;
   padding-top: 40px;
+  position: relative;  /* ← Sichtbarkeitsschicht erzeugen */
+  z-index: 1;          /* ← Panels über das Bild legen */
 }
 .left-panel, .right-panel {
   flex: 0 0 300px;
