@@ -174,7 +174,9 @@
   padding: 8px 12px;
   box-sizing: border-box;
   transition: border-color 0.2s, background 0.2s;
-  text-align: left;;
+  text-align: left;
+  width: 100%; /* wichtig für Flex-Verhalten */
+  max-width: 180px; /* die Breite wird "gedeckelt" */
 }
 
 .filter-control:hover {
