@@ -657,7 +657,18 @@ select.filter-control {
         showToast("✅ In Zwischenablage kopiert!");
       });
     }
-
+    function handleCopy() {
+      copyToClipboard(); // deine vorhandene Funktion bleibt erhalten
+    
+      const btn = document.getElementById("copyBtn");
+      btn.textContent = "🅒";
+      btn.classList.add("clicked");
+    
+      setTimeout(() => {
+        btn.textContent = "Ⓒ";
+        btn.classList.remove("clicked");
+      }, 1500);
+    }
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') drawRandomVehicles();
       if (e.key.toLowerCase() === 'r') repeatDraw();
