@@ -269,63 +269,68 @@ select.filter-control {
 </head>
 <body>
 <div class="machine-wrapper"></div>
-<div class="layout"><div class="left-panel">
-<div class="filter-wrapper">
-  <div class="reset-vertical">
-    <button class="reset-btn-vertical" onclick="resetFilters()">🔄<br>Reset</button>
-  </div>
-  <div class="filter-grid">
-    <button id="bikeFilterBtn" class="filter-control" onclick="toggleBikeFilter()">Nur Autos</button>
-    <select id="countrySelect" class="filter-control">
-      <option value="">Land wählen</option>
-    </select>
-    <select id="brandSelect" class="filter-control">
-      <option value="">Marke wählen</option>
-    </select>
-    <select id="eraSelect" class="filter-control">
-      <option value="">Zeitraum wählen</option>
-    </select>
-  </div>
-</div>
-<div class="category-grid">
-<label class="catLabel" style="background:#0097A7; padding:10px; border-radius:8px; color:white;">
-<input class="catCheckbox" onchange="handleCategoryClick(this)" type="checkbox" value="Street Tier 1"/> Street Tier 1
-            </label>
-<label class="catLabel" style="background:#0097A7; padding:10px; border-radius:8px; color:white;">
-<input class="catCheckbox" onchange="handleCategoryClick(this)" type="checkbox" value="Street Tier 2"/> Street Tier 2
-            </label>
-<label class="catLabel" style="background:#388E3C; padding:10px; border-radius:8px; color:white;">
-<input class="catCheckbox" onchange="handleCategoryClick(this)" type="checkbox" value="Rally"/> Rally
-            </label>
-<label class="catLabel" style="background:#388E3C; padding:10px; border-radius:8px; color:white;">
-<input class="catCheckbox" onchange="handleCategoryClick(this)" type="checkbox" value="Rally Raid"/> Rally Raid
-            </label>
-<label class="catLabel" style="background:#388E3C; padding:10px; border-radius:8px; color:white;">
-<input class="catCheckbox" onchange="handleCategoryClick(this)" type="checkbox" value="Motocross"/> Motocross
-            </label>
-<label class="catLabel" style="background:#D32F2F; padding:10px; border-radius:8px; color:white;">
-<input class="catCheckbox" onchange="handleCategoryClick(this)" type="checkbox" value="Racing"/> Racing
-            </label>
-<label class="catLabel" style="background:#D32F2F; padding:10px; border-radius:8px; color:white;">
-<input class="catCheckbox" onchange="handleCategoryClick(this)" type="checkbox" value="AGP"/> AGP
-            </label>
-<label class="catLabel" style="background:#D32F2F; padding:10px; border-radius:8px; color:white;">
-<input class="catCheckbox" onchange="handleCategoryClick(this)" type="checkbox" value="Hypercar"/> Hypercar
-            </label>
-<label class="catLabel" style="background:#D32F2F; padding:10px; border-radius:8px; color:white;">
-<input class="catCheckbox" onchange="handleCategoryClick(this)" type="checkbox" value="Monster Truck"/> Monster Truck
-            </label>
-</div>
+<div class="layout">
+  <!-- Spalte 1: Filter + Kategorien -->
+  <div class="left-panel">
+    <div class="filter-wrapper">
+      <div class="reset-vertical">
+        <button class="reset-btn-vertical" onclick="resetFilters()">🔄<br>Reset</button>
+      </div>
+      <div class="filter-grid">
+        <button id="bikeFilterBtn" class="filter-control" onclick="toggleBikeFilter()">Nur Autos</button>
+        <select id="countrySelect" class="filter-control">
+          <option value="">Land wählen</option>
+        </select>
+        <select id="brandSelect" class="filter-control">
+          <option value="">Marke wählen</option>
+        </select>
+        <select id="eraSelect" class="filter-control">
+          <option value="">Zeitraum wählen</option>
+        </select>
+      </div>
     </div>
-        <div class="center-panel">
-            <div class="button-top">
-                <button class="start-btn" onclick="drawRandomVehicles()">START</button>
-                <button class="copy-btn" onclick="copyToClipboard()">📋 Auswahl kopieren</button>
-            </div>
-        </div>
-    <div class="right-panel">
-        <div class="results-panel" id="results"></div>
+      
+    <div class="category-grid">
+        <label class="catLabel" style="background:#0097A7; padding:10px; border-radius:8px; color:white;">
+        <input class="catCheckbox" onchange="handleCategoryClick(this)" type="checkbox" value="Street Tier 1"/> Street Tier 1
+                    </label>
+        <label class="catLabel" style="background:#0097A7; padding:10px; border-radius:8px; color:white;">
+        <input class="catCheckbox" onchange="handleCategoryClick(this)" type="checkbox" value="Street Tier 2"/> Street Tier 2
+                    </label>
+        <label class="catLabel" style="background:#388E3C; padding:10px; border-radius:8px; color:white;">
+        <input class="catCheckbox" onchange="handleCategoryClick(this)" type="checkbox" value="Rally"/> Rally
+                    </label>
+        <label class="catLabel" style="background:#388E3C; padding:10px; border-radius:8px; color:white;">
+        <input class="catCheckbox" onchange="handleCategoryClick(this)" type="checkbox" value="Rally Raid"/> Rally Raid
+                    </label>
+        <label class="catLabel" style="background:#388E3C; padding:10px; border-radius:8px; color:white;">
+        <input class="catCheckbox" onchange="handleCategoryClick(this)" type="checkbox" value="Motocross"/> Motocross
+                    </label>
+        <label class="catLabel" style="background:#D32F2F; padding:10px; border-radius:8px; color:white;">
+        <input class="catCheckbox" onchange="handleCategoryClick(this)" type="checkbox" value="Racing"/> Racing
+                    </label>
+        <label class="catLabel" style="background:#D32F2F; padding:10px; border-radius:8px; color:white;">
+        <input class="catCheckbox" onchange="handleCategoryClick(this)" type="checkbox" value="AGP"/> AGP
+                    </label>
+        <label class="catLabel" style="background:#D32F2F; padding:10px; border-radius:8px; color:white;">
+        <input class="catCheckbox" onchange="handleCategoryClick(this)" type="checkbox" value="Hypercar"/> Hypercar
+                    </label>
+        <label class="catLabel" style="background:#D32F2F; padding:10px; border-radius:8px; color:white;">
+        <input class="catCheckbox" onchange="handleCategoryClick(this)" type="checkbox" value="Monster Truck"/> Monster Truck
+                    </label>
     </div>
+  </div>
+  <!-- Spalte 2: Buttons -->
+  <div class="center-panel">
+    <div class="button-top">
+      <button class="start-btn" onclick="drawRandomVehicles()">START</button>
+      <button class="copy-btn" onclick="copyToClipboard()">📋 Auswahl kopieren</button>
+    </div>
+  </div>
+  <!-- Spalte 3: Ergebnisse -->
+  <div class="right-panel">
+    <div class="results-panel" id="results"></div>
+  </div>
 </div>
 <script src="https://shogun160.github.io/TCM-ZEN_DOMIZER/cars/vehicles.json" type="application/json"></script>
 <script>
