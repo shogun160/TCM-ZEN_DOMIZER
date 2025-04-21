@@ -111,20 +111,22 @@
     }
     .category-grid {
       display: grid;
-      grid-template-columns: repeat(3, 120px); /* 3 gleich breite Kacheln */
-      gap: 18px;                               /* fester Abstand (horizontal & vertikal) */
-      justify-content: start;                  /* linksbündig – bündig zur Filterzeile */
-      width: max-content;                      /* nimmt nur so viel Platz wie nötig ein */
+      grid-template-columns: repeat(3, 120px);
+      gap: 18px;
+      justify-content: start;
+      width: max-content;
       margin-top: 10px;
     }
+    
     .catCheckbox {
       display: none;
     }
+    
     .catLabel {
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: rgba(255, 255, 255, 0.05); /* transparenter Look */
+      background-color: rgba(255, 255, 255, 0.05);
       border: 2px solid transparent;
       border-radius: 12px;
       width: 120px;
@@ -140,32 +142,46 @@
       position: relative;
     }
     
-    /* Hover-Effekt (nur wenn nicht im Limit) */
+    /* Hover mit Neon-Glow */
     .category-grid:not(.limit-reached) .catLabel:hover {
-      animation: pulse 1s infinite;
-      border-color: #fff;
-      background-color: rgba(255, 255, 255, 0.08);
-      transform: scale(1.03);
-      box-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
+      animation: pulse-neon 1.2s infinite;
+      border-color: #ff9900;
+      background-color: rgba(255, 153, 0, 0.08);
+      transform: scale(1.04);
+      box-shadow: 0 0 6px rgba(255, 153, 0, 0.3);
     }
     
-    /* Aktiver Zustand */
+    /* Aktive Kategorie (Neon-Glow dauerhaft) */
     .catCheckbox:checked + .catLabel {
-      border-color: lime;
-      box-shadow: 0 0 12px lime, 0 0 4px lime inset;
-      background-color: rgba(0, 255, 0, 0.05);
+      border-color: #ff9900;
+      box-shadow:
+        0 0 4px #ff9900,
+        0 0 8px #ff9900,
+        0 0 12px #ff9900,
+        inset 0 0 6px #ff9900;
+      background-color: rgba(255, 153, 0, 0.1);
       animation: none;
     }
     
-    /* Puls-Animation */
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0px rgba(255,255,255,0.1); }
-      50% { box-shadow: 0 0 8px rgba(255,255,255,0.25); }
-      100% { box-shadow: 0 0 0px rgba(255,255,255,0.1); }
+    /* Pulsierende Neon-Animation */
+    @keyframes pulse-neon {
+      0% {
+        box-shadow: 0 0 6px rgba(255, 153, 0, 0.3);
+      }
+      50% {
+        box-shadow:
+          0 0 8px rgba(255, 153, 0, 0.6),
+          0 0 16px rgba(255, 153, 0, 0.6);
+      }
+      100% {
+        box-shadow: 0 0 6px rgba(255, 153, 0, 0.3);
+      }
     }
+    
+    /* Optional: Text-Glow bei Aktivierung */
     .catCheckbox:checked ~ span {
       font-weight: bold;
-      text-shadow: 0 0 6px lime;
+      text-shadow: 0 0 6px #ff9900;
     }
     .results-panel {
       margin-top: 20px;
