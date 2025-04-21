@@ -110,9 +110,10 @@
     }
     .category-grid {
       display: grid;
-      grid-template-columns: repeat(3, 110px);
-      gap: 12px;
-      justify-content: center;
+      grid-template-columns: repeat(3, 110px); /* drei Kacheln mit fixer Breite */
+      gap: 12px 18px;                          /* vertikal + horizontal Abstand */
+      justify-content: start;                 /* linksbündig – passt zur Filterzeile */
+      width: 424px;                            /* exakt gleiche Breite wie Filterbereich */
       margin-top: 10px;
     }
     .catLabel {
