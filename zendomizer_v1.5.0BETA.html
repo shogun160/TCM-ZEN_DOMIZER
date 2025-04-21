@@ -145,6 +145,10 @@
     .catCheckbox {
       display: none;
     }
+    .catCheckbox:checked + .catLabel span {
+      animation: pulse-neon 1.2s infinite;
+      font-weight: bold;
+    }
     .catLabel {
       display: flex;
       align-items: center;
