@@ -188,19 +188,19 @@
       display: none;
       font-weight: bold;
     }
-  
 .layout {
   display: flex;
+  flex-wrap: wrap; /* ✅ hinzugefügt */
   gap: 32px;
   justify-content: center;
   align-items: flex-start;
-  width: 95%;
+  width: 100%;      /* von 95% auf 100% erhöhen */
+  max-width: 1200px; /* optional, für bessere Desktop-Begrenzung */
   margin: 0 auto;
   padding-top: 80px;
   position: relative;
   z-index: 1;
 }
-
 .left-panel,
 .right-panel {
   flex: 1 1 30%;
