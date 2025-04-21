@@ -578,29 +578,12 @@ select.filter-control {
       document.getElementById("countrySelect").value = "";
       document.getElementById("eraSelect").value = "";
     
+      // Klick-Effekt für Reset-Button
       const btn = document.getElementById("resetBtn");
       btn.classList.add("clicked");
-      setTimeout(() => btn.classList.remove("clicked"), 500);
-    
-      showToast("⟲ Filter wurden zurückgesetzt!", "#f44336");
-    
-      // Filter visuell resetten
-      updateFilterHighlighting();
-    
-      // Bike-Button zurücksetzen
-      bikeFilterMode = "no_bike";
-      const bfb = document.getElementById("bikeFilterBtn");
-      bfb.innerText = "Nur Autos";
-      bfb.classList.add("bike-active");
-    
-      // Kategorie-Checkboxen deaktivieren
-      const checkboxes = document.querySelectorAll('.catCheckbox');
-      checkboxes.forEach(cb => cb.checked = false);
-    
-      // Auswahl-Tracking & Badges resetten
-      selectionOrder = [];
-      updateCategoryBadges();
-    }
+      setTimeout(() => {
+        btn.classList.remove("clicked");
+      }, 500);
       // Toast
       showToast("⟲ Filter wurden zurückgesetzt!", "#f44336");
     
