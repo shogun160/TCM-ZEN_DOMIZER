@@ -558,6 +558,7 @@ select.filter-control {
       setTimeout(() => {
         btn.classList.remove("clicked");
       }, 500);
+      showToast("⟲ Filter wurden zurückgesetzt!", "#f44336");
     }
 
     let lastSelection = [];
@@ -813,9 +814,10 @@ select.filter-control {
           alert("⚠️ Fahrzeugdaten konnten nicht geladen werden.");
         });
     };
-    function showToast(message = "✅ In Zwischenablage kopiert!") {
+    function showToast(message = "✅ In Zwischenablage kopiert!", color = "#0f0") {
       const toast = document.getElementById("toast");
       toast.innerText = message;
+      toast.style.color = color;
       toast.classList.add("show");
     
       setTimeout(() => {
