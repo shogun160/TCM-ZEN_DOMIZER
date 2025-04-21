@@ -535,7 +535,7 @@ select.filter-control {
           if (!badge) {
             badge = document.createElement("span");
             badge.className = "order-badge";
-            label.appendChild(badge);
+            label.appendChild(badge);  // ✅ jetzt INS Label!
           }
           badge.innerText = (index + 1).toString();
         } else if (badge) {
@@ -543,7 +543,6 @@ select.filter-control {
         }
       });
     }
-
     let bikeFilterMode = "no_bike";
 
     function initializeDropdowns() {
