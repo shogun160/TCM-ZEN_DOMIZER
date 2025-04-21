@@ -45,14 +45,15 @@
       gap: 10px;
     }
     .filter-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 12px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px 16px;
+      align-items: center;
       background: transparent;
       padding: 16px;
       border-radius: 12px;
       box-sizing: border-box;
+    }
     }.button-row {
       display: flex;
       flex-wrap: wrap;
@@ -206,20 +207,25 @@ select.filter-control {
 </head>
 <body>
 <div class="machine-wrapper"></div>
-<div class="layout"><div class="left-panel"><div class="filter-row">
-<button id="bikeFilterBtn" class="filter-control" onclick="toggleBikeFilter()">Nur Autos</button>
-<select id="countrySelect" class="filter-control">
-  <option value="">Land wählen</option>
-</select>
+<div class="layout"><div class="left-panel">
+<div class="filter-row">
+  <button id="bikeFilterBtn" class="filter-control" onclick="toggleBikeFilter()">Nur Autos</button>
+  <select id="countrySelect" class="filter-control">
+    <option value="">Land wählen</option>
+  </select>
+  <select id="brandSelect" class="filter-control">
+    <option value="">Marke wählen</option>
+  </select>
+  <select id="eraSelect" class="filter-control">
+    <option value="">Zeitraum wählen</option>
+  </select>
+</div>
 
-<select id="brandSelect" class="filter-control">
-  <option value="">Marke wählen</option>
-</select>
-
-<select id="eraSelect" class="filter-control">
-  <option value="">Zeitraum wählen</option>
-</select>
-</div><div class="category-grid">
+<!-- NEU: Reset-Button unterhalb der Filter -->
+<div class="reset-row">
+  <button class="filter-control" onclick="resetFilters()">🔄 Filter zurücksetzen</button>
+</div>
+<div class="category-grid">
 <label class="catLabel" style="background:#0097A7; padding:10px; border-radius:8px; color:white;">
 <input class="catCheckbox" onchange="handleCategoryClick(this)" type="checkbox" value="Street Tier 1"/> Street Tier 1
             </label>
@@ -343,7 +349,6 @@ select.filter-control {
     });
     }
 
-
     function getCurrentFilters() {
       return {
         brand: document.getElementById("brandSelect").value,
@@ -352,7 +357,11 @@ select.filter-control {
       };
     }
 
-
+    function resetFilters() {
+      document.getElementById("brandSelect").value = "";
+      document.getElementById("countrySelect").value = "";
+      document.getElementById("eraSelect").value = "";
+    }
 
     let lastSelection = [];
 
