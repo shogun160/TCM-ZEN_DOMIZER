@@ -134,6 +134,16 @@
       text-shadow: 0 0 2px #000;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
+    .catCheckbox {
+      display: none;
+    }
+    .catCheckbox:checked + .order-badge {
+      background: lime;
+    }
+    .catCheckbox:checked ~ span {
+      font-weight: bold;
+      text-shadow: 0 0 6px lime;
+    }
     .category-grid:not(.limit-reached) .catLabel:hover {
       transform: scale(1.03);
       box-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
