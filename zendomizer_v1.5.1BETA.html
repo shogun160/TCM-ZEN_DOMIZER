@@ -134,18 +134,32 @@
       padding: 10px;
       box-sizing: border-box;
       text-shadow: 0 0 2px #000;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border: 2px solid transparent;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .catLabel.checked {
+      background-color: #2e7d32; /* satteres Grün (oder deine Wunschfarbe) */
+      border: 2px solid #66ff66;
+      box-shadow: 0 0 10px rgba(102, 255, 102, 0.4);
+      transform: scale(1.03);
+      transition: all 0.2s ease;
     }
     .category-grid:not(.limit-reached) .catLabel:hover {
-      transform: scale(1.03);
+      border-color: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+    }
+    .catLabel input[type="checkbox"] {
+      display: none;
+    /*
+    }
       box-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
     }
+    */
     .results-panel {
       margin-top: 20px;
       width: 100%;
       max-width: 960px;
     }
-
     .vehicle {
       background: #111;
       border: 1px solid #444;
@@ -322,6 +336,13 @@ select.filter-control {
     let selectedOrder = [];
 
     function handleCategoryClick(checkbox) {
+      const label = checkbox.closest('.catLabel');
+        if (checkbox.checked) {
+          label.classList.add('checked');
+        } else {
+          label.classList.remove('checked');
+        }
+
       const value = checkbox.value;
     
       // Auswahl verwalten
