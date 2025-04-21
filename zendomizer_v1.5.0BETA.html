@@ -578,23 +578,31 @@ select.filter-control {
       document.getElementById("countrySelect").value = "";
       document.getElementById("eraSelect").value = "";
     
-      // Klick-Effekt für Reset-Button
       const btn = document.getElementById("resetBtn");
       btn.classList.add("clicked");
-      setTimeout(() => {
-        btn.classList.remove("clicked");
-      }, 500);
-      // Toast
+      setTimeout(() => btn.classList.remove("clicked"), 500);
+    
       showToast("⟲ Filter wurden zurückgesetzt!", "#f44336");
     
-      // Filter-Glow aktualisieren
       updateFilterHighlighting();
     
       // Bike-Filter zurücksetzen
       bikeFilterMode = "no_bike";
       const bfb = document.getElementById("bikeFilterBtn");
       bfb.innerText = "Nur Autos";
-      bfb.classList.add("bike-active"); // <<< WICHTIG
+      bfb.classList.add("bike-active");
+    
+      // Kategorie-Checkboxen deaktivieren
+      const checkboxes = document.querySelectorAll('.catCheckbox');
+      checkboxes.forEach(cb => cb.checked = false);
+    
+      // Auswahl-Tracking & Badge-Anzeige zurücksetzen
+      selectedOrder = [];
+      updateCheckboxBadges();
+    
+      // Limit-Status entfernen
+      document.querySelector('.category-grid').classList.remove('limit-reached');
+      document.querySelectorAll('.catCheckbox').forEach(cb => cb.disabled = false);
     }
     function updateFilterHighlighting() {
       const brand = document.getElementById("brandSelect");
