@@ -373,7 +373,7 @@
   border: 2px solid #39ff14;
   border-radius: 12px;
   font-weight: bold;
-  font-size: 17px;
+  font-size: 16px;
   height: 60px;
   padding: 12px 16px;
   box-sizing: border-box;
@@ -933,6 +933,25 @@ select.filter-control {
         toast.classList.remove("show");
       }, 3000);
     }
+    const countrySelect = document.getElementById('countrySelect');
+    
+    countrySelect.addEventListener('change', () => {
+      const selectedOption = countrySelect.options[countrySelect.selectedIndex];
+    
+      if (selectedOption.text === 'Vereinigte Arabische Emirate') {
+        selectedOption.text = 'Arabische Emirate';
+        selectedOption.setAttribute('data-original', 'Vereinigte Arabische Emirate');
+      }
+    
+      // Bei erneutem Öffnen Dropdown zurücksetzen
+      countrySelect.addEventListener('mousedown', () => {
+        Array.from(countrySelect.options).forEach(opt => {
+          if (opt.getAttribute('data-original')) {
+            opt.text = opt.getAttribute('data-original');
+          }
+        });
+      }, { once: true });
+    });
   </script>
 <div id="toast" class="toast">✅ In Zwischenablage kopiert!</div>
 </body>
