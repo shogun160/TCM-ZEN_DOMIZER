@@ -165,6 +165,11 @@
       position: relative;
       z-index: 2; /* Wichtig: Text liegt über der Badge */
     }
+    /* Text in Kategorie Button zentriet (wegen Mehrzeilig) */
+    .catLabel span {
+      text-align: center;
+      line-height: 1.2;
+    }
     /* Text lecuhtet wenn Kategorie ausgewählt */
     .catCheckbox:checked + .catLabel {
       box-shadow:
@@ -456,11 +461,11 @@ select.filter-control {
 <div class="category-grid">
   <div class="catWrapper">
     <input type="checkbox" id="cat1" class="catCheckbox" onchange="handleCategoryClick(this)" value="Street Tier 1" />
-    <label for="cat1" class="catLabel cat-yellow"><span>Street Tier 1</span></label>
+    <label for="cat1" class="catLabel cat-yellow"><span>Street<br>Tier 1</span></label>
   </div>
   <div class="catWrapper">
     <input type="checkbox" id="cat2" class="catCheckbox" onchange="handleCategoryClick(this)" value="Street Tier 2" />
-    <label for="cat2" class="catLabel cat-yellow"><span>Street Tier 2</span></label>
+    <label for="cat2" class="catLabel cat-yellow"><span>Street<br>Tier 2</span></label>
   </div>
   <div class="catWrapper">
     <input type="checkbox" id="cat3" class="catCheckbox" onchange="handleCategoryClick(this)" value="Rally" />
