@@ -110,6 +110,38 @@
       gap: 12px;
     }
     /* === NEON-GRUNDSTIL KACHEL === */
+    /* === Neon-Badge oben links === */
+    .order-badge {
+      position: absolute;
+      top: 6px;
+      left: 8px;
+      font-size: 13px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-shadow: 0 0 6px currentColor;
+      z-index: 10;
+    }
+    
+    /* Farbvarianten passend zur Kategorie */
+    .cat-yellow .order-badge {
+      color: #FFD700;
+    }
+    .cat-blue .order-badge {
+      color: #00E5FF;
+    }
+    .cat-orange .order-badge {
+      color: #FF9900;
+    }
+    .cat-red .order-badge {
+      color: #FF4444;
+    }
+    
+    /* Zusätzlich: Textfarbe in Kacheln = Rahmenfarbe */
+    .catLabel.cat-yellow { color: #FFD700; }
+    .catLabel.cat-blue   { color: #00E5FF; }
+    .catLabel.cat-orange { color: #FF9900; }
+    .catLabel.cat-red    { color: #FF4444; }
     .category-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -493,14 +525,17 @@ select.filter-control {
     function updateCheckboxBadges() {
       const allCheckboxes = document.querySelectorAll('.catCheckbox');
       allCheckboxes.forEach(cb => {
-        const label = cb.closest("label");
+        const label = document.querySelector(`label[for="${cb.id}"]`);
+        if (!label) return;
+    
         let badge = label.querySelector('.order-badge');
         const index = selectedOrder.indexOf(cb.value);
+    
         if (index !== -1) {
           if (!badge) {
             badge = document.createElement("span");
             badge.className = "order-badge";
-            label.insertBefore(badge, cb.nextSibling);
+            label.appendChild(badge);
           }
           badge.innerText = (index + 1).toString();
         } else if (badge) {
