@@ -145,6 +145,8 @@
       animation: pulse 1s infinite;
       border-color: #fff;
       background-color: rgba(255, 255, 255, 0.08);
+      transform: scale(1.03);
+      box-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
     }
     
     /* Aktiver Zustand */
@@ -164,10 +166,6 @@
     .catCheckbox:checked ~ span {
       font-weight: bold;
       text-shadow: 0 0 6px lime;
-    }
-    .category-grid:not(.limit-reached) .catLabel:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
     }
     .results-panel {
       margin-top: 20px;
