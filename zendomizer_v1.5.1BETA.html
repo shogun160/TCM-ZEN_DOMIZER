@@ -92,7 +92,7 @@
       text-shadow: 0 0 2px #000;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .catLabel:hover {
+    .category-grid:not(.limit-reached) .catLabel:hover {
       transform: scale(1.03);
       box-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
     }
@@ -244,6 +244,8 @@ select.filter-control {
 
     function handleCategoryClick(checkbox) {
       const value = checkbox.value;
+    
+      // Auswahl verwalten
       if (checkbox.checked) {
         if (!selectedOrder.includes(value)) {
           selectedOrder.push(value);
@@ -251,7 +253,19 @@ select.filter-control {
       } else {
         selectedOrder = selectedOrder.filter(v => v !== value);
       }
+    
+      // Checkbox-Badges aktualisieren (dein vorhandener Call)
       updateCheckboxBadges();
+    
+      // HOVER-Handling je nach Anzahl aktivierter Kategorien
+      const checkedBoxes = document.querySelectorAll('.catCheckbox:checked');
+      const grid = document.querySelector('.category-grid');
+    
+      if (checkedBoxes.length >= 3) {
+        grid.classList.add('limit-reached');
+      } else {
+        grid.classList.remove('limit-reached');
+      }
     }
 
     function updateCheckboxBadges() {
