@@ -462,31 +462,32 @@ select.filter-control {
 /* --- SLOTBOXEN (rechter Bereich) --- */
 .slot-box {
   width: 100%;
-  max-width: 320px;
-  min-height: 80px;
+  max-width: 360px;
+  min-height: 100px;
   background: rgba(0, 0, 0, 0.6);
   border: 3px solid currentColor;
   border-radius: 16px;
   padding: 16px;
-  margin-bottom: 16px;
   font-size: 18px;
   font-weight: bold;
   text-align: center;
   color: currentColor;
   box-shadow: 0 0 12px currentColor;
   transition: all 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  animation: pulse-neon 2s infinite;
 }
 
-.slot-yellow { color: #FFD700; }
-.slot-blue   { color: #00E5FF; }
-.slot-orange { color: #FF9900; }
-.slot-red    { color: #FF4444; }
-
 .slot-box.empty::after {
-  content: "– warte auf Ziehung –";
-  display: block;
-  font-size: 14px;
-  color: gray;
+  content: "?";
+  font-size: 32px;
+  font-weight: bold;
+  animation: pulse-text 1.2s infinite;
+  color: currentColor;
   margin-top: 6px;
 }
 .your-pick-title {
@@ -1102,7 +1103,11 @@ select.filter-control {
           ? ` <span style="color: orange;">⚠️</span><br><small style="color: gray;">${v.ignoredFilters.join(', ')}</small>`
           : '';
         slot.classList.remove('empty');
-        slot.innerHTML = `<strong>${v.category}</strong><br>${v.brand} ${v.model} (${v.year})${ignored}`;
+        slot.innerHTML = `
+          <div style="font-weight: bold;">${v.category}</div>
+          <div style="margin-top: 6px;">${v.brand} ${v.model} (${v.year})</div>
+        ${ignored}
+        `;
       });
     
       copyToClipboard();
