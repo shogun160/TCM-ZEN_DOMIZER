@@ -133,14 +133,16 @@
   position: relative;  /* ← Sichtbarkeitsschicht erzeugen */
   z-index: 1;          /* ← Panels über das Bild legen */
 }
-.left-panel, .right-panel {
-  flex: 0 0 300px;
+.left-panel,
+.right-panel {
+  flex: 1 1 30%;
+  min-width: 240px;
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 .center-panel {
-  flex: 0 0 540px;
+  flex: 0 0 40%;
   display: flex;
   flex-direction: column;
   align-items: center;
