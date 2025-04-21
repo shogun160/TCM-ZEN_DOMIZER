@@ -551,6 +551,13 @@ select.filter-control {
       document.getElementById("brandSelect").value = "";
       document.getElementById("countrySelect").value = "";
       document.getElementById("eraSelect").value = "";
+    
+      // Klick-Effekt für Reset-Button
+      const btn = document.getElementById("resetBtn");
+      btn.classList.add("clicked");
+      setTimeout(() => {
+        btn.classList.remove("clicked");
+      }, 500);
     }
 
     let lastSelection = [];
