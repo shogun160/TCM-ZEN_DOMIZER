@@ -62,25 +62,40 @@
       padding: 16px;
       border-radius: 12px;
       box-sizing: border-box;
-    }
-    .category-grid, .button-row {
+    }.button-row {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 12px;
     }
     .category-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
       margin-top: 10px;
     }
 
-    .catLabel {
-      background-color: #222;
-      color: #fff;
-      padding: 8px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
 
+    .catLabel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #222; /* wird ggf. durch inline-style überschrieben */
+      color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+      height: 100px;
+      aspect-ratio: 1 / 1;
+      font-weight: bold;
+      font-size: 14px;
+      text-align: center;
+      padding: 10px;
+      box-sizing: border-box;
+      text-shadow: 0
+    .catLabel:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
+    }
     .results-panel {
       margin-top: 20px;
       width: 100%;
