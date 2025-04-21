@@ -65,10 +65,12 @@
     } 
     .filter-grid {
       display: grid;
-      grid-template-columns: 180px 180px; /* feste Spaltenbreiten */
-      gap: 12px 16px;
-      align-items: center;
-      justify-content: center; /* zentriert die gesamte Grid-Fläche */
+      grid-template-columns: 180px 180px; /* feste Breite für 2 Spalten */
+      grid-template-rows: auto auto;      /* 2 Reihen */
+      gap: 16px;
+      justify-content: center;
+      width: auto;
+      margin-bottom: 20px;
     }
     .reset-row {
       display: flex;
@@ -390,17 +392,17 @@ select.filter-control {
 <div class="layout"><div class="left-panel">
 <div class="filter-wrapper">
   <div class="filter-grid">
-    <button id="bikeFilterBtn" class="filter-control" onclick="toggleBikeFilter()">Nur Autos</button>
-    <select id="countrySelect" class="filter-control">
-      <option value="">Land wählen</option>
-    </select>
-    <select id="brandSelect" class="filter-control">
-      <option value="">Marke wählen</option>
-    </select>
-    <select id="eraSelect" class="filter-control">
-      <option value="">Zeitraum wählen</option>
-    </select>
-  </div>
+      <button id="bikeFilterBtn" class="filter-control" onclick="toggleBikeFilter()">Nur Autos</button>
+      <select id="countrySelect" class="filter-control">
+        <option value="">Land wählen</option>
+      </select>
+      <select id="brandSelect" class="filter-control">
+        <option value="">Marke wählen</option>
+      </select>
+      <select id="eraSelect" class="filter-control">
+        <option value="">Zeitraum wählen</option>
+      </select>
+    </div>
 </div>
 <div class="category-grid">
   <div class="catWrapper">
