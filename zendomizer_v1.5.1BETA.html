@@ -144,11 +144,15 @@
   align-items: center;
 }
 .machine-wrapper {
-  background: url('https://raw.githubusercontent.com/shogun160/TCM-ZEN_DOMIZER/main/assets/pic/ZENDOMIZER_pic.jpeg') no-repeat center top;
-  background-size: contain;
-  height: 700px;
-  background-position: center top;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 700px;
+  background: url('https://raw.githubusercontent.com/shogun160/TCM-ZEN_DOMIZER/main/assets/pic/ZENDOMIZER_pic.jpeg') no-repeat center top;
+  background-size: cover; /* oder contain */
+  background-position: center top;
+  z-index: -1; /* ganz nach hinten */
 }
 .button-top {
   display: flex;
