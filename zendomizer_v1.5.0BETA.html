@@ -484,11 +484,12 @@ select.filter-control {
     
       if (checkedBoxes.length >= 3) {
         grid.classList.add('limit-reached');
+        document.querySelectorAll('.catCheckbox:not(:checked)').forEach(cb => cb.disabled = true);
       } else {
         grid.classList.remove('limit-reached');
+        document.querySelectorAll('.catCheckbox').forEach(cb => cb.disabled = false);
       }
     }
-
     function updateCheckboxBadges() {
       const allCheckboxes = document.querySelectorAll('.catCheckbox');
       allCheckboxes.forEach(cb => {
