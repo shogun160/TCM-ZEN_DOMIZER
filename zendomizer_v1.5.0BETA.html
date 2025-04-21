@@ -935,9 +935,133 @@ select.filter-control {
         btn.classList.remove("clicked");
       }, 750); // Dauer halbiert
     }
+    function fillSlotBoxesWithResults() {
+      const filters = getCurrentFilters();
+      const selectedCategories = selectedOrder.slice(0, 3);
     
+      if (selectedCategories.length < 3) {
+        showToast("⚠️ Bitte 3 Kategorien auswählen.", "#f33");
+        return;
+      }
+    
+      const shuffled = [...selectedCategories]; // feste Reihenfolge beibehalten
+      const chosen = [];
+    
+      for (let cat of shuffled) {
+        let ignored = [];
+        let finalList = [];
+    
+        finalList = vehicles.filter(v =>
+          v.category === cat &&
+          (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && v.bike === false) || (bikeFilterMode === 'bike' && v.bike === true)) &&
+          (!filters.country || v.country === filters.country) &&
+          (!filters.era || v.era === filters.era) &&
+          (!filters.brand || v.brand === filters.brand)
+        );
+    
+        if (finalList.length === 0) {
+          if (bikeFilterMode !== 'all') {
+            const fallback = vehicles.filter(v =>
+              v.category === cat &&
+              (!filters.country || v.country === filters.country) &&
+              (!filters.era || v.era === filters.era) &&
+              (!filters.brand || v.brand === filters.brand)
+            );
+            if (fallback.length > 0) {
+              finalList = fallback;
+              ignored.push(bikeFilterMode === 'no_bike' ? 'Nur Autos' : 'Nur Bikes');
+            }
+          }
+        }
+    
+        if (finalList.length === 0 && filters.era) {
+          const fallback = vehicles.filter(v =>
+            v.category === cat &&
+            (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && v.bike === false) || (bikeFilterMode === 'bike' && v.bike === true)) &&
+            (!filters.country || v.country === filters.country) &&
+            (!filters.brand || v.brand === filters.brand)
+          );
+          if (fallback.length > 0) {
+            finalList = fallback;
+            ignored.push(`Zeitraum (${filters.era})`);
+          }
+        }
+    
+        if (finalList.length === 0 && filters.brand) {
+          const fallback = vehicles.filter(v =>
+            v.category === cat &&
+            (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && v.bike === false) || (bikeFilterMode === 'bike' && v.bike === true)) &&
+            (!filters.country || v.country === filters.country) &&
+            (!filters.era || v.era === filters.era)
+          );
+          if (fallback.length > 0) {
+            finalList = fallback;
+            ignored.push(`Marke (${filters.brand})`);
+          }
+        }
+    
+        if (finalList.length === 0 && filters.country) {
+          const fallback = vehicles.filter(v =>
+            v.category === cat &&
+            (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && v.bike === false) || (bikeFilterMode === 'bike' && v.bike === true)) &&
+            (!filters.era || v.era === filters.era) &&
+            (!filters.brand || v.brand === filters.brand)
+          );
+          if (fallback.length > 0) {
+            finalList = fallback;
+            ignored.push(`Land (${filters.country})`);
+          }
+        }
+    
+        if (finalList.length === 0) {
+          const fallback = vehicles.filter(v =>
+            v.category === cat &&
+            (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && v.bike === false) || (bikeFilterMode === 'bike' && v.bike === true))
+          );
+          if (fallback.length > 0) {
+            finalList = fallback;
+            if (filters.era) ignored.push(`Zeitraum (${filters.era})`);
+            if (filters.brand) ignored.push(`Marke (${filters.brand})`);
+            if (filters.country) ignored.push(`Land (${filters.country})`);
+          }
+        }
+    
+        if (finalList.length === 0) {
+          const fallback = vehicles.filter(v => v.category === cat);
+          if (fallback.length > 0) {
+            finalList = fallback;
+            ignored.push("Alle");
+          }
+        }
+    
+        if (finalList.length === 0) continue;
+    
+        const vehicle = finalList[Math.floor(Math.random() * finalList.length)];
+        chosen.push({...vehicle, ignoredFilters: ignored});
+      }
+    
+      if (chosen.length !== 3) {
+        showToast("⚠️ Nicht genügend Fahrzeuge gefunden.", "#f33");
+        return;
+      }
+    
+      lastSelection = chosen;
+    
+      const resultsDiv = document.getElementById('results');
+      const slots = resultsDiv.querySelectorAll('.slot-box');
+      slots.forEach((slot, i) => {
+        const v = chosen[i];
+        const ignored = v.ignoredFilters?.length
+          ? ` <span style="color: orange;">⚠️</span><br><small style="color: gray;">${v.ignoredFilters.join(', ')}</small>`
+          : '';
+        slot.classList.remove('empty');
+        slot.innerHTML = `<strong>${v.category}</strong><br>${v.brand} ${v.model} (${v.year})${ignored}`;
+      });
+    
+      copyToClipboard();
+    }
     function handleGo() {
-      drawRandomVehicles(); // Start der Ziehung
+      fillSlotBoxesWithResults(); // Neue Funktion: befüllt vorhandene Slotboxen
     
       const btn = document.getElementById("goBtn");
       btn.classList.add("active");
