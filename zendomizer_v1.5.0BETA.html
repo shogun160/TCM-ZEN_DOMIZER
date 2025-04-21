@@ -465,13 +465,12 @@ select.filter-control {
 }
 /* --- SLOTBOXEN (rechter Bereich) --- */
 .slot-box {
-  width: 100%;
-  max-width: 360px;
-  min-height: 30px;
+  width: 120px;
+  height: 120px;
   background: rgba(0, 0, 0, 0.6);
   border: 3px solid currentColor;
   border-radius: 16px;
-  padding: 20px 16px;
+  padding: 12px;
   font-size: 18px;
   font-weight: bold;
   text-align: center;
@@ -482,10 +481,9 @@ select.filter-control {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   animation: pulse-neon 2s infinite;
 }
-
 .slot-box.empty::after {
   content: "?";
   font-size: 32px;
