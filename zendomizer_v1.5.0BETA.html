@@ -483,6 +483,29 @@ select.filter-control {
   color: gray;
   margin-top: 6px;
 }
+.your-pick-title {
+  font-size: 28px;
+  margin-bottom: 16px;
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  text-shadow: 0 0 4px #000;
+  transition: all 0.3s ease-in-out;
+}
+
+.your-pick-title.inactive {
+  color: #555;
+  opacity: 0.4;
+}
+
+.your-pick-title.active {
+  color: #ff00ff;
+  text-shadow:
+    0 0 2px #ff00ff,
+    0 0 6px #ff00ff,
+    0 0 12px #ff00ff,
+    0 0 20px #ff00ff;
+  opacity: 1;
+}
 </style>
 </head>
 <body>
@@ -549,7 +572,10 @@ select.filter-control {
           </div>
         </div>
     <div class="right-panel">
-        <div class="results-panel" id="results"></div>
+        <div class="results-panel">
+          <h2 id="yourPickTitle" class="your-pick-title inactive">🎰 Your Pick</h2>
+          <div id="results"></div>
+        </div>
     </div>
 </div>
 <script src="https://shogun160.github.io/TCM-ZEN_DOMIZER/cars/vehicles.json" type="application/json"></script>
@@ -584,6 +610,15 @@ select.filter-control {
       }
       // Slotboxen sofort anzeigen
       updateSlotBoxes();
+      // Your Pick Titel aktivieren/deaktivieren
+      const title = document.getElementById('yourPickTitle');
+      if (selectedOrder.length > 0) {
+        title.classList.remove('inactive');
+        title.classList.add('active');
+      } else {
+        title.classList.remove('active');
+        title.classList.add('inactive');
+      }
     }
     function updateCheckboxBadges() {
       const allCheckboxes = document.querySelectorAll('.catCheckbox');
@@ -702,6 +737,9 @@ select.filter-control {
       document.querySelectorAll('.catCheckbox').forEach(cb => cb.disabled = false);
       // Ergebnis Slot-Boxen
       document.getElementById('results').innerHTML = '';
+      // Your Pick Überschrift active / inactive
+      document.getElementById('yourPickTitle').classList.remove('active');
+      document.getElementById('yourPickTitle').classList.add('inactive');
     }
     function updateFilterHighlighting() {
       const brand = document.getElementById("brandSelect");
