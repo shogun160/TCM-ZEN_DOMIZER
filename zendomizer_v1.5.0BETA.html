@@ -180,60 +180,72 @@
     /* === Neon-Kategorien === */
     
     /* GELB */
-    .catLabel.cat-yellow:hover {
-      animation: pulse-yellow 1.5s infinite;
+    .catLabel.cat-yellow {
       border-color: #FFD700;
+      color: #FFD700;
+    }
+    .category-grid:not(.limit-reached) .catLabel.cat-yellow:hover {
+      animation: pulse-yellow 1.5s infinite;
     }
     .catCheckbox:checked + .catLabel.cat-yellow {
-      border-color: #FFD700;
       box-shadow: 0 0 6px #FFD700, 0 0 12px #FFD700;
       animation: none;
     }
+    
     @keyframes pulse-yellow {
       0%, 100% { box-shadow: 0 0 6px #FFD700; }
       50% { box-shadow: 0 0 12px #FFD700, 0 0 24px #FFD700; }
     }
     
     /* BLAU */
-    .catLabel.cat-blue:hover {
-      animation: pulse-blue 1.5s infinite;
+    .catLabel.cat-blue {
       border-color: #00E5FF;
+      color: #00E5FF;
+    }
+    .category-grid:not(.limit-reached) .catLabel.cat-blue:hover {
+      animation: pulse-blue 1.5s infinite;
     }
     .catCheckbox:checked + .catLabel.cat-blue {
-      border-color: #00E5FF;
       box-shadow: 0 0 6px #00E5FF, 0 0 12px #00E5FF;
       animation: none;
     }
+    
     @keyframes pulse-blue {
       0%, 100% { box-shadow: 0 0 6px #00E5FF; }
       50% { box-shadow: 0 0 12px #00E5FF, 0 0 24px #00E5FF; }
     }
     
     /* ORANGE */
-    .catLabel.cat-orange:hover {
-      animation: pulse-orange 1.5s infinite;
+    .catLabel.cat-orange {
       border-color: #FF9900;
+      color: #FF9900;
+    }
+    .category-grid:not(.limit-reached) .catLabel.cat-orange:hover {
+      animation: pulse-orange 1.5s infinite;
     }
     .catCheckbox:checked + .catLabel.cat-orange {
-      border-color: #FF9900;
       box-shadow: 0 0 6px #FF9900, 0 0 12px #FF9900;
       animation: none;
     }
+    
     @keyframes pulse-orange {
       0%, 100% { box-shadow: 0 0 6px #FF9900; }
       50% { box-shadow: 0 0 12px #FF9900, 0 0 24px #FF9900; }
     }
     
     /* ROT */
-    .catLabel.cat-red:hover {
-      animation: pulse-red 1.5s infinite;
+    .catLabel.cat-red {
       border-color: #FF4444;
+      color: #FF4444;
+    }
+    .category-grid:not(.limit-reached) .catLabel.cat-red:hover {
+      animation: pulse-red 1.5s infinite;
     }
     .catCheckbox:checked + .catLabel.cat-red {
-      border-color: #FF4444;
       box-shadow: 0 0 6px #FF4444, 0 0 12px #FF4444;
       animation: none;
     }
+    
     @keyframes pulse-red {
       0%, 100% { box-shadow: 0 0 6px #FF4444; }
       50% { box-shadow: 0 0 12px #FF4444, 0 0 24px #FF4444; }
