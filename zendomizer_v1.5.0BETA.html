@@ -152,8 +152,8 @@
     }
     .start-btn,
     .copy-btn {
-      width: 100px;
-      height: 100px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
       font-size: 20px;
       font-weight: bold;
@@ -169,28 +169,32 @@
       text-align: center;
     }
     
+    /* GO-Button */
     .start-btn {
-      color: #39ff14; /* Standard: Neongrün */
+      color: #39ff14;
       box-shadow:
         0 4px 6px rgba(57, 255, 20, 0.3),
         inset 0 0 8px rgba(57, 255, 20, 0.4);
     }
     
     .start-btn.active {
-      color: #ff9900; /* Klick: Neon-Orange */
+      color: #ff9900;
       box-shadow:
         0 4px 8px rgba(255, 153, 0, 0.4),
         inset 0 0 12px rgba(255, 153, 0, 0.6);
       transform: scale(1.07);
     }
     
+    /* COPY-Button */
     .copy-btn {
       color: #0ff;
+      font-size: 26px;  /* Ⓒ/🅒 wird deutlich größer */
       box-shadow:
         0 4px 6px rgba(0, 255, 255, 0.2),
         inset 0 0 8px rgba(0, 255, 255, 0.4);
     }
     
+    /* Hover für beide */
     .start-btn:hover,
     .copy-btn:hover {
       transform: scale(1.05);
