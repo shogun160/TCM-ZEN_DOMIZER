@@ -577,42 +577,42 @@ select.filter-control {
     let bikeFilterMode = "no_bike";
 
     function initializeDropdowns() {
-    const brandSelect = document.getElementById("brandSelect");
-    const countrySelect = document.getElementById("countrySelect");
-    const eraSelect = document.getElementById("eraSelect");
-
-    // Marken ergänzen (lassen Platzhalter bestehen)
-    const brandRenameMap = {
-      'Gordan Murray Automotive': 'Gordan Murray',
-      'Volkswagen AG': 'VW'
-    };
+      const brandSelect = document.getElementById("brandSelect");
+      const countrySelect = document.getElementById("countrySelect");
+      const eraSelect = document.getElementById("eraSelect");
     
-    const brandSet = new Set(vehicles.map(v => v.brand));
-    [...brandSet].sort().forEach(brand => {
-      const option = document.createElement("option");
-      option.value = brand; // Originalwert bleibt
-      option.textContent = brandRenameMap[brand] || brand; // Anzeige ggf. angepasst
-      brandSelect.appendChild(option);
-    });
-    // Länder ergänzen (lassen Platzhalter + "Alle Länder" bestehen)
-    const countrySet = new Set(vehicles.map(v => v.country));
-    [...countrySet].sort().forEach(country => {
-      const option = document.createElement("option");
-      option.value = country;
-      option.textContent = country;
-      countrySelect.appendChild(option);
-    });
-
-    // Zeiträume ergänzen
-    const eraSet = new Set(vehicles.map(v => v.era));
-    [...eraSet].sort().forEach(era => {
-      const option = document.createElement("option");
-      option.value = era;
-      option.textContent = era;
-      eraSelect.appendChild(option);
-    });
+      const brandRenameMap = {
+        'Gordan Murray Automotive': 'Gordan Murray'
+      };
+    
+      const countryRenameMap = {
+        'Vereinigte Arabische Emirate': 'Arabische Emirate'
+      };
+    
+      const brandSet = new Set(vehicles.map(v => v.brand));
+      [...brandSet].sort().forEach(brand => {
+        const option = document.createElement("option");
+        option.value = brand;
+        option.textContent = brandRenameMap[brand] || brand;
+        brandSelect.appendChild(option);
+      });
+    
+      const countrySet = new Set(vehicles.map(v => v.country));
+      [...countrySet].sort().forEach(country => {
+        const option = document.createElement("option");
+        option.value = country;
+        option.textContent = countryRenameMap[country] || country;
+        countrySelect.appendChild(option);
+      });
+    
+      const eraSet = new Set(vehicles.map(v => v.era));
+      [...eraSet].sort().forEach(era => {
+        const option = document.createElement("option");
+        option.value = era;
+        option.textContent = era;
+        eraSelect.appendChild(option);
+      });
     }
-
     function getCurrentFilters() {
       return {
         brand: document.getElementById("brandSelect").value,
