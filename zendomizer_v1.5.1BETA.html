@@ -202,21 +202,17 @@
   z-index: 1;
 }
 .left-panel,
+.center-panel,
 .right-panel {
-  flex: 1 1 30%;
-  min-width: 240px;
-  max-width: none;
+  flex: 1 1 300px;
+  max-width: 33.333%;
+  min-width: 260px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 16px;
   padding: 0;
   margin: 0;
-}
-.center-panel {
-  flex: 0 0 40%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 .machine-wrapper {
   position: absolute;
