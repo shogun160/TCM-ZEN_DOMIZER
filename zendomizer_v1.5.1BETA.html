@@ -66,6 +66,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 48px;          /* feste Breite für Button-Spalte */
+      flex-shrink: 0;       /* verhindert, dass er kleiner gequetscht wird */
+      box-sizing: border-box;
     }
     .reset-btn-vertical {
       writing-mode: vertical-rl;
