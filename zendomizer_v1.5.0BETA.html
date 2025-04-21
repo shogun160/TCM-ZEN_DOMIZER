@@ -65,11 +65,10 @@
     } 
     .filter-grid {
       display: grid;
-      grid-template-columns: 180px 180px; /* feste Breite für 2 Spalten */
-      grid-template-rows: auto auto;      /* 2 Reihen */
-      gap: 16px;
+      grid-template-columns: repeat(2, 120px); /* exakt wie catWrapper */
+      gap: 18px;
       justify-content: center;
-      width: auto;
+      width: max-content;
       margin-bottom: 10px;
     }
     .reset-row {
