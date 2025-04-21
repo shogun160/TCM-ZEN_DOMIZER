@@ -582,14 +582,18 @@ select.filter-control {
     const eraSelect = document.getElementById("eraSelect");
 
     // Marken ergänzen (lassen Platzhalter bestehen)
+    const brandRenameMap = {
+      'Gordan Murray Automotive': 'Gordan Murray',
+      'Volkswagen AG': 'VW'
+    };
+    
     const brandSet = new Set(vehicles.map(v => v.brand));
     [...brandSet].sort().forEach(brand => {
       const option = document.createElement("option");
-      option.value = brand;
-      option.textContent = brand;
+      option.value = brand; // Originalwert bleibt
+      option.textContent = brandRenameMap[brand] || brand; // Anzeige ggf. angepasst
       brandSelect.appendChild(option);
     });
-
     // Länder ergänzen (lassen Platzhalter + "Alle Länder" bestehen)
     const countrySet = new Set(vehicles.map(v => v.country));
     [...countrySet].sort().forEach(country => {
