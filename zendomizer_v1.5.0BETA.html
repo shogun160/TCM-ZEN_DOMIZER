@@ -89,17 +89,19 @@
       position: absolute;
       top: 0;
       right: 0;
-      width: 28px;
       height: 100%;
-      font-size: 48px;
-      font-weight: 800;
+      width: 28px;
+      font-size: 72px;
+      font-weight: 900;
       display: flex;
       align-items: center;
       justify-content: center;
       pointer-events: none;
       z-index: 0;
-      mix-blend-mode: multiply; /* MAGIC! */
-      opacity: 0.8;              /* leicht dunkler durch Mischung */
+      mix-blend-mode: multiply;
+      opacity: 0.5;
+      color: currentColor;
+      text-shadow: 0 0 2px #000, 0 0 4px #000;
     }
     /* Farbvarianten passend zur Kategorie */
     .cat-yellow .order-badge {
