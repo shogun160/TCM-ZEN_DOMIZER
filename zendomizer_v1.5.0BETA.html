@@ -109,24 +109,12 @@
       justify-content: center;
       gap: 12px;
     }
-    .category-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 120px);
-      gap: 18px;
-      justify-content: start;
-      width: max-content;
-      margin-top: 10px;
-    }
-    
-    .catCheckbox {
-      display: none;
-    }
-    
+    /* === NEON-GRUNDSTIL KACHEL === */
     .catLabel {
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: rgba(255, 255, 255, 0.05);
+      background-color: rgba(0, 0, 0, 0.6);
       border: 2px solid transparent;
       border-radius: 12px;
       width: 120px;
@@ -138,50 +126,46 @@
       box-sizing: border-box;
       text-shadow: 0 0 2px #000;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
       position: relative;
     }
     
-    /* Hover mit Neon-Glow */
-    .category-grid:not(.limit-reached) .catLabel:hover {
-      animation: pulse-neon 1.2s infinite;
-      border-color: #ff9900;
-      background-color: rgba(255, 153, 0, 0.08);
-      transform: scale(1.04);
-      box-shadow: 0 0 6px rgba(255, 153, 0, 0.3);
+    .catCheckbox {
+      display: none;
     }
     
-    /* Aktive Kategorie (Neon-Glow dauerhaft) */
-    .catCheckbox:checked + .catLabel {
-      border-color: #ff9900;
-      box-shadow:
-        0 0 4px #ff9900,
-        0 0 8px #ff9900,
-        0 0 12px #ff9900,
-        inset 0 0 6px #ff9900;
-      background-color: rgba(255, 153, 0, 0.1);
-      animation: none;
+    /* === KATEGORIEN === */
+    
+    /* GELB – Street & Hypercar */
+    .cat-yellow:hover { animation: pulse-yellow 1.5s infinite; border-color: #FFD700; }
+    .catCheckbox:checked + .cat-yellow { border-color: #FFD700; box-shadow: 0 0 6px #FFD700, 0 0 12px #FFD700; animation: none; }
+    @keyframes pulse-yellow {
+      0%, 100% { box-shadow: 0 0 6px #FFD700; }
+      50% { box-shadow: 0 0 12px #FFD700, 0 0 24px #FFD700; }
     }
     
-    /* Pulsierende Neon-Animation */
-    @keyframes pulse-neon {
-      0% {
-        box-shadow: 0 0 6px rgba(255, 153, 0, 0.3);
-      }
-      50% {
-        box-shadow:
-          0 0 8px rgba(255, 153, 0, 0.6),
-          0 0 16px rgba(255, 153, 0, 0.6);
-      }
-      100% {
-        box-shadow: 0 0 6px rgba(255, 153, 0, 0.3);
-      }
+    /* BLAU – Rally / Raid / Moto */
+    .cat-blue:hover { animation: pulse-blue 1.5s infinite; border-color: #00E5FF; }
+    .catCheckbox:checked + .cat-blue { border-color: #00E5FF; box-shadow: 0 0 6px #00E5FF, 0 0 12px #00E5FF; animation: none; }
+    @keyframes pulse-blue {
+      0%, 100% { box-shadow: 0 0 6px #00E5FF; }
+      50% { box-shadow: 0 0 12px #00E5FF, 0 0 24px #00E5FF; }
     }
     
-    /* Optional: Text-Glow bei Aktivierung */
-    .catCheckbox:checked ~ span {
-      font-weight: bold;
-      text-shadow: 0 0 6px #ff9900;
+    /* ORANGE – AGP / Racing */
+    .cat-orange:hover { animation: pulse-orange 1.5s infinite; border-color: #FF9900; }
+    .catCheckbox:checked + .cat-orange { border-color: #FF9900; box-shadow: 0 0 6px #FF9900, 0 0 12px #FF9900; animation: none; }
+    @keyframes pulse-orange {
+      0%, 100% { box-shadow: 0 0 6px #FF9900; }
+      50% { box-shadow: 0 0 12px #FF9900, 0 0 24px #FF9900; }
+    }
+    
+    /* ROT – Monster Truck */
+    .cat-red:hover { animation: pulse-red 1.5s infinite; border-color: #FF4444; }
+    .catCheckbox:checked + .cat-red { border-color: #FF4444; box-shadow: 0 0 6px #FF4444, 0 0 12px #FF4444; animation: none; }
+    @keyframes pulse-red {
+      0%, 100% { box-shadow: 0 0 6px #FF4444; }
+      50% { box-shadow: 0 0 12px #FF4444, 0 0 24px #FF4444; }
     }
     .results-panel {
       margin-top: 20px;
