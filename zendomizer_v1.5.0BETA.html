@@ -263,15 +263,13 @@
       color: #f33; /* rot */
     }
     
-    /* Hover-Effekt */
     .start-btn:hover,
     .copy-btn:hover,
     .reset-btn:hover {
-      background-color: rgba(0, 0, 0, 0.35);
-      box-shadow: 0 0 8px currentColor, inset 0 0 6px currentColor;
+      animation: pulse-neon 1.5s infinite;
+      background-color: rgba(0, 0, 0, 0.4);
       transform: scale(1.05);
     }
-    
     /* Klick-Effekt */
     .start-btn.clicked,
     .copy-btn.clicked,
