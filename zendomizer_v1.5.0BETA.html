@@ -63,34 +63,6 @@
       justify-content: center;
       box-sizing: border-box;
     } 
-    .reset-vertical {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 48px;          /* feste Breite für Button-Spalte */
-      flex-shrink: 0;       /* verhindert, dass er kleiner gequetscht wird */
-      box-sizing: border-box;
-    }
-    .reset-btn-vertical {
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
-      background: rgba(0, 0, 0, 0.3);
-      color: #fff;
-      border: 2px solid #444;
-      border-radius: 10px;
-      font-weight: bold;
-      padding: 8px 12px;
-      cursor: pointer;
-      transition: border-color 0.2s, background 0.2s;
-      font-size: 14px;
-      height: auto;
-      min-height: 100px;
-      max-height: 120px;
-    }
-    .reset-btn-vertical:hover {
-      border-color: #666;
-      background: rgba(255, 255, 255, 0.05);
-    }
     .filter-grid {
       display: grid;
       grid-template-columns: 180px 180px; /* feste Spaltenbreiten */
@@ -232,7 +204,8 @@
       margin-bottom: 10px;
     }
     .start-btn,
-    .copy-btn {
+    .copy-btn,
+    .reset-btn {
       width: 80px;
       height: 80px;
       border-radius: 50%;
@@ -263,20 +236,30 @@
       font-size: 26px;
     }
     
+    /* RESET-Button (rot) */
+    .reset-btn {
+      color: #f00;
+      border-color: #f00;
+    }
+    
     /* Hover-Glow */
     .start-btn:hover,
-    .copy-btn:hover {
+    .copy-btn:hover,
+    .reset-btn:hover {
       background: rgba(255, 255, 255, 0.05);
       box-shadow:
-        0 0 8px rgba(255, 255, 255, 0.2),
-        inset 0 0 6px rgba(255, 255, 255, 0.1);
+        0 0 8px currentColor,
+        inset 0 0 6px currentColor;
       transform: scale(1.05);
     }
+    
+    /* Klick-Glow */
     .start-btn.clicked,
-    .copy-btn.clicked {
+    .copy-btn.clicked,
+    .reset-btn.clicked {
       box-shadow:
-        0 0 16px rgba(255, 255, 255, 0.4),
-        inset 0 0 12px rgba(255, 255, 255, 0.4);
+        0 0 16px currentColor,
+        inset 0 0 12px currentColor;
       transform: scale(1.1);
     }
     #copyNotice {
