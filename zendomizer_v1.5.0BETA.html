@@ -251,6 +251,23 @@ select.filter-control {
   background-size: 10px;
   padding-right: 32px;
 }
+@media (max-width: 1068px) {
+  .layout {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .left-panel,
+  .center-panel,
+  .right-panel {
+    max-width: 100%;
+    flex: none;
+  }
+
+  .button-top {
+    justify-content: center;
+  }
+}
 </style>
 </head>
 <body>
