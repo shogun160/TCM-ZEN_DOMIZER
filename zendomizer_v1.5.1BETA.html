@@ -93,6 +93,7 @@
       justify-content: center;
       gap: 12px;
     }
+    /*
     #bikeFilterBtn {
       background: transparent;
       color: #fff;
@@ -103,9 +104,10 @@
       text-align: left;
     }
     #bikeFilterBtn:hover {
-      background: rgba(255, 255, 255, 0.05); /* optional leichter Hover-Effekt */
+      background: rgba(255, 255, 255, 0.05);
       border-color: #aaa;
     }
+    */
     select, button {
       padding: 10px 14px;
       border: none;
@@ -203,7 +205,7 @@
 </head>
 <body>
 <div class="layout"><div class="left-panel"><div class="filter-row">
-<button id="bikeFilterBtn" onclick="toggleBikeFilter()">Nur Autos</button>
+<button id="bikeFilterBtn" class="filter-control" onclick="toggleBikeFilter()">Nur Autos</button>
 <select id="countrySelect">
 <option value="">Land wählen</option>
 </select>
