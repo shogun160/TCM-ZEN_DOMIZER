@@ -196,13 +196,19 @@
       animation: none;
     }
     @keyframes pulse-neon {
-      0%, 100% {
-        box-shadow: 0 0 6px currentColor;
-      }
-      50% {
-        box-shadow: 0 0 12px currentColor, 0 0 24px currentColor;
-      }
-    }
+  0%, 15% {
+    box-shadow: 0 0 4px currentColor;
+  }
+  25% {
+    box-shadow: 0 0 16px currentColor, 0 0 28px currentColor;
+  }
+  35% {
+    box-shadow: 0 0 8px currentColor;
+  }
+  100% {
+    box-shadow: 0 0 4px currentColor;
+  }
+}
     .category-grid:not(.limit-reached) .catLabel:hover {
       animation: pulse-neon 1.5s infinite;
       border-color: currentColor;
