@@ -453,6 +453,36 @@ select.filter-control {
     margin-bottom: 20px;         /* Abstand vom unteren Rand */
   }
 }
+/* --- SLOTBOXEN (rechter Bereich) --- */
+.slot-box {
+  width: 100%;
+  max-width: 320px;
+  min-height: 80px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 3px solid currentColor;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 16px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  color: currentColor;
+  box-shadow: 0 0 12px currentColor;
+  transition: all 0.3s ease-in-out;
+}
+
+.slot-yellow { color: #FFD700; }
+.slot-blue   { color: #00E5FF; }
+.slot-orange { color: #FF9900; }
+.slot-red    { color: #FF4444; }
+
+.slot-box.empty::after {
+  content: "– warte auf Ziehung –";
+  display: block;
+  font-size: 14px;
+  color: gray;
+  margin-top: 6px;
+}
 </style>
 </head>
 <body>
@@ -552,6 +582,8 @@ select.filter-control {
         grid.classList.remove('limit-reached');
         document.querySelectorAll('.catCheckbox').forEach(cb => cb.disabled = false);
       }
+      // Slotboxen sofort anzeigen
+      updateSlotBoxes();
     }
     function updateCheckboxBadges() {
       const allCheckboxes = document.querySelectorAll('.catCheckbox');
@@ -572,6 +604,23 @@ select.filter-control {
         } else if (badge) {
           badge.remove();
         }
+      });
+    }
+    function updateSlotBoxes() {
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = '';
+    
+      selectedOrder.slice(0, 3).forEach(cat => {
+        const colorClass =
+          cat.includes('Street') || cat === 'Hypercar' ? 'slot-yellow' :
+          ['Rally', 'Rally Raid', 'Motocross'].includes(cat) ? 'slot-blue' :
+          ['Racing', 'AGP'].includes(cat) ? 'slot-orange' :
+          cat === 'Monster Truck' ? 'slot-red' : '';
+    
+        const slot = document.createElement('div');
+        slot.className = `slot-box empty ${colorClass}`;
+        slot.innerHTML = `<div>${cat}</div>`;
+        resultsDiv.appendChild(slot);
       });
     }
     let bikeFilterMode = "no_bike";
@@ -651,6 +700,8 @@ select.filter-control {
       // Limit-Status entfernen
       document.querySelector('.category-grid').classList.remove('limit-reached');
       document.querySelectorAll('.catCheckbox').forEach(cb => cb.disabled = false);
+      // Ergebnis Slot-Boxen
+      document.getElementById('results').innerHTML = '';
     }
     function updateFilterHighlighting() {
       const brand = document.getElementById("brandSelect");
