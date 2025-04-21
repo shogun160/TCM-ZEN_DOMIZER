@@ -191,6 +191,13 @@
         inset 0 0 6px rgba(255, 255, 255, 0.1);
       transform: scale(1.05);
     }
+    .start-btn.clicked,
+    .copy-btn.clicked {
+      box-shadow:
+        0 0 16px rgba(255, 255, 255, 0.4),
+        inset 0 0 12px rgba(255, 255, 255, 0.4);
+      transform: scale(1.1);
+    }
     #copyNotice {
       color: lime;
       margin-top: 10px;
@@ -676,7 +683,7 @@ select.filter-control {
       });
     }
     function handleCopy() {
-      copyToClipboard(); // deine vorhandene Funktion bleibt erhalten
+      copyToClipboard(); // bestehende Funktion
     
       const btn = document.getElementById("copyBtn");
       btn.textContent = "🅒";
@@ -685,17 +692,20 @@ select.filter-control {
       setTimeout(() => {
         btn.textContent = "Ⓒ";
         btn.classList.remove("clicked");
-      }, 1500);
+      }, 750); // Dauer halbiert
     }
+    
     function handleGo() {
       drawRandomVehicles(); // Start der Ziehung
     
       const btn = document.getElementById("goBtn");
       btn.classList.add("active");
+      btn.classList.add("clicked");
     
       setTimeout(() => {
         btn.classList.remove("active");
-      }, 1500);
+        btn.classList.remove("clicked");
+      }, 750); // Dauer halbiert
     }
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') drawRandomVehicles();
