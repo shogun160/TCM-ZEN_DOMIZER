@@ -66,28 +66,26 @@
       align-items: center;
       justify-content: center;
     }
-    
     .reset-btn-vertical {
       writing-mode: vertical-rl;
       transform: rotate(180deg);
-      height: 100%;
-      background: #444;
+      background: rgba(0, 0, 0, 0.3);
       color: #fff;
-      border: 2px solid #888;
+      border: 2px solid #444;
       border-radius: 10px;
-      padding: 12px 6px;
       font-weight: bold;
+      padding: 8px 12px;
       cursor: pointer;
-      transition: background 0.2s, border-color 0.2s;
+      transition: border-color 0.2s, background 0.2s;
       font-size: 14px;
-      min-height: 140px; /* passt sich grob dem Grid an */
+      height: auto;
+      min-height: 100px;
+      max-height: 120px;
     }
-    
     .reset-btn-vertical:hover {
-      background: #666;
-      border-color: #aaa;
+      border-color: #666;
+      background: rgba(255, 255, 255, 0.05);
     }
-    
     .filter-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
