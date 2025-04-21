@@ -117,28 +117,49 @@
       width: max-content;                      /* nimmt nur so viel Platz wie nötig ein */
       margin-top: 10px;
     }
+    .catCheckbox {
+      display: none;
+    }
     .catLabel {
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: #222; /* ggf. durch inline-style überschrieben */
-      color: #fff;
-      border-radius: 8px;
-      cursor: pointer;
+      background-color: rgba(255, 255, 255, 0.05); /* transparenter Look */
+      border: 2px solid transparent;
+      border-radius: 12px;
       width: 120px;
       height: 120px;
+      color: #fff;
       font-weight: bold;
       font-size: 14px;
       text-align: center;
       box-sizing: border-box;
       text-shadow: 0 0 2px #000;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
     }
-    .catCheckbox {
-      display: none;
+    
+    /* Hover-Effekt (nur wenn nicht im Limit) */
+    .category-grid:not(.limit-reached) .catLabel:hover {
+      animation: pulse 1s infinite;
+      border-color: #fff;
+      background-color: rgba(255, 255, 255, 0.08);
     }
-    .catCheckbox:checked + .order-badge {
-      background: lime;
+    
+    /* Aktiver Zustand */
+    .catCheckbox:checked + .catLabel {
+      border-color: lime;
+      box-shadow: 0 0 12px lime, 0 0 4px lime inset;
+      background-color: rgba(0, 255, 0, 0.05);
+      animation: none;
+    }
+    
+    /* Puls-Animation */
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0px rgba(255,255,255,0.1); }
+      50% { box-shadow: 0 0 8px rgba(255,255,255,0.25); }
+      100% { box-shadow: 0 0 0px rgba(255,255,255,0.1); }
     }
     .catCheckbox:checked ~ span {
       font-weight: bold;
