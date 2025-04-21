@@ -215,12 +215,20 @@
         text-shadow: 0 0 6px currentColor, 0 0 12px currentColor;
       }
     }
+    @keyframes pulse-text {
+      0%, 100% {
+        text-shadow: 0 0 2px currentColor;
+      }
+      50% {
+        text-shadow: 0 0 6px currentColor, 0 0 12px currentColor;
+      }
+    }
     .category-grid:not(.limit-reached) .catLabel:hover {
       animation: pulse-neon 1.2s infinite;
       border-color: currentColor;
     }
     .category-grid:not(.limit-reached) .catLabel:hover span {
-      animation: pulse-neon 1.2s infinite;
+      animation: pulse-text 1.2s infinite;
     }
     .results-panel {
       margin-top: 20px;
