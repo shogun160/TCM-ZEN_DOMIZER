@@ -152,32 +152,40 @@
     }
     .start-btn,
     .copy-btn {
-      min-width: 160px;
-      padding: 12px 20px;
-      font-size: 16px;
-      font-weight: bold;
-      border: 2px solid #444;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+      font-size: 20px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border: 3px solid #444;
+      background: #111;
       cursor: pointer;
       transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
     }
-    
     .start-btn {
-      background: linear-gradient(145deg, #ffcc00, #ff9900);
-      color: black;
+      color: #0f0;
+      box-shadow:
+        0 4px 6px rgba(0, 255, 0, 0.2),
+        inset 0 0 8px rgba(0, 255, 0, 0.4);
     }
-    
     .copy-btn {
-      background: linear-gradient(145deg, #00ffff, #0099cc);
-      color: black;
+      color: #0ff;
+      box-shadow:
+        0 4px 6px rgba(0, 255, 255, 0.2),
+        inset 0 0 8px rgba(0, 255, 255, 0.4);
     }
-    
     .start-btn:hover,
     .copy-btn:hover {
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
-      transform: scale(1.03);
+      transform: scale(1.05);
+      box-shadow:
+        0 6px 12px rgba(255, 255, 255, 0.3),
+        inset 0 0 12px rgba(255, 255, 255, 0.6);
     }
     #copyNotice {
       color: lime;
@@ -341,7 +349,7 @@ select.filter-control {
         <div class="center-panel">
             <div class="button-top">
                 <button class="start-btn" onclick="drawRandomVehicles()">GO</button>
-                <button class="copy-btn" onclick="copyToClipboard()">COPY</button>
+                <button id="copyBtn" class="copy-btn" onclick="handleCopy()">Ⓒ</button>
             </div>
         </div>
     <div class="right-panel">
