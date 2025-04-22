@@ -447,12 +447,6 @@ select.filter-control {
   pointer-events: none;
   user-select: none;
 }
-
-.slot-warning::before {
-  content: "ⓘ ";
-  font-size: 12px;
-  margin-right: 2px;
-}
 @media (max-width: 1068px) {
   .layout {
     flex-direction: column;
@@ -736,7 +730,7 @@ select.filter-control {
         slot.innerHTML = `
           <div class="slot-badge">${index + 1}</div>
           <div class="slot-category">${cat}</div>
-          <div class="slot-name"></div>
+          <div class="slot-name">?</div>
           <div class="slot-warning"></div>
         `;
         resultsDiv.appendChild(slot);
