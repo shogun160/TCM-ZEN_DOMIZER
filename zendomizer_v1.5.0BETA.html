@@ -709,7 +709,7 @@ select.filter-control {
       const resultsDiv = document.getElementById('results');
       resultsDiv.innerHTML = '';
     
-      selectedOrder.slice(0, 3).forEach(cat => {
+      selectedOrder.slice(0, 3).forEach((cat, index) => {
         const colorClass =
           cat.includes('Street') || cat === 'Hypercar' ? 'slot-yellow' :
           ['Rally', 'Rally Raid', 'Motocross'].includes(cat) ? 'slot-blue' :
@@ -720,12 +720,11 @@ select.filter-control {
         slot.className = `slot-box empty ${colorClass}`;
         slot.innerHTML = `
           <div class="slot-badge">${index + 1}</div>
-          <div>${cat}</div>
+          <div class="slot-category">${cat}</div>
         `;
         resultsDiv.appendChild(slot);
       });
     }
-    let bikeFilterMode = "no_bike";
 
     function initializeDropdowns() {
       const brandSelect = document.getElementById("brandSelect");
@@ -1054,7 +1053,7 @@ select.filter-control {
         return;
       }
     
-      const shuffled = [...selectedCategories]; // feste Reihenfolge beibehalten
+      const shuffled = [...selectedCategories];
       const chosen = [];
     
       for (let cat of shuffled) {
@@ -1165,7 +1164,7 @@ select.filter-control {
           ? `<div class='slot-warning'>ⓘ Ignoriert: ${v.ignoredFilters.join(', ')}</div>`
           : '';
         slot.classList.remove('empty');
-
+    
         // Farbkategorien immer neu setzen
         slot.classList.remove('slot-yellow', 'slot-blue', 'slot-orange', 'slot-red');
         const colorClass =
@@ -1174,10 +1173,13 @@ select.filter-control {
           ['Racing', 'AGP'].includes(v.category) ? 'slot-orange' :
           v.category === 'Monster Truck' ? 'slot-red' : '';
         slot.classList.add(colorClass);
-        
+    
+        const badge = slot.querySelector('.slot-badge')?.outerHTML ?? '';
+        const category = slot.querySelector('.slot-category')?.outerHTML ?? `<div class="slot-category">${v.category}</div>`;
+    
         slot.innerHTML = `
-          <div class="slot-badge">${i + 1}</div>
-          <div style="font-weight: bold;">${v.category}</div>
+          ${badge}
+          ${category}
           <div style="margin-top: 6px;">${v.brand} ${v.model} (${v.year})</div>
           ${ignored}
         `;
