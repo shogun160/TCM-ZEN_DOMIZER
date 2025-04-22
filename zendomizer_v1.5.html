@@ -250,7 +250,7 @@
       width: 396px;             /* exakt wie eine Slotbox */
       display: flex;            /* statt grid */
       flex-direction: column;
-      gap: 48px;
+      gap: 36px;
       margin: 0 auto;
     }
         .vehicle {
@@ -472,13 +472,13 @@ select.filter-control {
 }
 /* --- SLOTBOXEN (rechter Bereich) --- */
 .slot-box {
-  width: 396px;
+  width: 372px; /* width + 2* padding (12) + 2* boarder (8) = Geasmtbreite || statt 396px*/
   height: 120px;
+  padding: 12px;
+  border: 3px solid currentColor;
   position: relative;
   background: rgba(0, 0, 0, 0.6);
-  border: 3px solid currentColor;
   border-radius: 16px;
-  padding: 12px;
   font-size: 18px;
   font-weight: bold;
   text-align: center;
