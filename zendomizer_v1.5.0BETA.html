@@ -488,6 +488,7 @@ select.filter-control {
 .slot-box {
   width: 396px;
   height: 120px;
+  position: relative;
   background: rgba(0, 0, 0, 0.6);
   border: 3px solid currentColor;
   border-radius: 16px;
@@ -512,6 +513,27 @@ select.filter-control {
   animation: pulse-text 1.2s infinite;
   color: currentColor;
   margin-top: 6px;
+}
+.slot-badge {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 40px;
+  font-size: 48px;
+  font-weight: 900;
+  color: currentColor;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-shadow:
+    0 0 4px #000,
+    0 0 6px currentColor,
+    0 0 12px currentColor,
+    0 0 20px currentColor;
+  opacity: 0.4;
+  pointer-events: none;
+  mix-blend-mode: screen;
 }
 .your-pick-title {
   font-size: 36px;
@@ -1151,6 +1173,7 @@ select.filter-control {
         slot.classList.add(colorClass);
         
         slot.innerHTML = `
+          <div class="slot-badge">${i + 1}</div>
           <div style="font-weight: bold;">${v.category}</div>
           <div style="margin-top: 6px;">${v.brand} ${v.model} (${v.year})</div>
           ${ignored}
