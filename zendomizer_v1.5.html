@@ -1268,13 +1268,17 @@ outline: 2px dashed pink;
       const bfb = document.getElementById("bikeFilterBtn");
       if (bfb) {
         bfb.innerText = "Nur Autos";
-        bfb.classList.add("bike-active"); // 💡 Button grün glühen lassen
+        bfb.classList.add("bike-active");
       }
     
       if (localStorage.getItem('darkmode') === 'true') {
         document.body.classList.add('dark');
       }
     
+      // 🚀 Slotboxen vorbereiten (im Standby anzeigen)
+      updateSlotBoxes();
+    
+      // Daten asynchron laden
       fetch('cars/vehicles.json')
         .then(response => response.json())
         .then(data => {
