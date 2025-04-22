@@ -878,8 +878,8 @@ select.filter-control {
       // Limit-Status entfernen
       document.querySelector('.category-grid').classList.remove('limit-reached');
       document.querySelectorAll('.catCheckbox').forEach(cb => cb.disabled = false);
-      // Ergebnis Slot-Boxen
-      document.getElementById('results').innerHTML = '';
+      // Ergebnis Slot-Boxen aktualisieren
+      updateSlotBoxes();
       // Your Pick Überschrift active / inactive
       document.getElementById('yourPickTitle').classList.remove('active');
       document.getElementById('yourPickTitle').classList.add('inactive');
