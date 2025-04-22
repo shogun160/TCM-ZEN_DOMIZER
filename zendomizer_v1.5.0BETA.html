@@ -1161,7 +1161,7 @@ select.filter-control {
       slots.forEach((slot, i) => {
         const v = chosen[i];
         const ignored = v.ignoredFilters?.length
-          ? `<div class='slot-warning'>ⓘ Ignoriert: ${v.ignoredFilters.join(', ')}</div>`
+          ? `<div class='slot-warning'> Ignoriert: ${v.ignoredFilters.join(', ')}ⓘ</div>`
           : '';
         slot.classList.remove('empty');
     
