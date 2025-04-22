@@ -23,7 +23,7 @@
       background: #222;
       color: #0f0;
       padding: 12px 16px;
-      border-radius: 8px;
+      border-radus: 8px;
       font-weight: bold;
       font-size: 16px;
       opacity: 0;
@@ -950,36 +950,41 @@ select.filter-control {
 
       lastSelection = chosen;
 
-      chosen.forEach(v => {
-        const el = document.createElement('div');
-        const hasIgnored = v.ignoredFilters.length > 0;
-        el.className = 'vehicle' + (hasIgnored ? ' filter-ignored' : '');
-        el.title = hasIgnored ? 'Filter ignoriert: ' + v.ignoredFilters.join(', ') : '';
-        el.innerHTML = `<strong>${v.category}</strong><br>${v.brand} ${v.model} (${v.year})${v.ignoredFilters?.length > 0 ? ' <span style="color: orange;">⚠️</span> <span style="color: gray; font-size: 90%;">' + v.ignoredFilters.join(', ') + '</span>' : ''}`;
-        resultsDiv.appendChild(el);
-      });
-
       resultsDiv.scrollIntoView({ behavior: 'smooth' });
       copyToClipboard();
     }
 
     function repeatDraw() {
       if (!lastSelection || lastSelection.length === 0) {
-        drawRandomVehicles();
+        fillSlotBoxesWithResults();
         return;
       }
-
+    
       const resultsDiv = document.getElementById('results');
-      resultsDiv.innerHTML = '';
-
-      lastSelection.forEach(v => {
-        const el = document.createElement('div');
-        el.className = 'vehicle' + (v.brandIgnored ? ' filter-ignored' : '');
-        el.title = v.brandIgnored ? 'Markenfilter ignoriert – kein passendes Fahrzeug in dieser Kategorie.' : '';
-        el.innerHTML = `<strong>${v.category}</strong><br>${v.brand} ${v.model} (${v.year})${v.ignoredFilters?.length > 0 ? ' <span style="color: orange;">⚠️</span> <span style="color: gray; font-size: 90%;">' + v.ignoredFilters.join(', ') + '</span>' : ''}`;
-        resultsDiv.appendChild(el);
+      const slots = resultsDiv.querySelectorAll('.slot-box');
+    
+      slots.forEach((slot, i) => {
+        const v = lastSelection[i];
+        const ignored = v.ignoredFilters?.length
+          ? `<div class='slot-warning'>ⓘ Ignoriert: ${v.ignoredFilters.join(', ')}</div>`
+          : '';
+        slot.classList.remove('empty');
+    
+        slot.classList.remove('slot-yellow', 'slot-blue', 'slot-orange', 'slot-red');
+        const colorClass =
+          v.category.includes('Street') || v.category === 'Hypercar' ? 'slot-yellow' :
+          ['Rally', 'Rally Raid', 'Motocross'].includes(v.category) ? 'slot-blue' :
+          ['Racing', 'AGP'].includes(v.category) ? 'slot-orange' :
+          v.category === 'Monster Truck' ? 'slot-red' : '';
+        slot.classList.add(colorClass);
+    
+        slot.innerHTML = `
+          <div style="font-weight: bold;">${v.category}</div>
+          <div style="margin-top: 6px;">${v.brand} ${v.model} (${v.year})</div>
+          ${ignored}
+        `;
       });
-
+    
       resultsDiv.scrollIntoView({ behavior: 'smooth' });
       copyToClipboard();
     }
