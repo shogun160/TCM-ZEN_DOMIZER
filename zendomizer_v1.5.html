@@ -505,10 +505,6 @@ select.filter-control {
 .slot-name {
   font-size: 20px;
   font-weight: bold;
-  text-shadow:
-    0 0 2px currentColor,
-    0 0 6px currentColor,
-    0 0 12px currentColor;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -521,6 +517,17 @@ select.filter-control {
   animation: spin3D 1.6s linear infinite, pulse-text 1.2s infinite;
   transform-style: preserve-3d;
   backface-visibility: hidden;
+}
+.question-mark {
+  text-shadow:
+    0 0 2px currentColor,
+    0 0 6px currentColor,
+    0 0 12px currentColor;
+}
+.slot-box.empty .question-mark {
+  font-size: 80px;
+  animation: pulse-text 1.2s infinite;
+  line-height: 1;
 }
 .slot-box.empty {
   perspective: 600px;
