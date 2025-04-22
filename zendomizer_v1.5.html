@@ -528,6 +528,28 @@ select.filter-control {
   font-size: 80px;
   animation: pulse-text 1.2s infinite;
   line-height: 1;
+}/* Slotbox inaktiv – noch keine Kategorie gewählt */
+.slot-box.standby.empty {
+  border: 3px solid #ff00aa66;
+  background: rgba(0, 0, 0, 0.4);
+  box-shadow: none;
+  color: #ff00aa66;
+  transition: all 0.3s ease-in-out;
+}
+/* Fragezeichen (inaktiv) */
+.slot-box.standby.empty .question-mark {
+  font-size: 64px;
+  animation: pulse-text 1.6s infinite;
+  text-shadow:
+    0 0 1px #ff00aa66,
+    0 0 4px #ff00aa66;
+  color: #ff00aa66;
+  line-height: 1;
+}
+/* Badge abgeschwächt */
+.slot-box.standby.empty .slot-badge {
+  opacity: 0.3;
+  filter: grayscale(100%);
 }
 .slot-box.empty {
   perspective: 600px;
@@ -606,6 +628,9 @@ select.filter-control {
 .slot-orange { color: #FF9900; }
 .slot-red    { color: #FF4444; }
 
+.slot-box.standby.empty {
+outline: 2px dashed pink;
+}
 </style>
 </head>
 <body>
@@ -745,23 +770,32 @@ select.filter-control {
       const resultsDiv = document.getElementById('results');
       resultsDiv.innerHTML = '';
     
-      selectedOrder.slice(0, 3).forEach((cat, index) => {
-        const colorClass =
-          cat.includes('Street') || cat === 'Hypercar' ? 'slot-yellow' :
-          ['Rally', 'Rally Raid', 'Motocross'].includes(cat) ? 'slot-blue' :
-          ['Racing', 'AGP'].includes(cat) ? 'slot-orange' :
-          cat === 'Monster Truck' ? 'slot-red' : '';
+      for (let i = 0; i < 3; i++) {
+        const cat = selectedOrder[i];
+        const isActive = !!cat;
+    
+        const colorClass = isActive
+          ? (cat.includes('Street') || cat === 'Hypercar' ? 'slot-yellow'
+            : ['Rally', 'Rally Raid', 'Motocross'].includes(cat) ? 'slot-blue'
+            : ['Racing', 'AGP'].includes(cat) ? 'slot-orange'
+            : cat === 'Monster Truck' ? 'slot-red'
+            : '')
+          : '';
     
         const slot = document.createElement('div');
-        slot.className = `slot-box empty ${colorClass}`;
+        slot.className = `slot-box ${isActive ? 'active' : 'standby'} empty ${colorClass}`;
+    
         slot.innerHTML = `
-          <div class="slot-badge">${index + 1}</div>
-          <div class="slot-category">${cat}</div>
-          <div class="slot-name"><span class="question-mark">?</span></div>
+          <div class="slot-badge">${i + 1}</div>
+          <div class="slot-category">${cat || ''}</div>
+          <div class="slot-name">
+            <span class="question-mark">?</span>
+          </div>
           <div class="slot-warning"></div>
         `;
+    
         resultsDiv.appendChild(slot);
-      });
+      }
     }
     function initializeDropdowns() {
       const brandSelect = document.getElementById("brandSelect");
