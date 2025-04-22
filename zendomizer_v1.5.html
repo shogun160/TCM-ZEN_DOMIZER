@@ -183,13 +183,13 @@
       animation: none;
     }
     .catCheckbox:checked + .catLabel span {
-  color: currentColor;
-  font-weight: bold;
-  text-shadow:
-    0 0 1px currentColor,
-    0 0 2px currentColor,
-    0 0 4px currentColor;
-}
+      color: currentColor;
+      font-weight: bold;
+      text-shadow:
+        0 0 1px currentColor,
+        0 0 2px currentColor,
+        0 0 4px currentColor;
+    }
     /* === Neon-Kategorien === */
     
     /* GELB */
@@ -531,12 +531,10 @@ select.filter-control {
   transition: all 0.3s ease-in-out;
 }
 /* korrekten Farbcode auslesen je nach Kategorie */
-.slot-box.slot-yellow,
-.slot-box.slot-blue,
-.slot-box.slot-orange,
-.slot-box.slot-red {
-  color: currentColor;
-}
+.slot-box.slot-yellow  { color: #FFD700; }
+.slot-box.slot-blue    { color: #00E5FF; }
+.slot-box.slot-orange  { color: #FF9900; }
+.slot-box.slot-red     { color: #FF4444; }
 /* Leuchtendes Fragezeichen */
 .slot-box.active.empty .question-mark {
   font-size: 64px;
