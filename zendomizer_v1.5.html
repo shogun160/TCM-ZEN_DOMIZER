@@ -514,6 +514,9 @@ select.filter-control {
 .slot-box.empty .slot-name {
   perspective: 600px; /* wichtig für 3D-Rotation */
 }
+.slot-box.empty .question-wrapper {
+  transform-style: preserve-3d;
+}
 .slot-box.empty .question-mark {
   font-size: 80px;
   display: inline-block;
@@ -747,7 +750,11 @@ select.filter-control {
         slot.innerHTML = `
           <div class="slot-badge">${index + 1}</div>
           <div class="slot-category">${cat}</div>
-          <div class="slot-name"><span class="question-mark">?</span></div>
+          <div class="slot-name">
+            <div class="question-wrapper">
+              <span class="question-mark">?</span>
+            </div>
+          </div>
           <div class="slot-warning"></div>
         `;
         resultsDiv.appendChild(slot);
