@@ -500,14 +500,6 @@ select.filter-control {
   gap: 6px;
   animation: pulse-neon 2s infinite;
 }
-.slot-box.empty::after {
-  content: "?";
-  font-size: 32px;
-  font-weight: bold;
-  animation: pulse-text 1.2s infinite;
-  color: currentColor;
-  margin-top: 6px;
-}
 .slot-category,
 .slot-name,
 .slot-warning {
@@ -543,6 +535,9 @@ select.filter-control {
   opacity: 0.4;
   pointer-events: none;
   mix-blend-mode: screen;
+}
+.slot-warning:empty::before {
+  content: none;
 }
 .your-pick-title {
   font-size: 36px;
