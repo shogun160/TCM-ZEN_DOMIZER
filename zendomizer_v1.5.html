@@ -241,20 +241,19 @@
       margin-top: 8px;
       margin-bottom: 64px;
       width: 100%;
-      max-width: 360px;
-      display: block; /* statt grid – wir geben die Grid-Funktion an #results ab */
-      text-align: center;
-    }
-    
+      max-width: 100%; /* wichtig: kein limitierendes max-width */
+      display: flex;   /* ← statt block */
+      flex-direction: column;
+      align-items: center; /* ← zentriert den inneren #results Block */
+    } 
     #results {
-      display: grid;
-      grid-template-rows: repeat(3, 120px); /* jede Slotbox 120px hoch */
-      row-gap: 48px;                        /* Abstand zwischen Slotboxen */
-      justify-items: center;
+      width: 396px;             /* exakt wie eine Slotbox */
+      display: flex;            /* statt grid */
+      flex-direction: column;
+      gap: 48px;
       margin: 0 auto;
-      max-width: 396px;
     }
-    .vehicle {
+        .vehicle {
       background: #111;
       border: 1px solid #444;
       border-radius: 8px;
