@@ -491,6 +491,17 @@ select.filter-control {
   justify-items: center;
   animation: pulse-neon 2s infinite;
 }
+.slot-box.empty {
+  border: 3px solid #ff00aa66; /* gedimmtes Pink */
+  box-shadow: none;            /* kein Glow */
+  background: rgba(0, 0, 0, 0.4); /* leicht matter Schleier */
+  color: #ff00aa66;            /* Textfarbe gedimmt */
+  transition: all 0.3s ease-in-out;
+}
+.slot-box.empty .slot-badge {
+  opacity: 0.3;
+  filter: grayscale(100%);
+}
 .slot-category {
   font-size: 16px;
   font-weight: bold;
