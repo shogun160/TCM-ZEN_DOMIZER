@@ -512,8 +512,15 @@ select.filter-control {
   word-break: break-word;
 }
 .slot-box.empty .slot-name {
-  font-size: 80px; /* doppelt so groß */
-  animation: pulse-text 1.2s infinite;
+  font-size: 80px;
+  animation: spin3D 1.6s linear infinite, pulse-text 1.2s infinite;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  perspective: 600px; /* ← Nur im Fragezeichen-Zustand */
+}
+@keyframes spin3D {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
 }
 .slot-warning {
   flex: 0 0 18px;
