@@ -516,7 +516,9 @@ select.filter-control {
   animation: spin3D 1.6s linear infinite, pulse-text 1.2s infinite;
   transform-style: preserve-3d;
   backface-visibility: hidden;
-  perspective: 600px; /* ← Nur im Fragezeichen-Zustand */
+}
+.slot-box.empty {
+  perspective: 600px;
 }
 @keyframes spin3D {
   from { transform: rotateY(0deg); }
