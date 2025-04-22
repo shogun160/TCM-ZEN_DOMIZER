@@ -515,11 +515,14 @@ select.filter-control {
 }
 .your-pick-title {
   font-size: 36px;
-  margin: 0 0 4px 0;    /* entfernt oberen Abstand vollständig */
+  margin: 0 0 4px 0;
   text-align: center;
   font-family: 'Orbitron', sans-serif;
   transition: all 0.4s ease-in-out;
   letter-spacing: 1px;
+  max-width: 396px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .your-pick-title.inactive {
@@ -966,7 +969,7 @@ select.filter-control {
       slots.forEach((slot, i) => {
         const v = lastSelection[i];
         const ignored = v.ignoredFilters?.length
-          ? `<div class='slot-warning'>ⓘ Ignoriert: ${v.ignoredFilters.join(', ')}</div>`
+          ? `<div class='slot-warning'>Ignoriert: ${v.ignoredFilters.join(', ')}ⓘ</div>`
           : '';
         slot.classList.remove('empty');
     
