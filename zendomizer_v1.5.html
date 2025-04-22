@@ -518,6 +518,37 @@ select.filter-control {
   transform-style: preserve-3d;
   backface-visibility: hidden;
 }
+/* Zustand 2: Kategorie gewählt, Slot wartet auf GO */
+.slot-box.active.empty {
+  border: 3px solid currentColor;
+  background: rgba(0, 0, 0, 0.6);
+  box-shadow:
+    0 0 6px currentColor,
+    0 0 12px currentColor,
+    0 0 20px currentColor,
+    0 0 28px currentColor;
+  color: currentColor;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Leuchtendes Fragezeichen */
+.slot-box.active.empty .question-mark {
+  font-size: 64px;
+  animation: pulse-text 1.2s infinite;
+  text-shadow:
+    0 0 2px currentColor,
+    0 0 6px currentColor,
+    0 0 12px currentColor;
+  color: currentColor;
+  line-height: 1;
+}
+
+/* Badge mit voller Farbe, aber ohne Übertreibung */
+.slot-box.active.empty .slot-badge {
+  opacity: 0.8;
+  filter: none;
+}
+
 .question-mark {
   text-shadow:
     0 0 2px currentColor,
