@@ -530,7 +530,13 @@ select.filter-control {
   color: currentColor;
   transition: all 0.3s ease-in-out;
 }
-
+/* korrekten Farbcode auslesen je nach Kategorie */
+.slot-box.slot-yellow,
+.slot-box.slot-blue,
+.slot-box.slot-orange,
+.slot-box.slot-red {
+  color: currentColor;
+}
 /* Leuchtendes Fragezeichen */
 .slot-box.active.empty .question-mark {
   font-size: 64px;
