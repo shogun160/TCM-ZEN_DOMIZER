@@ -481,23 +481,24 @@ select.filter-control {
   color: currentColor;
   box-shadow: 0 0 12px currentColor;
   transition: all 0.3s ease-in-out;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: grid;
+  grid-template-rows: 24px 80px 18px; /* ← definierte Höhen */
   align-items: center;
-  gap: 6px;
+  justify-items: center;
   animation: pulse-neon 2s infinite;
 }
 .slot-category {
-  flex: 0 0 24px;
   font-size: 16px;
   font-weight: bold;
-  overflow: hidden;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
 }
 .slot-name {
-  flex: 1 1 auto;
   font-size: 20px;
   font-weight: bold;
   text-shadow:
@@ -507,8 +508,8 @@ select.filter-control {
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
   padding: 0 4px;
+  text-align: center;
   word-break: break-word;
 }
 .slot-box.empty .slot-name {
@@ -516,12 +517,6 @@ select.filter-control {
   animation: spin3D 1.6s linear infinite, pulse-text 1.2s infinite;
   transform-style: preserve-3d;
   backface-visibility: hidden;
-}
-/* NUR das Fragezeichen größer machen */
-.slot-box.empty .question-mark {
-  font-size: 80px;
-  animation: pulse-text 1.2s infinite;
-  line-height: 1;
 }
 .slot-box.empty {
   perspective: 600px;
@@ -531,7 +526,6 @@ select.filter-control {
   to { transform: rotateY(360deg); }
 }
 .slot-warning {
-  flex: 0 0 18px;
   font-size: 12px;
   opacity: 0.4;
   color: rgba(255, 255, 255, 0.4);
@@ -539,6 +533,9 @@ select.filter-control {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .slot-warning:empty::before {
   content: none;
