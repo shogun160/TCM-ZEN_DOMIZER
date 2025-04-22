@@ -657,12 +657,20 @@ select.filter-control {
     0 0 12px #ff00ff,
     0 0 20px #ff00ff;
 }
-/* Farbliche Kategorien für Slot-Boxen */
+/* Farbliche Kategorien für Slot-Boxen 
 .slot-yellow { color: #FFD700; }
 .slot-blue   { color: #00E5FF; }
 .slot-orange { color: #FF9900; }
-.slot-red    { color: #FF4444; }
+.slot-red    { color: #FF4444; } */
 
+/* Immer Farbe übernehmen, wenn Farbklasse gesetzt ist */
+.slot-box.slot-yellow,
+.slot-box.slot-blue,
+.slot-box.slot-orange,
+.slot-box.slot-red {
+  color: inherit;
+}
+    
 </style>
 </head>
 <body>
