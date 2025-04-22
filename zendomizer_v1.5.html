@@ -435,18 +435,6 @@ select.filter-control {
   background-size: 10px;
   padding-right: 32px;
 }
-.slot-warning {
-  font-size: 12px;
-  margin-top: auto;
-  padding-top: 6px;
-  color: rgba(255, 255, 255, 0.35);
-  text-align: center;
-  font-weight: normal;
-  animation: none;
-  line-height: 1.3;
-  pointer-events: none;
-  user-select: none;
-}
 @media (max-width: 1068px) {
   .layout {
     flex-direction: column;
@@ -500,20 +488,41 @@ select.filter-control {
   gap: 6px;
   animation: pulse-neon 2s infinite;
 }
-.slot-category,
-.slot-name,
-.slot-warning {
-  width: 100%;
-  text-align: center;
-  line-height: 1.3;
+.slot-category {
+  flex: 0 0 24px;
+  font-size: 16px;
+  font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .slot-name {
-  font-weight: bold;
+  flex: 1 1 auto;
   font-size: 20px;
+  font-weight: bold;
   text-shadow:
     0 0 2px currentColor,
     0 0 6px currentColor,
     0 0 12px currentColor;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 4px;
+  word-break: break-word;
+}
+.slot-warning {
+  flex: 0 0 18px;
+  font-size: 12px;
+  opacity: 0.4;
+  color: rgba(255, 255, 255, 0.4);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.slot-warning:empty::before {
+  content: none;
 }
 .slot-badge {
   position: absolute;
@@ -536,9 +545,6 @@ select.filter-control {
   pointer-events: none;
   mix-blend-mode: screen;
 }
-.slot-warning:empty::before {
-  content: none;
-}
 .your-pick-title {
   font-size: 36px;
   margin: 0 0 16px 0;
@@ -558,7 +564,6 @@ select.filter-control {
     0 0 4px #000,
     0 0 8px #111;
 }
-
 .your-pick-title.active {
   color: #ff00ff;
   opacity: 1;
