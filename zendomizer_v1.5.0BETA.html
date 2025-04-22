@@ -516,11 +516,11 @@ select.filter-control {
 }
 .slot-badge {
   position: absolute;
-  right: 0;
+  right: 14;
   top: 0;
   height: 100%;
   width: 46px;
-  font-size: 200px;
+  font-size: 180px;
   font-weight: 900;
   color: currentColor;
   display: flex;
@@ -1161,7 +1161,7 @@ select.filter-control {
       slots.forEach((slot, i) => {
         const v = chosen[i];
         const ignored = v.ignoredFilters?.length
-          ? `<div class='slot-warning'> Ignoriert: ${v.ignoredFilters.join(', ')}ⓘ</div>`
+          ? `<div class='slot-warning'> Ignoriert: ${v.ignoredFilters.join(', ')} ⓘ</div>`
           : '';
         slot.classList.remove('empty');
     
