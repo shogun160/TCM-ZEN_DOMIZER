@@ -607,11 +607,11 @@ select.filter-control {
 }
 
 .your-pick-title.inactive {
-  color: #222;
-  opacity: 0.3;
+  color: #ff00aa66; /* gedimmtes Pink */
+  opacity: 1;
   text-shadow:
-    0 0 4px #000,
-    0 0 8px #111;
+    0 0 2px #ff00aa66,
+    0 0 4px #ff00aa33;
 }
 .your-pick-title.active {
   color: #ff00ff;
@@ -764,6 +764,15 @@ select.filter-control {
       });
     }
     function updateSlotBoxes() {
+      const yourPick = document.getElementById('yourPickTitle');
+      if (selectedOrder.length > 0) {
+        yourPick.classList.remove('inactive');
+        yourPick.classList.add('active');
+      } else {
+        yourPick.classList.remove('active');
+        yourPick.classList.add('inactive');
+      }
+    
       const resultsDiv = document.getElementById('results');
       resultsDiv.innerHTML = '';
     
