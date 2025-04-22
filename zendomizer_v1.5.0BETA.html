@@ -238,16 +238,19 @@
       animation: pulse-text 1.2s infinite;
     }
     .results-panel {
-      margin-top: 8px;      /* vorher: 20px */
-      margin-bottom: 64px; /* ⬆️ mehr Luft nach unten */
+      margin-top: 8px;
+      margin-bottom: 64px;
       width: 100%;
       max-width: 360px;
-      display: grid;
-      grid-template-rows: repeat(3, auto);
-      row-gap: 48px; /* ⬆️ mehr Abstand zwischen Slotboxen */
-      justify-items: center;
-      align-items: start;
+      display: block; /* statt grid – wir geben die Grid-Funktion an #results ab */
       text-align: center;
+    }
+    
+    #results {
+      display: grid;
+      grid-template-rows: repeat(3, 120px); /* jede Slotbox 120px hoch */
+      row-gap: 32px;                        /* Abstand zwischen Slotboxen */
+      justify-items: center;
     }
     .vehicle {
       background: #111;
