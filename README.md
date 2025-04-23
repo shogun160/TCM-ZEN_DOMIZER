@@ -9,7 +9,8 @@
 <br>
 <br>V2.0
 <br>Carlist: Season 6 - 02.04.2025
-<br>make sure to check out [TWITCH](https://www.twitch.tv/xthepapapyr0)
+<br>
+<br>make sure to check out [Twitch](https://www.twitch.tv/xthepapapyr0)
 
 
 
