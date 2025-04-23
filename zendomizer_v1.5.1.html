@@ -609,13 +609,6 @@ select.filter-control {
     0 0 4px #000,
     0 0 8px #111;
 }
-.your-pick-title.inactive {
-  color: #222;
-  opacity: 0.3;
-  text-shadow:
-    0 0 4px #000,
-    0 0 8px #111;
-}
 .your-pick-title.active {
   color: #ff00ff;
   opacity: 1;
@@ -769,7 +762,11 @@ select.filter-control {
     function updateSlotBoxes() {
       const resultsDiv = document.getElementById('results');
       resultsDiv.innerHTML = '';
-    
+      // "Your Pick" anpassen
+      const title = document.getElementById('yourPickTitle');
+      title.classList.remove('active', 'inactive');
+      title.classList.add(selectedOrder.length === 0 ? 'standby' : 'active');
+
       const categoriesToRender = selectedOrder.length > 0 ? selectedOrder.slice(0, 3) : ["", "", ""];
     
       categoriesToRender.forEach((cat, index) => {
