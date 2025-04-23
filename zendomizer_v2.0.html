@@ -783,6 +783,7 @@ select.filter-control {
         title.classList.add('standby');
       }
       updateResetButtonState();
+      updateGoButtonState(); // 🟢 Aktiviert/deaktiviert den GO-Button passend
     }
     function updateCheckboxBadges() {
       const allCheckboxes = document.querySelectorAll('.catCheckbox');
