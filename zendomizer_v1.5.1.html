@@ -1419,6 +1419,25 @@ select.filter-control {
         toast.classList.remove("show");
       }, 3000);
     }
+    function showCountdownToast(seconds = 10) {
+      const toast = document.getElementById("toast");
+      toast.style.color = "#f33";
+      toast.classList.add("show");
+    
+      let count = seconds;
+      toast.innerText = `↩️ Automatischer Reset in ${count}…`;
+    
+      const interval = setInterval(() => {
+        count--;
+        if (count > 0) {
+          toast.innerText = `↩️ Automatischer Reset in ${count}…`;
+        } else {
+          clearInterval(interval);
+          toast.classList.remove("show");
+          resetSmart();
+        }
+      }, 1000);
+    }
     const countrySelect = document.getElementById('countrySelect');
     
     countrySelect.addEventListener('change', () => {
