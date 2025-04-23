@@ -303,9 +303,9 @@
       color: #f33; /* rot */
     }
     
-    .start-btn:hover,
-    .copy-btn:hover,
-    .reset-btn:hover {
+    .start-btn:not(.inactive):hover,
+    .reset-btn:not(.inactive):hover,
+    .copy-btn:not(.standby):hover {
       animation: pulse-neon 1.2s infinite;
       background-color: rgba(0, 0, 0, 0.4);
       transform: scale(1.05);
@@ -1356,6 +1356,7 @@ select.filter-control {
           updateSlotBoxes();
           updateCopyButtonState();
           updateResetButtonState();
+          updateGoButtonState();
         })
         .catch(err => {
           console.error("🚨 Fehler beim Laden von vehicles.json:", err);
