@@ -684,7 +684,7 @@ select.filter-control {
     </div>
         <div class="center-panel">
           <div class="button-top">
-            <button id="resetBtn" class="reset-btn" onclick="resetFilters()">R</button>
+            <button id="resetBtn" class="reset-btn" onclick="resetSmart()">R</button>
             <button id="copyBtn" class="copy-btn" onclick="handleCopy()">Ⓒ</button>
             <button id="goBtn" class="start-btn" onclick="handleGo()">GO</button>
           </div>
@@ -699,6 +699,7 @@ select.filter-control {
 <script src="https://shogun160.github.io/TCM-ZEN_DOMIZER/cars/vehicles.json" type="application/json"></script>
 <script>
     let selectedOrder = [];
+    let drawExecuted = false;
 
     function handleCategoryClick(checkbox) {
       const value = checkbox.value;
@@ -737,6 +738,7 @@ select.filter-control {
         title.classList.remove('active');
         title.classList.add('standby');
       }
+      updateResetButtonState();
     }
     function updateCheckboxBadges() {
       const allCheckboxes = document.querySelectorAll('.catCheckbox');
@@ -838,42 +840,44 @@ select.filter-control {
       };
     }
 
-    function resetFilters() {
+    function resetSmart() {
+      const filters = getCurrentFilters();
+      const filtersActive = filters.brand || filters.country || filters.era || selectedOrder.length > 0;
+    
+      // Zustand 1: Button ist inaktiv – keine Funktion
+      if (!filtersActive && !drawExecuted) return;
+    
+      // Zustand 3: Ziehung war aktiv → Slotboxen zurücksetzen
+      if (drawExecuted) {
+        drawExecuted = false;
+        updateSlotBoxes();
+        updateResetButtonState();
+        showToast("↩️ Ziehung zurückgesetzt", "#f44336");
+        return;
+      }
+    
+      // Zustand 2: Filter aktiv → alles zurücksetzen
       document.getElementById("brandSelect").value = "";
       document.getElementById("countrySelect").value = "";
       document.getElementById("eraSelect").value = "";
     
-      const btn = document.getElementById("resetBtn");
-      btn.classList.add("clicked");
-      setTimeout(() => btn.classList.remove("clicked"), 500);
-    
-      showToast("⟲ Auswahl wurde zurückgesetzt!", "#f44336");
-    
-      updateFilterHighlighting();
-    
-      // Bike-Filter zurücksetzen
       bikeFilterMode = "no_bike";
       const bfb = document.getElementById("bikeFilterBtn");
       bfb.innerText = "Nur Autos";
       bfb.classList.add("bike-active");
     
-      // Kategorie-Checkboxen deaktivieren
       const checkboxes = document.querySelectorAll('.catCheckbox');
       checkboxes.forEach(cb => cb.checked = false);
     
-      // Auswahl-Tracking & Badge-Anzeige zurücksetzen
       selectedOrder = [];
       updateCheckboxBadges();
-    
-      // Limit-Status entfernen
+      updateFilterHighlighting();
       document.querySelector('.category-grid').classList.remove('limit-reached');
       document.querySelectorAll('.catCheckbox').forEach(cb => cb.disabled = false);
-      // Ergebnis Slot-Boxen
-      document.getElementById('results').innerHTML = '';
-      // Your Pick Überschrift active / standby
-      const title = document.getElementById('yourPickTitle');
-      title.classList.remove('active');
-      title.classList.add('standby');
+    
+      updateSlotBoxes();
+      updateResetButtonState();
+      showToast("⟲ Auswahl wurde zurückgesetzt!", "#f44336");
     }
     function updateFilterHighlighting() {
       const brand = document.getElementById("brandSelect");
@@ -887,9 +891,25 @@ select.filter-control {
           el.classList.remove("active");
         }
       });
+    
+      if (!drawExecuted) updateResetButtonState();
     }
 
     let lastSelection = [];
+
+    function updateResetButtonState() {
+      const btn = document.getElementById("resetBtn");
+      const filters = getCurrentFilters();
+      const filtersActive = filters.brand || filters.country || filters.era || selectedOrder.length > 0;
+    
+      btn.classList.remove("inactive", "pulsing");
+    
+      if (!filtersActive && !drawExecuted) {
+        btn.classList.add("inactive");
+      } else {
+        btn.classList.add("pulsing");
+      }
+    }
 
     function toggleBikeFilter() {
       const btn = document.getElementById("bikeFilterBtn");
@@ -906,6 +926,7 @@ select.filter-control {
         btn.innerText = "Nur Autos";
         btn.classList.add("bike-active");
       }
+      if (!drawExecuted) updateResetButtonState();
     }
     function updateBrandDropdown() {
       const brandSet = new Set(vehicles.map(v => v.brand));
@@ -1242,7 +1263,9 @@ select.filter-control {
       copyToClipboard();
     }
     function handleGo() {
-      fillSlotBoxesWithResults(); // Neue Funktion: befüllt vorhandene Slotboxen
+      drawExecuted = true;
+      fillSlotBoxesWithResults();
+      updateResetButtonState();
     
       const btn = document.getElementById("goBtn");
       btn.classList.add("active");
