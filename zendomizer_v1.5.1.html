@@ -767,7 +767,11 @@ select.filter-control {
       title.classList.remove('active', 'standby');
       title.classList.add(selectedOrder.length === 0 ? 'standby' : 'active');
 
-      const categoriesToRender = selectedOrder.length > 0 ? selectedOrder.slice(0, 3) : ["", "", ""];
+      const categoriesToRender = [...selectedOrder.slice(0, 3)];
+        while (categoriesToRender.length < 3) {
+          categoriesToRender.push("");
+        }
+
     
       categoriesToRender.forEach((cat, index) => {
         const isStandby = cat === "";
