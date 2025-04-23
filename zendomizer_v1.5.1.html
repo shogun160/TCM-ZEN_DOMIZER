@@ -572,6 +572,25 @@ select.filter-control {
   pointer-events: none;
   mix-blend-mode: screen;
 }
+.slot-standby {
+  color: #993366;  /* Dunkles Pink */
+  border-color: #993366;
+  box-shadow: none;
+  animation: none;
+}
+.slot-standby .slot-name {
+  font-size: 80px;
+  animation: spin3D 1.6s linear infinite;
+  text-shadow: none;
+}
+.slot-standby .question-mark {
+  text-shadow: none;
+}
+.slot-standby .slot-badge {
+  color: #993366;
+  text-shadow: none;
+  opacity: 0.4; /* optional für abgeschwächten Look */
+}
 .your-pick-title {
   font-size: 36px;
   margin: 0 0 16px 0;
@@ -745,8 +764,12 @@ select.filter-control {
       const resultsDiv = document.getElementById('results');
       resultsDiv.innerHTML = '';
     
-      selectedOrder.slice(0, 3).forEach((cat, index) => {
-        const colorClass =
+      const categoriesToRender = selectedOrder.length > 0 ? selectedOrder.slice(0, 3) : ["", "", ""];
+    
+      categoriesToRender.forEach((cat, index) => {
+        const isStandby = cat === "";
+    
+        const colorClass = isStandby ? 'slot-standby' :
           cat.includes('Street') || cat === 'Hypercar' ? 'slot-yellow' :
           ['Rally', 'Rally Raid', 'Motocross'].includes(cat) ? 'slot-blue' :
           ['Racing', 'AGP'].includes(cat) ? 'slot-orange' :
@@ -756,7 +779,7 @@ select.filter-control {
         slot.className = `slot-box empty ${colorClass}`;
         slot.innerHTML = `
           <div class="slot-badge">${index + 1}</div>
-          <div class="slot-category">${cat}</div>
+          <div class="slot-category">${isStandby ? "" : cat}</div>
           <div class="slot-name"><span class="question-mark">?</span></div>
           <div class="slot-warning"></div>
         `;
