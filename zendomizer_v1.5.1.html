@@ -916,9 +916,10 @@ select.filter-control {
       // Zustand 3: Ziehung war aktiv → Slotboxen zurücksetzen
       if (drawExecuted) {
         drawExecuted = false;
-        updateCopyButtonState();
         updateSlotBoxes();
+        updateCopyButtonState();
         updateResetButtonState();
+        updateGoButtonState();
         showToast("↩️ Ziehung zurückgesetzt", "#f44336");
         return;
       }
