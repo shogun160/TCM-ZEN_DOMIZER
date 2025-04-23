@@ -1313,6 +1313,8 @@ select.filter-control {
       copyToClipboard();
     }
     function handleGo() {
+      if (selectedOrder.length < 3) return; // ❌ GO nur bei 3 Kategorien erlaubt
+    
       drawExecuted = true;
       fillSlotBoxesWithResults();
       updateResetButtonState();
