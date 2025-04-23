@@ -757,7 +757,7 @@ select.filter-control {
         selectedOrder = selectedOrder.filter(v => v !== value);
       }
     
-      // Checkbox-Badges aktualisieren (dein vorhandener Call)
+      // Checkbox-Badges aktualisieren
       updateCheckboxBadges();
     
       // HOVER-Handling je nach Anzahl aktivierter Kategorien
@@ -783,6 +783,7 @@ select.filter-control {
         title.classList.add('standby');
       }
       updateResetButtonState();
+      updateGoButtonState();
     }
     function updateCheckboxBadges() {
       const allCheckboxes = document.querySelectorAll('.catCheckbox');
