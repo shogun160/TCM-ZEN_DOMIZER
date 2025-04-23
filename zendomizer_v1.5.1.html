@@ -691,7 +691,7 @@ select.filter-control {
         </div>
     <div class="right-panel">
         <div class="results-panel">
-          <h2 id="yourPickTitle" class="your-pick-title inactive">Your Pick</h2>
+          <h2 id="yourPickTitle" class="your-pick-title standby">Your Pick</h2>
           <div id="results"></div>
         </div>
     </div>
@@ -731,11 +731,11 @@ select.filter-control {
       // Your Pick Titel aktivieren/deaktivieren
       const title = document.getElementById('yourPickTitle');
       if (selectedOrder.length > 0) {
-        title.classList.remove('inactive');
+        title.classList.remove('standby');
         title.classList.add('active');
       } else {
         title.classList.remove('active');
-        title.classList.add('inactive');
+        title.classList.add('standby');
       }
     }
     function updateCheckboxBadges() {
