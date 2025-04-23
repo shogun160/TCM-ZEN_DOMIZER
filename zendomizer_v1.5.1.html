@@ -764,7 +764,7 @@ select.filter-control {
       resultsDiv.innerHTML = '';
       // "Your Pick" anpassen
       const title = document.getElementById('yourPickTitle');
-      title.classList.remove('active', 'inactive');
+      title.classList.remove('active', 'standby');
       title.classList.add(selectedOrder.length === 0 ? 'standby' : 'active');
 
       const categoriesToRender = selectedOrder.length > 0 ? selectedOrder.slice(0, 3) : ["", "", ""];
@@ -866,9 +866,10 @@ select.filter-control {
       document.querySelectorAll('.catCheckbox').forEach(cb => cb.disabled = false);
       // Ergebnis Slot-Boxen
       document.getElementById('results').innerHTML = '';
-      // Your Pick Überschrift active / inactive
-      document.getElementById('yourPickTitle').classList.remove('active');
-      document.getElementById('yourPickTitle').classList.add('inactive');
+      // Your Pick Überschrift active / standby
+      const title = document.getElementById('yourPickTitle');
+      title.classList.remove('active');
+      title.classList.add('standby');
     }
     function updateFilterHighlighting() {
       const brand = document.getElementById("brandSelect");
