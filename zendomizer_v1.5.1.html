@@ -653,7 +653,14 @@ select.filter-control {
   opacity: 1;
   cursor: pointer;
 }
-   
+.start-btn.inactive {
+  color: #144914;
+  border-color: #144914;
+  opacity: 0.4;
+  animation: none;
+  cursor: default;
+}
+    
 </style>
 </head>
 <body>
@@ -1353,6 +1360,14 @@ select.filter-control {
           alert("⚠️ Fahrzeugdaten konnten nicht geladen werden.");
         });
     };
+    function updateGoButtonState() {
+      const btn = document.getElementById("goBtn");
+      btn.classList.remove("inactive");
+    
+      if (selectedOrder.length < 3) {
+        btn.classList.add("inactive");
+      }
+    }
     function showToast(message = "✅ In Zwischenablage kopiert!", color = "#0f0") {
       const toast = document.getElementById("toast");
       toast.innerText = message;
