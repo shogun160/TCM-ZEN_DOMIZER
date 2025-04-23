@@ -1359,6 +1359,11 @@ select.filter-control {
         btn.classList.remove("active");
         btn.classList.remove("clicked");
       }, 750); // Dauer halbiert
+
+        // 🕒 Auto-Reset nach 10 Sekunden
+      setTimeout(() => {
+        resetSmart();
+      }, 10000);
     }
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') drawRandomVehicles();
