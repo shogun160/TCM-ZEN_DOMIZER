@@ -632,14 +632,28 @@ select.filter-control {
   animation: none;
   cursor: default;
 }
-
 .reset-btn.pulsing {
   color: #f33;
   border-color: #f33;
   animation: pulse-neon 1.2s infinite;
   opacity: 1;
 }
-    
+
+.copy-btn.standby {
+  color: #116666;
+  border-color: #116666;
+  opacity: 0.4;
+  animation: none;
+  cursor: default;
+}
+.copy-btn.drawn {
+  color: #0ff;
+  border-color: #0ff;
+  animation: pulse-neon 1.2s infinite;
+  opacity: 1;
+  cursor: pointer;
+}
+   
 </style>
 </head>
 <body>
@@ -866,6 +880,7 @@ select.filter-control {
       // Zustand 3: Ziehung war aktiv → Slotboxen zurücksetzen
       if (drawExecuted) {
         drawExecuted = false;
+        updateCopyButtonState();
         updateSlotBoxes();
         updateResetButtonState();
         showToast("↩️ Ziehung zurückgesetzt", "#f44336");
@@ -924,6 +939,17 @@ select.filter-control {
         btn.classList.add("inactive");
       } else {
         btn.classList.add("pulsing");
+      }
+    }
+    
+    function updateCopyButtonState() {
+      const btn = document.getElementById("copyBtn");
+      btn.classList.remove("standby", "drawn");
+    
+      if (drawExecuted) {
+        btn.classList.add("drawn");
+      } else {
+        btn.classList.add("standby");
       }
     }
 
@@ -1144,7 +1170,8 @@ select.filter-control {
       });
     }
     function handleCopy() {
-      copyToClipboard(); // bestehende Funktion
+      if (!drawExecuted) return; // keine Aktion im Standby
+      copyToClipboard(); // nur wenn kategorien gezogen wurden
     
       const btn = document.getElementById("copyBtn");
       btn.textContent = "🅒";
@@ -1282,6 +1309,7 @@ select.filter-control {
       drawExecuted = true;
       fillSlotBoxesWithResults();
       updateResetButtonState();
+      updateCopyButtonState();
     
       const btn = document.getElementById("goBtn");
       btn.classList.add("active");
@@ -1317,6 +1345,7 @@ select.filter-control {
           vehicles = data;
           initializeDropdowns();
           updateSlotBoxes();
+          updateCopyButtonState();
         })
         .catch(err => {
           console.error("🚨 Fehler beim Laden von vehicles.json:", err);
