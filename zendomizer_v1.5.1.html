@@ -660,6 +660,13 @@ select.filter-control {
   animation: none;
   cursor: default;
 }
+.start-btn.pulsing {
+  color: #39ff14;
+  border-color: #39ff14;
+  opacity: 1;
+  animation: pulse-neon 1.2s infinite;
+  cursor: pointer;
+}
     
 </style>
 </head>
@@ -1365,10 +1372,12 @@ select.filter-control {
     };
     function updateGoButtonState() {
       const btn = document.getElementById("goBtn");
-      btn.classList.remove("inactive");
+      btn.classList.remove("inactive", "pulsing"); // 🔁 wichtig: beides entfernen
     
       if (selectedOrder.length < 3) {
         btn.classList.add("inactive");
+      } else {
+        btn.classList.add("pulsing"); // 🟢 aktiv, wenn 3 Kategorien gewählt
       }
     }
     function showToast(message = "✅ In Zwischenablage kopiert!", color = "#0f0") {
