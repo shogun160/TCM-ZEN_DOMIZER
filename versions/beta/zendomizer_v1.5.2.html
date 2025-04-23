@@ -667,6 +667,16 @@ select.filter-control {
   animation: pulse-neon 1.2s infinite;
   cursor: pointer;
 }
+@keyframes flash-glow {
+  0%   { box-shadow: 0 0 0px currentColor; }
+  50%  { box-shadow: 0 0 24px currentColor, 0 0 48px currentColor; }
+  100% { box-shadow: 0 0 0px currentColor; }
+}
+
+.slot-box.flash,
+.start-btn.flash {
+  animation: flash-glow 0.6s ease-in-out;
+}
     
 </style>
 </head>
@@ -771,8 +781,34 @@ select.filter-control {
         grid.classList.remove('limit-reached');
         document.querySelectorAll('.catCheckbox').forEach(cb => cb.disabled = false);
       }
+    
       // Slotboxen sofort anzeigen
       updateSlotBoxes();
+    
+      // Slotbox zu neuer Kategorie flashen lassen
+      const newlyAdded = selectedOrder[selectedOrder.length - 1];
+      if (checkbox.checked && newlyAdded) {
+        const resultsDiv = document.getElementById('results');
+        const slots = resultsDiv.querySelectorAll('.slot-box');
+        slots.forEach(slot => {
+          const category = slot.querySelector('.slot-category')?.textContent;
+          if (category === newlyAdded) {
+            slot.classList.add("flash");
+            setTimeout(() => slot.classList.remove("flash"), 600);
+          }
+        });
+      }
+    
+      // GO-Button flashen, wenn genau 3 ausgewählt
+      if (selectedOrder.length === 3 && checkbox.checked) {
+        const goBtn = document.getElementById("goBtn");
+        goBtn.classList.add("flash");
+        setTimeout(() => goBtn.classList.remove("flash"), 600);
+      }
+    
+      updateResetButtonState();
+      updateGoButtonState();
+    }
       // Your Pick Titel aktivieren/deaktivieren
       const title = document.getElementById('yourPickTitle');
       if (selectedOrder.length > 0) {
