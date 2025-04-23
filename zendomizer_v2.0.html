@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>ZENDOMIZER 1.5 BETA | Fahrzeugliste 06.04.2024</title>
+<title>ZENDOMIZER 2.0 | Fahrzeugliste 06.04.2024</title>
 <style>
     body {
       font-family: 'Orbitron', sans-serif;
@@ -469,15 +469,6 @@ select.filter-control {
     margin-bottom: 42px;         /* Button Abstand vom unteren Rand statt 20*/
   }
 }
-@keyframes flash-glow {
-  0%   { box-shadow: 0 0 0px currentColor; }
-  50%  { box-shadow: 0 0 24px currentColor, 0 0 48px currentColor; }
-  100% { box-shadow: 0 0 0px currentColor; }
-}
-
-.start-btn.flash {
-  animation: flash-glow 0.6s ease-in-out;
-}
 /* --- SLOTBOXEN (rechter Bereich) --- */
 .slot-box {
   width: 372px; /* width + 2* padding (12) + 2* boarder (8) = Geasmtbreite || statt 396px*/
@@ -753,7 +744,6 @@ select.filter-control {
 <script>
     let selectedOrder = [];
     let drawExecuted = false;
-    const AUTO_RESET_DELAY = 30; // in Sekunden
 
     function handleCategoryClick(checkbox) {
       const value = checkbox.value;
@@ -767,7 +757,7 @@ select.filter-control {
         selectedOrder = selectedOrder.filter(v => v !== value);
       }
     
-      // Checkbox-Badges aktualisieren
+      // Checkbox-Badges aktualisieren (dein vorhandener Call)
       updateCheckboxBadges();
     
       // HOVER-Handling je nach Anzahl aktivierter Kategorien
@@ -781,10 +771,8 @@ select.filter-control {
         grid.classList.remove('limit-reached');
         document.querySelectorAll('.catCheckbox').forEach(cb => cb.disabled = false);
       }
-    
       // Slotboxen sofort anzeigen
       updateSlotBoxes();
-    
       // Your Pick Titel aktivieren/deaktivieren
       const title = document.getElementById('yourPickTitle');
       if (selectedOrder.length > 0) {
@@ -794,19 +782,8 @@ select.filter-control {
         title.classList.remove('active');
         title.classList.add('standby');
       }
-    
-      // Reset- & GO-Button aktualisieren
       updateResetButtonState();
-      updateGoButtonState();
-    
-      // GO-Button flashen, wenn genau 3 Kategorien ausgewählt wurden
-      if (selectedOrder.length === 3 && checkbox.checked) {
-        const goBtn = document.getElementById("goBtn");
-        goBtn.classList.add("flash");
-        setTimeout(() => goBtn.classList.remove("flash"), 600);
-      }
     }
-
     function updateCheckboxBadges() {
       const allCheckboxes = document.querySelectorAll('.catCheckbox');
       allCheckboxes.forEach(cb => {
@@ -917,10 +894,9 @@ select.filter-control {
       // Zustand 3: Ziehung war aktiv → Slotboxen zurücksetzen
       if (drawExecuted) {
         drawExecuted = false;
-        updateSlotBoxes();
         updateCopyButtonState();
+        updateSlotBoxes();
         updateResetButtonState();
-        updateGoButtonState();
         showToast("↩️ Ziehung zurückgesetzt", "#f44336");
         return;
       }
@@ -946,7 +922,6 @@ select.filter-control {
     
       updateSlotBoxes();
       updateResetButtonState();
-      updateGoButtonState();
       showToast("↩️ Filter zurückgesetzt!", "#f44336");
     }
     function updateFilterHighlighting() {
@@ -1360,8 +1335,6 @@ select.filter-control {
         btn.classList.remove("active");
         btn.classList.remove("clicked");
       }, 750); // Dauer halbiert
-      // Countdown-Toast mit integriertem Reset
-      showCountdownToast(AUTO_RESET_DELAY);
     }
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') drawRandomVehicles();
@@ -1416,25 +1389,6 @@ select.filter-control {
       setTimeout(() => {
         toast.classList.remove("show");
       }, 3000);
-    }
-    function showCountdownToast(seconds = 10) {
-      const toast = document.getElementById("toast");
-      toast.style.color = "#f33";
-      toast.classList.add("show");
-    
-      let count = seconds;
-      toast.innerText = `↩️ Automatischer Reset in ${count}…`;
-    
-      const interval = setInterval(() => {
-        count--;
-        if (count > 0) {
-          toast.innerText = `↩️ Automatischer Reset in ${count}…`;
-        } else {
-          clearInterval(interval);
-          toast.classList.remove("show");
-          resetSmart();
-        }
-      }, 1000);
     }
     const countrySelect = document.getElementById('countrySelect');
     
