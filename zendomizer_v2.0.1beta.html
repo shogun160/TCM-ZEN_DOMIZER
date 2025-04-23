@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>ZENDOMIZER 1.5 BETA | Fahrzeugliste 06.04.2024</title>
+<title>ZENDOMIZER 2.0.1 beta | Fahrzeugliste 06.04.2024</title>
 <style>
     body {
       font-family: 'Orbitron', sans-serif;
@@ -701,24 +701,24 @@ select.filter-control {
         <label for="cat8" class="catLabel cat-yellow"><span>Hypercar</span></label>
       </div>
       <div class="catWrapper">
-        <input type="checkbox" id="cat3" class="catCheckbox" onchange="handleCategoryClick(this)" value="Rally" />
-        <label for="cat3" class="catLabel cat-blue"><span>Rally</span></label>
+        <input type="checkbox" id="cat3" class="catCheckbox" onchange="handleCategoryClick(this)" value="Racing" />
+        <label for="cat3" class="catLabel cat-orange"><span>Racing</span></label>
       </div>
       <div class="catWrapper">
-        <input type="checkbox" id="cat4" class="catCheckbox" onchange="handleCategoryClick(this)" value="Rally Raid" />
-        <label for="cat4" class="catLabel cat-blue"><span>Rally Raid</span></label>
+        <input type="checkbox" id="cat4" class="catCheckbox" onchange="handleCategoryClick(this)" value="AGP" />
+        <label for="cat4" class="catLabel cat-orange"><span>AGP</span></label>
       </div>
       <div class="catWrapper">
         <input type="checkbox" id="cat5" class="catCheckbox" onchange="handleCategoryClick(this)" value="Motocross" />
         <label for="cat5" class="catLabel cat-blue"><span>Motocross</span></label>
       </div>
       <div class="catWrapper">
-        <input type="checkbox" id="cat7" class="catCheckbox" onchange="handleCategoryClick(this)" value="AGP" />
-        <label for="cat7" class="catLabel cat-orange"><span>AGP</span></label>
+        <input type="checkbox" id="cat7" class="catCheckbox" onchange="handleCategoryClick(this)" value="Rally" />
+        <label for="cat7" class="catLabel cat-blue"><span>Rally</span></label>
       </div>
       <div class="catWrapper">
-        <input type="checkbox" id="cat6" class="catCheckbox" onchange="handleCategoryClick(this)" value="Racing" />
-        <label for="cat6" class="catLabel cat-orange"><span>Racing</span></label>
+        <input type="checkbox" id="cat6" class="catCheckbox" onchange="handleCategoryClick(this)" value="Rally Raid" />
+        <label for="cat6" class="catLabel cat-blue"><span>Rally Raid</span></label>
       </div>
       <div class="catWrapper">
         <input type="checkbox" id="cat9" class="catCheckbox" onchange="handleCategoryClick(this)" value="Monster Truck" />
@@ -783,6 +783,7 @@ select.filter-control {
         title.classList.add('standby');
       }
       updateResetButtonState();
+      updateGoButtonState(); // 🟢 Aktiviert/deaktiviert den GO-Button passend
     }
     function updateCheckboxBadges() {
       const allCheckboxes = document.querySelectorAll('.catCheckbox');
