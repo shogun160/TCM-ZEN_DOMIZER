@@ -1269,6 +1269,7 @@ select.filter-control {
         .then(data => {
           vehicles = data;
           initializeDropdowns();
+          updateSlotBoxes();
         })
         .catch(err => {
           console.error("🚨 Fehler beim Laden von vehicles.json:", err);
