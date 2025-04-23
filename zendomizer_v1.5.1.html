@@ -753,6 +753,7 @@ select.filter-control {
 <script>
     let selectedOrder = [];
     let drawExecuted = false;
+    const AUTO_RESET_DELAY = 30; // in Sekunden
 
     function handleCategoryClick(checkbox) {
       const value = checkbox.value;
@@ -1360,7 +1361,7 @@ select.filter-control {
         btn.classList.remove("clicked");
       }, 750); // Dauer halbiert
       // Countdown-Toast mit integriertem Reset
-      showCountdownToast(10);
+      showCountdownToast(AUTO_RESET_DELAY);
     }
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') drawRandomVehicles();
