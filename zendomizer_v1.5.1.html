@@ -1359,6 +1359,8 @@ select.filter-control {
         btn.classList.remove("active");
         btn.classList.remove("clicked");
       }, 750); // Dauer halbiert
+      // Countdown-Toast mit integriertem Reset
+      showCountdownToast(10);
     }
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') drawRandomVehicles();
