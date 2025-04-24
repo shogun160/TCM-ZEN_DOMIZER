@@ -1434,7 +1434,9 @@ select.filter-control {
           category === 'Monster Truck' ? 'slot-red' : '';
         slot.classList.add(colorClass);
     
-        showToast(`🔁 Neues Fahrzeug für ${category} gezogen!`);
+        
+          copyToClipboard(); // Zwischenablage aktualisieren
+          showToast(`🔁 Neues Fahrzeug für ${category} gezogen!`);
       }
     }
     function showToast(message = "✅ In Zwischenablage kopiert!", color = "#0f0") {
