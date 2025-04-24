@@ -1198,6 +1198,7 @@ select.filter-control {
         btn.classList.remove("clicked");
       }, 750); // Dauer halbiert
     }
+    
     function fillSlotBoxesWithResults() {
       const filters = getCurrentFilters();
       const selectedCategories = selectedOrder.slice(0, 3);
@@ -1207,80 +1208,13 @@ select.filter-control {
         return;
       }
     
-      const shuffled = [...selectedCategories];
       const chosen = [];
     
-      for (let cat of shuffled) {
-        let ignored = [];
-        let finalList = [];
-    
-        finalList = vehicles.filter(v =>
-          v.category === cat &&
-          (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
-          (!filters.country || v.country === filters.country) &&
-          (!filters.era || v.era === filters.era) &&
-          (!filters.brand || v.brand === filters.brand)
-        );
-    
-        if (finalList.length === 0 && bikeFilterMode !== 'all') {
-          finalList = vehicles.filter(v =>
-            v.category === cat &&
-            (!filters.country || v.country === filters.country) &&
-            (!filters.era || v.era === filters.era) &&
-            (!filters.brand || v.brand === filters.brand)
-          );
-          if (finalList.length > 0) ignored.push("Bike-Filter");
-        }
-    
-        if (finalList.length === 0 && filters.era) {
-          finalList = vehicles.filter(v =>
-            v.category === cat &&
-            (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
-            (!filters.country || v.country === filters.country) &&
-            (!filters.brand || v.brand === filters.brand)
-          );
-          if (finalList.length > 0) ignored.push("Zeitraum");
-        }
-    
-        if (finalList.length === 0 && filters.brand) {
-          finalList = vehicles.filter(v =>
-            v.category === cat &&
-            (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
-            (!filters.country || v.country === filters.country) &&
-            (!filters.era || v.era === filters.era)
-          );
-          if (finalList.length > 0) ignored.push("Marke");
-        }
-    
-        if (finalList.length === 0 && filters.country) {
-          finalList = vehicles.filter(v =>
-            v.category === cat &&
-            (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
-            (!filters.era || v.era === filters.era) &&
-            (!filters.brand || v.brand === filters.brand)
-          );
-          if (finalList.length > 0) ignored.push("Land");
-        }
-    
-        if (finalList.length === 0) {
-          finalList = vehicles.filter(v =>
-            v.category === cat &&
-            (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike))
-          );
-          if (filters.era) ignored.push("Zeitraum");
-          if (filters.brand) ignored.push("Marke");
-          if (filters.country) ignored.push("Land");
-        }
-    
-        if (finalList.length === 0) {
-          finalList = vehicles.filter(v => v.category === cat);
-          ignored.push("Bike-Filter", "Land", "Marke", "Zeitraum");
-        }
-    
-        if (finalList.length === 0) continue;
-    
-        const vehicle = finalList[Math.floor(Math.random() * finalList.length)];
-        chosen.push({ ...vehicle, ignoredFilters: [...new Set(ignored)] });
+      for (let cat of selectedCategories) {
+        const result = drawVehicleForCategory(cat, filters, bikeFilterMode);
+        if (!result) continue;
+        const { vehicle, ignoredFilters } = result;
+        chosen.push({ ...vehicle, ignoredFilters });
       }
     
       if (chosen.length !== 3) {
@@ -1297,20 +1231,12 @@ select.filter-control {
         const nameDiv = slot.querySelector('.slot-name');
         const warnDiv = slot.querySelector('.slot-warning');
     
-        // Update Inhalt gezielt
-        if (nameDiv) {
-          nameDiv.textContent = `${v.brand} ${v.model} (${v.year})`;
-        }
-        if (warnDiv) {
-          warnDiv.innerHTML = v.ignoredFilters?.length
-            ? `Ignorierte Filter: ${v.ignoredFilters.join(', ')}`
-            : '';
-        }
+        nameDiv.textContent = `${v.brand} ${v.model} (${v.year})`;
+        warnDiv.innerHTML = v.ignoredFilters.length
+          ? `Ignorierte Filter: ${v.ignoredFilters.join(', ')}`
+          : '';
     
-        // Styling aktualisieren
-        slot.classList.remove('empty');
-        slot.classList.remove('slot-yellow', 'slot-blue', 'slot-orange', 'slot-red');
-    
+        slot.classList.remove('empty', 'slot-yellow', 'slot-blue', 'slot-orange', 'slot-red');
         const colorClass =
           v.category.includes('Street') || v.category === 'Hypercar' ? 'slot-yellow' :
           ['Rally', 'Rally Raid', 'Motocross'].includes(v.category) ? 'slot-blue' :
@@ -1321,6 +1247,7 @@ select.filter-control {
     
       copyToClipboard();
     }
+
     function handleGo() {
       if (selectedOrder.length < 3) return; // ❌ GO nur bei 3 Kategorien erlaubt
     
@@ -1392,8 +1319,46 @@ select.filter-control {
         btn.classList.add("pulsing"); // 🟢 aktiv, wenn 3 Kategorien gewählt
       }
     }
+    
     function rerollSingleSlot(category) {
       const filters = getCurrentFilters();
+      const result = drawVehicleForCategory(category, filters, bikeFilterMode);
+      if (!result) {
+        showToast(`⚠️ Kein Fahrzeug für ${category} gefunden.`, "#f33");
+        return;
+      }
+    
+      const { vehicle, ignoredFilters } = result;
+      const index = selectedOrder.indexOf(category);
+      if (index === -1) return;
+    
+      while (lastSelection.length < 3) {
+        lastSelection.push(null);
+      }
+    
+      lastSelection[index] = { ...vehicle, ignoredFilters };
+    
+      const slot = document.querySelectorAll('.slot-box')[index];
+      if (!slot) return;
+    
+      const nameDiv = slot.querySelector('.slot-name');
+      const warnDiv = slot.querySelector('.slot-warning');
+    
+      nameDiv.textContent = `${vehicle.brand} ${vehicle.model} (${vehicle.year})`;
+      warnDiv.innerHTML = ignoredFilters.length
+        ? `Ignorierte Filter: ${ignoredFilters.join(', ')}`
+        : '';
+    
+      slot.classList.remove('slot-yellow', 'slot-blue', 'slot-orange', 'slot-red');
+      const colorClass =
+        category.includes('Street') || category === 'Hypercar' ? 'slot-yellow' :
+        ['Rally', 'Rally Raid', 'Motocross'].includes(category) ? 'slot-blue' :
+        ['Racing', 'AGP'].includes(category) ? 'slot-orange' :
+        category === 'Monster Truck' ? 'slot-red' : '';
+      slot.classList.add(colorClass);
+    }
+
+    function drawVehicleForCategory(category, filters, bikeFilterMode) {
       let ignored = [];
     
       let finalList = vehicles.filter(v =>
@@ -1404,7 +1369,6 @@ select.filter-control {
         (!filters.brand || v.brand === filters.brand)
       );
     
-      // Fallback 1: Bike-Filter ignorieren
       if (finalList.length === 0 && bikeFilterMode !== 'all') {
         finalList = vehicles.filter(v =>
           v.category === category &&
@@ -1415,7 +1379,6 @@ select.filter-control {
         if (finalList.length > 0) ignored.push("Bike-Filter");
       }
     
-      // Fallback 2: Zeitraum ignorieren
       if (finalList.length === 0 && filters.era) {
         finalList = vehicles.filter(v =>
           v.category === category &&
@@ -1426,7 +1389,6 @@ select.filter-control {
         if (finalList.length > 0) ignored.push(`Zeitraum (${filters.era})`);
       }
     
-      // Fallback 3: Marke ignorieren
       if (finalList.length === 0 && filters.brand) {
         finalList = vehicles.filter(v =>
           v.category === category &&
@@ -1437,7 +1399,6 @@ select.filter-control {
         if (finalList.length > 0) ignored.push(`Marke (${filters.brand})`);
       }
     
-      // Fallback 4: Land ignorieren
       if (finalList.length === 0 && filters.country) {
         finalList = vehicles.filter(v =>
           v.category === category &&
@@ -1448,7 +1409,6 @@ select.filter-control {
         if (finalList.length > 0) ignored.push(`Land (${filters.country})`);
       }
     
-      // Fallback 5: Alle Filter ignorieren außer Kategorie & Bike-Mode
       if (finalList.length === 0) {
         finalList = vehicles.filter(v =>
           v.category === category &&
@@ -1461,50 +1421,17 @@ select.filter-control {
         }
       }
     
-      // Fallback 6: Nur nach Kategorie filtern (alles ignorieren)
       if (finalList.length === 0) {
         finalList = vehicles.filter(v => v.category === category);
-        ignored.push("Alle Filter");
+        if (finalList.length > 0) ignored.push("Alle Filter");
       }
     
-      if (finalList.length === 0) {
-        showToast(`⚠️ Kein Fahrzeug für ${category} gefunden.`, "#f33");
-        return;
-      }
+      if (finalList.length === 0) return null;
     
-      const newVehicle = {
-        ...finalList[Math.floor(Math.random() * finalList.length)],
-        ignoredFilters: ignored
-      };
-    
-      const index = selectedOrder.indexOf(category);
-      if (index === -1) return;
-    
-      while (lastSelection.length < 3) {
-        lastSelection.push(null);
-      }
-    
-      lastSelection[index] = newVehicle;
-    
-      const slot = document.querySelectorAll('.slot-box')[index];
-      if (!slot) return;
-    
-      const nameDiv = slot.querySelector('.slot-name');
-      const warnDiv = slot.querySelector('.slot-warning');
-    
-      nameDiv.textContent = `${newVehicle.brand} ${newVehicle.model} (${newVehicle.year})`;
-      warnDiv.innerHTML = ignored.length
-        ? `Ignorierte Filter: ${ignored.join(', ')}`
-        : '';
-    
-      slot.classList.remove('slot-yellow', 'slot-blue', 'slot-orange', 'slot-red');
-      const colorClass =
-        category.includes('Street') || category === 'Hypercar' ? 'slot-yellow' :
-        ['Rally', 'Rally Raid', 'Motocross'].includes(category) ? 'slot-blue' :
-        ['Racing', 'AGP'].includes(category) ? 'slot-orange' :
-        category === 'Monster Truck' ? 'slot-red' : '';
-      slot.classList.add(colorClass);
+      const vehicle = finalList[Math.floor(Math.random() * finalList.length)];
+      return { vehicle, ignoredFilters: ignored };
     }
+
     function showToast(message = "✅ In Zwischenablage kopiert!", color = "#0f0") {
       const toast = document.getElementById("toast");
       toast.innerText = message;
