@@ -1377,7 +1377,11 @@ select.filter-control {
       if (!box || !drawExecuted) return;
     
       const category = box.querySelector('.slot-category')?.textContent;
-      if (category) rerollSingleSlot(category);
+      if (category) {
+        rerollSingleSlot(category);
+        copyToClipboard(); // jetzt im echten Klick-Kontext
+      }
+    });
     });
     function updateGoButtonState() {
       const btn = document.getElementById("goBtn");
@@ -1433,9 +1437,6 @@ select.filter-control {
           ['Racing', 'AGP'].includes(category) ? 'slot-orange' :
           category === 'Monster Truck' ? 'slot-red' : '';
         slot.classList.add(colorClass);
-    
-        
-          copyToClipboard(); // Zwischenablage aktualisieren
       }
     }
     function showToast(message = "✅ In Zwischenablage kopiert!", color = "#0f0") {
