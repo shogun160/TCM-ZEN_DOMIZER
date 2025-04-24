@@ -1405,39 +1405,47 @@ select.filter-control {
         (!filters.brand || v.brand === filters.brand)
       );
     
-      // Optional: Fallback-Logik aus Haupt-Ziehung übernehmen, wenn du willst
-    
       if (finalList.length === 0) {
         showToast(`⚠️ Kein neues Fahrzeug für ${category} gefunden.`, "#f33");
         return;
       }
     
-      const newVehicle = finalList[Math.floor(Math.random() * finalList.length)];
-      const index = lastSelection.findIndex(v => v.category === category);
-      if (index !== -1) {
-        lastSelection[index] = { ...newVehicle, ignoredFilters: ignored };
+      // ✅ Fahrzeug inkl. Filterinfo erzeugen
+      const newVehicle = {
+        ...finalList[Math.floor(Math.random() * finalList.length)],
+        ignoredFilters: ignored
+      };
     
-        const slot = document.querySelectorAll('.slot-box')[index];
-        if (!slot) return;
+      const index = selectedOrder.indexOf(category);
+      if (index === -1) return;
     
-        const nameDiv = slot.querySelector('.slot-name');
-        const warnDiv = slot.querySelector('.slot-warning');
-    
-        // Inhalt aktualisieren
-        nameDiv.textContent = `${newVehicle.brand} ${newVehicle.model} (${newVehicle.year})`;
-        warnDiv.innerHTML = newVehicle.ignoredFilters.length
-          ? `Ignorierte Filter: ${newVehicle.ignoredFilters.join(', ')}`
-          : '';
-    
-        // Styling neu setzen
-        slot.classList.remove('slot-yellow', 'slot-blue', 'slot-orange', 'slot-red');
-        const colorClass =
-          category.includes('Street') || category === 'Hypercar' ? 'slot-yellow' :
-          ['Rally', 'Rally Raid', 'Motocross'].includes(category) ? 'slot-blue' :
-          ['Racing', 'AGP'].includes(category) ? 'slot-orange' :
-          category === 'Monster Truck' ? 'slot-red' : '';
-        slot.classList.add(colorClass);
+      // Sicherheitsmaßnahme: Liste auf 3 Elemente auffüllen
+      while (lastSelection.length < 3) {
+        lastSelection.push(null);
       }
+    
+      // ✅ Fahrzeug speichern
+      lastSelection[index] = newVehicle;
+    
+      // ✅ UI aktualisieren
+      const slot = document.querySelectorAll('.slot-box')[index];
+      if (!slot) return;
+    
+      const nameDiv = slot.querySelector('.slot-name');
+      const warnDiv = slot.querySelector('.slot-warning');
+    
+      nameDiv.textContent = `${newVehicle.brand} ${newVehicle.model} (${newVehicle.year})`;
+      warnDiv.innerHTML = newVehicle.ignoredFilters.length
+        ? `Ignorierte Filter: ${newVehicle.ignoredFilters.join(', ')}`
+        : '';
+    
+      slot.classList.remove('slot-yellow', 'slot-blue', 'slot-orange', 'slot-red');
+      const colorClass =
+        category.includes('Street') || category === 'Hypercar' ? 'slot-yellow' :
+        ['Rally', 'Rally Raid', 'Motocross'].includes(category) ? 'slot-blue' :
+        ['Racing', 'AGP'].includes(category) ? 'slot-orange' :
+        category === 'Monster Truck' ? 'slot-red' : '';
+      slot.classList.add(colorClass);
     }
     function showToast(message = "✅ In Zwischenablage kopiert!", color = "#0f0") {
       const toast = document.getElementById("toast");
