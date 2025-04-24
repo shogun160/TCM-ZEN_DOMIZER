@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>ZENDOMIZER 2.0 | Fahrzeugliste 06.04.2024</title>
+<title>ZENDOMIZER v2.0 | Carlist 04/2024</title>
 <style>
     body {
       font-family: 'Orbitron', sans-serif;
@@ -1372,6 +1372,13 @@ select.filter-control {
           alert("⚠️ Fahrzeugdaten konnten nicht geladen werden.");
         });
     };
+    document.addEventListener('click', function(e) {
+      const box = e.target.closest('.slot-box');
+      if (!box || !drawExecuted) return;
+    
+      const category = box.querySelector('.slot-category')?.textContent;
+      if (category) rerollSingleSlot(category);
+    });
     function updateGoButtonState() {
       const btn = document.getElementById("goBtn");
       btn.classList.remove("inactive", "pulsing"); // 🔁 wichtig: beides entfernen
@@ -1380,6 +1387,54 @@ select.filter-control {
         btn.classList.add("inactive");
       } else {
         btn.classList.add("pulsing"); // 🟢 aktiv, wenn 3 Kategorien gewählt
+      }
+    }
+    function rerollSingleSlot(category) {
+      const filters = getCurrentFilters();
+      let ignored = [];
+    
+      let finalList = vehicles.filter(v =>
+        v.category === category &&
+        (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
+        (!filters.country || v.country === filters.country) &&
+        (!filters.era || v.era === filters.era) &&
+        (!filters.brand || v.brand === filters.brand)
+      );
+    
+      // Optional: Fallback-Logik aus Haupt-Ziehung übernehmen, wenn du willst
+    
+      if (finalList.length === 0) {
+        showToast(`⚠️ Kein neues Fahrzeug für ${category} gefunden.`, "#f33");
+        return;
+      }
+    
+      const newVehicle = finalList[Math.floor(Math.random() * finalList.length)];
+      const index = lastSelection.findIndex(v => v.category === category);
+      if (index !== -1) {
+        lastSelection[index] = { ...newVehicle, ignoredFilters: ignored };
+    
+        const slot = document.querySelectorAll('.slot-box')[index];
+        if (!slot) return;
+    
+        const nameDiv = slot.querySelector('.slot-name');
+        const warnDiv = slot.querySelector('.slot-warning');
+    
+        // Inhalt aktualisieren
+        nameDiv.textContent = `${newVehicle.brand} ${newVehicle.model} (${newVehicle.year})`;
+        warnDiv.innerHTML = newVehicle.ignoredFilters.length
+          ? `Ignorierte Filter: ${newVehicle.ignoredFilters.join(', ')}`
+          : '';
+    
+        // Styling neu setzen
+        slot.classList.remove('slot-yellow', 'slot-blue', 'slot-orange', 'slot-red');
+        const colorClass =
+          category.includes('Street') || category === 'Hypercar' ? 'slot-yellow' :
+          ['Rally', 'Rally Raid', 'Motocross'].includes(category) ? 'slot-blue' :
+          ['Racing', 'AGP'].includes(category) ? 'slot-orange' :
+          category === 'Monster Truck' ? 'slot-red' : '';
+        slot.classList.add(colorClass);
+    
+        showToast(`🔁 Neues Fahrzeug für ${category} gezogen!`);
       }
     }
     function showToast(message = "✅ In Zwischenablage kopiert!", color = "#0f0") {
