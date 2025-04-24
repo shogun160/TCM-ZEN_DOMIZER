@@ -1111,7 +1111,21 @@ select.filter-control {
 
         if (finalList.length === 0) continue;
 
+        // Letztes Fahrzeug für die Kategorie aus lastSelection holen
+        const lastVehicle = lastSelection?.find(v => v?.category === category);
+        
+        // Bei mehreren Optionen das vorherige rausfiltern
+        if (finalList.length > 1 && lastVehicle) {
+          finalList = finalList.filter(v =>
+            !(v.brand === lastVehicle.brand &&
+              v.model === lastVehicle.model &&
+              v.year === lastVehicle.year)
+          );
+        }
+        
+        // Neu ziehen aus gefilterter Liste
         const vehicle = finalList[Math.floor(Math.random() * finalList.length)];
+
         chosen.push({...vehicle, ignoredFilters: ignored});
       }
 
