@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>ZENDOMIZER v2 | Fahrzeugliste 06.04.2024</title>
+<title>ZENDOMIZER v2 | Carlist 04/2024</title>
 <style>
     body {
       font-family: 'Orbitron', sans-serif;
@@ -1404,12 +1404,74 @@ select.filter-control {
         (!filters.brand || v.brand === filters.brand)
       );
     
+      // Fallback 1: Bike-Filter ignorieren
+      if (finalList.length === 0 && bikeFilterMode !== 'all') {
+        finalList = vehicles.filter(v =>
+          v.category === category &&
+          (!filters.country || v.country === filters.country) &&
+          (!filters.era || v.era === filters.era) &&
+          (!filters.brand || v.brand === filters.brand)
+        );
+        if (finalList.length > 0) ignored.push("Bike-Filter");
+      }
+    
+      // Fallback 2: Zeitraum ignorieren
+      if (finalList.length === 0 && filters.era) {
+        finalList = vehicles.filter(v =>
+          v.category === category &&
+          (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
+          (!filters.country || v.country === filters.country) &&
+          (!filters.brand || v.brand === filters.brand)
+        );
+        if (finalList.length > 0) ignored.push(`Zeitraum (${filters.era})`);
+      }
+    
+      // Fallback 3: Marke ignorieren
+      if (finalList.length === 0 && filters.brand) {
+        finalList = vehicles.filter(v =>
+          v.category === category &&
+          (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
+          (!filters.country || v.country === filters.country) &&
+          (!filters.era || v.era === filters.era)
+        );
+        if (finalList.length > 0) ignored.push(`Marke (${filters.brand})`);
+      }
+    
+      // Fallback 4: Land ignorieren
+      if (finalList.length === 0 && filters.country) {
+        finalList = vehicles.filter(v =>
+          v.category === category &&
+          (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
+          (!filters.era || v.era === filters.era) &&
+          (!filters.brand || v.brand === filters.brand)
+        );
+        if (finalList.length > 0) ignored.push(`Land (${filters.country})`);
+      }
+    
+      // Fallback 5: Alle Filter ignorieren außer Kategorie & Bike-Mode
       if (finalList.length === 0) {
-        showToast(`⚠️ Kein neues Fahrzeug für ${category} gefunden.`, "#f33");
+        finalList = vehicles.filter(v =>
+          v.category === category &&
+          (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike))
+        );
+        if (finalList.length > 0) {
+          if (filters.era) ignored.push(`Zeitraum (${filters.era})`);
+          if (filters.brand) ignored.push(`Marke (${filters.brand})`);
+          if (filters.country) ignored.push(`Land (${filters.country})`);
+        }
+      }
+    
+      // Fallback 6: Nur nach Kategorie filtern (alles ignorieren)
+      if (finalList.length === 0) {
+        finalList = vehicles.filter(v => v.category === category);
+        ignored.push("Alle Filter");
+      }
+    
+      if (finalList.length === 0) {
+        showToast(`⚠️ Kein Fahrzeug für ${category} gefunden.`, "#f33");
         return;
       }
     
-      // ✅ Fahrzeug inkl. Filterinfo erzeugen
       const newVehicle = {
         ...finalList[Math.floor(Math.random() * finalList.length)],
         ignoredFilters: ignored
@@ -1418,15 +1480,12 @@ select.filter-control {
       const index = selectedOrder.indexOf(category);
       if (index === -1) return;
     
-      // Sicherheitsmaßnahme: Liste auf 3 Elemente auffüllen
       while (lastSelection.length < 3) {
         lastSelection.push(null);
       }
     
-      // ✅ Fahrzeug speichern
       lastSelection[index] = newVehicle;
     
-      // ✅ UI aktualisieren
       const slot = document.querySelectorAll('.slot-box')[index];
       if (!slot) return;
     
@@ -1434,8 +1493,8 @@ select.filter-control {
       const warnDiv = slot.querySelector('.slot-warning');
     
       nameDiv.textContent = `${newVehicle.brand} ${newVehicle.model} (${newVehicle.year})`;
-      warnDiv.innerHTML = newVehicle.ignoredFilters.length
-        ? `Ignorierte Filter: ${newVehicle.ignoredFilters.join(', ')}`
+      warnDiv.innerHTML = ignored.length
+        ? `Ignorierte Filter: ${ignored.join(', ')}`
         : '';
     
       slot.classList.remove('slot-yellow', 'slot-blue', 'slot-orange', 'slot-red');
