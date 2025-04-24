@@ -1183,9 +1183,10 @@ select.filter-control {
       resultsDiv.scrollIntoView({ behavior: 'smooth' });
       copyToClipboard();
     }
-    function copyToClipboard() {
+    
+    function copyToClipboard(silent = false) {
       if (!lastSelection || lastSelection.length === 0) {
-        showToast("⚠️ Keine Auswahl zum Kopieren.");
+        if (!silent) showToast("⚠️ Keine Auswahl zum Kopieren.");
         return;
       }
     
@@ -1196,9 +1197,10 @@ select.filter-control {
       });
     
       navigator.clipboard.writeText(result.trim()).then(() => {
-        showToast("✅ In Zwischenablage kopiert!");
+        if (!silent) showToast("✅ In Zwischenablage kopiert!");
       });
     }
+
     function handleCopy() {
       if (!drawExecuted) return; // keine Aktion im Standby
       copyToClipboard(); // nur wenn kategorien gezogen wurden
@@ -1350,6 +1352,8 @@ select.filter-control {
         lastSelection.push(null);
       }
     
+      const oldVehicle = lastSelection[index]; // vorher merken
+    
       lastSelection[index] = { ...vehicle, ignoredFilters };
     
       const slot = document.querySelectorAll('.slot-box')[index];
@@ -1370,6 +1374,19 @@ select.filter-control {
         ['Racing', 'AGP'].includes(category) ? 'slot-orange' :
         category === 'Monster Truck' ? 'slot-red' : '';
       slot.classList.add(colorClass);
+    
+      // Fahrzeug gleich wie vorher?
+      const isSame = oldVehicle &&
+        oldVehicle.brand === vehicle.brand &&
+        oldVehicle.model === vehicle.model &&
+        oldVehicle.year === vehicle.year;
+    
+      if (isSame) {
+        showToast("🔁 Gleiches Fahrzeug erneut gezogen – keine Alternative verfügbar.", "#999");
+        copyToClipboard(true); // ohne Toast
+      } else {
+        copyToClipboard(); // mit normalem Toast
+      }
     }
 
     function drawVehicleForCategory(category, filters, bikeFilterMode) {
