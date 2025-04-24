@@ -1197,7 +1197,9 @@ select.filter-control {
       });
     
       navigator.clipboard.writeText(result.trim()).then(() => {
-        if (!silent) showToast("✅ In Zwischenablage kopiert!");
+        if (!silent) {
+          showToast("✅ In Zwischenablage kopiert!");
+        }
       });
     }
 
