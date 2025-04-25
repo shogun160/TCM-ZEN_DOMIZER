@@ -667,6 +667,15 @@ select.filter-control {
   animation: pulse-neon 1.2s infinite;
   cursor: pointer;
 }
+@keyframes slotFlash {
+  0%   { box-shadow: 0 0 20px currentColor, 0 0 40px currentColor; }
+  100% { box-shadow: 0 0 12px currentColor; }
+}
+
+.slot-box.flash {
+  animation: slotFlash 0.4s ease-out;
+}
+
     
 </style>
 </head>
@@ -1261,6 +1270,10 @@ select.filter-control {
           ['Racing', 'AGP'].includes(v.category) ? 'slot-orange' :
           v.category === 'Monster Truck' ? 'slot-red' : '';
         slot.classList.add(colorClass);
+        // ✨ Neon-Flash-Animation für GO
+        slot.classList.add("flash");
+        setTimeout(() => slot.classList.remove("flash"), 400);
+
       });
     
       copyToClipboard();
@@ -1375,6 +1388,11 @@ select.filter-control {
         ['Racing', 'AGP'].includes(category) ? 'slot-orange' :
         category === 'Monster Truck' ? 'slot-red' : '';
       slot.classList.add(colorClass);
+    
+      // Kurze Neon-Flash-Animation
+      slot.classList.add("flash");
+      setTimeout(() => slot.classList.remove("flash"), 400);
+
     
       // Fahrzeug gleich wie vorher?
       const isSame = oldVehicle &&
