@@ -1272,7 +1272,7 @@ select.filter-control {
         slot.classList.add(colorClass);
         // ✨ Neon-Flash-Animation für GO
         slot.classList.add("flash");
-        setTimeout(() => slot.classList.remove("flash"), 400);
+        setTimeout(() => slot.classList.remove("flash"), 800);
 
       });
     
@@ -1391,8 +1391,7 @@ select.filter-control {
     
       // Kurze Neon-Flash-Animation
       slot.classList.add("flash");
-      setTimeout(() => slot.classList.remove("flash"), 400);
-
+      setTimeout(() => slot.classList.remove("flash"), 800);
     
       // Fahrzeug gleich wie vorher?
       const isSame = oldVehicle &&
