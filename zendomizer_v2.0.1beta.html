@@ -1300,7 +1300,12 @@ select.filter-control {
       if (e.key === 'Enter') drawRandomVehicles();
       if (e.key.toLowerCase() === 'r') repeatDraw();
       if (e.key.toLowerCase() === 'c') copyToClipboard();
-    });
+    })
+    function flashElement(el, duration = 800) {
+      if (!el) return;
+      el.classList.add("flash");
+      setTimeout(() => el.classList.remove("flash"), duration);
+    };
 
     window.onload = () => {
       bikeFilterMode = "no_bike";
@@ -1329,6 +1334,31 @@ select.filter-control {
           console.error("🚨 Fehler beim Laden von vehicles.json:", err);
           alert("⚠️ Fahrzeugdaten konnten nicht geladen werden.");
         });
+      // Flash-Effekte für Buttons
+        document.getElementById("goBtn")?.addEventListener("click", () => flashElement(document.getElementById("goBtn")));
+        document.getElementById("copyBtn")?.addEventListener("click", () => flashElement(document.getElementById("copyBtn")));
+        document.getElementById("resetBtn")?.addEventListener("click", () => flashElement(document.getElementById("resetBtn")));
+        
+        // Flash bei Filteränderung
+        ["brandSelect", "countrySelect", "eraSelect"].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) {
+            el.addEventListener("change", () => flashElement(el));
+          }
+        });
+        
+        // Flash bei BikeFilterButton
+        const bikeBtn = document.getElementById("bikeFilterBtn");
+        bikeBtn?.addEventListener("click", () => flashElement(bikeBtn));
+        
+        // Flash bei Kategorieauswahl
+        document.querySelectorAll(".catCheckbox").forEach(cb => {
+          cb.addEventListener("change", () => {
+            const label = document.querySelector(`label[for="${cb.id}"]`);
+            if (label) flashElement(label);
+          });
+        });
+
     };
     document.addEventListener('click', function(e) {
       const box = e.target.closest('.slot-box');
