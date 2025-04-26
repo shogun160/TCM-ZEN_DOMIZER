@@ -373,18 +373,14 @@
   position: relative;
   z-index: 1;
 }
-.layout {
+
+.middle-wrapper {
   display: flex;
-  gap: 32px;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-  max-width: 2000px;
-  margin: 0 auto;
-  padding-top: 90px;
-  position: relative;
-  z-index: 1;
 }
+
 .left-panel,
 .right-panel {
   flex: 1 1 40%;
@@ -719,9 +715,7 @@ select.filter-control {
 </style>
 </head>
 <body>
-<!-- Maschinen-Hintergrund -->
 <div class="machine-wrapper"></div>
-
 <!-- Start Haupt-Layout -->
 <div class="layout">
 
@@ -742,19 +736,19 @@ select.filter-control {
       </div>
     </div>
 
+    <!-- Kategorie-Kacheln (Street, Racing, Hypercar, ...) -->
     <div class="category-grid">
-      <!-- Kategorie-Kacheln -->
-      <!-- (Hier bleiben deine bisherigen Kategorien wie Street Tier 1, Rally, Drift usw.) -->
-      <!-- Beispiel: -->
+      <!-- Beispiel: Kategorie 1 -->
       <div class="catWrapper">
         <input type="checkbox" id="cat1" class="catCheckbox" onchange="handleCategoryClick(this)" value="Street Tier 1"/>
         <label for="cat1" class="catLabel cat-yellow"><span>Street<br>Tier 1</span></label>
       </div>
-      <!-- ... alle weiteren catWrapper hier ... -->
+      <!-- Weitere Kategorien hier -->
+      <!-- ... -->
     </div>
   </div> <!-- Ende Left-Panel -->
 
-  <!-- 🆕 Neuer Wrapper: Mitte + Rechts + Grandrace Ticker -->
+  <!-- 🆕 Neuer Wrapper für Mitte + Rechts + Grandrace Ticker -->
   <div class="middle-wrapper">
 
     <!-- Mittlere Spalte: Automat (GO-Button) -->
@@ -774,12 +768,13 @@ select.filter-control {
 
     <!-- Grandrace-Ticker: Läuft unter Center + Right -->
     <div id="grandraceTicker" class="marquee">
-      <div id="grandraceContent"></div>
+      <div id="grandraceContent"></div> <!-- Inhalt wird per JS dynamisch befüllt -->
     </div>
 
   </div> <!-- Ende Middle-Wrapper -->
 
 </div> <!-- Ende Layout -->
+</div>
 <script src="https://shogun160.github.io/TCM-ZEN_DOMIZER/cars/vehicles.json" type="application/json"></script>
 <script>
     /*
