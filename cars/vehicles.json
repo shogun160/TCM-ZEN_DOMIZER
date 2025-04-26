@@ -6100,5 +6100,59 @@
     "year": 2020,
     "country": "Dänemark",
     "era": "Modern"
-  }
+  },
+  {
+    "category": "Drift",
+    "bike": false,
+    "brand": "Hoonigan",
+    "model": "Mitsubishi Lancer Evolution IX",
+    "year": 2006,
+    "country": "Japan",
+    "era": "Modern"
+  },
+  {
+    "category": "Drift",
+    "bike": false,
+    "brand": "Hoonigan",
+    "model": "Audi S1 e-tron quattro Hoonitron",
+    "year": 2021,
+    "country": "Deutschland",
+    "era": "Modern"
+  },
+  {
+    "category": "Drift",
+    "bike": false,
+    "brand": "Hoonigan",
+    "model": "Ford Hoonicorn Mustang",
+    "year": 1965,
+    "country": "USA",
+    "era": "Klassisch"
+  },
+  {
+    "category": "Drift",
+    "bike": false,
+    "brand": "Mitsubishi",
+    "model": "Lancer Evolution VI GSR",
+    "year": 1999,
+    "country": "Japan",
+    "era": "Modern"
+  },
+  {
+    "category": "Drift",
+    "bike": false,
+    "brand": "Mitsubishi",
+    "model": "Lancer Evolution VI GSR Flow Edition",
+    "year": 1999,
+    "country": "Japan",
+    "era": "Modern"
+  },
+  {
+    "category": "Drift",
+    "bike": false,
+    "brand": "Mitsubishi",
+    "model": "Lancer Evolution X",
+    "year": 2014,
+    "country": "Japan",
+    "era": "Modern"
+  },
 ]
