@@ -20,23 +20,28 @@
     #grandraceTicker {
       width: 100%;
       overflow: hidden;
-      white-space: nowrap;
       background: rgba(0, 0, 0, 0.85);
       color: #FF00FF;
       font-size: 20px;
       font-weight: bold;
-      text-align: center;
-      text-shadow: 0 0 5px #FF00FF, 0 0 10px #FF00FF, 0 0 20px #FF00FF;
-      animation: scrollMarquee 10s linear infinite;
-      padding: 12px 0;
-      margin-top: 0;
+      text-align: left; /* Achtung: nicht center! */
+      position: relative;
+      white-space: nowrap;
       border-top: 2px solid #FF00FF;
       border-bottom: 2px solid #FF00FF;
+      padding: 12px 0;
+    }
+    
+    #grandraceContent {
+      display: inline-block;
+      padding-left: 100%; /* Start außerhalb */
+      animation: scrollMarquee 30s linear infinite;
+      white-space: nowrap;
     }
     
     @keyframes scrollMarquee {
-      0% { transform: translateX(-18%); }   /* - Start weiter nach links */
-      100% { transform: translateX(-67%); } /* - Ende weiter nach links */
+      0% { transform: translateX(0%); }   /* - Start weiter nach links statt -18*/
+      100% { transform: translateX(-100%); } /* - Ende weiter nach links statt  -67 */
     }
 
 
@@ -787,7 +792,9 @@ select.filter-control {
         <div id="results"></div>
       </div>
       <!-- Grandrace Ticker kommt JETZT hier in die rechte Spalte -->
-      <div id="grandraceTicker" class="marquee"></div>
+      <div id="grandraceTicker" class="marquee">
+        <div id="grandraceContent"></div>
+      </div>
     </div> <!-- Ende right-panel -->
 </div>
 <script src="https://shogun160.github.io/TCM-ZEN_DOMIZER/cars/vehicles.json" type="application/json"></script>
@@ -1636,16 +1643,16 @@ select.filter-control {
     }
 
     function updateGrandraceTicker() {
-      const ticker = document.getElementById('grandraceTicker');
-      if (!ticker) return;
+      const tickerContent = document.getElementById('grandraceContent');
+      if (!tickerContent) return;
+      
       const currentEvent = ROTATION[getCurrentEventIndex()][0];
-    
-      const spacer = '&emsp;&emsp;&emsp;&emsp;'; // HTML-Spaces (noch feiner als Unicode)
-    
+      
+      const spacer = '&emsp;&emsp;&emsp;&emsp;'; // schöner Abstand
       const message = `🏁 Ready for ${currentEvent}? Let's race! 🏁`;
-      const repeatedMessage = `<span>${message}</span>${spacer}`.repeat(8); // 8x Wiederholen
-    
-      ticker.innerHTML = repeatedMessage; // wichtig: innerHTML statt innerText
+      
+      // Mehrfach Wiederholen, damit der Lauftext lang genug wird
+      tickerContent.innerHTML = (message + spacer).repeat(8);
     }
     
     // Direkt beim Laden ausführen
