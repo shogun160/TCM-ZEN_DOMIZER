@@ -655,6 +655,24 @@ select.filter-control {
     0 0 6px #ff00ff,
     0 0 12px #ff00ff,
     0 0 20px #ff00ff;
+  animation: pickPulse 2s infinite;
+}
+
+@keyframes pickPulse {
+  0%, 100% {
+    text-shadow:
+      0 0 2px #ff00ff,
+      0 0 6px #ff00ff,
+      0 0 12px #ff00ff,
+      0 0 20px #ff00ff;
+  }
+  50% {
+    text-shadow:
+      0 0 4px #ff00ff,
+      0 0 8px #ff00ff,
+      0 0 16px #ff00ff,
+      0 0 24px #ff00ff;
+  }
 }
 /* Farbliche Kategorien für Slot-Boxen */
 .slot-yellow { color: #FFD700; }
@@ -707,8 +725,9 @@ select.filter-control {
   cursor: pointer;
 }
 @keyframes slotFlash {
-  0%   { box-shadow: 0 0 20px currentColor, 0 0 40px currentColor; }
-  100% { box-shadow: 0 0 12px currentColor; }
+  0%   { box-shadow: 0 0 20px currentColor, 0 0 40px currentColor, 0 0 60px currentColor; transform: scale(1.05); }
+  50%  { box-shadow: 0 0 12px currentColor, 0 0 24px currentColor; transform: scale(1.02); }
+  100% { box-shadow: 0 0 12px currentColor; transform: scale(1); }
 }
 
 .slot-box.flash {
