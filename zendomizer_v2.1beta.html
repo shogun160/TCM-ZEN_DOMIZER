@@ -581,18 +581,19 @@ select.filter-control {
   mix-blend-mode: screen;
 }
 .slot-standby {
-  color: #993366;  /* Dunkles Pink */
+  color: #993366;
   border-color: #993366;
-  box-shadow: none;
-  animation: none;
+  box-shadow: 0 0 8px #993366;
+  background: rgba(0, 0, 0, 0.8);
+  animation: pulse-neon 2s infinite;
 }
 .slot-standby .slot-name {
   font-size: 80px;
-  animation: spin3D 1.6s linear infinite;
-  text-shadow: none;
+  animation: spin3D 1.6s linear infinite, pulse-text 1.2s infinite;
 }
 .slot-standby .question-mark {
-  text-shadow: none;
+  color: #993366;
+  text-shadow: 0 0 2px #993366, 0 0 6px #993366, 0 0 12px #993366;
 }
 .slot-standby .slot-badge {
   color: #3d2233;         /* dunkler, matter Violettton statt pink #993366*/
