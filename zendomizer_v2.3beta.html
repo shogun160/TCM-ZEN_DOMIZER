@@ -17,6 +17,13 @@
       align-items: center;
     }
 
+    .middle-wrapper {
+      display: flex;
+      flex-direction: column;  /* Alles untereinander anordnen */
+      align-items: center;     /* Zentriert alles */
+      width: 100%;             /* Volle Breite */
+    }
+
     #grandraceTicker {
       width: 100%;
       overflow: hidden;
@@ -31,7 +38,7 @@
       border-bottom: 2px solid #FF00FF;
       padding: 12px 0;
     }
-    
+
     #grandraceContent {
       display: inline-block;
       padding-left: 100%; /* Start außerhalb */
@@ -372,13 +379,6 @@
   padding-top: 90px;
   position: relative;
   z-index: 1;
-}
-
-.middle-wrapper {
-  display: flex;
-  flex-direction: column; /* Alles untereinander anordnen */
-  align-items: center;    /* Zentriert alles */
-  width: 100%;            /* Volle Breite */
 }
 
 .left-panel,
@@ -737,13 +737,12 @@ select.filter-control {
       </div>
     </div>
 
-    <!-- Kategorie-Kacheln -->
+    <!-- Kategorie-Kacheln (Street, Racing, Hypercar, ...) -->
     <div class="category-grid">
       <div class="catWrapper">
         <input type="checkbox" id="cat1" class="catCheckbox" onchange="handleCategoryClick(this)" value="Street Tier 1"/>
         <label for="cat1" class="catLabel cat-yellow"><span>Street<br>Tier 1</span></label>
       </div>
-      <!-- Weitere Kategorien hier -->
       <div class="catWrapper">
         <input type="checkbox" id="cat2" class="catCheckbox" onchange="handleCategoryClick(this)" value="Street Tier 2"/>
         <label for="cat2" class="catLabel cat-yellow"><span>Street<br>Tier 2</span></label>
@@ -752,7 +751,7 @@ select.filter-control {
         <input type="checkbox" id="cat8" class="catCheckbox" onchange="handleCategoryClick(this)" value="Hypercar"/>
         <label for="cat8" class="catLabel cat-yellow"><span>Hypercar</span></label>
       </div>
-      <!-- Weitere Kategorien weiterhin hier -->
+      <!-- Weitere Kategorien hier -->
     </div> <!-- Ende Kategorie-Grid -->
   </div> <!-- Ende Left-Panel -->
 
