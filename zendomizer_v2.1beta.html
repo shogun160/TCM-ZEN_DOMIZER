@@ -219,9 +219,9 @@
     }
     /* RESET-Button im Grid */
     .reset-special {
-      background-color: #FF4444; /* Kräftiges Rot */
-      border: 2px solid #FF4444;
-      color: #000000; /* Schwarze Schrift */
+      background: linear-gradient(135deg, #FF4444 0%, #CC0000 100%); /* Eigenes kräftiges Rot-Gradient */
+      border: 2px solid #FF4444; /* Gleicher Rand wie Monster Truck */
+      color: #FF4444; /* Textfarbe bleibt Rot – wie Monster Truck */
       font-size: 18px;
       font-weight: bold;
       cursor: pointer;
@@ -245,12 +245,11 @@
       box-shadow: 0 0 6px #FF4444 inset;
     }
 
-    /* Button-Reset für HTML-Button-Tag */
+    /* HTML-Button-Reset */
     button.reset-special {
       appearance: none;
       border: none;
     }
-
 
     @keyframes pulse-neon {
       0%, 100% {
