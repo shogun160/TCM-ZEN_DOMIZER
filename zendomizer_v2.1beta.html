@@ -217,6 +217,41 @@
       border-color: #39ff14;
       color: #39ff14;
     }
+    /* RESET-Button im Grid */
+    .reset-special {
+      background-color: #FF4444; /* Kräftiges Rot */
+      border: 2px solid #FF4444;
+      color: #000000; /* Schwarze Schrift */
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    /* Hover Effekt */
+    .reset-special:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 12px #FF4444, 0 0 24px #FF4444;
+    }
+
+    /* Klick Effekt */
+    .reset-special:active {
+      transform: scale(0.95);
+      box-shadow: 0 0 6px #FF4444 inset;
+    }
+
+    /* Button-Reset für HTML-Button-Tag */
+    button.reset-special {
+      appearance: none;
+      border: none;
+    }
+
+
     @keyframes pulse-neon {
       0%, 100% {
         box-shadow: 0 0 6px currentColor;
