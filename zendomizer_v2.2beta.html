@@ -1640,14 +1640,14 @@ select.filter-control {
     function updateGrandraceTicker() {
       const ticker = document.getElementById('grandraceTicker');
       if (!ticker) return;
-      const currentEvent = ROTATION[getCurrentEventIndex()][0]; // nimmt den aktuellen Eventnamen
-      ticker.innerText = `🏁 ${currentEvent} Grandrace Event 🏁`;
+      const currentEvent = ROTATION[getCurrentEventIndex()][0]; // Aktueller Event
+      ticker.innerText = `🏁 ${currentEvent} Grandrace Event 🏁 🏁 ${currentEvent} Grandrace Event 🏁`;
     }
     
-    // Beim Laden direkt einmal aufrufen
+    // Direkt beim Laden ausführen
     window.addEventListener('load', updateGrandraceTicker);
     
-    // Optional: alle 15 Sekunden neu prüfen (falls sich das Event ändert)
+    // Optional: Alle 15 Sekunden neu prüfen
     setInterval(updateGrandraceTicker, 15000);
 
     function showToast(message = "✅ In Zwischenablage kopiert!", color = "#0f0") {
