@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>ZENDOMIZER v2.0.1 BETA | Vehicle list 04/2024</title>
+<title>ZENDOMIZER v2.1 BETA | Vehicle list 04/2024</title>
 <style>
     body {
       font-family: 'Orbitron', sans-serif;
@@ -682,77 +682,165 @@ select.filter-control {
 <body>
 <div class="machine-wrapper"></div>
 <div class="layout"><div class="left-panel">
-<div class="filter-wrapper">
-  <div class="filter-grid">
-      <button id="bikeFilterBtn" class="filter-control" onclick="toggleBikeFilter()">loading...</button>
-      <select id="countrySelect" class="filter-control" onchange="updateFilterHighlighting()">
-        <option value="">Land wählen</option>
-      </select>
-      <select id="brandSelect" class="filter-control" onchange="updateFilterHighlighting()">
-        <option value="">Marke wählen</option>
-      </select>
-      <select id="eraSelect" class="filter-control" onchange="updateFilterHighlighting()">
-        <option value="">Zeitraum wählen</option>
-      </select>
+    <div class="filter-wrapper">
+        <div class="filter-grid">
+            <button id="bikeFilterBtn" class="filter-control" onclick="toggleBikeFilter()">loading...</button>
+            <select id="countrySelect" class="filter-control" onchange="updateFilterHighlighting()">
+                <option value="">Land wählen</option>
+            </select>
+            <select id="brandSelect" class="filter-control" onchange="updateFilterHighlighting()">
+                <option value="">Marke wählen</option>
+            </select>
+            <select id="eraSelect" class="filter-control" onchange="updateFilterHighlighting()">
+                <option value="">Zeitraum wählen</option>
+            </select>
+        </div>
     </div>
-</div>
     <div class="category-grid">
+      <!-- Reihe 1 -->
       <div class="catWrapper">
-        <input type="checkbox" id="cat1" class="catCheckbox" onchange="handleCategoryClick(this)" value="Street Tier 1" />
-        <label for="cat1" class="catLabel cat-yellow"><span>Street<br>Tier 1</span></label>
+          <input type="checkbox" id="cat1" class="catCheckbox" onchange="handleCategoryClick(this)" value="Street Tier 1"/>
+          <label for="cat1" class="catLabel cat-yellow"><span>Street<br>Tier 1</span></label>
       </div>
       <div class="catWrapper">
-        <input type="checkbox" id="cat2" class="catCheckbox" onchange="handleCategoryClick(this)" value="Street Tier 2" />
-        <label for="cat2" class="catLabel cat-yellow"><span>Street<br>Tier 2</span></label>
+          <input type="checkbox" id="cat2" class="catCheckbox" onchange="handleCategoryClick(this)" value="Street Tier 2"/>
+          <label for="cat2" class="catLabel cat-yellow"><span>Street<br>Tier 2</span></label>
       </div>
       <div class="catWrapper">
-        <input type="checkbox" id="cat8" class="catCheckbox" onchange="handleCategoryClick(this)" value="Hypercar" />
-        <label for="cat8" class="catLabel cat-yellow"><span>Hypercar</span></label>
+          <input type="checkbox" id="cat8" class="catCheckbox" onchange="handleCategoryClick(this)" value="Hypercar"/>
+          <label for="cat8" class="catLabel cat-yellow"><span>Hypercar</span></label>
+      </div>
+    
+      <!-- Reihe 2 -->
+      <div class="catWrapper">
+          <input type="checkbox" id="cat10" class="catCheckbox" onchange="handleCategoryClick(this)" value="Drift"/>
+          <label for="cat10" class="catLabel cat-yellow"><span>Drift</span></label>
       </div>
       <div class="catWrapper">
-        <input type="checkbox" id="cat3" class="catCheckbox" onchange="handleCategoryClick(this)" value="Racing" />
-        <label for="cat3" class="catLabel cat-orange"><span>Racing</span></label>
+          <input type="checkbox" id="cat3" class="catCheckbox" onchange="handleCategoryClick(this)" value="Racing"/>
+          <label for="cat3" class="catLabel cat-orange"><span>Racing</span></label>
       </div>
       <div class="catWrapper">
-        <input type="checkbox" id="cat4" class="catCheckbox" onchange="handleCategoryClick(this)" value="AGP" />
-        <label for="cat4" class="catLabel cat-orange"><span>AGP</span></label>
+          <input type="checkbox" id="cat4" class="catCheckbox" onchange="handleCategoryClick(this)" value="AGP"/>
+          <label for="cat4" class="catLabel cat-orange"><span>AGP</span></label>
+      </div>
+    
+      <!-- Reihe 3 -->
+      <div class="catWrapper">
+          <input type="checkbox" id="cat7" class="catCheckbox" onchange="handleCategoryClick(this)" value="Rally"/>
+          <label for="cat7" class="catLabel cat-blue"><span>Rally</span></label>
       </div>
       <div class="catWrapper">
-        <input type="checkbox" id="cat5" class="catCheckbox" onchange="handleCategoryClick(this)" value="Motocross" />
-        <label for="cat5" class="catLabel cat-blue"><span>Motocross</span></label>
+          <input type="checkbox" id="cat6" class="catCheckbox" onchange="handleCategoryClick(this)" value="Rally Raid"/>
+          <label for="cat6" class="catLabel cat-blue"><span>Rally Raid</span></label>
       </div>
       <div class="catWrapper">
-        <input type="checkbox" id="cat7" class="catCheckbox" onchange="handleCategoryClick(this)" value="Rally" />
-        <label for="cat7" class="catLabel cat-blue"><span>Rally</span></label>
+          <input type="checkbox" id="cat9" class="catCheckbox" onchange="handleCategoryClick(this)" value="Monster Truck"/>
+          <label for="cat9" class="catLabel cat-red"><span>Monster Truck</span></label>
+      </div>
+    
+      <!-- Reihe 4 -->
+      <div class="catWrapper">
+          <input type="checkbox" id="cat5" class="catCheckbox" onchange="handleCategoryClick(this)" value="Motocross"/>
+          <label for="cat5" class="catLabel cat-blue"><span>Motocross</span></label>
       </div>
       <div class="catWrapper">
-        <input type="checkbox" id="cat6" class="catCheckbox" onchange="handleCategoryClick(this)" value="Rally Raid" />
-        <label for="cat6" class="catLabel cat-blue"><span>Rally Raid</span></label>
+          <input type="checkbox" id="catGR" class="catCheckbox" onchange="handleGrandraceCategoriesClick(this)"/>
+          <label for="catGR" class="catLabel cat-green"><span>Grandrace<br>Categories</span></label>
       </div>
       <div class="catWrapper">
-        <input type="checkbox" id="cat9" class="catCheckbox" onchange="handleCategoryClick(this)" value="Monster Truck" />
-        <label for="cat9" class="catLabel cat-red"><span>Monster Truck</span></label>
+          <button id="resetBtnGrid" class="catLabel cat-red reset-special" onclick="resetSmart()"><span>RESET</span></button>
       </div>
-    </div>
-    </div>
-        <div class="center-panel">
-          <div class="button-top">
+    </div>        
+</div>
+    <div class="center-panel">
+        <div class="button-top">
             <button id="copyBtn" class="copy-btn" onclick="handleCopy()">Ⓒ</button>
             <button id="resetBtn" class="reset-btn" onclick="resetSmart()">R</button>
             <button id="goBtn" class="start-btn" onclick="handleGo()">GO</button>
-          </div>
         </div>
+    </div>
     <div class="right-panel">
         <div class="results-panel">
-          <h2 id="yourPickTitle" class="your-pick-title standby">Your Pick</h2>
-          <div id="results"></div>
+            <h2 id="yourPickTitle" class="your-pick-title standby">Your Pick</h2>
+            <div id="results"></div>
         </div>
     </div>
 </div>
 <script src="https://shogun160.github.io/TCM-ZEN_DOMIZER/cars/vehicles.json" type="application/json"></script>
 <script>
+    /*
+     * BEGIN: Borrowed from https://github.com/calamity-inc/motorfe.st/
+     */
+    const ROTATION_START = 1741258200;
+    const ROTATION = [
+        ["Kahakuloa", "ST1 > Rally > ST2"],
+        ["Kalaeloa", "AGP > Hyper > ST1"],
+        ["Mauna Pele", "Racing > AGP > ST2"],
+        ["Wahiawa Fields", "AGP > Racing > Rally", "Main Stage"],
+        ["Diamond Head", "AGP > Rally > Racing"],
+        ["Kaena Point", "ST1 > Motocross > RR"],
+        ["Diamond Head", "Racing > Hyper > ST2"],
+        ["Kaena Point", "AGP > ST2 > Hyper", "No Collision"],
+        ["Kaneohe", "RR > ST1 > Racing"],
+        ["Haleiwa", "Hyper > Racing > ST2"],
+        ["Ma'akua Black Beach", "ST2 > RR > Racing"],
+        ["Haleiwa", "Rally > AGP > Racing", "Main Stage"],
+        ["Waikiki", "Racing > Hyper > ST2"],
+        ["Wailea", "AGP > Hyper > Racing"],
+        ["Kalaeloa", "Motocross > Rally/Plane > Drift"],
+        ["Wahiawa Fields", "AGP > ST2 > Hyper", "No Collision"],
+        ["Mauna Pele", "Rally > ST1 > Hyper"],
+        ["Kealaloloa", "ST1 > RR > Hyper"],
+        ["Nuuanu - Punchbowl", "Motocross > Monster > Rally"],
+        ["Kahuku", "Racing > Rally > AGP", "Main Stage"],
+        ["Ma'akua Black Beach", "Hyper > ST2 > AGP"],
+        ["Wailea", "ST2 > Hyper > Racing"],
+        ["Kula", "Racing > AGP > ST2"],
+        ["Lahaina", "Hyper > ST2 > Racing", "Special Weather"],
+    ];
+    const EVENT_DURATION = 20 * 60;
+    const ROTATION_DURATION = ROTATION.length * EVENT_DURATION;
+
+    function getCurrentEventIndex()
+    {
+        return ((((new Date() / 1000) - ROTATION_START) % ROTATION_DURATION) / EVENT_DURATION) | 0;
+    }
+    /*
+     * END: Borrowed from https://github.com/calamity-inc/motorfe.st/
+     */
+
+    /* Map rotation types to checkbox Ids */
+    const ROTATION_MAP = new Map([
+      ["ST1", "cat1"],
+      ["ST2", "cat2"],
+      ["Hyper", "cat8"],
+      ["Racing", "cat3"],
+      ["AGP", "cat4"],
+      ["Motocross", "cat5"],
+      ["Rally", "cat7"],
+      ["Rally/Plane", "cat7"],
+      ["RR", "cat6"],
+      ["Monster", "cat9"],
+      ["Drift", "cat10"], // Drift integriert
+    ]);
+
     let selectedOrder = [];
     let drawExecuted = false;
+
+    function handleGrandraceCategoriesClick(checkbock) {
+        let grCatString = ROTATION[getCurrentEventIndex()][1];
+        let grCatArray = grCatString.split(" > ");
+        for (grCat in grCatArray) {
+            let catBoxId = ROTATION_MAP.get(grCatArray[grCat]);
+            let catCheckBox = document.getElementById(catBoxId);
+            if (catCheckBox != null) {
+                catCheckBox.checked = true;
+                catCheckBox.disabled = false;
+                handleCategoryClick(catCheckBox);
+            }
+        }
+    }
 
     function handleCategoryClick(checkbox) {
       const value = checkbox.value;
@@ -833,10 +921,10 @@ select.filter-control {
         const isStandby = cat === "";
     
         const colorClass = isStandby ? 'slot-standby' :
-          cat.includes('Street') || cat === 'Hypercar' ? 'slot-yellow' :
-          ['Rally', 'Rally Raid', 'Motocross'].includes(cat) ? 'slot-blue' :
-          ['Racing', 'AGP'].includes(cat) ? 'slot-orange' :
-          cat === 'Monster Truck' ? 'slot-red' : '';
+        cat.includes('Street') || ['Hypercar', 'Drift'].includes(cat) ? 'slot-yellow' :
+        ['Rally', 'Rally Raid', 'Motocross'].includes(cat) ? 'slot-blue' :
+        ['Racing', 'AGP'].includes(cat) ? 'slot-orange' :
+        cat === 'Monster Truck' ? 'slot-red' : '';
     
         const slot = document.createElement('div');
         slot.className = `slot-box empty ${colorClass}`;
