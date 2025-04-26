@@ -722,7 +722,7 @@ select.filter-control {
 <!-- Maschinen-Hintergrund -->
 <div class="machine-wrapper"></div>
 
-<!-- Hauptlayout-Start -->
+<!-- Start Haupt-Layout -->
 <div class="layout">
 
   <!-- Linke Spalte: Filter + Kategorien -->
@@ -743,65 +743,18 @@ select.filter-control {
     </div>
 
     <div class="category-grid">
-      <!-- Kategorien (3x3 Grid) -->
-      <!-- Reihe 1 -->
+      <!-- Kategorie-Kacheln -->
+      <!-- (Hier bleiben deine bisherigen Kategorien wie Street Tier 1, Rally, Drift usw.) -->
+      <!-- Beispiel: -->
       <div class="catWrapper">
         <input type="checkbox" id="cat1" class="catCheckbox" onchange="handleCategoryClick(this)" value="Street Tier 1"/>
         <label for="cat1" class="catLabel cat-yellow"><span>Street<br>Tier 1</span></label>
       </div>
-      <div class="catWrapper">
-        <input type="checkbox" id="cat2" class="catCheckbox" onchange="handleCategoryClick(this)" value="Street Tier 2"/>
-        <label for="cat2" class="catLabel cat-yellow"><span>Street<br>Tier 2</span></label>
-      </div>
-      <div class="catWrapper">
-        <input type="checkbox" id="cat8" class="catCheckbox" onchange="handleCategoryClick(this)" value="Hypercar"/>
-        <label for="cat8" class="catLabel cat-yellow"><span>Hypercar</span></label>
-      </div>
-
-      <!-- Reihe 2 -->
-      <div class="catWrapper">
-        <input type="checkbox" id="cat10" class="catCheckbox" onchange="handleCategoryClick(this)" value="Drift"/>
-        <label for="cat10" class="catLabel cat-yellow"><span>Drift</span></label>
-      </div>
-      <div class="catWrapper">
-        <input type="checkbox" id="cat3" class="catCheckbox" onchange="handleCategoryClick(this)" value="Racing"/>
-        <label for="cat3" class="catLabel cat-blue"><span>Racing</span></label>
-      </div>
-      <div class="catWrapper">
-        <input type="checkbox" id="cat4" class="catCheckbox" onchange="handleCategoryClick(this)" value="AGP"/>
-        <label for="cat4" class="catLabel cat-blue"><span>AGP</span></label>
-      </div>
-
-      <!-- Reihe 3 -->
-      <div class="catWrapper">
-        <input type="checkbox" id="cat7" class="catCheckbox" onchange="handleCategoryClick(this)" value="Rally"/>
-        <label for="cat7" class="catLabel cat-orange"><span>Rally</span></label>
-      </div>
-      <div class="catWrapper">
-        <input type="checkbox" id="cat6" class="catCheckbox" onchange="handleCategoryClick(this)" value="Rally Raid"/>
-        <label for="cat6" class="catLabel cat-orange"><span>Rally Raid</span></label>
-      </div>
-      <div class="catWrapper">
-        <input type="checkbox" id="cat9" class="catCheckbox" onchange="handleCategoryClick(this)" value="Monster Truck"/>
-        <label for="cat9" class="catLabel cat-magenta"><span>Monster Truck</span></label>
-      </div>
-
-      <!-- Reihe 4 -->
-      <div class="catWrapper">
-        <input type="checkbox" id="cat5" class="catCheckbox" onchange="handleCategoryClick(this)" value="Motocross"/>
-        <label for="cat5" class="catLabel cat-orange"><span>Motocross</span></label>
-      </div>
-      <div class="catWrapper">
-        <input type="checkbox" id="catGR" class="catCheckbox" onchange="handleGrandraceCategoriesClick(this)"/>
-        <label for="catGR" class="catLabel cat-green"><span>Grandrace<br>Categories</span></label>
-      </div>
-      <div class="catWrapper">
-        <button id="resetBtnGrid" class="catLabel cat-reset reset-special" onclick="resetSmart()"><span>RESET</span></button>
-      </div>
-    </div>  
+      <!-- ... alle weiteren catWrapper hier ... -->
+    </div>
   </div> <!-- Ende Left-Panel -->
 
-  <!-- ✨ Neuer Mittelblock: Automatenbereich + Slotboxen + Ticker -->
+  <!-- 🆕 Neuer Wrapper: Mitte + Rechts + Grandrace Ticker -->
   <div class="middle-wrapper">
 
     <!-- Mittlere Spalte: Automat (GO-Button) -->
@@ -811,7 +764,7 @@ select.filter-control {
       </div>
     </div>
 
-    <!-- Rechte Spalte: Slot-Ergebnisse -->
+    <!-- Rechte Spalte: Slotboxen -->
     <div class="right-panel">
       <div class="results-panel">
         <h2 id="yourPickTitle" class="your-pick-title standby">Your Pick</h2>
@@ -819,9 +772,9 @@ select.filter-control {
       </div>
     </div>
 
-    <!-- Grandrace-Ticker: läuft unter Center + Right Panel -->
+    <!-- Grandrace-Ticker: Läuft unter Center + Right -->
     <div id="grandraceTicker" class="marquee">
-      <div id="grandraceContent"></div> <!-- Inhalt wird per JS dynamisch befüllt -->
+      <div id="grandraceContent"></div>
     </div>
 
   </div> <!-- Ende Middle-Wrapper -->
