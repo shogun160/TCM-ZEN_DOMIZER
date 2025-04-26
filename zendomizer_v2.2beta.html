@@ -28,7 +28,7 @@
       text-align: center;
       text-shadow: 0 0 5px #FF00FF, 0 0 10px #FF00FF, 0 0 20px #FF00FF;
       animation: scrollMarquee 8s ease-in-out infinite;
-      padding: 10px 0;
+      padding: 12px 0;
       margin-top: 10px;
       border-top: 2px solid #FF00FF;
       border-bottom: 2px solid #FF00FF;
@@ -36,8 +36,8 @@
     
     @keyframes scrollMarquee {
       0% { transform: translateX(100%); }
-      5% { transform: translateX(80%); } /* schneller Start */
-      95% { transform: translateX(-80%); } /* schneller Schluss */
+      5% { transform: translateX(80%); }
+      95% { transform: translateX(-80%); }
       100% { transform: translateX(-100%); }
     }
 
@@ -783,14 +783,15 @@ select.filter-control {
         </div>
     </div>
     <div class="right-panel">
-        <div class="results-panel">
-            <h2 id="yourPickTitle" class="your-pick-title standby">Your Pick</h2>
-            <div id="results"></div>
-        </div>
-        <div id="grandraceTicker" class="marquee">
-          🏁 Lade Grandrace Event... 🏁 
-        </div>
-    </div>
+      <div class="results-panel">
+        <h2 id="yourPickTitle" class="your-pick-title standby">Your Pick</h2>
+        <div id="results"></div>
+      </div>
+      <!-- Grandrace Ticker kommt JETZT hier in die rechte Spalte -->
+      <div id="grandraceTicker" class="marquee">
+        🏁 Lade Grandrace Event... 🏁
+      </div>
+    </div> <!-- Ende right-panel -->
 </div>
 <script src="https://shogun160.github.io/TCM-ZEN_DOMIZER/cars/vehicles.json" type="application/json"></script>
 <script>
@@ -1640,14 +1641,14 @@ select.filter-control {
     function updateGrandraceTicker() {
       const ticker = document.getElementById('grandraceTicker');
       if (!ticker) return;
-      const currentEvent = ROTATION[getCurrentEventIndex()][0]; // nimmt den aktuellen Eventnamen aus deiner Rotation
-      ticker.innerText = `🏁 ${currentEvent} Grandrace Event`;
+      const currentEvent = ROTATION[getCurrentEventIndex()][0]; // nimmt den aktuellen Eventnamen
+      ticker.innerText = `🏁 ${currentEvent} Grandrace Event 🏁`;
     }
     
-    // Beim Laden sofort anzeigen
+    // Beim Laden direkt einmal aufrufen
     window.addEventListener('load', updateGrandraceTicker);
     
-    // Optional: Alle 15 Sekunden neu prüfen (falls sich das Event ändert)
+    // Optional: alle 15 Sekunden neu prüfen (falls sich das Event ändert)
     setInterval(updateGrandraceTicker, 15000);
 
     function showToast(message = "✅ In Zwischenablage kopiert!", color = "#0f0") {
