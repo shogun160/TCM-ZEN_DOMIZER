@@ -1640,9 +1640,14 @@ select.filter-control {
     function updateGrandraceTicker() {
       const ticker = document.getElementById('grandraceTicker');
       if (!ticker) return;
-      const currentEvent = ROTATION[getCurrentEventIndex()][0]; // Aktueller Event
-      ticker.innerText = `             🏁 Ready for ${currentEvent}? Let's race! 🏁                          🏁 Ready for ${currentEvent}? Let's race! 🏁             `;
+      const currentEvent = ROTATION[getCurrentEventIndex()][0];
+    
+      const spacer = '    '; // 4x EN SPACE für Abstand (feiner als normales Space)
+    
+      const message = `🏁 Ready for ${currentEvent}? Let's race! 🏁`;
+      ticker.innerText = `${message}${spacer}${message}${spacer}${message}${spacer}${message}${spacer}${message}`;
     }
+
     
     // Direkt beim Laden ausführen
     window.addEventListener('load', updateGrandraceTicker);
