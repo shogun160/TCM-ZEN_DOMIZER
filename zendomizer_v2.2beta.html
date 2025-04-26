@@ -1640,12 +1640,13 @@ select.filter-control {
       if (!ticker) return;
       const currentEvent = ROTATION[getCurrentEventIndex()][0];
     
-      const spacer = '    '; // 4x EN SPACE für Abstand (feiner als normales Space)
+      const spacer = '&emsp;&emsp;&emsp;&emsp;'; // HTML-Spaces (noch feiner als Unicode)
     
       const message = `🏁 Ready for ${currentEvent}? Let's race! 🏁`;
-      ticker.innerText = `${message}${spacer}${message}${spacer}${message}${spacer}${message}${spacer}${message}`;
+      const repeatedMessage = `<span>${message}</span>${spacer}`.repeat(8); // 8x Wiederholen
+    
+      ticker.innerHTML = repeatedMessage; // wichtig: innerHTML statt innerText
     }
-
     
     // Direkt beim Laden ausführen
     window.addEventListener('load', updateGrandraceTicker);
