@@ -885,18 +885,33 @@ select.filter-control {
 
     let selectedOrder = [];
     let drawExecuted = false;
+    let grandraceCategories = [];
 
-    function handleGrandraceCategoriesClick(checkbock) {
-        let grCatString = ROTATION[getCurrentEventIndex()][1];
-        let grCatArray = grCatString.split(" > ");
-        for (grCat in grCatArray) {
-            let catBoxId = ROTATION_MAP.get(grCatArray[grCat]);
-            let catCheckBox = document.getElementById(catBoxId);
-            if (catCheckBox != null) {
-                catCheckBox.checked = true;
-                catCheckBox.disabled = false;
-                handleCategoryClick(catCheckBox);
+    function handleGrandraceCategoriesClick(checkbox) {
+        if (checkbox.checked) {
+            // Grandrace ausgewählt → Kategorien anwählen
+            grandraceCategories = [];
+            let grCatString = ROTATION[getCurrentEventIndex()][1];
+            let grCatArray = grCatString.split(" > ");
+            for (let grCat of grCatArray) {
+                let catBoxId = ROTATION_MAP.get(grCat);
+                let catCheckBox = document.getElementById(catBoxId);
+                if (catCheckBox != null) {
+                    catCheckBox.checked = true;
+                    catCheckBox.disabled = false;
+                    handleCategoryClick(catCheckBox);
+                    grandraceCategories.push(catCheckBox);
+                }
             }
+            showToast("🏁 Grandrace Kategorien übernommen", "#39ff14"); // 🏁 Toast beim Aktivieren
+        } else {
+            // Grandrace abgewählt → Kategorien abwählen
+            for (let cb of grandraceCategories) {
+                cb.checked = false;
+                handleCategoryClick(cb);
+            }
+            grandraceCategories = [];
+            showToast("↩️ Grandrace Kategorien deaktiviert", "#39ff14"); // ↩️ Toast beim Deaktivieren
         }
     }
 
