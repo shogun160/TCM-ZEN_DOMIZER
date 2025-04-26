@@ -915,6 +915,44 @@ select.filter-control {
         }
     }
 
+    function checkGrandraceCategories() {
+        const grandraceCheckbox = document.getElementById('catGR');
+        if (!grandraceCheckbox.checked) {
+            return; // Button nicht aktiv → nichts tun
+        }
+        let expectedCategories = ROTATION[getCurrentEventIndex()][1].split(" > ");
+        let expectedIds = expectedCategories.map(cat => ROTATION_MAP.get(cat));
+    
+        // Aktuelle ausgewählte Kategorien IDs
+        let selectedIds = Array.from(document.querySelectorAll('.catCheckbox:checked'))
+                                .map(cb => cb.id)
+                                .filter(id => id !== "catGR"); // Grandrace-Button selbst ignorieren
+    
+        // Vergleich: stimmen IDs überein?
+        expectedIds.sort();
+        selectedIds.sort();
+    
+        if (JSON.stringify(expectedIds) !== JSON.stringify(selectedIds)) {
+            // Abweichung festgestellt → neu setzen
+            for (let cb of document.querySelectorAll('.catCheckbox')) {
+                if (cb.id !== "catGR") {
+                    cb.checked = false;
+                }
+            }
+            grandraceCategories = [];
+            for (let cat of expectedCategories) {
+                let catBoxId = ROTATION_MAP.get(cat);
+                let catCheckBox = document.getElementById(catBoxId);
+                if (catCheckBox != null) {
+                    catCheckBox.checked = true;
+                    handleCategoryClick(catCheckBox);
+                    grandraceCategories.push(catCheckBox);
+                }
+            }
+            showToast("🏁 Grandrace Kategorien aktualisiert", "#39ff14"); // Toast wenn korrigiert
+        }
+    }
+
     function handleCategoryClick(checkbox) {
       const value = checkbox.value;
     
@@ -1653,6 +1691,9 @@ select.filter-control {
         toast.classList.remove("show");
       }, 3000);
     }
+    
+    setInterval(checkGrandraceCategories, 1000); // alle 1000ms prüfen
+    
     const countrySelect = document.getElementById('countrySelect');
     
     countrySelect.addEventListener('change', () => {
