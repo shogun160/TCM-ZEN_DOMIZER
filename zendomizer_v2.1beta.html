@@ -120,15 +120,15 @@
     .cat-orange .order-badge {
       color: #FF9900;
     }
-    .cat-red .order-badge {
-      color: #FF4444;
+    .cat-magenta .order-badge {
+      color: #FF00FF;
     }
     
     /* Zusätzlich: Textfarbe in Kacheln = Rahmenfarbe */
     .catLabel.cat-yellow { color: #FFD700; }
     .catLabel.cat-blue   { color: #00E5FF; }
     .catLabel.cat-orange { color: #FF9900; }
-    .catLabel.cat-red    { color: #FF4444; }
+    .catLabel.cat-magenta{ color: #FF00FF; }
     .catLabel.cat-green  { color: #39ff14; }
     .category-grid {
       display: grid;
@@ -660,7 +660,7 @@ select.filter-control {
 .slot-yellow { color: #FFD700; }
 .slot-blue   { color: #00E5FF; }
 .slot-orange { color: #FF9900; }
-.slot-red    { color: #FF4444; }
+.slot-magenta { color: #FF00FF; }
 
 .reset-btn.inactive {
   color: #772222;
@@ -775,7 +775,7 @@ select.filter-control {
       </div>
       <div class="catWrapper">
           <input type="checkbox" id="cat9" class="catCheckbox" onchange="handleCategoryClick(this)" value="Monster Truck"/>
-          <label for="cat9" class="catLabel cat-red"><span>Monster Truck</span></label>
+          <label for="cat9" class="catLabel cat-magenta"><span>Monster Truck</span></label>
       </div>
     
       <!-- Reihe 4 -->
@@ -960,10 +960,11 @@ select.filter-control {
         const isStandby = cat === "";
     
         const colorClass = isStandby ? 'slot-standby' :
-        cat.includes('Street') || ['Hypercar', 'Drift'].includes(cat) ? 'slot-yellow' :
-        ['Rally', 'Rally Raid', 'Motocross'].includes(cat) ? 'slot-blue' :
-        ['Racing', 'AGP'].includes(cat) ? 'slot-orange' :
-        cat === 'Monster Truck' ? 'slot-red' : '';
+        ['Drift', 'Monster Truck'].includes(cat) ? 'slot-magenta' :
+        ['Rally', 'Rally Raid', 'Motocross'].includes(cat) ? 'slot-orange' :
+        ['Racing', 'AGP'].includes(cat) ? 'slot-blue' :
+        ['Street Tier 1', 'Street Tier 2', 'Hypercar'].includes(cat) ? 'slot-yellow' :
+        '';
     
         const slot = document.createElement('div');
         slot.className = `slot-box empty ${colorClass}`;
