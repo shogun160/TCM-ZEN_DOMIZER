@@ -16,6 +16,29 @@
       flex-direction: column;
       align-items: center;
     }
+
+    #grandraceTicker {
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      background: rgba(0, 0, 0, 0.85);
+      color: #FF00FF;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      text-shadow: 0 0 5px #FF00FF, 0 0 10px #FF00FF, 0 0 20px #FF00FF;
+      animation: scrollMarquee 15s linear infinite;
+      padding: 10px 0;
+      margin-top: 10px;
+      border-top: 2px solid #FF00FF;
+      border-bottom: 2px solid #FF00FF;
+    }
+    
+    @keyframes scrollMarquee {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
     .toast {
       position: fixed;
       bottom: 20px;
@@ -761,6 +784,9 @@ select.filter-control {
         <div class="results-panel">
             <h2 id="yourPickTitle" class="your-pick-title standby">Your Pick</h2>
             <div id="results"></div>
+        </div>
+        <div id="grandraceTicker" class="marquee">
+          🏁 Lade Grandrace Event... 🏁 
         </div>
     </div>
 </div>
@@ -1608,6 +1634,19 @@ select.filter-control {
       const vehicle = finalList[Math.floor(Math.random() * finalList.length)];
       return { vehicle, ignoredFilters: ignored };
     }
+
+    function updateGrandraceTicker() {
+      const ticker = document.getElementById('grandraceTicker');
+      if (!ticker) return;
+      const currentEvent = ROTATION[getCurrentEventIndex()][0]; // nimmt den aktuellen Eventnamen aus deiner Rotation
+      ticker.innerText = `🏁 ${currentEvent} Grandrace Event`;
+    }
+    
+    // Beim Laden sofort anzeigen
+    window.addEventListener('load', updateGrandraceTicker);
+    
+    // Optional: Alle 15 Sekunden neu prüfen (falls sich das Event ändert)
+    setInterval(updateGrandraceTicker, 15000);
 
     function showToast(message = "✅ In Zwischenablage kopiert!", color = "#0f0") {
       const toast = document.getElementById("toast");
