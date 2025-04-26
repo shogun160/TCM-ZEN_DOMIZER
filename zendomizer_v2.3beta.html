@@ -18,25 +18,27 @@
     }
 
     .middle-wrapper {
-      display: flex;
-      flex-direction: column;  /* Alles untereinander anordnen */
-      align-items: center;     /* Zentriert alles */
-      width: 100%;             /* Volle Breite */
-    }
-
+  display: flex;
+  flex-direction: column;    /* Alle Elemente untereinander anordnen */
+  align-items: center;       /* Zentriert den Inhalt */
+  width: 100%;               /* Volle Breite */
+  box-sizing: border-box;    /* Für korrekte Berechnung der Breite */
+}
+    
     #grandraceTicker {
-      width: 100%;
+      width: 100%;               /* Volle Breite */
       overflow: hidden;
       background: rgba(0, 0, 0, 0.85);
       color: #FF00FF;
       font-size: 20px;
       font-weight: bold;
-      text-align: left; /* Achtung: nicht center! */
+      text-align: left;          /* Text bleibt linksbündig */
       position: relative;
       white-space: nowrap;
       border-top: 2px solid #FF00FF;
       border-bottom: 2px solid #FF00FF;
       padding: 12px 0;
+      z-index: 10;               /* Setze den Z-Index höher als die Maschine */
     }
 
     #grandraceContent {
@@ -381,43 +383,50 @@
   z-index: 1;
 }
 
-.left-panel,
-.right-panel {
-  flex: 1 1 40%;
-  min-width: 240px;
-  max-width: none;
+/* Gemeinsame Eigenschaften für alle Panels */
+.left-panel, .center-panel, .right-panel {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  padding: 0;
-  margin: 0;
 }
-.right-panel {
-  position: relative;
+
+/* Linke Spalte (25% Breite) */
+.left-panel {
+  flex: 0 0 25%;  /* 25% der Gesamtbreite für die linke Spalte */
 }
+
+/* Mittlere Spalte (20% feste Breite) */
 .center-panel {
-  flex: 0 0 20%;
+  flex: 0 0 20%;  /* 20% der Gesamtbreite für das Center Panel */
+  justify-content: center;
+  align-items: center;
+}
+
+/* Rechte Spalte (nimmt den verbleibenden Platz ein) */
+.right-panel {
+  flex: 1;  /* Nimmt den verbleibenden Platz ein */
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 16px;
 }
 .machine-wrapper {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 700px;
+  height: 700px; /* Passt die Höhe an */
   background-color: black;
-  z-index: 0;
+  z-index: -1; /* Setzen wir den Z-Index auf -1, damit die Maschine im Hintergrund bleibt */
   display: flex;
   justify-content: center;
 }
 .machine-wrapper::before {
   content: "";
   display: block;
-  width: 960px; /* oder deine Wunschbreite */
-  height: 700px;
+  width: 960px;  /* Breite der Maschine im Container */
+  height: 700px; /* Höhe der Maschine */
   background: url('https://raw.githubusercontent.com/shogun160/TCM-ZEN_DOMIZER/main/assets/pic/ZENDOMIZER_pic.jpeg') no-repeat center top;
   background-size: contain;
 }
