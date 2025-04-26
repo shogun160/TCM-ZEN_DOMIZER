@@ -27,7 +27,7 @@
       font-weight: bold;
       text-align: center;
       text-shadow: 0 0 5px #FF00FF, 0 0 10px #FF00FF, 0 0 20px #FF00FF;
-      animation: scrollMarquee 8s ease-in-out infinite;
+      animation: scrollMarquee 8s linear infinite;
       padding: 12px 0;
       margin-top: 10px;
       border-top: 2px solid #FF00FF;
@@ -35,8 +35,8 @@
     }
     
     @keyframes scrollMarquee {
-      0% { transform: translateX(-20%); }   /* Start leicht rechts */
-      100% { transform: translateX(-70%); } /* Ende leicht links */
+      0% { transform: translateX(-20%); }   /* - Start weiter nach links */
+      100% { transform: translateX(-70%); } /* - Ende weiter nach links */
     }
 
 
