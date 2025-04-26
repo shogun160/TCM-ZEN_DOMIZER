@@ -1295,7 +1295,7 @@ select.filter-control {
         slot.classList.remove('slot-yellow', 'slot-blue', 'slot-orange', 'slot-red');
     
         const colorClass =
-          v.category.includes('Street') || v.category === 'Hypercar' ? 'slot-yellow' :
+          v.category.includes('Street') || v.category === 'Hypercar' || v.category === 'Drift' ? 'slot-yellow' :
           ['Rally', 'Rally Raid', 'Motocross'].includes(v.category) ? 'slot-blue' :
           ['Racing', 'AGP'].includes(v.category) ? 'slot-orange' :
           v.category === 'Monster Truck' ? 'slot-red' : '';
@@ -1392,7 +1392,7 @@ select.filter-control {
     
         slot.classList.remove('empty', 'slot-yellow', 'slot-blue', 'slot-orange', 'slot-red');
         const colorClass =
-          v.category.includes('Street') || v.category === 'Hypercar' ? 'slot-yellow' :
+          v.category.includes('Street') || v.category === 'Hypercar' || v.category === 'Drift' ? 'slot-yellow' :
           ['Rally', 'Rally Raid', 'Motocross'].includes(v.category) ? 'slot-blue' :
           ['Racing', 'AGP'].includes(v.category) ? 'slot-orange' :
           v.category === 'Monster Truck' ? 'slot-red' : '';
@@ -1510,7 +1510,7 @@ select.filter-control {
     
       slot.classList.remove('slot-yellow', 'slot-blue', 'slot-orange', 'slot-red');
       const colorClass =
-        category.includes('Street') || category === 'Hypercar' ? 'slot-yellow' :
+        category.includes('Street') || category === 'Hypercar' || category === 'Drift' ? 'slot-yellow' :
         ['Rally', 'Rally Raid', 'Motocross'].includes(category) ? 'slot-blue' :
         ['Racing', 'AGP'].includes(category) ? 'slot-orange' :
         category === 'Monster Truck' ? 'slot-red' : '';
