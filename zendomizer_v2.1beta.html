@@ -316,43 +316,13 @@
       justify-content: center;
     }
     
-    /* COPY & RESET: 75% der GO-Größe mit leichtem Schleier */
-    .copy-btn, .reset-btn {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      font-size: 26px;
-      font-weight: bold;
-      color: currentColor;
-      background-color: rgba(0, 0, 0, 0.2);
-      border: 2px solid currentColor;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    /* Farben individuell */
-    .copy-btn {
-      color: #0ff; /* cyan */
-    }
-    
-    .reset-btn {
-      color: #f33; /* rot */
-    }
-    
-    .start-btn:not(.inactive):hover,
-    .reset-btn:not(.inactive):hover,
-    .copy-btn:not(.standby):hover {
+    .start-btn:not(.inactive):hover{
       animation: pulse-neon 1.2s infinite;
       background-color: rgba(0, 0, 0, 0.4);
       transform: scale(1.05);
     }
     /* Klick-Effekt */
-    .start-btn.clicked,
-    .copy-btn.clicked,
-    .reset-btn.clicked {
+    .start-btn.clicked {
       box-shadow: 0 0 16px currentColor, inset 0 0 12px currentColor;
       transform: scale(1.1);
     }
@@ -680,36 +650,6 @@ select.filter-control {
 .slot-orange { color: #FF9900; }
 .slot-magenta { color: #FF00FF; }
 
-.reset-btn.inactive {
-  color: #772222;
-  border-color: #772222;
-  background-color: rgba(0, 0, 0, 0.2);
-  opacity: 0.4;
-  box-shadow: none;
-  animation: none;
-  cursor: default;
-}
-.reset-btn.pulsing {
-  color: #f33;
-  border-color: #f33;
-  animation: pulse-neon 1.2s infinite;
-  opacity: 1;
-}
-
-.copy-btn.standby {
-  color: #116666;
-  border-color: #116666;
-  opacity: 0.4;
-  animation: none;
-  cursor: default;
-}
-.copy-btn.drawn {
-  color: #0ff;
-  border-color: #0ff;
-  animation: pulse-neon 1.2s infinite;
-  opacity: 1;
-  cursor: pointer;
-}
 .start-btn.inactive {
   color: #144914;
   border-color: #144914;
@@ -813,8 +753,6 @@ select.filter-control {
 </div>
     <div class="center-panel">
         <div class="button-top">
-            <button id="copyBtn" class="copy-btn" onclick="handleCopy()">Ⓒ</button>
-            <button id="resetBtn" class="reset-btn" onclick="resetSmart()">R</button>
             <button id="goBtn" class="start-btn" onclick="handleGo()">GO</button>
         </div>
     </div>
