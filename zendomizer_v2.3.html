@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+
+<html lang="de">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ZENDOMIZER v2.2 | Vehicle list 04/2024</title>
+<style>
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: #000;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #grandraceTicker {
+      width: 100%;
+      overflow: hidden;
+      background: rgba(0, 0, 0, 0.85);
+      color: #FF00FF;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: left; /* Achtung: nicht center! */
+      position: relative;
+      white-space: nowrap;
+      border-top: 2px solid #FF00FF;
+      border-bottom: 2px solid #FF00FF;
+      padding: 12px 0;
+    }
+    
+    #grandraceContent {
+      display: inline-block;
+      padding-left: 100%; /* Start außerhalb */
+      animation: scrollMarquee 30s linear infinite;
+      white-space: nowrap;
+    }
+    
+    @keyframes scrollMarquee {
+      0% { transform: translateX(0%); }   /* - Start weiter nach links statt -18*/
+      100% { transform: translateX(-100%); } /* - Ende weiter nach links statt  -67 */
+    }
+
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #222;
+      color: #0f0;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease-in-out;
+      z-index: 9999;
+    }
+    .toast.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .control-panel {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .filter-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px 16px;
+      align-items: center;
+      background: transparent;
+      padding: 16px;
+      border-radius: 12px;
+      box-sizing: border-box;
+    }
+    .filter-wrapper {
+      display: flex;
+      align-items: stretch;
+      gap: 16px;
+      padding: 0;         /* Kein horizontaler Innenabstand */
+      width: 100%;        /* Wichtig für volle Breite */
+      justify-content: center;
+      box-sizing: border-box;
+    } 
+    .filter-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      justify-items: center;
+      width: 100%;
+      max-width: 420px; /* 2 Spalten à 120px + 1x gap (18px) + 18(test)*/
+      margin-bottom: 10px;
+    }
+    .reset-row {
+      display: flex;
+      justify-content: flex-end;
+      padding: 0 16px;
+    }
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 0px;     /* 🟢 höher schieben */
+      margin-bottom: 0px;  /* optional: Luft unten */
+    }
+    /* === NEON-GRUNDSTIL KACHEL === */
+    /* === Neon-Badge oben links === */
+    .order-badge {
+      position: absolute;
+      top: 0;
+      right: 20px; /* statt right: 4 */
+      height: 100%;
+      width: 32px; /* etwas breiter statt 24 */
+      font-size: 120px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 0;
+      mix-blend-mode: multiply;
+      opacity: 0.45;
+      color: currentColor;
+      text-shadow: /* statt 0 0 2px #000, 0 0 4px #000;*/
+          0 0 4px #000,
+          0 0 6px currentColor,
+          0 0 12px currentColor,
+          0 0 18px currentColor,
+          0 0 22px currentColor;
+    }
+    /* Farbvarianten passend zur Kategorie */
+    .cat-yellow .order-badge {
+      color: #FFD700;
+    }
+    .cat-blue .order-badge {
+      color: #00E5FF;
+    }
+    .cat-orange .order-badge {
+      color: #FF9900;
+    }
+    .cat-magenta .order-badge {
+      color: #FF3377;
+    }
+    
+    /* Zusätzlich: Textfarbe in Kacheln = Rahmenfarbe */
+    .catLabel.cat-yellow { color: #FFD700; }
+    .catLabel.cat-blue   { color: #00E5FF; }
+    .catLabel.cat-orange { color: #FF9900; }
+    .catLabel.cat-magenta{ color: #FF3377; }
+    .catLabel.cat-green  { color: #39ff14; }
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      justify-items: center;
+      align-items: center;
+      max-width: 396px;
+    }
+    
+    .catWrapper {
+      position: relative;
+      display: block;      /* oder flex */
+      width: 120px;
+      height: 120px;
+    }    
+    .catCheckbox {
+      display: none;
+    }
+    .catLabel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(0, 0, 0, 0.6);
+      border: 2px solid transparent;
+      border-radius: 12px;
+      width: 120px;
+      height: 120px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 18px;
+      text-align: center;
+      box-sizing: border-box;
+      text-shadow: 0 0 2px #000;
+      cursor: pointer;
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+      position: relative;
+      z-index: 2; /* Wichtig: Text liegt über der Badge */
+    }
+    /* Text in Kategorie Button zentriet (wegen Mehrzeilig) */
+    .catLabel span {
+      text-align: center;
+      line-height: 1.2;
+    }
+    /* Text lecuhtet wenn Kategorie ausgewählt */
+    .catCheckbox:checked + .catLabel {
+      box-shadow:
+        0 0 6px currentColor,
+        0 0 12px currentColor,
+        0 0 20px currentColor,
+        0 0 28px currentColor;
+      animation: none;
+    }
+    .catCheckbox:checked + .catLabel span {
+  color: currentColor;
+  font-weight: bold;
+  text-shadow:
+    0 0 1px currentColor,
+    0 0 2px currentColor,
+    0 0 4px currentColor;
+}
+    /* === Neon-Kategorien === */
+    
+    /* GELB */
+    .catLabel.cat-yellow {
+      border-color: #FFD700;
+      color: #FFD700;
+    }
+    /* BLAU */
+    .catLabel.cat-blue {
+      border-color: #00E5FF;
+      color: #00E5FF;
+    }
+    /* ORANGE */
+    .catLabel.cat-orange {
+      border-color: #FF9900;
+      color: #FF9900;
+    }
+    /* MAGENTA */
+    .catLabel.cat-magenta {
+      border-color: #FF3377;
+      color: #FF3377;
+    }
+    /* GRÜN */
+    .catLabel.cat-green {
+      border-color: #39ff14;
+      color: #39ff14;
+    }
+    /* RESET-Button im Grid */
+    .reset-special {
+      background: linear-gradient(135deg, #FF4444 0%, #CC0000 100%); /* Eigenes kräftiges Rot-Gradient */
+      border: 2px solid #FF4444;
+      color: #000000; /* Schwarze Schrift */
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    /* Hover Effekt */
+    .reset-special:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 12px #FF4444, 0 0 24px #FF4444;
+    }
+
+    /* Klick Effekt */
+    .reset-special:active {
+      transform: scale(0.95);
+      box-shadow: 0 0 6px #FF4444 inset;
+    }
+
+    /* Button-Reset für HTML-Button-Tag */
+    button.reset-special {
+      appearance: none;
+      border: none;
+    }
+    @keyframes pulse-neon {
+      0%, 100% {
+        box-shadow: 0 0 6px currentColor;
+        text-shadow: 0 0 2px currentColor;
+      }
+      50% {
+        box-shadow: 0 0 12px currentColor, 0 0 18px currentColor; /* statt 0 0 24px currentColor */
+        text-shadow: 0 0 6px currentColor, 0 0 12px currentColor;
+      }
+    }
+    @keyframes pulse-text {
+      0%, 100% {
+        text-shadow: 0 0 2px currentColor;
+      }
+      50% {
+        text-shadow: 0 0 6px currentColor, 0 0 12px currentColor;
+      }
+    }
+    .category-grid:not(.limit-reached) .catLabel:hover {
+      animation: pulse-neon 1.2s infinite;
+      border-color: currentColor;
+    }
+    .category-grid:not(.limit-reached) .catLabel:hover span {
+      animation: pulse-text 1.2s infinite;
+    }
+    .results-panel {
+      margin-top: 8px;
+      margin-bottom: 32px; /*statt 64px*/
+      width: 100%;
+      max-width: 100%; /* wichtig: kein limitierendes max-width */
+      display: flex;   /* ← statt block */
+      flex-direction: column;
+      align-items: center; /* ← zentriert den inneren #results Block */
+    } 
+    #results {
+      width: 396px;             /* exakt wie eine Slotbox */
+      display: flex;            /* statt grid */
+      flex-direction: column;
+      gap: 24px;
+      margin: 0 auto;
+    }
+        .vehicle {
+      background: #111;
+      border: 1px solid #444;
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-bottom: 10px;
+    }
+    /* GO-Button (groß & grün) */
+    .start-btn {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      font-size: 20px;
+      font-weight: bold;
+      text-transform: uppercase;
+      border: 2px solid #39ff14;
+      color: #39ff14;
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .start-btn:not(.inactive):hover{
+      animation: pulse-neon 1.2s infinite;
+      background-color: rgba(0, 0, 0, 0.4);
+      transform: scale(1.05);
+    }
+    /* Klick-Effekt */
+    .start-btn.clicked {
+      box-shadow: 0 0 16px currentColor, inset 0 0 12px currentColor;
+      transform: scale(1.1);
+    }
+    #copyNotice {
+      color: lime;
+      margin-top: 10px;
+      display: none;
+      font-weight: bold;
+    }
+.layout {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 2000px;
+  margin: 0 auto;
+  padding-top: 90px;
+  position: relative;
+  z-index: 1;
+}
+
+.left-panel,
+.right-panel {
+  flex: 1 1 40%;
+  min-width: 240px;
+  max-width: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 0;
+  margin: 0;
+}
+.right-panel {
+  position: relative;
+}
+.center-panel {
+  flex: 0 0 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.machine-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 700px;
+  background-color: black;
+  z-index: 0;
+  display: flex;
+  justify-content: center;
+}
+.machine-wrapper::before {
+  content: "";
+  display: block;
+  width: 960px; /* oder deine Wunschbreite */
+  height: 700px;
+  background: url('https://raw.githubusercontent.com/shogun160/TCM-ZEN_DOMIZER/main/assets/pic/ZENDOMIZER_pic.jpeg') no-repeat center top;
+  background-size: contain;
+}
+.button-top {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end; /* ← Diese Zeile kommt NEU dazu */
+  gap: 24px;
+  margin-bottom: 8px;
+}
+.filter-control {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #39ff14;
+  border: 2px solid #39ff14;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  height: 60px;
+  padding: 12px 16px;
+  box-sizing: border-box;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  text-align: left;
+  width: 100%;
+  max-width: 180px;
+}
+.filter-control:hover {
+  animation: pulse-neon 1.2s infinite;
+  border-color: #39ff14;
+  color: #39ff14;
+  background-color: rgba(0, 0, 0, 0.6); /* gleich wie Grundfarbe */
+}
+/* Aktiv (≠ Standardwert) */
+.filter-control.active {
+  box-shadow:
+    0 0 6px #39ff14,
+    0 0 12px #39ff14,
+    0 0 20px #39ff14;
+  color: #39ff14;
+  font-weight: bold;
+  text-shadow:
+    0 0 2px #39ff14,
+    0 0 4px #39ff14,
+    0 0 8px #39ff14;
+}
+.filter-control.bike-active {
+  box-shadow:
+    0 0 6px #39ff14,
+    0 0 12px #39ff14,
+    0 0 20px #39ff14;
+  border-color: #39ff14;
+  color: #39ff14;
+  font-weight: bold;
+  text-shadow:
+    0 0 2px #39ff14,
+    0 0 4px #39ff14,
+    0 0 8px #39ff14;
+}
+select.filter-control {
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%23aaa' viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'><polygon points='70,100 100,40 40,40'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 10px;
+  padding-right: 32px;
+}
+@media (max-width: 1068px) {
+  .layout {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .left-panel,
+  .center-panel,
+  .right-panel {
+    max-width: 100%;
+    flex: none;
+  }
+
+  .button-top {
+    justify-content: center;
+  }
+}
+@media (min-width: 1069px) {
+  .center-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;   /* Buttons nach unten drücken */
+    height: 600px;               /* passend zur Automatenhöhe */
+  }
+
+  .button-top {
+    margin-top: auto;
+    margin-bottom: 42px;         /* Button Abstand vom unteren Rand statt 20*/
+  }
+}
+/* --- SLOTBOXEN (rechter Bereich) --- */
+.slot-box {
+  width: 372px; /* width + 2* padding (12) + 2* boarder (8) = Geasmtbreite || statt 396px*/
+  height: 120px;
+  padding: 12px;
+  border: 3px solid currentColor;
+  position: relative;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 16px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  color: currentColor;
+  box-shadow: 0 0 12px currentColor;
+  transition: all 0.3s ease-in-out;
+  display: grid;
+  grid-template-rows: 24px 80px 18px; /* ← definierte Höhen */
+  align-items: center;
+  justify-items: center;
+  animation: pulse-neon 2s infinite;
+}
+.slot-category {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.slot-name {
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  text-align: center;
+  word-break: break-word;
+}
+.slot-box.empty .slot-name {
+  font-size: 80px;
+  animation: spin3D 1.6s linear infinite, pulse-text 1.2s infinite;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+.question-mark {
+  text-shadow:
+    0 0 2px currentColor,
+    0 0 6px currentColor,
+    0 0 12px currentColor;
+}
+.slot-box.empty .question-mark {
+  font-size: 80px;
+  animation: pulse-text 1.2s infinite;
+  line-height: 1;
+}
+.slot-box.empty {
+  perspective: 600px;
+}
+@keyframes spin3D {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+.slot-warning {
+  font-size: 12px;
+  opacity: 0.4;
+  color: rgba(255, 255, 255, 0.4);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.slot-warning:empty::before {
+  content: none;
+}
+.slot-badge {
+  position: absolute;
+  right: 28px;
+  top: 0;
+  height: 100%;
+  width: 46px;
+  font-size: 180px;
+  font-weight: 900;
+  color: currentColor;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-shadow:
+    0 0 4px #000,
+    0 0 6px currentColor,
+    0 0 12px currentColor,
+    0 0 20px currentColor;
+  opacity: 0.4;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+.slot-standby {
+  color: #993366;
+  border-color: #993366;
+  box-shadow: 0 0 8px #993366;
+  background: rgba(0, 0, 0, 0.8);
+  animation: pulse-neon 2s infinite;
+}
+.slot-standby .slot-name {
+  font-size: 80px;
+  animation: spin3D 1.6s linear infinite, pulse-text 1.2s infinite;
+}
+.slot-standby .question-mark {
+  color: #993366;
+  text-shadow: 0 0 2px #993366, 0 0 6px #993366, 0 0 12px #993366;
+}
+.slot-standby .slot-badge {
+  color: #3d2233;         /* dunkler, matter Violettton statt pink #993366*/
+  text-shadow: none;      /* kein Leuchteffekt */
+  opacity: 0.4;           /* leicht transparent für den „aus“-Effekt */
+}
+.your-pick-title {
+  font-size: 36px;
+  margin: 0 0 16px 0;
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  transition: all 0.4s ease-in-out;
+  letter-spacing: 1px;
+  max-width: 396px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.your-pick-title.standby {
+  color: #993366;
+  opacity: 1;
+  text-shadow:
+    0 0 4px #000,
+    0 0 8px #111;
+}
+.your-pick-title.active {
+  color: #FF3377;
+  opacity: 1;
+  text-shadow:
+    0 0 2px #FF3377,
+    0 0 6px #FF3377,
+    0 0 12px #FF3377,
+    0 0 20px #FF3377;
+  animation: pickPulse 2s infinite;
+}
+
+@keyframes pickPulse {
+  0%, 100% {
+    text-shadow:
+      0 0 2px #FF3377,
+      0 0 6px #FF3377,
+      0 0 12px #FF3377,
+      0 0 20px #FF3377;
+  }
+  50% {
+    text-shadow:
+      0 0 4px #FF3377,
+      0 0 8px #FF3377,
+      0 0 16px #FF3377,
+      0 0 24px #FF3377;
+  }
+}
+/* Farbliche Kategorien für Slot-Boxen */
+.slot-yellow { color: #FFD700; } /* Gelb für Street/Drift/Hypercar */
+.slot-blue   { color: #00E5FF; } /* Blau für Racing/AGP */
+.slot-orange { color: #FF9900; } /* Orange für Rally-Gruppen */
+.slot-magenta { color: #FF3377; } /* Rötliches Magenta für Monster Truck */
+
+.start-btn.inactive {
+  color: #144914;
+  border-color: #144914;
+  opacity: 0.4;
+  animation: none;
+  cursor: default;
+}
+.start-btn.pulsing {
+  color: #39ff14;
+  border-color: #39ff14;
+  opacity: 1;
+  animation: pulse-neon 1.2s infinite;
+  cursor: pointer;
+}
+@keyframes slotFlash {
+  0%   { box-shadow: 0 0 16px currentColor, 0 0 24px currentColor; transform: scale(1.02); }
+  50%  { box-shadow: 0 0 10px currentColor, 0 0 18px currentColor; transform: scale(1.01); }
+  100% { box-shadow: 0 0 8px currentColor; transform: scale(1); }
+}
+
+.slot-box.flash {
+  animation: slotFlash 0.4s ease;
+}
+
+    
+</style>
+</head>
+<body>
+<div class="machine-wrapper"></div>
+<div class="layout"><div class="left-panel">
+    <div class="filter-wrapper">
+        <div class="filter-grid">
+            <button id="bikeFilterBtn" class="filter-control" onclick="toggleBikeFilter()">loading...</button>
+            <select id="countrySelect" class="filter-control" onchange="updateFilterHighlighting()">
+                <option value="">Land wählen</option>
+            </select>
+            <select id="brandSelect" class="filter-control" onchange="updateFilterHighlighting()">
+                <option value="">Marke wählen</option>
+            </select>
+            <select id="eraSelect" class="filter-control" onchange="updateFilterHighlighting()">
+                <option value="">Zeitraum wählen</option>
+            </select>
+        </div>
+    </div>
+    <div class="category-grid">
+      <!-- Reihe 1 -->
+      <div class="catWrapper">
+          <input type="checkbox" id="cat1" class="catCheckbox" onchange="handleCategoryClick(this)" value="Street Tier 1"/>
+          <label for="cat1" class="catLabel cat-yellow"><span>Street<br>Tier 1</span></label>
+      </div>
+      <div class="catWrapper">
+          <input type="checkbox" id="cat2" class="catCheckbox" onchange="handleCategoryClick(this)" value="Street Tier 2"/>
+          <label for="cat2" class="catLabel cat-yellow"><span>Street<br>Tier 2</span></label>
+      </div>
+      <div class="catWrapper">
+          <input type="checkbox" id="cat8" class="catCheckbox" onchange="handleCategoryClick(this)" value="Hypercar"/>
+          <label for="cat8" class="catLabel cat-yellow"><span>Hypercar</span></label>
+      </div>
+    
+      <!-- Reihe 2 -->
+      <div class="catWrapper">
+          <input type="checkbox" id="cat10" class="catCheckbox" onchange="handleCategoryClick(this)" value="Drift"/>
+          <label for="cat10" class="catLabel cat-yellow"><span>Drift</span></label>
+      </div>
+      <div class="catWrapper">
+          <input type="checkbox" id="cat3" class="catCheckbox" onchange="handleCategoryClick(this)" value="Racing"/>
+          <label for="cat3" class="catLabel cat-blue"><span>Racing</span></label>
+      </div>
+      <div class="catWrapper">
+          <input type="checkbox" id="cat4" class="catCheckbox" onchange="handleCategoryClick(this)" value="AGP"/>
+          <label for="cat4" class="catLabel cat-blue"><span>AGP</span></label>
+      </div>
+    
+      <!-- Reihe 3 -->
+      <div class="catWrapper">
+          <input type="checkbox" id="cat7" class="catCheckbox" onchange="handleCategoryClick(this)" value="Rally"/>
+          <label for="cat7" class="catLabel cat-orange"><span>Rally</span></label>
+      </div>
+      <div class="catWrapper">
+          <input type="checkbox" id="cat6" class="catCheckbox" onchange="handleCategoryClick(this)" value="Rally Raid"/>
+          <label for="cat6" class="catLabel cat-orange"><span>Rally Raid</span></label>
+      </div>
+      <div class="catWrapper">
+          <input type="checkbox" id="cat9" class="catCheckbox" onchange="handleCategoryClick(this)" value="Monster Truck"/>
+          <label for="cat9" class="catLabel cat-magenta"><span>Monster Truck</span></label>
+      </div>
+    
+      <!-- Reihe 4 -->
+      <div class="catWrapper">
+          <input type="checkbox" id="cat5" class="catCheckbox" onchange="handleCategoryClick(this)" value="Motocross"/>
+          <label for="cat5" class="catLabel cat-orange"><span>Motocross</span></label>
+      </div>
+      <div class="catWrapper">
+          <input type="checkbox" id="catGR" class="catCheckbox" onchange="handleGrandraceCategoriesClick(this)"/>
+          <label for="catGR" class="catLabel cat-green"><span>Grandrace<br>Categories</span></label>
+      </div>
+      <div class="catWrapper">
+        <button id="resetBtnGrid" class="catLabel cat-reset reset-special" onclick="resetSmart()"><span>RESET</span></button>
+      </div>
+    </div>        
+</div>
+    <div class="center-panel">
+        <div class="button-top">
+            <button id="goBtn" class="start-btn" onclick="handleGo()">GO</button>
+        </div>
+    </div>
+    <div class="right-panel">
+      <div class="results-panel">
+        <h2 id="yourPickTitle" class="your-pick-title standby">Your Pick</h2>
+        <div id="results"></div>
+      </div>
+      <!-- Grandrace Ticker kommt JETZT hier in die rechte Spalte -->
+      <div id="grandraceTicker" class="marquee">
+        <div id="grandraceContent"></div>
+      </div>
+    </div> <!-- Ende right-panel -->
+</div>
+<script src="https://shogun160.github.io/TCM-ZEN_DOMIZER/cars/vehicles.json" type="application/json"></script>
+<script>
+    /*
+     * BEGIN: Borrowed from https://github.com/calamity-inc/motorfe.st/
+     */
+    const ROTATION_START = 1741258200;
+    const ROTATION = [
+        ["Kahakuloa", "ST1 > Rally > ST2"],
+        ["Kalaeloa", "AGP > Hyper > ST1"],
+        ["Mauna Pele", "Racing > AGP > ST2"],
+        ["Wahiawa Fields", "AGP > Racing > Rally", "Main Stage"],
+        ["Diamond Head", "AGP > Rally > Racing"],
+        ["Kaena Point", "ST1 > Motocross > RR"],
+        ["Diamond Head", "Racing > Hyper > ST2"],
+        ["Kaena Point", "AGP > ST2 > Hyper", "No Collision"],
+        ["Kaneohe", "RR > ST1 > Racing"],
+        ["Haleiwa", "Hyper > Racing > ST2"],
+        ["Ma'akua Black Beach", "ST2 > RR > Racing"],
+        ["Haleiwa", "Rally > AGP > Racing", "Main Stage"],
+        ["Waikiki", "Racing > Hyper > ST2"],
+        ["Wailea", "AGP > Hyper > Racing"],
+        ["Kalaeloa", "Motocross > Rally/Plane > Drift"],
+        ["Wahiawa Fields", "AGP > ST2 > Hyper", "No Collision"],
+        ["Mauna Pele", "Rally > ST1 > Hyper"],
+        ["Kealaloloa", "ST1 > RR > Hyper"],
+        ["Nuuanu - Punchbowl", "Motocross > Monster > Rally"],
+        ["Kahuku", "Racing > Rally > AGP", "Main Stage"],
+        ["Ma'akua Black Beach", "Hyper > ST2 > AGP"],
+        ["Wailea", "ST2 > Hyper > Racing"],
+        ["Kula", "Racing > AGP > ST2"],
+        ["Lahaina", "Hyper > ST2 > Racing", "Special Weather"],
+    ];
+    const EVENT_DURATION = 20 * 60;
+    const ROTATION_DURATION = ROTATION.length * EVENT_DURATION;
+
+    function getCurrentEventIndex()
+    {
+        return ((((new Date() / 1000) - ROTATION_START) % ROTATION_DURATION) / EVENT_DURATION) | 0;
+    }
+    /*
+     * END: Borrowed from https://github.com/calamity-inc/motorfe.st/
+     */
+
+    /* Map rotation types to checkbox Ids */
+    const ROTATION_MAP = new Map([
+      ["ST1", "cat1"],
+      ["ST2", "cat2"],
+      ["Hyper", "cat8"],
+      ["Racing", "cat3"],
+      ["AGP", "cat4"],
+      ["Motocross", "cat5"],
+      ["Rally", "cat7"],
+      ["Rally/Plane", "cat7"],
+      ["RR", "cat6"],
+      ["Monster", "cat9"],
+      ["Drift", "cat10"], // Drift integriert
+    ]);
+
+    let selectedOrder = [];
+    let drawExecuted = false;
+    let grandraceCategories = [];
+
+    function handleGrandraceCategoriesClick(checkbox) {
+        if (checkbox.checked) {
+            // Grandrace ausgewählt → Kategorien anwählen
+            grandraceCategories = [];
+            let grCatString = ROTATION[getCurrentEventIndex()][1];
+            let grCatArray = grCatString.split(" > ");
+            for (let grCat of grCatArray) {
+                let catBoxId = ROTATION_MAP.get(grCat);
+                let catCheckBox = document.getElementById(catBoxId);
+                if (catCheckBox != null) {
+                    catCheckBox.checked = true;
+                    catCheckBox.disabled = false;
+                    handleCategoryClick(catCheckBox);
+                    grandraceCategories.push(catCheckBox);
+                }
+            }
+            showToast("🏁 Grandrace Kategorien übernommen", "#39ff14"); // 🏁 Toast beim Aktivieren
+        } else {
+            // Grandrace abgewählt → Kategorien abwählen
+            for (let cb of grandraceCategories) {
+                cb.checked = false;
+                handleCategoryClick(cb);
+            }
+            grandraceCategories = [];
+            showToast("↩️ Grandrace Kategorien deaktiviert", "#39ff14"); // ↩️ Toast beim Deaktivieren
+        }
+    }
+
+    function checkGrandraceCategories() {
+        const grandraceCheckbox = document.getElementById('catGR');
+        if (!grandraceCheckbox.checked) {
+            return; // Button nicht aktiv → nichts tun
+        }
+        let expectedCategories = ROTATION[getCurrentEventIndex()][1].split(" > ");
+        let expectedIds = expectedCategories.map(cat => ROTATION_MAP.get(cat));
+    
+        // Aktuelle ausgewählte Kategorien IDs
+        let selectedIds = Array.from(document.querySelectorAll('.catCheckbox:checked'))
+                                .map(cb => cb.id)
+                                .filter(id => id !== "catGR"); // Grandrace-Button selbst ignorieren
+    
+        // Vergleich: stimmen IDs überein?
+        expectedIds.sort();
+        selectedIds.sort();
+    
+        if (JSON.stringify(expectedIds) !== JSON.stringify(selectedIds)) {
+            // Abweichung festgestellt → neu setzen
+            for (let cb of document.querySelectorAll('.catCheckbox')) {
+                if (cb.id !== "catGR") {
+                    cb.checked = false;
+                }
+            }
+            grandraceCategories = [];
+            for (let cat of expectedCategories) {
+                let catBoxId = ROTATION_MAP.get(cat);
+                let catCheckBox = document.getElementById(catBoxId);
+                if (catCheckBox != null) {
+                    catCheckBox.checked = true;
+                    handleCategoryClick(catCheckBox);
+                    grandraceCategories.push(catCheckBox);
+                }
+            }
+            showToast("🏁 Grandrace Kategorien aktualisiert", "#39ff14", 5000); // 5 Sekunden sichtbar
+        }
+    }
+
+    function handleCategoryClick(checkbox) {
+      const value = checkbox.value;
+    
+      // Auswahl verwalten
+      if (checkbox.checked) {
+        if (!selectedOrder.includes(value)) {
+          selectedOrder.push(value);
+        }
+      } else {
+        selectedOrder = selectedOrder.filter(v => v !== value);
+      }
+    
+      // Checkbox-Badges aktualisieren (dein vorhandener Call)
+      updateCheckboxBadges();
+    
+      // HOVER-Handling je nach Anzahl aktivierter Kategorien
+      const checkedBoxes = document.querySelectorAll('.catCheckbox:checked');
+      const grid = document.querySelector('.category-grid');
+    
+      if (checkedBoxes.length >= 3) {
+        grid.classList.add('limit-reached');
+        document.querySelectorAll('.catCheckbox:not(:checked)').forEach(cb => cb.disabled = true);
+      } else {
+        grid.classList.remove('limit-reached');
+        document.querySelectorAll('.catCheckbox').forEach(cb => cb.disabled = false);
+      }
+      // Slotboxen sofort anzeigen
+      updateSlotBoxes();
+      // Your Pick Titel aktivieren/deaktivieren
+      const title = document.getElementById('yourPickTitle');
+      if (selectedOrder.length > 0) {
+        title.classList.remove('standby');
+        title.classList.add('active');
+      } else {
+        title.classList.remove('active');
+        title.classList.add('standby');
+      }
+      updateResetButtonState();
+      updateGoButtonState(); // 🟢 Aktiviert/deaktiviert den GO-Button passend
+    }
+    function updateCheckboxBadges() {
+      const allCheckboxes = document.querySelectorAll('.catCheckbox');
+      allCheckboxes.forEach(cb => {
+        const label = document.querySelector(`label[for="${cb.id}"]`);
+        if (!label) return;
+    
+        let badge = label.querySelector('.order-badge');
+        const index = selectedOrder.indexOf(cb.value);
+    
+        if (index !== -1) {
+          if (!badge) {
+            badge = document.createElement("span");
+            badge.className = "order-badge";
+            label.appendChild(badge);  // ✅ jetzt INS Label!
+          }
+          badge.innerText = (index + 1).toString();
+        } else if (badge) {
+          badge.remove();
+        }
+      });
+    }
+    function updateSlotBoxes() {
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = '';
+      // "Your Pick" anpassen
+      const title = document.getElementById('yourPickTitle');
+      title.classList.remove('active', 'standby');
+      title.classList.add(selectedOrder.length === 0 ? 'standby' : 'active');
+
+      const categoriesToRender = [...selectedOrder.slice(0, 3)];
+        while (categoriesToRender.length < 3) {
+          categoriesToRender.push("");
+        }
+
+    
+      categoriesToRender.forEach((cat, index) => {
+        const isStandby = cat === "";
+    
+        const colorClass =
+          ['Street Tier 1', 'Street Tier 2', 'Hypercar', 'Drift'].includes(cat) ? 'slot-yellow' :
+          ['Racing', 'AGP'].includes(cat) ? 'slot-blue' :
+          ['Rally', 'Rally Raid', 'Motocross'].includes(cat) ? 'slot-orange' :
+          cat === 'Monster Truck' ? 'slot-magenta' :
+          '';
+    
+        const slot = document.createElement('div');
+        slot.className = `slot-box empty ${isStandby ? 'slot-standby' : colorClass}`;
+        slot.innerHTML = `
+          <div class="slot-badge">${index + 1}</div>
+          <div class="slot-category">${isStandby ? "" : cat}</div>
+          <div class="slot-name"><span class="question-mark">?</span></div>
+          <div class="slot-warning"></div>
+        `;
+        resultsDiv.appendChild(slot);
+      });
+    }
+    function initializeDropdowns() {
+      const brandSelect = document.getElementById("brandSelect");
+      const countrySelect = document.getElementById("countrySelect");
+      const eraSelect = document.getElementById("eraSelect");
+    
+      const brandRenameMap = {
+        'Gordon Murray Automobile': 'Gordan Murray'
+      };
+    
+      const countryRenameMap = {
+        'Vereinigte Arabische Emirate': 'Arabische Emirate'
+      };
+    
+      const brandSet = new Set(vehicles.map(v => v.brand));
+      [...brandSet].sort().forEach(brand => {
+        const option = document.createElement("option");
+        option.value = brand;
+        option.textContent = brandRenameMap[brand] || brand;
+        brandSelect.appendChild(option);
+      });
+    
+      const countrySet = new Set(vehicles.map(v => v.country));
+      [...countrySet].sort().forEach(country => {
+        const option = document.createElement("option");
+        option.value = country;
+        option.textContent = countryRenameMap[country] || country;
+        countrySelect.appendChild(option);
+      });
+    
+      const eraSet = new Set(vehicles.map(v => v.era));
+      [...eraSet].sort().forEach(era => {
+        const option = document.createElement("option");
+        option.value = era;
+        option.textContent = era;
+        eraSelect.appendChild(option);
+      });
+    }
+    function getCurrentFilters() {
+      return {
+        brand: document.getElementById("brandSelect").value,
+        country: document.getElementById("countrySelect").value,
+        era: document.getElementById("eraSelect").value
+      };
+    }
+
+    function resetSmart() {
+      const filters = getCurrentFilters();
+      const filtersActive = filters.brand || filters.country || filters.era || selectedOrder.length > 0;
+    
+      // Zustand 1: Button ist inaktiv – keine Funktion
+      if (!filtersActive && !drawExecuted) return;
+    
+      // Zustand 3: Ziehung war aktiv → Slotboxen zurücksetzen
+      if (drawExecuted) {
+        drawExecuted = false;
+        updateSlotBoxes();
+        updateResetButtonState();
+        showToast("↩️ Ziehung zurückgesetzt", "#f44336");
+        return;
+      }
+    
+      // Zustand 2: Filter aktiv → alles zurücksetzen
+      document.getElementById("brandSelect").value = "";
+      document.getElementById("countrySelect").value = "";
+      document.getElementById("eraSelect").value = "";
+    
+      bikeFilterMode = "no_bike";
+      const bfb = document.getElementById("bikeFilterBtn");
+      bfb.innerText = "Nur Autos";
+      bfb.classList.add("bike-active");
+    
+      const checkboxes = document.querySelectorAll('.catCheckbox');
+      checkboxes.forEach(cb => cb.checked = false);
+    
+      selectedOrder = [];
+      updateCheckboxBadges();
+      updateFilterHighlighting();
+      document.querySelector('.category-grid').classList.remove('limit-reached');
+      document.querySelectorAll('.catCheckbox').forEach(cb => cb.disabled = false);
+    
+      updateSlotBoxes();
+      updateResetButtonState();
+      updateGoButtonState();
+      showToast("↩️ Filter zurückgesetzt!", "#f44336");
+    }
+    function updateFilterHighlighting() {
+      const brand = document.getElementById("brandSelect");
+      const country = document.getElementById("countrySelect");
+      const era = document.getElementById("eraSelect");
+    
+      [brand, country, era].forEach(el => {
+        if (el.value !== "") {
+          el.classList.add("active");
+        } else {
+          el.classList.remove("active");
+        }
+      });
+    
+      if (!drawExecuted) updateResetButtonState();
+    }
+
+    let lastSelection = [];
+
+    function updateResetButtonState() {
+      const btn = document.getElementById("resetBtnGrid");
+      const filters = getCurrentFilters();
+      const filtersActive = filters.brand || filters.country || filters.era || selectedOrder.length > 0;
+    
+      btn.classList.remove("inactive", "pulsing");
+    
+      if (!filtersActive && !drawExecuted) {
+        btn.classList.add("inactive");
+      } else {
+        btn.classList.add("pulsing");
+      }
+    }
+
+    function toggleBikeFilter() {
+      const btn = document.getElementById("bikeFilterBtn");
+      if (bikeFilterMode === 'no_bike') {
+        bikeFilterMode = 'bike';
+        btn.innerText = "Nur Bikes";
+        btn.classList.add("bike-active");
+      } else if (bikeFilterMode === 'bike') {
+        bikeFilterMode = 'all';
+        btn.innerText = "Alle Fahrzeuge";
+        btn.classList.remove("bike-active");
+      } else {
+        bikeFilterMode = 'no_bike';
+        btn.innerText = "Nur Autos";
+        btn.classList.add("bike-active");
+      }
+      if (!drawExecuted) updateResetButtonState();
+    }
+    function updateBrandDropdown() {
+      const brandSet = new Set(vehicles.map(v => v.brand));
+      const dropdown = document.getElementById("brandSelect");
+      [...brandSet].sort().forEach(brand => {
+        const opt = document.createElement("option");
+        opt.value = brand;
+        opt.innerText = brand;
+        dropdown.appendChild(opt);
+      });
+    }
+    function drawRandomVehicles() {
+      const filters = getCurrentFilters();
+      const selectedCategories = Array.from(document.querySelectorAll('.catCheckbox'))
+        .filter(cb => cb.checked)
+        .map(cb => cb.value);
+
+      const selectedBrand = filters.brand;
+
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = '';
+
+      if (selectedCategories.length < 3) {
+        resultsDiv.innerHTML = "<p>⚠️ Bitte 3 Kategorien auswählen.</p>";
+        return;
+      }
+
+      const shuffledCategories = selectedCategories.sort(() => 0.5 - Math.random()).slice(0, 3);
+      const chosen = [];
+
+      for (let cat of shuffledCategories) {
+        
+        let ignored = [];
+
+        let finalList = [];
+
+        // Schritt 1: Alle aktiven Filter
+        finalList = vehicles.filter(v =>
+          v.category === cat &&
+          (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && v.bike === false) || (bikeFilterMode === 'bike' && v.bike === true)) &&
+          (!filters.country || v.country === filters.country) &&
+          (!filters.era || v.era === filters.era) &&
+          (!filters.brand || v.brand === filters.brand)
+        );
+
+        if (finalList.length === 0) {
+          // Schritt 2: Bike-Filter ignorieren (nur wenn aktiv)
+          if (bikeFilterMode === 'no_bike' || bikeFilterMode === 'bike') {
+            const fallback = vehicles.filter(v =>
+              v.category === cat &&
+              (!filters.country || v.country === filters.country) &&
+              (!filters.era || v.era === filters.era) &&
+              (!filters.brand || v.brand === filters.brand)
+            );
+            if (fallback.length > 0) {
+              finalList = fallback;
+              ignored.push(bikeFilterMode === 'no_bike' ? 'Nur Autos' : 'Nur Bikes');
+            }
+          }
+        }
+
+        // Schritt 3–5: Einzelne Filter ignorieren (nur wenn aktiv)
+        if (finalList.length === 0 && filters.era) {
+          const fallback = vehicles.filter(v =>
+            v.category === cat &&
+            (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && v.bike === false) || (bikeFilterMode === 'bike' && v.bike === true)) &&
+            (!filters.country || v.country === filters.country) &&
+            (!filters.brand || v.brand === filters.brand)
+          );
+          if (fallback.length > 0) {
+            finalList = fallback;
+            ignored.push(`Zeitraum (${filters.era})`);
+          }
+        }
+
+        if (finalList.length === 0 && filters.brand) {
+          const fallback = vehicles.filter(v =>
+            v.category === cat &&
+            (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && v.bike === false) || (bikeFilterMode === 'bike' && v.bike === true)) &&
+            (!filters.country || v.country === filters.country) &&
+            (!filters.era || v.era === filters.era)
+          );
+          if (fallback.length > 0) {
+            finalList = fallback;
+            ignored.push(`Marke (${filters.brand})`);
+          }
+        }
+
+        if (finalList.length === 0 && filters.country) {
+          const fallback = vehicles.filter(v =>
+            v.category === cat &&
+            (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && v.bike === false) || (bikeFilterMode === 'bike' && v.bike === true)) &&
+            (!filters.era || v.era === filters.era) &&
+            (!filters.brand || v.brand === filters.brand)
+          );
+          if (fallback.length > 0) {
+            finalList = fallback;
+            ignored.push(`Land (${filters.country})`);
+          }
+        }
+
+        // Schritt 6: Alle außer Kategorie & Bike-Filter ignorieren
+        if (finalList.length === 0) {
+          const fallback = vehicles.filter(v =>
+            v.category === cat &&
+            (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && v.bike === false) || (bikeFilterMode === 'bike' && v.bike === true))
+          );
+          if (fallback.length > 0) {
+            finalList = fallback;
+            if (filters.era) ignored.push(`Zeitraum (${filters.era})`);
+            if (filters.brand) ignored.push(`Marke (${filters.brand})`);
+            if (filters.country) ignored.push(`Land (${filters.country})`);
+          }
+        }
+
+        // Schritt 7: Alles ignorieren außer Kategorie
+        if (finalList.length === 0) {
+          const fallback = vehicles.filter(v => v.category === cat);
+          if (fallback.length > 0) {
+            finalList = fallback;
+            ignored.push('Alle');
+          }
+        }
+
+        if (finalList.length === 0) continue;
+
+        // Letztes Fahrzeug für die Kategorie aus lastSelection holen
+        const lastVehicle = lastSelection?.find(v => v?.category === category);
+        
+        // Bei mehreren Optionen das vorherige rausfiltern
+        if (finalList.length > 1 && lastVehicle) {
+          finalList = finalList.filter(v =>
+            !(v.brand === lastVehicle.brand &&
+              v.model === lastVehicle.model &&
+              v.year === lastVehicle.year)
+          );
+        }
+        
+        // Neu ziehen aus gefilterter Liste
+        const vehicle = finalList[Math.floor(Math.random() * finalList.length)];
+
+        chosen.push({...vehicle, ignoredFilters: ignored});
+      }
+
+      if (chosen.length !== 3) {
+        resultsDiv.innerHTML = "<p>⚠️ Nicht genügend Fahrzeuge gefunden.</p>";
+        return;
+      }
+
+      chosen.sort((a, b) => selectedOrder.indexOf(a.category) - selectedOrder.indexOf(b.category));
+
+      lastSelection = chosen;
+
+      resultsDiv.scrollIntoView({ behavior: 'smooth' });
+      copyToClipboard();
+    }
+
+    function repeatDraw() {
+      if (!lastSelection || lastSelection.length === 0) {
+        fillSlotBoxesWithResults();
+        return;
+      }
+    
+      const resultsDiv = document.getElementById('results');
+      const slots = resultsDiv.querySelectorAll('.slot-box');
+    
+      slots.forEach((slot, i) => {
+        const v = lastSelection[i];
+    
+        // Slot optisch aktivieren
+        slot.classList.remove('empty');
+        slot.classList.remove('slot-yellow', 'slot-blue', 'slot-orange', 'slot-magenta');
+    
+        const colorClass =
+          ['Street Tier 1', 'Street Tier 2', 'Hypercar', 'Drift'].includes(category) ? 'slot-yellow' :
+          ['Racing', 'AGP'].includes(category) ? 'slot-blue' :
+          ['Rally', 'Rally Raid', 'Motocross'].includes(category) ? 'slot-orange' :
+          category === 'Monster Truck' ? 'slot-magenta' :
+          '';
+    
+        // .slot-name gezielt füllen
+        const nameDiv = slot.querySelector('.slot-name');
+        if (nameDiv) {
+          nameDiv.textContent = `${v.brand} ${v.model} (${v.year})`;
+        }
+    
+        // .slot-warning nur füllen, wenn Filter ignoriert wurden
+        const warnDiv = slot.querySelector('.slot-warning');
+        if (warnDiv) {
+          warnDiv.innerHTML = v.ignoredFilters?.length
+            ? `Ignorierte Filter: ${v.ignoredFilters.join(', ')}`
+            : '';
+        }
+      });
+    
+      resultsDiv.scrollIntoView({ behavior: 'smooth' });
+      copyToClipboard();
+    }
+    
+    function copyToClipboard(silent = false) {
+      if (!lastSelection || lastSelection.length === 0) {
+        if (!silent) showToast("⚠️ Keine Auswahl zum Kopieren.");
+        return;
+      }
+    
+      let result = "🎲 ZENDOMIZER Auswahl:\n\n";
+    
+      lastSelection.forEach(vehicle => {
+        result += `|| ${vehicle.category}:\n  ${vehicle.brand} ${vehicle.model} (${vehicle.year})\n\n`;
+      });
+    
+      navigator.clipboard.writeText(result.trim()).then(() => {
+        if (!silent) {
+          showToast("✅ In Zwischenablage kopiert!");
+        }
+      });
+    }
+
+    function handleCopy() {
+      if (!drawExecuted) return; // keine Aktion im Standby
+      copyToClipboard(); // nur wenn kategorien gezogen wurden
+    
+      const btn = document.getElementById("copyBtn");
+      btn.textContent = "🅒";
+      btn.classList.add("clicked");
+    
+      setTimeout(() => {
+        btn.textContent = "Ⓒ";
+        btn.classList.remove("clicked");
+      }, 750); // Dauer halbiert
+    }
+    
+    function fillSlotBoxesWithResults() {
+      const filters = getCurrentFilters();
+      const selectedCategories = selectedOrder.slice(0, 3);
+    
+      if (selectedCategories.length < 3) {
+        showToast("⚠️ Bitte 3 Kategorien auswählen.", "#f33");
+        return;
+      }
+    
+      const chosen = [];
+    
+      for (let cat of selectedCategories) {
+        const result = drawVehicleForCategory(cat, filters, bikeFilterMode);
+        if (!result) continue;
+        const { vehicle, ignoredFilters } = result;
+        chosen.push({ ...vehicle, ignoredFilters });
+      }
+    
+      if (chosen.length !== 3) {
+        showToast("⚠️ Nicht genügend Fahrzeuge gefunden.", "#f33");
+        return;
+      }
+    
+      lastSelection = chosen;
+    
+      const resultsDiv = document.getElementById('results');
+      const slots = resultsDiv.querySelectorAll('.slot-box');
+      slots.forEach((slot, i) => {
+        const v = chosen[i];
+        const nameDiv = slot.querySelector('.slot-name');
+        const warnDiv = slot.querySelector('.slot-warning');
+    
+        nameDiv.textContent = `${v.brand} ${v.model} (${v.year})`;
+        warnDiv.innerHTML = v.ignoredFilters.length
+          ? `Ignorierte Filter: ${v.ignoredFilters.join(', ')}`
+          : '';
+    
+        slot.classList.remove('empty', 'slot-yellow', 'slot-blue', 'slot-orange', 'slot-magenta');
+          
+        const colorClass =
+          ['Street Tier 1', 'Street Tier 2', 'Hypercar', 'Drift'].includes(v.category) ? 'slot-yellow' :
+          ['Racing', 'AGP'].includes(v.category) ? 'slot-blue' :
+          ['Rally', 'Rally Raid', 'Motocross'].includes(v.category) ? 'slot-orange' :
+          v.category === 'Monster Truck' ? 'slot-magenta' :
+          '';
+
+        slot.classList.add(colorClass);
+        // ✨ Neon-Flash-Animation für GO
+        slot.classList.add("flash");
+        setTimeout(() => slot.classList.remove("flash"), 800);
+
+      });
+    
+      copyToClipboard();
+    }
+
+    function handleGo() {
+      if (selectedOrder.length < 3) return; // ❌ GO nur bei 3 Kategorien erlaubt
+    
+      drawExecuted = true;
+      fillSlotBoxesWithResults();
+      updateResetButtonState();
+    
+      const btn = document.getElementById("goBtn");
+      btn.classList.add("active");
+      btn.classList.add("clicked");
+    
+      setTimeout(() => {
+        btn.classList.remove("active");
+        btn.classList.remove("clicked");
+      }, 750); // Dauer halbiert
+    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') drawRandomVehicles();
+      if (e.key.toLowerCase() === 'r') repeatDraw();
+      if (e.key.toLowerCase() === 'c') copyToClipboard();
+    });
+
+    window.onload = () => {
+      bikeFilterMode = "no_bike";
+    
+      const bfb = document.getElementById("bikeFilterBtn");
+      if (bfb) {
+        bfb.innerText = "Nur Autos";
+        bfb.classList.add("bike-active"); // 💡 Button grün glühen lassen
+      }
+    
+      if (localStorage.getItem('darkmode') === 'true') {
+        document.body.classList.add('dark');
+      }
+    
+      fetch('cars/vehicles.json')
+        .then(response => response.json())
+        .then(data => {
+          vehicles = data;
+          initializeDropdowns();
+          updateSlotBoxes();
+          updateResetButtonState();
+          updateGoButtonState();
+        })
+        .catch(err => {
+          console.error("🚨 Fehler beim Laden von vehicles.json:", err);
+          alert("⚠️ Fahrzeugdaten konnten nicht geladen werden.");
+        });
+    };
+    document.addEventListener('click', function(e) {
+      const box = e.target.closest('.slot-box');
+      if (!box || !drawExecuted) return;
+    
+      const category = box.querySelector('.slot-category')?.textContent;
+      if (category) {
+        rerollSingleSlot(category);
+      }
+    });
+    function updateGoButtonState() {
+      const btn = document.getElementById("goBtn");
+      btn.classList.remove("inactive", "pulsing"); // 🔁 wichtig: beides entfernen
+    
+      if (selectedOrder.length < 3) {
+        btn.classList.add("inactive");
+      } else {
+        btn.classList.add("pulsing"); // 🟢 aktiv, wenn 3 Kategorien gewählt
+      }
+    }
+    
+    function rerollSingleSlot(category) {
+      const filters = getCurrentFilters();
+      const result = drawVehicleForCategory(category, filters, bikeFilterMode);
+      if (!result) {
+        showToast(`⚠️ Kein Fahrzeug für ${category} gefunden.`, "#f33");
+        return;
+      }
+    
+      const { vehicle, ignoredFilters } = result;
+      const index = selectedOrder.indexOf(category);
+      if (index === -1) return;
+    
+      while (lastSelection.length < 3) {
+        lastSelection.push(null);
+      }
+    
+      const oldVehicle = lastSelection[index]; // vorher merken
+    
+      lastSelection[index] = { ...vehicle, ignoredFilters };
+    
+      const slot = document.querySelectorAll('.slot-box')[index];
+      if (!slot) return;
+    
+      const nameDiv = slot.querySelector('.slot-name');
+      const warnDiv = slot.querySelector('.slot-warning');
+    
+      nameDiv.textContent = `${vehicle.brand} ${vehicle.model} (${vehicle.year})`;
+      warnDiv.innerHTML = ignoredFilters.length
+        ? `Ignorierte Filter: ${ignoredFilters.join(', ')}`
+        : '';
+    
+      slot.classList.remove('slot-yellow', 'slot-blue', 'slot-orange', 'slot-magenta');
+      const colorClass =
+          ['Street Tier 1', 'Street Tier 2', 'Hypercar', 'Drift'].includes(category) ? 'slot-yellow' :
+          ['Racing', 'AGP'].includes(category) ? 'slot-blue' :
+          ['Rally', 'Rally Raid', 'Motocross'].includes(category) ? 'slot-orange' :
+          category === 'Monster Truck' ? 'slot-magenta' :
+          '';
+    
+      // Kurze Neon-Flash-Animation
+      slot.classList.add("flash");
+      setTimeout(() => slot.classList.remove("flash"), 800);
+    
+      // Fahrzeug gleich wie vorher?
+      const isSame = oldVehicle &&
+        oldVehicle.brand === vehicle.brand &&
+        oldVehicle.model === vehicle.model &&
+        oldVehicle.year === vehicle.year;
+    
+      if (isSame) {
+        showToast("🔁 keine Alternative verfügbar.", "#999");
+        copyToClipboard(true); // ohne Toast
+      } else {
+        copyToClipboard(); // mit normalem Toast
+      }
+    }
+
+    function drawVehicleForCategory(category, filters, bikeFilterMode) {
+      let ignored = [];
+    
+      let finalList = vehicles.filter(v =>
+        v.category === category &&
+        (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
+        (!filters.country || v.country === filters.country) &&
+        (!filters.era || v.era === filters.era) &&
+        (!filters.brand || v.brand === filters.brand)
+      );
+    
+      if (finalList.length === 0 && bikeFilterMode !== 'all') {
+        finalList = vehicles.filter(v =>
+          v.category === category &&
+          (!filters.country || v.country === filters.country) &&
+          (!filters.era || v.era === filters.era) &&
+          (!filters.brand || v.brand === filters.brand)
+        );
+        if (finalList.length > 0) ignored.push("Bike-Filter");
+      }
+    
+      if (finalList.length === 0 && filters.era) {
+        finalList = vehicles.filter(v =>
+          v.category === category &&
+          (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
+          (!filters.country || v.country === filters.country) &&
+          (!filters.brand || v.brand === filters.brand)
+        );
+        if (finalList.length > 0) ignored.push(`Zeitraum (${filters.era})`);
+      }
+    
+      if (finalList.length === 0 && filters.brand) {
+        finalList = vehicles.filter(v =>
+          v.category === category &&
+          (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
+          (!filters.country || v.country === filters.country) &&
+          (!filters.era || v.era === filters.era)
+        );
+        if (finalList.length > 0) ignored.push(`Marke (${filters.brand})`);
+      }
+    
+      if (finalList.length === 0 && filters.country) {
+        finalList = vehicles.filter(v =>
+          v.category === category &&
+          (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
+          (!filters.era || v.era === filters.era) &&
+          (!filters.brand || v.brand === filters.brand)
+        );
+        if (finalList.length > 0) ignored.push(`Land (${filters.country})`);
+      }
+    
+      if (finalList.length === 0) {
+        finalList = vehicles.filter(v =>
+          v.category === category &&
+          (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike))
+        );
+        if (finalList.length > 0) {
+          if (filters.era) ignored.push(`Zeitraum (${filters.era})`);
+          if (filters.brand) ignored.push(`Marke (${filters.brand})`);
+          if (filters.country) ignored.push(`Land (${filters.country})`);
+        }
+      }
+    
+      if (finalList.length === 0) {
+        finalList = vehicles.filter(v => v.category === category);
+        if (finalList.length > 0) ignored.push("Alle Filter");
+      }
+    
+      if (finalList.length === 0) return null;
+    
+      const vehicle = finalList[Math.floor(Math.random() * finalList.length)];
+      return { vehicle, ignoredFilters: ignored };
+    }
+
+    function updateGrandraceTicker() {
+      const tickerContent = document.getElementById('grandraceContent');
+      if (!tickerContent) return;
+      
+      const currentEvent = ROTATION[getCurrentEventIndex()][0];
+      
+      const spacer = '&emsp;&emsp;&emsp;&emsp;'; // schöner Abstand
+      const message = `🏁 Ready for ${currentEvent}? Let's race! 🏁`;
+      
+      // Mehrfach Wiederholen, damit der Lauftext lang genug wird
+      tickerContent.innerHTML = (message + spacer).repeat(8);
+    }
+    
+    // Direkt beim Laden ausführen
+    window.addEventListener('load', updateGrandraceTicker);
+    
+    // Optional: Alle 15 Sekunden neu prüfen
+    setInterval(updateGrandraceTicker, 15000);
+
+    function showToast(message = "✅ In Zwischenablage kopiert!", color = "#0f0") {
+      const toast = document.getElementById("toast");
+      toast.innerText = message;
+      toast.style.color = color;
+      toast.classList.add("show");
+    
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 3000);
+    }
+    
+    setInterval(checkGrandraceCategories, 1000); // alle 1000ms prüfen
+    
+    const countrySelect = document.getElementById('countrySelect');
+    
+    countrySelect.addEventListener('change', () => {
+      const selectedOption = countrySelect.options[countrySelect.selectedIndex];
+    
+      if (selectedOption.text === 'Vereinigte Arabische Emirate') {
+        selectedOption.text = 'Arabische Emirate';
+        selectedOption.setAttribute('data-original', 'Vereinigte Arabische Emirate');
+      }
+    
+      // Bei erneutem Öffnen Dropdown zurücksetzen
+      countrySelect.addEventListener('mousedown', () => {
+        Array.from(countrySelect.options).forEach(opt => {
+          if (opt.getAttribute('data-original')) {
+            opt.text = opt.getAttribute('data-original');
+          }
+        });
+      }, { once: true });
+    });
+  </script>
+<div id="toast" class="toast">✅ In Zwischenablage kopiert!</div>
+</body>
+</html>
