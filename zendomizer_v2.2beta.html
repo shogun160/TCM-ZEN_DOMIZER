@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>ZENDOMIZER v2.1 | Vehicle list 04/2024</title>
+<title>ZENDOMIZER v2.2 | Vehicle list 04/2024</title>
 <style>
     body {
       font-family: 'Orbitron', sans-serif;
@@ -36,6 +36,8 @@
     
     @keyframes scrollMarquee {
       0% { transform: translateX(100%); }
+      5% { transform: translateX(80%); } /* schneller Start */
+      95% { transform: translateX(-80%); } /* schneller Schluss */
       100% { transform: translateX(-100%); }
     }
 
