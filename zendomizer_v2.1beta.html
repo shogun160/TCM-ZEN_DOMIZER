@@ -979,10 +979,10 @@ select.filter-control {
         const isStandby = cat === "";
     
         const colorClass = isStandby ? 'slot-standby' :
-        ['Drift', 'Monster Truck'].includes(cat) ? 'slot-magenta' :
+        ['Monster Truck'].includes(cat) ? 'slot-magenta' :
         ['Rally', 'Rally Raid', 'Motocross'].includes(cat) ? 'slot-orange' :
-        ['Racing', 'AGP'].includes(cat) ? 'slot-blue' :
-        ['Street Tier 1', 'Street Tier 2', 'Hypercar'].includes(cat) ? 'slot-yellow' :
+        ['Racing', 'AGP'].includes(cat) ? 'slot-orange' :
+        ['Street Tier 1', 'Street Tier 2', 'Hypercar', 'Drift'].includes(cat) ? 'slot-yellow' :
         '';
     
         const slot = document.createElement('div');
