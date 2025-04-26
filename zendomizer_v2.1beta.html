@@ -1042,7 +1042,6 @@ select.filter-control {
       // Zustand 3: Ziehung war aktiv → Slotboxen zurücksetzen
       if (drawExecuted) {
         drawExecuted = false;
-        updateCopyButtonState();
         updateSlotBoxes();
         updateResetButtonState();
         showToast("↩️ Ziehung zurückgesetzt", "#f44336");
@@ -1092,7 +1091,7 @@ select.filter-control {
     let lastSelection = [];
 
     function updateResetButtonState() {
-      const btn = document.getElementById("resetBtn");
+      const btn = document.getElementById("resetBtnGrid");
       const filters = getCurrentFilters();
       const filtersActive = filters.brand || filters.country || filters.era || selectedOrder.length > 0;
     
@@ -1102,17 +1101,6 @@ select.filter-control {
         btn.classList.add("inactive");
       } else {
         btn.classList.add("pulsing");
-      }
-    }
-    
-    function updateCopyButtonState() {
-      const btn = document.getElementById("copyBtn");
-      btn.classList.remove("standby", "drawn");
-    
-      if (drawExecuted) {
-        btn.classList.add("drawn");
-      } else {
-        btn.classList.add("standby");
       }
     }
 
@@ -1423,7 +1411,6 @@ select.filter-control {
       drawExecuted = true;
       fillSlotBoxesWithResults();
       updateResetButtonState();
-      updateCopyButtonState();
     
       const btn = document.getElementById("goBtn");
       btn.classList.add("active");
@@ -1459,7 +1446,6 @@ select.filter-control {
           vehicles = data;
           initializeDropdowns();
           updateSlotBoxes();
-          updateCopyButtonState();
           updateResetButtonState();
           updateGoButtonState();
         })
