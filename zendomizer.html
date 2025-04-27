@@ -1707,7 +1707,7 @@ select.filter-control {
       // 🔥 Zufallsmischen
       shuffle(finalList);
 
-      // 📢 Smarte Dev-Console Ausgabe pro Kategorie
+      // 📢 Dev-Console Ausgabe Wahrscheinlichkeit pro Kategorie
         if (finalList.length > 0) {
           const recent = recentDraws[category] || [];
           const availableVehicles = finalList.filter(v =>
@@ -1715,17 +1715,19 @@ select.filter-control {
           );
         
           const theoreticalChance = (1 / finalList.length * 100).toFixed(2);
-          const effectiveChance = (1 / availableVehicles.length * 100).toFixed(2);
         
           if (recent.length < 10) {
-            // 🟢 Weniger als 10 alte Fahrzeuge → normale Anzeige
             console.log(`📦 Kategorie: ${category} | 🚗 Fahrzeuge: ${finalList.length} | 🎯 Wiederholungswahrscheinlichkeit: ${theoreticalChance}% (1 zu ${finalList.length})`);
           } else {
-            // 🟠 10 oder mehr alte Fahrzeuge → Softfilter berücksichtigen
-            console.log(`📦 Kategorie: ${category} | 🚗 Nach Softsperre: ${availableVehicles.length} | 🎯 Effektive Wiederholungswahrscheinlichkeit: ${effectiveChance}% (1 zu ${availableVehicles.length})`);
+            if (availableVehicles.length > 0) {
+              const effectiveChance = (1 / availableVehicles.length * 100).toFixed(2);
+              console.log(`📦 Kategorie: ${category} | 🚗 Nach Softsperre: ${availableVehicles.length} | 🎯 Effektive Wiederholungswahrscheinlichkeit: ${effectiveChance}% (1 zu ${availableVehicles.length})`);
+            } else {
+              console.log(`⚠️ Kategorie: ${category} | 🚫 Keine Fahrzeuge verfügbar nach Softsperre!`);
+            }
           }
         } else {
-          console.log(`⚠️ Kategorie: ${category} | Keine Fahrzeuge verfügbar.`);
+          console.log(`⚠️ Kategorie: ${category} | 🚫 Keine Fahrzeuge verfügbar.`);
         }
     
       // 🔥 Soft-Sperre: letzte 10 verhindern
