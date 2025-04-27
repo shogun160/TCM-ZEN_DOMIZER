@@ -1,4 +1,4 @@
-[<img src="https://github.com/user-attachments/assets/f32ae56e-248a-4780-9c39-da9c1b17f73e">](https://shogun160.github.io/TCM-ZEN_DOMIZER/zendomizer_v2.0.html)
+[<img src="https://github.com/user-attachments/assets/f32ae56e-248a-4780-9c39-da9c1b17f73e">](https://shogun160.github.io/TCM-ZEN_DOMIZER/zendomizer.html)
 # **Randomizer for The Crew Motorfest Grand Races**
 <br>Available categories are:
 <br>Street Tier1 / Street Tier2 / Hypercar / Racing / AGP / Motocross / Rally / Rally Raid / Monster Truck
