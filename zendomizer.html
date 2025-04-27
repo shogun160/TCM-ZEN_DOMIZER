@@ -936,38 +936,48 @@ select.filter-control {
     function checkGrandraceCategories() {
         const grandraceCheckbox = document.getElementById('catGR');
         if (!grandraceCheckbox.checked) {
-            return; // Button nicht aktiv → nichts tun
+            return; // ❗ Wenn Grandrace nicht aktiv ist, abbrechen!
         }
-        let expectedCategories = ROTATION[getCurrentEventIndex()][1].split(" > ");
-        let expectedIds = expectedCategories.map(cat => ROTATION_MAP.get(cat));
+    
+        const expectedCategories = ROTATION[getCurrentEventIndex()][1].split(" > ");
+        const expectedIds = expectedCategories.map(cat => ROTATION_MAP.get(cat));
     
         // Aktuelle ausgewählte Kategorien IDs
-        let selectedIds = Array.from(document.querySelectorAll('.catCheckbox:checked'))
-                                .map(cb => cb.id)
-                                .filter(id => id !== "catGR"); // Grandrace-Button selbst ignorieren
+        const selectedIds = Array.from(document.querySelectorAll('.catCheckbox:checked'))
+                                  .map(cb => cb.id)
+                                  .filter(id => id !== "catGR"); // Grandrace-Button selbst ignorieren
     
-        // Vergleich: stimmen IDs überein?
         expectedIds.sort();
         selectedIds.sort();
     
         if (JSON.stringify(expectedIds) !== JSON.stringify(selectedIds)) {
-            // Abweichung festgestellt → neu setzen
+            // ✅ Rotation hat sich geändert → jetzt wirklich alles neu setzen:
+    
+            selectedOrder = []; // 🧹 Reihenfolge jetzt erst löschen
+    
             for (let cb of document.querySelectorAll('.catCheckbox')) {
                 if (cb.id !== "catGR") {
                     cb.checked = false;
+                    cb.disabled = false; // sicher entsperren
                 }
             }
-            grandraceCategories = [];
+    
+            grandraceCategories = []; // Array auch leeren!
+    
             for (let cat of expectedCategories) {
-                let catBoxId = ROTATION_MAP.get(cat);
-                let catCheckBox = document.getElementById(catBoxId);
+                const catBoxId = ROTATION_MAP.get(cat);
+                const catCheckBox = document.getElementById(catBoxId);
                 if (catCheckBox != null) {
                     catCheckBox.checked = true;
                     handleCategoryClick(catCheckBox);
                     grandraceCategories.push(catCheckBox);
                 }
             }
-            showToast("🏁 Grandrace Kategorien aktualisiert", "#39ff14", 5000); // 5 Sekunden sichtbar
+    
+            // ✨ Jetzt schön den neuen Toast anzeigen:
+            const currentEventName = ROTATION[getCurrentEventIndex()][0];
+            const currentCategories = ROTATION[getCurrentEventIndex()][1];
+            showToast(`🏁 Neue Rotation: ${currentEventName} (${currentCategories})`, "#39ff14", 5000);
         }
     }
 
