@@ -980,7 +980,9 @@ select.filter-control {
                 }
             }
             const currentEventName = ROTATION[getCurrentEventIndex()][0];
-            showToast(`🏁 Neue Rotation: ${currentEventName}`, "#39ff14", 8000); /*wird 8sek angezeigt */
+            const currentEventName = ROTATION[getCurrentEventIndex()][0];
+            const currentCategories = ROTATION[getCurrentEventIndex()][1];
+            showToast(`🏁 Neue Rotation: ${currentEventName} (${currentCategories})`, "#39ff14", 8000); /*wird 8sek angezeigt */
         }
     }
 
