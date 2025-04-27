@@ -1635,155 +1635,102 @@ select.filter-control {
     }
 
     function drawVehicleForCategory(category, filters, bikeFilterMode) {
-      let ignored = [];
-    
-      let finalList = vehicles.filter(v =>
-        v.category === category &&
-        (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
-        (!filters.country || v.country === filters.country) &&
-        (!filters.era || v.era === filters.era) &&
-        (!filters.brand || v.brand === filters.brand)
-      );
-    
-      if (finalList.length === 0 && bikeFilterMode !== 'all') {
-        finalList = vehicles.filter(v =>
-          v.category === category &&
-          (!filters.country || v.country === filters.country) &&
-          (!filters.era || v.era === filters.era) &&
-          (!filters.brand || v.brand === filters.brand)
-        );
-        if (finalList.length > 0) ignored.push("Bike-Filter");
-      }
-    
-      if (finalList.length === 0 && filters.era) {
-        finalList = vehicles.filter(v =>
-          v.category === category &&
-          (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
-          (!filters.country || v.country === filters.country) &&
-          (!filters.brand || v.brand === filters.brand)
-        );
-        if (finalList.length > 0) ignored.push(`Zeitraum (${filters.era})`);
-      }
-    
-      if (finalList.length === 0 && filters.brand) {
-        finalList = vehicles.filter(v =>
-          v.category === category &&
-          (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
-          (!filters.country || v.country === filters.country) &&
-          (!filters.era || v.era === filters.era)
-        );
-        if (finalList.length > 0) ignored.push(`Marke (${filters.brand})`);
-      }
-    
-      if (finalList.length === 0 && filters.country) {
-        finalList = vehicles.filter(v =>
-          v.category === category &&
-          (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
-          (!filters.era || v.era === filters.era) &&
-          (!filters.brand || v.brand === filters.brand)
-        );
-        if (finalList.length > 0) ignored.push(`Land (${filters.country})`);
-      }
-    
-      if (finalList.length === 0) {
-        finalList = vehicles.filter(v =>
-          v.category === category &&
-          (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike))
-        );
-        if (finalList.length > 0) {
-          if (filters.era) ignored.push(`Zeitraum (${filters.era})`);
-          if (filters.brand) ignored.push(`Marke (${filters.brand})`);
-          if (filters.country) ignored.push(`Land (${filters.country})`);
-        }
-      }
-    
-      if (finalList.length === 0) {
-        finalList = vehicles.filter(v => v.category === category);
-        if (finalList.length > 0) ignored.push("Alle Filter");
-      }
-    
-      if (finalList.length === 0) return null;
-    
-        // 🔥 Zufallsmischen
-        shuffle(finalList);
-        
-        // 🧠 Softfilter berücksichtigen
-        if (!recentDraws[category]) {
-          recentDraws[category] = [];
-        }
-        const recent = recentDraws[category]; // ✅ nur hier deklarieren
-        
-        // Fahrzeuge rausfiltern, die nicht in recentDraws liegen
-        let availableVehicles = finalList.filter(v =>
-          !recent.some(r => r.brand === v.brand && r.model === v.model && r.year === v.year)
-        );
-        
-        // 📢 Vor Ziehung prüfen: Müssen wir den Softfilter zurücksetzen?
-        const totalPossible = finalList.length;
-        if (availableVehicles.length === 0 && recent.length >= totalPossible) {
-          console.log(`✅ Softfilter für Kategorie ${category} automatisch zurückgesetzt (alle ${totalPossible} Fahrzeuge einmal gezogen).`);
-          recentDraws[category] = [];
-          availableVehicles = [...finalList]; // Alle wieder verfügbar!
-        }
-        
-        // 📢 Smarte Console-Logik
-        const blockedCount = totalPossible - availableVehicles.length;
-        if (availableVehicles.length > 0) {
-          const effectiveChance = (1 / availableVehicles.length * 100).toFixed(2);
-          console.log(`📦 Kategorie: ${category} | 🚗 Verfügbar: ${availableVehicles.length} | 🚫 Geblockt: ${blockedCount} | 🎯 Effektive Wiederholungswahrscheinlichkeit: ${effectiveChance}% (1 zu ${availableVehicles.length})`);
-        } else {
-          console.log(`⚠️ Kategorie: ${category} | 🚫 Keine Fahrzeuge verfügbar! (Sonderfall)`);
-        }
-        
-        // 🔥 Ziehung aus verfügbaren Fahrzeugen
-        let vehicle = availableVehicles[Math.floor(Math.random() * availableVehicles.length)];
-        
-        // 🔥 Fahrzeug merken
-        recent.push(vehicle);
-        
-        return { vehicle, ignoredFilters: ignored };
+  let ignored = [];
 
-      // 📢 Smarte Dev-Console Ausgabe pro Kategorie (mit Blockierte Fahrzeuge und exakter Chance)
-        if (finalList.length > 0) {
-          const availableVehicles = finalList.filter(v =>
-            !recent.some(r => r.brand === v.brand && r.model === v.model && r.year === v.year)
-          );
-        
-          const blockedCount = finalList.length - availableVehicles.length;
-        
-          if (availableVehicles.length > 0) {
-            const effectiveChance = (1 / availableVehicles.length * 100).toFixed(2);
-            console.log(`📦 Kategorie: ${category} | 🚗 Verfügbar: ${availableVehicles.length} | 🚫 Geblockt: ${blockedCount} | 🎯 Effektive Wiederholungswahrscheinlichkeit: ${effectiveChance}% (1 zu ${availableVehicles.length})`);
-          } else {
-            console.log(`⚠️ Kategorie: ${category} | 🚫 Keine Fahrzeuge verfügbar nach Softsperre! (Alle ${blockedCount} blockiert)`);
-          }
-        } else {
-          console.log(`⚠️ Kategorie: ${category} | 🚫 Keine Fahrzeuge verfügbar.`);
-        }
-    
-      // 🔥 Soft-Sperre: letzte 10 verhindern
-      if (!recentDraws[category]) {
-        recentDraws[category] = [];
-      }
-      const recent = recentDraws[category];
-    
-      let vehicle = finalList.find(v =>
-        !recent.some(r => r.brand === v.brand && r.model === v.model && r.year === v.year)
-      );
-    
-      // Falls ALLE Fahrzeuge schon in recent sind → irgendeins nehmen
-      if (!vehicle) {
-        vehicle = finalList[0];
-      }
-    
-      // 🔥 Fahrzeug merken
-      recent.push(vehicle);
-      if (recent.length > 10) {
-        recent.shift(); // ältestes Fahrzeug löschen
-      }
-    
-      return { vehicle, ignoredFilters: ignored };
+  let finalList = vehicles.filter(v =>
+    v.category === category &&
+    (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
+    (!filters.country || v.country === filters.country) &&
+    (!filters.era || v.era === filters.era) &&
+    (!filters.brand || v.brand === filters.brand)
+  );
+
+  if (finalList.length === 0 && bikeFilterMode !== 'all') {
+    finalList = vehicles.filter(v =>
+      v.category === category &&
+      (!filters.country || v.country === filters.country) &&
+      (!filters.era || v.era === filters.era) &&
+      (!filters.brand || v.brand === filters.brand)
+    );
+    if (finalList.length > 0) ignored.push("Bike-Filter");
+  }
+
+  if (finalList.length === 0 && filters.era) {
+    finalList = vehicles.filter(v =>
+      v.category === category &&
+      (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
+      (!filters.country || v.country === filters.country) &&
+      (!filters.brand || v.brand === filters.brand)
+    );
+    if (finalList.length > 0) ignored.push(`Zeitraum (${filters.era})`);
+  }
+
+  if (finalList.length === 0 && filters.brand) {
+    finalList = vehicles.filter(v =>
+      v.category === category &&
+      (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
+      (!filters.country || v.country === filters.country) &&
+      (!filters.era || v.era === filters.era)
+    );
+    if (finalList.length > 0) ignored.push(`Marke (${filters.brand})`);
+  }
+
+  if (finalList.length === 0 && filters.country) {
+    finalList = vehicles.filter(v =>
+      v.category === category &&
+      (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
+      (!filters.era || v.era === filters.era) &&
+      (!filters.brand || v.brand === filters.brand)
+    );
+    if (finalList.length > 0) ignored.push(`Land (${filters.country})`);
+  }
+
+  if (finalList.length === 0) {
+    finalList = vehicles.filter(v =>
+      v.category === category &&
+      (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike))
+    );
+    if (finalList.length > 0) {
+      if (filters.era) ignored.push(`Zeitraum (${filters.era})`);
+      if (filters.brand) ignored.push(`Marke (${filters.brand})`);
+      if (filters.country) ignored.push(`Land (${filters.country})`);
     }
+  }
+
+  if (finalList.length === 0) {
+    finalList = vehicles.filter(v => v.category === category);
+    if (finalList.length > 0) ignored.push("Alle Filter");
+  }
+
+  if (finalList.length === 0) return null;
+
+  // 🔥 Shuffle finalList
+  shuffle(finalList);
+
+  // 🔥 Softfilter berücksichtigen
+  if (!recentDraws[category]) {
+    recentDraws[category] = [];
+  }
+  const recent = recentDraws[category];
+
+  let availableVehicles = finalList.filter(v =>
+    !recent.some(r => r.brand === v.brand && r.model === v.model && r.year === v.year)
+  );
+
+  // 🔄 Softfilter-Reset, falls alle Fahrzeuge bereits gezogen wurden
+  if (availableVehicles.length === 0 && recent.length >= finalList.length) {
+    recentDraws[category] = [];
+    availableVehicles = [...finalList]; // alle Fahrzeuge wieder verfügbar
+  }
+
+  // 🔥 Ziehung
+  let vehicle = availableVehicles[Math.floor(Math.random() * availableVehicles.length)];
+
+  // 🔥 Fahrzeug merken
+  recentDraws[category].push(vehicle);
+
+  return { vehicle, ignoredFilters: ignored };
+}
 
     function updateGrandraceTicker() {
       const tickerContent = document.getElementById('grandraceContent');
