@@ -907,7 +907,16 @@ select.filter-control {
 
     function handleGrandraceCategoriesClick(checkbox) {
         if (checkbox.checked) {
-            // Grandrace ausgewählt → Kategorien anwählen
+            // 🧹 Vorher: Alle bisherigen Kategorien abwählen
+            document.querySelectorAll('.catCheckbox:checked').forEach(cb => {
+                if (cb.id !== "catGR") {
+                    cb.checked = false;
+                    handleCategoryClick(cb);
+                }
+            });
+            selectedOrder = []; // Wichtig: Reihenfolge leeren
+    
+            // Grandrace Kategorien setzen
             grandraceCategories = [];
             let grCatString = ROTATION[getCurrentEventIndex()][1];
             let grCatArray = grCatString.split(" > ");
@@ -921,15 +930,15 @@ select.filter-control {
                     grandraceCategories.push(catCheckBox);
                 }
             }
-            showToast("🏁 Grandrace Kategorien übernommen", "#39ff14"); // 🏁 Toast beim Aktivieren
+            showToast("🏁 Grandrace Kategorien übernommen", "#39ff14");
         } else {
-            // Grandrace abgewählt → Kategorien abwählen
+            // Grandrace abwählen → alle Grandrace-Kategorien deaktivieren
             for (let cb of grandraceCategories) {
                 cb.checked = false;
                 handleCategoryClick(cb);
             }
             grandraceCategories = [];
-            showToast("↩️ Grandrace Kategorien deaktiviert", "#39ff14"); // ↩️ Toast beim Deaktivieren
+            showToast("↩️ Grandrace Kategorien deaktiviert", "#39ff14");
         }
     }
 
