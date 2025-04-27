@@ -1163,51 +1163,52 @@ select.filter-control {
     }
 
     function resetSmart() {
-      const filters = getCurrentFilters();
-      const filtersActive = filters.brand || filters.country || filters.era || selectedOrder.length > 0;
-    
-      // Zustand 1: Button ist inaktiv – keine Funktion
-      if (!filtersActive && !drawExecuted) return;
-    
-      // Zustand 3: Ziehung war aktiv → Slotboxen zurücksetzen
-      if (drawExecuted) {
-        drawExecuted = false;
-        updateSlotBoxes();
-        updateResetButtonState();
-        showToast("↩️ Ziehung zurückgesetzt", "#f44336");
-        return;
-      }
-    
-      // Zustand 2: Filter aktiv → alles zurücksetzen
-      document.getElementById("brandSelect").value = "";
-      document.getElementById("countrySelect").value = "";
-      document.getElementById("eraSelect").value = "";
-    
-      bikeFilterMode = "no_bike";
-      const bfb = document.getElementById("bikeFilterBtn");
-      bfb.innerText = "Nur Autos";
-      bfb.classList.add("bike-active");
-    
-      const checkboxes = document.querySelectorAll('.catCheckbox');
-      checkboxes.forEach(cb => cb.checked = false);
+    function resetSmart() {
+  const filters = getCurrentFilters();
+  const filtersActive = filters.brand || filters.country || filters.era || selectedOrder.length > 0;
 
-      const grandraceCheckbox = document.getElementById('catGR');
-      if (grandraceCheckbox) {
-        grandraceCheckbox.checked = false;
-        handleGrandraceCategoriesClick(grandraceCheckbox);
-      }
-    
-      selectedOrder = [];
-      updateCheckboxBadges();
-      updateFilterHighlighting();
-      document.querySelector('.category-grid').classList.remove('limit-reached');
-      document.querySelectorAll('.catCheckbox').forEach(cb => cb.disabled = false);
-    
-      updateSlotBoxes();
-      updateResetButtonState();
-      updateGoButtonState();
-      showToast("↩️ Filter zurückgesetzt!", "#f44336");
-    }
+  if (!filtersActive && !drawExecuted) return; // ❌ Keine Aktion, wenn keine Filter und keine Ziehung
+
+  if (drawExecuted) {
+    // ↩️ Ziehung zurücksetzen
+    drawExecuted = false;
+    updateSlotBoxes();
+    updateResetButtonState();  // Setzt den Reset-Button zurück
+    showToast("↩️ Ziehung zurückgesetzt", "#f44336");
+    return;
+  }
+
+  // 🔄 Filter zurücksetzen
+  document.getElementById("brandSelect").value = "";
+  document.getElementById("countrySelect").value = "";
+  document.getElementById("eraSelect").value = "";
+
+  bikeFilterMode = "no_bike";
+  const bfb = document.getElementById("bikeFilterBtn");
+  bfb.innerText = "Nur Autos";
+  bfb.classList.add("bike-active");
+
+  const checkboxes = document.querySelectorAll('.catCheckbox');
+  checkboxes.forEach(cb => cb.checked = false);
+
+  const grandraceCheckbox = document.getElementById('catGR');
+  if (grandraceCheckbox) {
+    grandraceCheckbox.checked = false;
+    handleGrandraceCategoriesClick(grandraceCheckbox);
+  }
+
+  selectedOrder = [];
+  updateCheckboxBadges();
+  updateFilterHighlighting();
+  document.querySelector('.category-grid').classList.remove('limit-reached');
+  document.querySelectorAll('.catCheckbox').forEach(cb => cb.disabled = false);
+
+  updateSlotBoxes();
+  updateResetButtonState();  // Setzt den Reset-Button zurück
+  updateGoButtonState();
+  showToast("↩️ Filter zurückgesetzt!", "#f44336");
+}
+        
     function updateFilterHighlighting() {
       const brand = document.getElementById("brandSelect");
       const country = document.getElementById("countrySelect");
