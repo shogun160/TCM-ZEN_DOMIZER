@@ -950,7 +950,7 @@ select.filter-control {
         expectedIds.sort();
         selectedIds.sort();
     
-        if (JSON.stringify(expectedIds) !== JSON.stringify(selectedIds)) {
+        if (!arraysEqual(expectedIds, selectedIds)) {
             // ✅ Rotation hat sich geändert → jetzt wirklich alles neu setzen:
     
             selectedOrder = []; // 🧹 Reihenfolge jetzt erst löschen
@@ -979,6 +979,15 @@ select.filter-control {
             const currentCategories = ROTATION[getCurrentEventIndex()][1];
             showToast(`🏁 Neue Rotation: ${currentEventName} (${currentCategories})`, "#39ff14", 5000);
         }
+    }
+    
+    // Mini-Helfer außerhalb der Funktion:
+    function arraysEqual(a, b) {
+        if (a.length !== b.length) return false;
+        for (let i = 0; i < a.length; i++) {
+            if (a[i] !== b[i]) return false;
+        }
+        return true;
     }
 
     function handleCategoryClick(checkbox) {
