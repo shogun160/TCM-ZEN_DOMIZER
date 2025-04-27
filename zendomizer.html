@@ -41,7 +41,7 @@
     
     @keyframes scrollMarquee {
       0% { transform: translateX(0%); }   /* - Start weiter nach links statt -18*/
-      100% { transform: translateX(-50%); } /* - Ende weiter nach links statt  -67 */
+      100% { transform: translateX(-100%); } /* - Ende weiter nach links statt  -67 */
     }
 
 
@@ -1782,8 +1782,9 @@ select.filter-control {
       
       const spacer = '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;';
       const message = `🏁 Ready for <strong class="pulse-glow">${currentEvent}</strong> ? Let's race! 🏁`;
+      
       // Mehrfach Wiederholen, damit der Lauftext lang genug wird
-      tickerContent.innerHTML = (message + spacer).repeat(2);
+      tickerContent.innerHTML = (message + spacer).repeat(8);
     }
     
     // Direkt beim Laden ausführen
