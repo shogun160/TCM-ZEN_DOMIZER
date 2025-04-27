@@ -262,46 +262,6 @@
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    /* Inaktiver Zustand: Button ist ausgegraut und nicht klickbar */
-    .reset-special.inactive {
-      background-color: #bdbdbd;  /* Grau */
-      cursor: not-allowed;        /* Kein Klick */
-      opacity: 0.5;               /* Etwas transparenter */
-    }
-    
-    /* Pulsierender Effekt für den aktiven Reset-Button */
-    .reset-special.pulsate-red {
-      animation: pulsateRed 2s infinite;
-    }
-    
-    @keyframes pulsateRed {
-      0% {
-        box-shadow: 0 0 5px #f44336;
-      }
-      50% {
-        box-shadow: 0 0 20px #f44336;
-      }
-      100% {
-        box-shadow: 0 0 5px #f44336;
-      }
-    }
-    
-    /* Reset-Button Standard-Styling */
-    .reset-special {
-      padding: 10px 20px;
-      background-color: #f44336;  /* Rote Hintergrundfarbe */
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    
-    /* Reset-Button, wenn er deaktiviert ist */
-    .reset-special:disabled {
-      background-color: #bdbdbd;  /* Grau */
-      cursor: not-allowed;
-    }
-
     /* Hover Effekt */
     .reset-special:hover {
       transform: scale(1.05);
@@ -1163,52 +1123,51 @@ select.filter-control {
     }
 
     function resetSmart() {
-    function resetSmart() {
-  const filters = getCurrentFilters();
-  const filtersActive = filters.brand || filters.country || filters.era || selectedOrder.length > 0;
+      const filters = getCurrentFilters();
+      const filtersActive = filters.brand || filters.country || filters.era || selectedOrder.length > 0;
+    
+      // Zustand 1: Button ist inaktiv – keine Funktion
+      if (!filtersActive && !drawExecuted) return;
+    
+      // Zustand 3: Ziehung war aktiv → Slotboxen zurücksetzen
+      if (drawExecuted) {
+        drawExecuted = false;
+        updateSlotBoxes();
+        updateResetButtonState();
+        showToast("↩️ Ziehung zurückgesetzt", "#f44336");
+        return;
+      }
+    
+      // Zustand 2: Filter aktiv → alles zurücksetzen
+      document.getElementById("brandSelect").value = "";
+      document.getElementById("countrySelect").value = "";
+      document.getElementById("eraSelect").value = "";
+    
+      bikeFilterMode = "no_bike";
+      const bfb = document.getElementById("bikeFilterBtn");
+      bfb.innerText = "Nur Autos";
+      bfb.classList.add("bike-active");
+    
+      const checkboxes = document.querySelectorAll('.catCheckbox');
+      checkboxes.forEach(cb => cb.checked = false);
 
-  if (!filtersActive && !drawExecuted) return; // ❌ Keine Aktion, wenn keine Filter und keine Ziehung
-
-  if (drawExecuted) {
-    // ↩️ Ziehung zurücksetzen
-    drawExecuted = false;
-    updateSlotBoxes();
-    updateResetButtonState();  // Setzt den Reset-Button zurück
-    showToast("↩️ Ziehung zurückgesetzt", "#f44336");
-    return;
-  }
-
-  // 🔄 Filter zurücksetzen
-  document.getElementById("brandSelect").value = "";
-  document.getElementById("countrySelect").value = "";
-  document.getElementById("eraSelect").value = "";
-
-  bikeFilterMode = "no_bike";
-  const bfb = document.getElementById("bikeFilterBtn");
-  bfb.innerText = "Nur Autos";
-  bfb.classList.add("bike-active");
-
-  const checkboxes = document.querySelectorAll('.catCheckbox');
-  checkboxes.forEach(cb => cb.checked = false);
-
-  const grandraceCheckbox = document.getElementById('catGR');
-  if (grandraceCheckbox) {
-    grandraceCheckbox.checked = false;
-    handleGrandraceCategoriesClick(grandraceCheckbox);
-  }
-
-  selectedOrder = [];
-  updateCheckboxBadges();
-  updateFilterHighlighting();
-  document.querySelector('.category-grid').classList.remove('limit-reached');
-  document.querySelectorAll('.catCheckbox').forEach(cb => cb.disabled = false);
-
-  updateSlotBoxes();
-  updateResetButtonState();  // Setzt den Reset-Button zurück
-  updateGoButtonState();
-  showToast("↩️ Filter zurückgesetzt!", "#f44336");
-}
-        
+      const grandraceCheckbox = document.getElementById('catGR');
+      if (grandraceCheckbox) {
+        grandraceCheckbox.checked = false;
+        handleGrandraceCategoriesClick(grandraceCheckbox);
+      }
+    
+      selectedOrder = [];
+      updateCheckboxBadges();
+      updateFilterHighlighting();
+      document.querySelector('.category-grid').classList.remove('limit-reached');
+      document.querySelectorAll('.catCheckbox').forEach(cb => cb.disabled = false);
+    
+      updateSlotBoxes();
+      updateResetButtonState();
+      updateGoButtonState();
+      showToast("↩️ Filter zurückgesetzt!", "#f44336");
+    }
     function updateFilterHighlighting() {
       const brand = document.getElementById("brandSelect");
       const country = document.getElementById("countrySelect");
@@ -1228,20 +1187,16 @@ select.filter-control {
     let lastSelection = [];
 
     function updateResetButtonState() {
-      const resetBtn = document.getElementById("resetButton");
+      const btn = document.getElementById("resetBtnGrid");
       const filters = getCurrentFilters();
       const filtersActive = filters.brand || filters.country || filters.era || selectedOrder.length > 0;
     
+      btn.classList.remove("inactive", "pulsing");
+    
       if (!filtersActive && !drawExecuted) {
-        // ❌ Keine Filter und keine Ziehung → Setze Button auf "inactive"
-        resetBtn.classList.remove("pulsate-red");
-        resetBtn.classList.add("inactive");
-        resetBtn.disabled = true; // Setzt den Button auf inaktiv
-      } else if (filtersActive || drawExecuted) {
-        // 🔥 Entweder Filter aktiv oder Ziehung gemacht → Setze Button auf "pulsierend rot"
-        resetBtn.classList.remove("inactive");
-        resetBtn.classList.add("pulsate-red");
-        resetBtn.disabled = false; // Button wird aktiv
+        btn.classList.add("inactive");
+      } else {
+        btn.classList.add("pulsing");
       }
     }
 
