@@ -1735,7 +1735,7 @@ select.filter-control {
 
     // 📋 Zeigt den aktuellen Softfilter-Status für alle ausgewählten Kategorien an
     function logSoftfilterStatus() {
-      if (!selectedCategories || selectedCategories.length === 0) return;
+      if (!selectedOrder || selectedOrder.length === 0) return; // <- ausgewählte Kategorien prüfen
     
       console.log("📋 Aktueller Softfilter-Status:");
       
