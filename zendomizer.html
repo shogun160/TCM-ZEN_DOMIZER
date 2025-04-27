@@ -907,16 +907,7 @@ select.filter-control {
 
     function handleGrandraceCategoriesClick(checkbox) {
         if (checkbox.checked) {
-            // 🧹 Vorher: Alle bisherigen Kategorien abwählen
-            document.querySelectorAll('.catCheckbox:checked').forEach(cb => {
-                if (cb.id !== "catGR") {
-                    cb.checked = false;
-                    handleCategoryClick(cb);
-                }
-            });
-            selectedOrder = []; // Wichtig: Reihenfolge leeren
-    
-            // Grandrace Kategorien setzen
+            // Grandrace ausgewählt → Kategorien anwählen
             grandraceCategories = [];
             let grCatString = ROTATION[getCurrentEventIndex()][1];
             let grCatArray = grCatString.split(" > ");
@@ -930,15 +921,15 @@ select.filter-control {
                     grandraceCategories.push(catCheckBox);
                 }
             }
-            showToast("🏁 Grandrace Kategorien übernommen", "#39ff14");
+            showToast("🏁 Grandrace Kategorien übernommen", "#39ff14"); // 🏁 Toast beim Aktivieren
         } else {
-            // Grandrace abwählen → alle Grandrace-Kategorien deaktivieren
+            // Grandrace abgewählt → Kategorien abwählen
             for (let cb of grandraceCategories) {
                 cb.checked = false;
                 handleCategoryClick(cb);
             }
             grandraceCategories = [];
-            showToast("↩️ Grandrace Kategorien deaktiviert", "#39ff14");
+            showToast("↩️ Grandrace Kategorien deaktiviert", "#39ff14"); // ↩️ Toast beim Deaktivieren
         }
     }
 
@@ -947,7 +938,6 @@ select.filter-control {
         if (!grandraceCheckbox.checked) {
             return; // Button nicht aktiv → nichts tun
         }
-        selectedOrder = []; // 🧹 Reihenfolge auch leeren
         let expectedCategories = ROTATION[getCurrentEventIndex()][1].split(" > ");
         let expectedIds = expectedCategories.map(cat => ROTATION_MAP.get(cat));
     
@@ -962,11 +952,9 @@ select.filter-control {
     
         if (JSON.stringify(expectedIds) !== JSON.stringify(selectedIds)) {
             // Abweichung festgestellt → neu setzen
-            selectedOrder = []; // 🧹 Reihenfolge auch löschen
             for (let cb of document.querySelectorAll('.catCheckbox')) {
                 if (cb.id !== "catGR") {
                     cb.checked = false;
-                    cb.disabled = false; // ✅ entsperren
                 }
             }
             grandraceCategories = [];
@@ -979,10 +967,7 @@ select.filter-control {
                     grandraceCategories.push(catCheckBox);
                 }
             }
-            const currentEventName = ROTATION[getCurrentEventIndex()][0];
-            const currentEventName = ROTATION[getCurrentEventIndex()][0];
-            const currentCategories = ROTATION[getCurrentEventIndex()][1];
-            showToast(`🏁 Neue Rotation: ${currentEventName} (${currentCategories}) 🏁`, "#39ff14", 8000); /*wird 8sek angezeigt */
+            showToast("🏁 Grandrace Kategorien aktualisiert", "#39ff14", 5000); // 5 Sekunden sichtbar
         }
     }
 
@@ -1747,37 +1732,28 @@ select.filter-control {
           console.log(`⚠️ Kategorie: ${category} | 🚫 Keine Fahrzeuge verfügbar.`);
         }
     
-      // 🔥 Soft-Sperre: n-1 blockieren, danach bei Bedarf komplett resetten
-        if (!recentDraws[category]) {
-          recentDraws[category] = [];
-        }
-        const recent = recentDraws[category];
-        
-        // maxBlock = Anzahl Fahrzeuge - 1 (immer mindestens 1 übrig lassen)
-        const maxBlock = Math.max(1, finalList.length - 1);
-        
-        // Finde Fahrzeug, das NICHT in der Softsperre ist
-        let vehicle = finalList.find(v =>
-          !recent.some(r => r.brand === v.brand && r.model === v.model && r.year === v.year)
-        );
-        
-        // Falls ALLE Fahrzeuge schon geblockt sind → Irgendeins nehmen UND Softsperre resetten
-        if (!vehicle) {
-          vehicle = finalList[Math.floor(Math.random() * finalList.length)];
-          recentDraws[category] = []; // 🔥 Softsperre löschen, damit alle wieder frei sind
-          console.log(`🔄 Softsperre für Kategorie "${category}" zurückgesetzt!`);
-        }
-        
-        // 🔥 Fahrzeug merken
-        recent.push(vehicle);
-        
-        // Softsperre klein halten
-        if (recent.length > maxBlock) {
-          recent.shift(); // Ältestes Fahrzeug entfernen
-        }
-        
-        return { vehicle, ignoredFilters: ignored };
-        
+      // 🔥 Soft-Sperre: letzte 10 verhindern
+      if (!recentDraws[category]) {
+        recentDraws[category] = [];
+      }
+      const recent = recentDraws[category];
+    
+      let vehicle = finalList.find(v =>
+        !recent.some(r => r.brand === v.brand && r.model === v.model && r.year === v.year)
+      );
+    
+      // Falls ALLE Fahrzeuge schon in recent sind → irgendeins nehmen
+      if (!vehicle) {
+        vehicle = finalList[0];
+      }
+    
+      // 🔥 Fahrzeug merken
+      recent.push(vehicle);
+      if (recent.length > 10) {
+        recent.shift(); // ältestes Fahrzeug löschen
+      }
+    
+      return { vehicle, ignoredFilters: ignored };
     }
 
     function updateGrandraceTicker() {
@@ -1787,10 +1763,10 @@ select.filter-control {
       const currentEvent = ROTATION[getCurrentEventIndex()][0];
       
       const spacer = '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;';
-      const message = `🏁 Ready for <strong class="pulse-glow">${currentEvent}</strong> ? Let's race! 🏁`;
+      const message = `🏁 Ready for <strong class="pulse-glow">${currentEvent}</strong>? Let's race! 🏁`;
       
       // Mehrfach Wiederholen, damit der Lauftext lang genug wird
-      tickerContent.innerHTML = (message + spacer).repeat(20);
+      tickerContent.innerHTML = (message + spacer).repeat(8);
     }
     
     // Direkt beim Laden ausführen
@@ -1803,8 +1779,10 @@ select.filter-control {
       handleGrandraceCategoriesClick(grandraceCheckbox);
       }
     });
-    // Optional: Alle 5 Sekunden neu prüfen
-    setInterval(updateGrandraceTicker, 5000);
+
+    
+    // Optional: Alle 15 Sekunden neu prüfen
+    setInterval(updateGrandraceTicker, 15000);
 
     function showToast(message = "✅ In Zwischenablage kopiert!", color = "#0f0") {
       const toast = document.getElementById("toast");
