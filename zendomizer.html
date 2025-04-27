@@ -947,6 +947,7 @@ select.filter-control {
         if (!grandraceCheckbox.checked) {
             return; // Button nicht aktiv → nichts tun
         }
+        selectedOrder = []; // 🧹 Reihenfolge auch leeren
         let expectedCategories = ROTATION[getCurrentEventIndex()][1].split(" > ");
         let expectedIds = expectedCategories.map(cat => ROTATION_MAP.get(cat));
     
@@ -961,9 +962,11 @@ select.filter-control {
     
         if (JSON.stringify(expectedIds) !== JSON.stringify(selectedIds)) {
             // Abweichung festgestellt → neu setzen
+            selectedOrder = []; // 🧹 Reihenfolge auch löschen
             for (let cb of document.querySelectorAll('.catCheckbox')) {
                 if (cb.id !== "catGR") {
                     cb.checked = false;
+                    cb.disabled = false; // ✅ entsperren
                 }
             }
             grandraceCategories = [];
