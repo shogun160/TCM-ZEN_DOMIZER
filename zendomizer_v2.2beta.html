@@ -561,6 +561,11 @@ select.filter-control {
     0 0 6px currentColor,
     0 0 12px currentColor;
 }
+.slot-box.empty .question-mark {
+  font-size: 80px;
+  animation: pulse-text 1.2s infinite;
+  line-height: 1;
+}
 .slot-box.empty {
   perspective: 600px;
 }
@@ -615,20 +620,10 @@ select.filter-control {
   font-size: 80px;
   animation: spin3D 1.6s linear infinite, pulse-text 1.2s infinite;
 }
-    
-.slot-box .question-mark {
-  font-size: 180px;
-  font-weight: 900;
-  color: currentColor; /* Immer die aktuelle Slotfarbe verwenden */
-  text-shadow:
-    0 0 4px #000,
-    0 0 6px currentColor,
-    0 0 12px currentColor,
-    0 0 20px currentColor;
-  animation: pulse-text 1.2s infinite;
-  line-height: 1;
+.slot-standby .question-mark {
+  color: #660066;
+  text-shadow: 0 0 1px #660066, 0 0 2px #660066;
 }
-
 @keyframes pulse-neon-standby {
   0%, 100% {
     box-shadow: 0 0 2px #660066;
@@ -1041,7 +1036,7 @@ select.filter-control {
         slot.innerHTML = `
           <div class="slot-badge">${index + 1}</div>
           <div class="slot-category">${isStandby ? "" : cat}</div>
-          <div class="slot-name">${drawExecuted ? '' : '<span class="question-mark">?</span>'}</div>
+          <div class="slot-name">${isStandby ? '<span class="question-mark">?</span>' : ''}</div>
           <div class="slot-warning"></div>
         `;
         resultsDiv.appendChild(slot);
