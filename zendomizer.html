@@ -1732,28 +1732,37 @@ select.filter-control {
           console.log(`⚠️ Kategorie: ${category} | 🚫 Keine Fahrzeuge verfügbar.`);
         }
     
-      // 🔥 Soft-Sperre: letzte 10 verhindern
-      if (!recentDraws[category]) {
-        recentDraws[category] = [];
-      }
-      const recent = recentDraws[category];
-    
-      let vehicle = finalList.find(v =>
-        !recent.some(r => r.brand === v.brand && r.model === v.model && r.year === v.year)
-      );
-    
-      // Falls ALLE Fahrzeuge schon in recent sind → irgendeins nehmen
-      if (!vehicle) {
-        vehicle = finalList[0];
-      }
-    
-      // 🔥 Fahrzeug merken
-      recent.push(vehicle);
-      if (recent.length > 10) {
-        recent.shift(); // ältestes Fahrzeug löschen
-      }
-    
-      return { vehicle, ignoredFilters: ignored };
+      // 🔥 Soft-Sperre: n-1 blockieren, danach bei Bedarf komplett resetten
+        if (!recentDraws[category]) {
+          recentDraws[category] = [];
+        }
+        const recent = recentDraws[category];
+        
+        // maxBlock = Anzahl Fahrzeuge - 1 (immer mindestens 1 übrig lassen)
+        const maxBlock = Math.max(1, finalList.length - 1);
+        
+        // Finde Fahrzeug, das NICHT in der Softsperre ist
+        let vehicle = finalList.find(v =>
+          !recent.some(r => r.brand === v.brand && r.model === v.model && r.year === v.year)
+        );
+        
+        // Falls ALLE Fahrzeuge schon geblockt sind → Irgendeins nehmen UND Softsperre resetten
+        if (!vehicle) {
+          vehicle = finalList[Math.floor(Math.random() * finalList.length)];
+          recentDraws[category] = []; // 🔥 Softsperre löschen, damit alle wieder frei sind
+          console.log(`🔄 Softsperre für Kategorie "${category}" zurückgesetzt!`);
+        }
+        
+        // 🔥 Fahrzeug merken
+        recent.push(vehicle);
+        
+        // Softsperre klein halten
+        if (recent.length > maxBlock) {
+          recent.shift(); // Ältestes Fahrzeug entfernen
+        }
+        
+        return { vehicle, ignoredFilters: ignored };
+        
     }
 
     function updateGrandraceTicker() {
