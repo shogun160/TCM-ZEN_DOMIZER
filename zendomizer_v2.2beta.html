@@ -30,6 +30,7 @@
       border-top: 2px solid #FF00FF;
       border-bottom: 2px solid #FF00FF;
       padding: 12px 0;
+      z-index: 10;
     }
     
     #grandraceContent {
@@ -37,6 +38,9 @@
       padding-left: 0%; /* Start außerhalb */
       animation: scrollMarquee 30s linear infinite;
       white-space: nowrap;
+    }
+    #grandraceContent {
+      min-width: 200%; /* Hier kannst du den Wert anpassen, z.B. 200% für doppelten Text */
     }
     
     @keyframes scrollMarquee {
