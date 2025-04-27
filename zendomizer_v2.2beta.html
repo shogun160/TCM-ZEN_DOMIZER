@@ -1016,12 +1016,19 @@ select.filter-control {
       }
     
       categoriesToRender.forEach((cat, index) => {
+        const isStandby = cat === "";
+    
         const slot = document.createElement('div');
-        slot.classList.add('slot-box', 'empty', 'slot-standby');
+        slot.classList.add('slot-box');
+        if (isStandby) {
+          slot.classList.add('empty', 'slot-standby');
+        } else {
+          slot.classList.add('empty', 'slot-standby');
+        }
     
         slot.innerHTML = `
           <div class="slot-badge">${index + 1}</div>
-          <div class="slot-category"></div>
+          <div class="slot-category">${cat || ""}</div>
           <div class="slot-name"><span class="question-mark">?</span></div>
           <div class="slot-warning"></div>
         `;
