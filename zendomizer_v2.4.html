@@ -1504,6 +1504,7 @@ select.filter-control {
       drawExecuted = true;
       fillSlotBoxesWithResults();
       updateResetButtonState();
+      logSoftfilterStatus();
     
       const btn = document.getElementById("goBtn");
       btn.classList.add("active");
@@ -1635,103 +1636,120 @@ select.filter-control {
     }
 
     function drawVehicleForCategory(category, filters, bikeFilterMode) {
-  let ignored = [];
-
-  let finalList = vehicles.filter(v =>
-    v.category === category &&
-    (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
-    (!filters.country || v.country === filters.country) &&
-    (!filters.era || v.era === filters.era) &&
-    (!filters.brand || v.brand === filters.brand)
-  );
-
-  if (finalList.length === 0 && bikeFilterMode !== 'all') {
-    finalList = vehicles.filter(v =>
-      v.category === category &&
-      (!filters.country || v.country === filters.country) &&
-      (!filters.era || v.era === filters.era) &&
-      (!filters.brand || v.brand === filters.brand)
-    );
-    if (finalList.length > 0) ignored.push("Bike-Filter");
-  }
-
-  if (finalList.length === 0 && filters.era) {
-    finalList = vehicles.filter(v =>
-      v.category === category &&
-      (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
-      (!filters.country || v.country === filters.country) &&
-      (!filters.brand || v.brand === filters.brand)
-    );
-    if (finalList.length > 0) ignored.push(`Zeitraum (${filters.era})`);
-  }
-
-  if (finalList.length === 0 && filters.brand) {
-    finalList = vehicles.filter(v =>
-      v.category === category &&
-      (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
-      (!filters.country || v.country === filters.country) &&
-      (!filters.era || v.era === filters.era)
-    );
-    if (finalList.length > 0) ignored.push(`Marke (${filters.brand})`);
-  }
-
-  if (finalList.length === 0 && filters.country) {
-    finalList = vehicles.filter(v =>
-      v.category === category &&
-      (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
-      (!filters.era || v.era === filters.era) &&
-      (!filters.brand || v.brand === filters.brand)
-    );
-    if (finalList.length > 0) ignored.push(`Land (${filters.country})`);
-  }
-
-  if (finalList.length === 0) {
-    finalList = vehicles.filter(v =>
-      v.category === category &&
-      (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike))
-    );
-    if (finalList.length > 0) {
-      if (filters.era) ignored.push(`Zeitraum (${filters.era})`);
-      if (filters.brand) ignored.push(`Marke (${filters.brand})`);
-      if (filters.country) ignored.push(`Land (${filters.country})`);
+      let ignored = [];
+    
+      let finalList = vehicles.filter(v =>
+        v.category === category &&
+        (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
+        (!filters.country || v.country === filters.country) &&
+        (!filters.era || v.era === filters.era) &&
+        (!filters.brand || v.brand === filters.brand)
+      );
+    
+      if (finalList.length === 0 && bikeFilterMode !== 'all') {
+        finalList = vehicles.filter(v =>
+          v.category === category &&
+          (!filters.country || v.country === filters.country) &&
+          (!filters.era || v.era === filters.era) &&
+          (!filters.brand || v.brand === filters.brand)
+        );
+        if (finalList.length > 0) ignored.push("Bike-Filter");
+      }
+    
+      if (finalList.length === 0 && filters.era) {
+        finalList = vehicles.filter(v =>
+          v.category === category &&
+          (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
+          (!filters.country || v.country === filters.country) &&
+          (!filters.brand || v.brand === filters.brand)
+        );
+        if (finalList.length > 0) ignored.push(`Zeitraum (${filters.era})`);
+      }
+    
+      if (finalList.length === 0 && filters.brand) {
+        finalList = vehicles.filter(v =>
+          v.category === category &&
+          (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
+          (!filters.country || v.country === filters.country) &&
+          (!filters.era || v.era === filters.era)
+        );
+        if (finalList.length > 0) ignored.push(`Marke (${filters.brand})`);
+      }
+    
+      if (finalList.length === 0 && filters.country) {
+        finalList = vehicles.filter(v =>
+          v.category === category &&
+          (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
+          (!filters.era || v.era === filters.era) &&
+          (!filters.brand || v.brand === filters.brand)
+        );
+        if (finalList.length > 0) ignored.push(`Land (${filters.country})`);
+      }
+    
+      if (finalList.length === 0) {
+        finalList = vehicles.filter(v =>
+          v.category === category &&
+          (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike))
+        );
+        if (finalList.length > 0) {
+          if (filters.era) ignored.push(`Zeitraum (${filters.era})`);
+          if (filters.brand) ignored.push(`Marke (${filters.brand})`);
+          if (filters.country) ignored.push(`Land (${filters.country})`);
+        }
+      }
+    
+      if (finalList.length === 0) {
+        finalList = vehicles.filter(v => v.category === category);
+        if (finalList.length > 0) ignored.push("Alle Filter");
+      }
+    
+      if (finalList.length === 0) return null;
+    
+      // 🔥 Shuffle finalList
+      shuffle(finalList);
+    
+      // 🔥 Softfilter berücksichtigen
+      if (!recentDraws[category]) {
+        recentDraws[category] = [];
+      }
+      const recent = recentDraws[category];
+    
+      let availableVehicles = finalList.filter(v =>
+        !recent.some(r => r.brand === v.brand && r.model === v.model && r.year === v.year)
+      );
+    
+      // 🔄 Softfilter-Reset, falls alle Fahrzeuge bereits gezogen wurden
+      if (availableVehicles.length === 0 && recent.length >= finalList.length) {
+        recentDraws[category] = [];
+        availableVehicles = [...finalList]; // alle Fahrzeuge wieder verfügbar
+      }
+    
+      // 🔥 Ziehung
+      let vehicle = availableVehicles[Math.floor(Math.random() * availableVehicles.length)];
+    
+      // 🔥 Fahrzeug merken
+      recentDraws[category].push(vehicle);
+    
+      return { vehicle, ignoredFilters: ignored };
     }
-  }
 
-  if (finalList.length === 0) {
-    finalList = vehicles.filter(v => v.category === category);
-    if (finalList.length > 0) ignored.push("Alle Filter");
-  }
-
-  if (finalList.length === 0) return null;
-
-  // 🔥 Shuffle finalList
-  shuffle(finalList);
-
-  // 🔥 Softfilter berücksichtigen
-  if (!recentDraws[category]) {
-    recentDraws[category] = [];
-  }
-  const recent = recentDraws[category];
-
-  let availableVehicles = finalList.filter(v =>
-    !recent.some(r => r.brand === v.brand && r.model === v.model && r.year === v.year)
-  );
-
-  // 🔄 Softfilter-Reset, falls alle Fahrzeuge bereits gezogen wurden
-  if (availableVehicles.length === 0 && recent.length >= finalList.length) {
-    recentDraws[category] = [];
-    availableVehicles = [...finalList]; // alle Fahrzeuge wieder verfügbar
-  }
-
-  // 🔥 Ziehung
-  let vehicle = availableVehicles[Math.floor(Math.random() * availableVehicles.length)];
-
-  // 🔥 Fahrzeug merken
-  recentDraws[category].push(vehicle);
-
-  return { vehicle, ignoredFilters: ignored };
-}
-
+    // 📋 Zeigt den aktuellen Softfilter-Status für alle ausgewählten Kategorien an
+    function logSoftfilterStatus() {
+      if (!selectedCategories || selectedCategories.length === 0) return;
+    
+      console.log("📋 Aktueller Softfilter-Status:");
+      
+      selectedCategories.forEach(category => {
+        const totalVehicles = vehicles.filter(v => v.category === category);
+        const recent = recentDraws[category] || [];
+        const available = totalVehicles.filter(v =>
+          !recent.some(r => r.brand === v.brand && r.model === v.model && r.year === v.year)
+        );
+    
+        console.log(`📦 ${category} | 🚘 ${available.length} verfügbar | 🛑 ${recent.length} geblockt`);
+      });
+    }
+    
     function updateGrandraceTicker() {
       const tickerContent = document.getElementById('grandraceContent');
       if (!tickerContent) return;
