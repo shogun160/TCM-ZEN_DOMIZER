@@ -610,20 +610,31 @@ select.filter-control {
   mix-blend-mode: screen;
 }
 .slot-standby {
-  color: #990099; /* dunkleres Pink (#FF00FF → leicht abgedunkelt) */
-  border-color: #990099;
-  box-shadow: 0 0 4px #990099;
+  color: #660066; /* noch dunkler: tiefes dunkelpink/violett */
+  border-color: #660066;
+  box-shadow: 0 0 2px #660066;
   background: rgba(0, 0, 0, 0.7); /* etwas dunklerer Hintergrund */
-  animation: pulse-neon 2s infinite;
+  animation: pulse-neon-standby 3s infinite; /* neue sanfte Animation */
 }
 .slot-standby .slot-name {
   font-size: 80px;
   animation: spin3D 1.6s linear infinite, pulse-text 1.2s infinite;
 }
 .slot-standby .question-mark {
-  color: #990099;
-  text-shadow: 0 0 2px #990099, 0 0 4px #990099;
+  color: #660066;
+  text-shadow: 0 0 1px #660066, 0 0 2px #660066;
 }
+@keyframes pulse-neon-standby {
+  0%, 100% {
+    box-shadow: 0 0 2px #660066;
+    text-shadow: 0 0 1px #660066;
+  }
+  50% {
+    box-shadow: 0 0 4px #660066;
+    text-shadow: 0 0 2px #660066;
+  }
+}
+
 .slot-standby .slot-badge {
   color: #3d2233;         /* dunkler, matter Violettton statt pink #993366*/
   text-shadow: none;      /* kein Leuchteffekt */
