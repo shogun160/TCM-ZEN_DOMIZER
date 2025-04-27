@@ -1707,14 +1707,22 @@ select.filter-control {
       // 🔥 Zufallsmischen
       shuffle(finalList);
 
-      // 🔥 Neu: Ausgabe in Developer-Console
-      console.log(`📦 Kategorie: ${category}`);
-      console.log(`🚗 Anzahl verfügbare Fahrzeuge (nur Autos): ${finalList.length}`);
-      if (finalList.length > 0) {
-        console.log(`🎯 Wahrscheinlichkeit einer Wiederholung: ${(1 / finalList.length * 100).toFixed(2)}%`);
-      } else {
-        console.log(`⚠️ Keine Fahrzeuge verfügbar.`);
-      }  
+      /// 📢 Ausgabe zur aktuellen Ziehung
+        console.log(`📦 Kategorie: ${category}`);
+        console.log(`🚗 Anzahl verfügbarer Fahrzeuge (nur Autos): ${finalList.length}`);
+        
+        if (finalList.length > 0) {
+          const recent = recentDraws[category] || [];
+          const availableVehicles = finalList.filter(v => 
+            !recent.some(r => r.brand === v.brand && r.model === v.model && r.year === v.year)
+          );
+        
+          console.log(`🎯 Effektive Fahrzeuge nach Softsperre: ${availableVehicles.length}`);
+          console.log(`🎯 Wiederholungschance (ohne Softsperre): ${(1 / finalList.length * 100).toFixed(2)}% (1 zu ${finalList.length})`);
+          console.log(`🎯 Effektive Wiederholungschance (mit Softsperre): ${(1 / availableVehicles.length * 100).toFixed(2)}% (1 zu ${availableVehicles.length})`);
+        } else {
+          console.log(`⚠️ Keine Fahrzeuge verfügbar.`);
+        }
     
       // 🔥 Soft-Sperre: letzte 10 verhindern
       if (!recentDraws[category]) {
