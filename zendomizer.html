@@ -911,16 +911,19 @@ select.filter-control {
             grandraceCategories = [];
             let grCatString = ROTATION[getCurrentEventIndex()][1];
             let grCatArray = grCatString.split(" > ");
-            for (let grCat of grCatArray) {
+            grCatArray.forEach((grCat, index) => {
+              setTimeout(() => {
                 let catBoxId = ROTATION_MAP.get(grCat);
                 let catCheckBox = document.getElementById(catBoxId);
                 if (catCheckBox != null) {
-                    catCheckBox.checked = true;
-                    catCheckBox.disabled = false;
-                    handleCategoryClick(catCheckBox);
-                    grandraceCategories.push(catCheckBox);
+                  catCheckBox.checked = true;
+                  catCheckBox.disabled = false;
+                  handleCategoryClick(catCheckBox);
+                  grandraceCategories.push(catCheckBox);
                 }
-            }
+              }, index * 300); // ✨ 300ms Verzögerung pro Kategorie
+            });
+
             const currentEventName = ROTATION[getCurrentEventIndex()][0];
             let currentCategories = ROTATION[getCurrentEventIndex()][1];
             currentCategories = currentCategories.replace(/>/g, "→");
