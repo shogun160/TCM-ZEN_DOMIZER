@@ -1798,12 +1798,13 @@ select.filter-control {
     // Direkt beim Laden ausführen
     window.addEventListener('load', updateGrandraceTicker);
     window.addEventListener('load', () => {
-    // GrandraceCategories beim Start aktivieren
-    const grandraceCheckbox = document.getElementById('catGR');
-    if (grandraceCheckbox) {
-      grandraceCheckbox.checked = true;
-      handleGrandraceCategoriesClick(grandraceCheckbox);
-      }
+        const grandraceCheckbox = document.getElementById('catGR');
+        if (grandraceCheckbox) {
+            grandraceCheckbox.checked = true;
+            setTimeout(() => {
+                handleGrandraceCategoriesClick(grandraceCheckbox);
+            }, 300); // ✨ 300ms Verzögerung NUR beim Laden
+        }
     });
 
     
