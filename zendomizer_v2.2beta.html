@@ -1596,6 +1596,13 @@ select.filter-control {
       }
     }
 
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
     function drawVehicleForCategory(category, filters, bikeFilterMode) {
       let ignored = [];
     
@@ -1666,7 +1673,9 @@ select.filter-control {
     
       if (finalList.length === 0) return null;
     
-      const vehicle = finalList[Math.floor(Math.random() * finalList.length)];
+      shuffle(finalList);         // NEU: Liste mischen
+      const vehicle = finalList[0]; // Dann erstes Fahrzeug nehmen
+        
       return { vehicle, ignoredFilters: ignored };
     }
 
