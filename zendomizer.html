@@ -921,7 +921,10 @@ select.filter-control {
                     grandraceCategories.push(catCheckBox);
                 }
             }
-            showToast("🏁 Grandrace Kategorien übernommen", "#39ff14"); // 🏁 Toast beim Aktivieren
+            const currentEventName = ROTATION[getCurrentEventIndex()][0];
+            const currentCategories = ROTATION[getCurrentEventIndex()][1];
+            showToast(`🏁 Grandrace aktiviert: ${currentEventName} (${currentCategories})`, "#39ff14", 8000);
+
         } else {
             // Grandrace abgewählt → Kategorien abwählen
             for (let cb of grandraceCategories) {
