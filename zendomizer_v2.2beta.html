@@ -1011,7 +1011,13 @@ select.filter-control {
           '';
     
         const slot = document.createElement('div');
-        slot.className = `slot-box empty ${isStandby ? 'slot-standby' : colorClass}`;
+        slot.className = 'slot-box';
+        if (isStandby) {
+            slot.classList.add('empty', 'slot-standby');
+        } else {
+            slot.classList.add(colorClass);
+        }
+
         slot.innerHTML = `
           <div class="slot-badge">${index + 1}</div>
           <div class="slot-category">${isStandby ? "" : cat}</div>
