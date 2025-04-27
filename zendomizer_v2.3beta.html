@@ -17,30 +17,21 @@
       align-items: center;
     }
 
-    .middle-wrapper {
-  display: flex;
-  flex-direction: column;    /* Alle Elemente untereinander anordnen */
-  align-items: center;       /* Zentriert den Inhalt */
-  width: 100%;               /* Volle Breite */
-  box-sizing: border-box;    /* Für korrekte Berechnung der Breite */
-}
-    
     #grandraceTicker {
-      width: 100%;               /* Volle Breite */
+      width: 100%;
       overflow: hidden;
       background: rgba(0, 0, 0, 0.85);
       color: #FF00FF;
       font-size: 20px;
       font-weight: bold;
-      text-align: left;          /* Text bleibt linksbündig */
+      text-align: left; /* Achtung: nicht center! */
       position: relative;
       white-space: nowrap;
       border-top: 2px solid #FF00FF;
       border-bottom: 2px solid #FF00FF;
       padding: 12px 0;
-      z-index: 10;               /* Setze den Z-Index höher als die Maschine */
     }
-
+    
     #grandraceContent {
       display: inline-block;
       padding-left: 100%; /* Start außerhalb */
@@ -338,32 +329,35 @@
     }
     /* GO-Button (groß & grün) */
     .start-btn {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      font-size: 20px;
-      font-weight: bold;
-      text-transform: uppercase;
+      background: linear-gradient(135deg, #39ff14 0%, #0a3d00 100%); /* kräftiges Grün */
       border: 2px solid #39ff14;
-      color: #39ff14;
-      background: transparent;
+      color: black;
+      font-size: 18px;
+      font-weight: bold;
       cursor: pointer;
-      transition: all 0.2s ease;
+      border-radius: 12px; /* leicht abgerundet, wie Reset */
       display: flex;
       align-items: center;
       justify-content: center;
+      text-align: center;
+      width: 180px; /* Größe wie Reset-Kachel */
+      height: 80px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-sizing: border-box;
     }
     
-    .start-btn:not(.inactive):hover{
-      animation: pulse-neon 1.2s infinite;
-      background-color: rgba(0, 0, 0, 0.4);
+    /* Hover-Effekt */
+    .start-btn:not(.inactive):hover {
       transform: scale(1.05);
+      box-shadow: 0 0 12px #39ff14, 0 0 24px #39ff14;
     }
-    /* Klick-Effekt */
+    
+        /* Klick-Effekt */
     .start-btn.clicked {
-      box-shadow: 0 0 16px currentColor, inset 0 0 12px currentColor;
-      transform: scale(1.1);
+      transform: scale(0.95);
+      box-shadow: 0 0 6px #39ff14 inset;
     }
+    
     #copyNotice {
       color: lime;
       margin-top: 10px;
@@ -378,55 +372,48 @@
   width: 100%;
   max-width: 2000px;
   margin: 0 auto;
-  padding-top: 90px;
+  padding-top: 20px; /* statt 90 */
   position: relative;
   z-index: 1;
 }
 
-/* Gemeinsame Eigenschaften für alle Panels */
-.left-panel, .center-panel, .right-panel {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-}
-
-/* Linke Spalte (25% Breite) */
-.left-panel {
-  flex: 0 0 25%;  /* 25% der Gesamtbreite für die linke Spalte */
-}
-
-/* Mittlere Spalte (20% feste Breite) */
-.center-panel {
-  flex: 0 0 20%;  /* 20% der Gesamtbreite für das Center Panel */
-  justify-content: center;
-  align-items: center;
-}
-
-/* Rechte Spalte (nimmt den verbleibenden Platz ein) */
+.left-panel,
 .right-panel {
-  flex: 1;  /* Nimmt den verbleibenden Platz ein */
+  flex: 1 1 40%;
+  min-width: 240px;
+  max-width: none;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
+  padding: 0;
+  margin: 0;
+}
+.right-panel {
+  position: relative;
+}
+.center-panel {
+  flex: 0 0 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .machine-wrapper {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 700px; /* Passt die Höhe an */
+  height: 700px;
   background-color: black;
-  z-index: -1; /* Setzen wir den Z-Index auf -1, damit die Maschine im Hintergrund bleibt */
+  z-index: 0;
   display: flex;
   justify-content: center;
 }
 .machine-wrapper::before {
   content: "";
   display: block;
-  width: 960px;  /* Breite der Maschine im Container */
-  height: 700px; /* Höhe der Maschine */
+  width: 960px; /* oder deine Wunschbreite */
+  height: 700px;
   background: url('https://raw.githubusercontent.com/shogun160/TCM-ZEN_DOMIZER/main/assets/pic/ZENDOMIZER_pic.jpeg') no-repeat center top;
   background-size: contain;
 }
@@ -520,7 +507,7 @@ select.filter-control {
 
   .button-top {
     margin-top: auto;
-    margin-bottom: 42px;         /* Button Abstand vom unteren Rand statt 20*/
+    margin-bottom: -80px;         /* Button Abstand vom unteren Rand statt 42*/
   }
 }
 /* --- SLOTBOXEN (rechter Bereich) --- */
@@ -626,20 +613,31 @@ select.filter-control {
   mix-blend-mode: screen;
 }
 .slot-standby {
-  color: #993366;
-  border-color: #993366;
-  box-shadow: 0 0 8px #993366;
-  background: rgba(0, 0, 0, 0.8);
-  animation: pulse-neon 2s infinite;
+  color: #660066; /* noch dunkler: tiefes dunkelpink/violett */
+  border-color: #660066;
+  box-shadow: 0 0 2px #660066;
+  background: rgba(0, 0, 0, 0.7); /* etwas dunklerer Hintergrund */
+  animation: pulse-neon-standby 3s infinite; /* neue sanfte Animation */
 }
 .slot-standby .slot-name {
   font-size: 80px;
   animation: spin3D 1.6s linear infinite, pulse-text 1.2s infinite;
 }
 .slot-standby .question-mark {
-  color: #993366;
-  text-shadow: 0 0 2px #993366, 0 0 6px #993366, 0 0 12px #993366;
+  color: #660066;
+  text-shadow: 0 0 1px #660066, 0 0 2px #660066;
 }
+@keyframes pulse-neon-standby {
+  0%, 100% {
+    box-shadow: 0 0 2px #660066;
+    text-shadow: 0 0 1px #660066;
+  }
+  50% {
+    box-shadow: 0 0 4px #660066;
+    text-shadow: 0 0 2px #660066;
+  }
+}
+
 .slot-standby .slot-badge {
   color: #3d2233;         /* dunkler, matter Violettton statt pink #993366*/
   text-shadow: none;      /* kein Leuchteffekt */
@@ -657,37 +655,38 @@ select.filter-control {
   margin-right: auto;
 }
 .your-pick-title.standby {
-  color: #993366;
+  color: #FF00FF;
   opacity: 1;
   text-shadow:
     0 0 4px #000,
-    0 0 8px #111;
+    0 0 8px #111,
+    0 0 12px #FF00FF;
 }
 .your-pick-title.active {
-  color: #FF3377;
+  color: #FF00FF;
   opacity: 1;
   text-shadow:
-    0 0 2px #FF3377,
-    0 0 6px #FF3377,
-    0 0 12px #FF3377,
-    0 0 20px #FF3377;
+    0 0 2px #FF00FF,
+    0 0 6px #FF00FF,
+    0 0 12px #FF00FF,
+    0 0 20px #FF00FF;
   animation: pickPulse 2s infinite;
 }
 
 @keyframes pickPulse {
   0%, 100% {
     text-shadow:
-      0 0 2px #FF3377,
-      0 0 6px #FF3377,
-      0 0 12px #FF3377,
-      0 0 20px #FF3377;
+      0 0 2px #FF00FF,
+      0 0 6px #FF00FF,
+      0 0 12px #FF00FF,
+      0 0 20px #FF00FF;
   }
   50% {
     text-shadow:
-      0 0 4px #FF3377,
-      0 0 8px #FF3377,
-      0 0 16px #FF3377,
-      0 0 24px #FF3377;
+      0 0 6px #FF00FF,
+      0 0 12px #FF00FF,
+      0 0 20px #FF00FF,
+      0 0 28px #FF00FF;
   }
 }
 /* Farbliche Kategorien für Slot-Boxen */
@@ -725,71 +724,94 @@ select.filter-control {
 </head>
 <body>
 <div class="machine-wrapper"></div>
-
-<!-- Start Haupt-Layout -->
-<div class="layout">
-
-  <!-- Linke Spalte: Filter + Kategorien -->
-  <div class="left-panel">
+<div class="layout"><div class="left-panel">
     <div class="filter-wrapper">
-      <div class="filter-grid">
-        <button id="bikeFilterBtn" class="filter-control" onclick="toggleBikeFilter()">loading...</button>
-        <select id="countrySelect" class="filter-control" onchange="updateFilterHighlighting()">
-          <option value="">Land wählen</option>
-        </select>
-        <select id="brandSelect" class="filter-control" onchange="updateFilterHighlighting()">
-          <option value="">Marke wählen</option>
-        </select>
-        <select id="eraSelect" class="filter-control" onchange="updateFilterHighlighting()">
-          <option value="">Zeitraum wählen</option>
-        </select>
-      </div>
+        <div class="filter-grid">
+            <button id="bikeFilterBtn" class="filter-control" onclick="toggleBikeFilter()">loading...</button>
+            <select id="countrySelect" class="filter-control" onchange="updateFilterHighlighting()">
+                <option value="">Land wählen</option>
+            </select>
+            <select id="brandSelect" class="filter-control" onchange="updateFilterHighlighting()">
+                <option value="">Marke wählen</option>
+            </select>
+            <select id="eraSelect" class="filter-control" onchange="updateFilterHighlighting()">
+                <option value="">Zeitraum wählen</option>
+            </select>
+        </div>
     </div>
-
-    <!-- Kategorie-Kacheln (Street, Racing, Hypercar, ...) -->
     <div class="category-grid">
+      <!-- Reihe 1 -->
       <div class="catWrapper">
-        <input type="checkbox" id="cat1" class="catCheckbox" onchange="handleCategoryClick(this)" value="Street Tier 1"/>
-        <label for="cat1" class="catLabel cat-yellow"><span>Street<br>Tier 1</span></label>
+          <input type="checkbox" id="cat1" class="catCheckbox" onchange="handleCategoryClick(this)" value="Street Tier 1"/>
+          <label for="cat1" class="catLabel cat-yellow"><span>Street<br>Tier 1</span></label>
       </div>
       <div class="catWrapper">
-        <input type="checkbox" id="cat2" class="catCheckbox" onchange="handleCategoryClick(this)" value="Street Tier 2"/>
-        <label for="cat2" class="catLabel cat-yellow"><span>Street<br>Tier 2</span></label>
+          <input type="checkbox" id="cat2" class="catCheckbox" onchange="handleCategoryClick(this)" value="Street Tier 2"/>
+          <label for="cat2" class="catLabel cat-yellow"><span>Street<br>Tier 2</span></label>
       </div>
       <div class="catWrapper">
-        <input type="checkbox" id="cat8" class="catCheckbox" onchange="handleCategoryClick(this)" value="Hypercar"/>
-        <label for="cat8" class="catLabel cat-yellow"><span>Hypercar</span></label>
+          <input type="checkbox" id="cat8" class="catCheckbox" onchange="handleCategoryClick(this)" value="Hypercar"/>
+          <label for="cat8" class="catLabel cat-yellow"><span>Hypercar</span></label>
       </div>
-      <!-- Weitere Kategorien hier -->
-    </div> <!-- Ende Kategorie-Grid -->
-  </div> <!-- Ende Left-Panel -->
-
-  <!-- 🆕 Neuer Wrapper für Mitte + Rechts + Grandrace Ticker -->
-  <div class="middle-wrapper">
-
-    <!-- Mittlere Spalte: Automat (GO-Button) -->
+    
+      <!-- Reihe 2 -->
+      <div class="catWrapper">
+          <input type="checkbox" id="cat10" class="catCheckbox" onchange="handleCategoryClick(this)" value="Drift"/>
+          <label for="cat10" class="catLabel cat-yellow"><span>Drift</span></label>
+      </div>
+      <div class="catWrapper">
+          <input type="checkbox" id="cat3" class="catCheckbox" onchange="handleCategoryClick(this)" value="Racing"/>
+          <label for="cat3" class="catLabel cat-blue"><span>Racing</span></label>
+      </div>
+      <div class="catWrapper">
+          <input type="checkbox" id="cat4" class="catCheckbox" onchange="handleCategoryClick(this)" value="AGP"/>
+          <label for="cat4" class="catLabel cat-blue"><span>AGP</span></label>
+      </div>
+    
+      <!-- Reihe 3 -->
+      <div class="catWrapper">
+          <input type="checkbox" id="cat7" class="catCheckbox" onchange="handleCategoryClick(this)" value="Rally"/>
+          <label for="cat7" class="catLabel cat-orange"><span>Rally</span></label>
+      </div>
+      <div class="catWrapper">
+          <input type="checkbox" id="cat6" class="catCheckbox" onchange="handleCategoryClick(this)" value="Rally Raid"/>
+          <label for="cat6" class="catLabel cat-orange"><span>Rally Raid</span></label>
+      </div>
+      <div class="catWrapper">
+          <input type="checkbox" id="cat9" class="catCheckbox" onchange="handleCategoryClick(this)" value="Monster Truck"/>
+          <label for="cat9" class="catLabel cat-magenta"><span>Monster Truck</span></label>
+      </div>
+    
+      <!-- Reihe 4 -->
+      <div class="catWrapper">
+          <input type="checkbox" id="cat5" class="catCheckbox" onchange="handleCategoryClick(this)" value="Motocross"/>
+          <label for="cat5" class="catLabel cat-orange"><span>Motocross</span></label>
+      </div>
+      <div class="catWrapper">
+          <input type="checkbox" id="catGR" class="catCheckbox" onchange="handleGrandraceCategoriesClick(this)"/>
+          <label for="catGR" class="catLabel cat-green"><span>Grandrace<br>Categories</span></label>
+      </div>
+      <div class="catWrapper">
+        <button id="resetBtnGrid" class="catLabel cat-reset reset-special" onclick="resetSmart()"><span>RESET</span></button>
+      </div>
+    </div>        
+</div>
     <div class="center-panel">
-      <div class="button-top">
-        <button id="goBtn" class="start-btn" onclick="handleGo()">GO</button>
-      </div>
+        <div class="button-top">
+            <button id="goBtn" class="start-btn" onclick="handleGo()">GO</button>
+        </div>
     </div>
-
-    <!-- Rechte Spalte: Slotboxen -->
     <div class="right-panel">
       <div class="results-panel">
         <h2 id="yourPickTitle" class="your-pick-title standby">Your Pick</h2>
         <div id="results"></div>
       </div>
-    </div>
-
-    <!-- Grandrace-Ticker: Läuft unter Center + Right -->
-    <div id="grandraceTicker" class="marquee">
-      <div id="grandraceContent"></div> <!-- Inhalt wird per JS dynamisch befüllt -->
-    </div>
-
-  </div> <!-- Ende Middle-Wrapper -->
-
-</div> <!-- Ende Layout -->
+      <!-- Grandrace Ticker kommt JETZT hier in die rechte Spalte -->
+      <div id="grandraceTicker" class="marquee">
+        <div id="grandraceContent"></div>
+      </div>
+    </div> <!-- Ende right-panel -->
+</div>
 <script src="https://shogun160.github.io/TCM-ZEN_DOMIZER/cars/vehicles.json" type="application/json"></script>
 <script>
     /*
@@ -851,6 +873,7 @@ select.filter-control {
     let selectedOrder = [];
     let drawExecuted = false;
     let grandraceCategories = [];
+    let recentDraws = {}; // 🆕 Merkt sich die letzten 10 Fahrzeuge pro Kategorie
 
     function handleGrandraceCategoriesClick(checkbox) {
         if (checkbox.checked) {
@@ -982,38 +1005,48 @@ select.filter-control {
     function updateSlotBoxes() {
       const resultsDiv = document.getElementById('results');
       resultsDiv.innerHTML = '';
-      // "Your Pick" anpassen
+    
       const title = document.getElementById('yourPickTitle');
       title.classList.remove('active', 'standby');
       title.classList.add(selectedOrder.length === 0 ? 'standby' : 'active');
-
+    
       const categoriesToRender = [...selectedOrder.slice(0, 3)];
-        while (categoriesToRender.length < 3) {
-          categoriesToRender.push("");
-        }
-
+      while (categoriesToRender.length < 3) {
+        categoriesToRender.push("");
+      }
     
       categoriesToRender.forEach((cat, index) => {
         const isStandby = cat === "";
     
-        const colorClass =
-          ['Street Tier 1', 'Street Tier 2', 'Hypercar', 'Drift'].includes(cat) ? 'slot-yellow' :
-          ['Racing', 'AGP'].includes(cat) ? 'slot-blue' :
-          ['Rally', 'Rally Raid', 'Motocross'].includes(cat) ? 'slot-orange' :
-          cat === 'Monster Truck' ? 'slot-magenta' :
-          '';
+        // Farbklasse bestimmen
+        let colorClass = '';
+        if (!isStandby) {
+          colorClass =
+            ['Street Tier 1', 'Street Tier 2', 'Hypercar', 'Drift'].includes(cat) ? 'slot-yellow' :
+            ['Racing', 'AGP'].includes(cat) ? 'slot-blue' :
+            ['Rally', 'Rally Raid', 'Motocross'].includes(cat) ? 'slot-orange' :
+            cat === 'Monster Truck' ? 'slot-magenta' :
+            '';
+        }
     
         const slot = document.createElement('div');
-        slot.className = `slot-box empty ${isStandby ? 'slot-standby' : colorClass}`;
+        slot.classList.add('slot-box');
+        if (isStandby) {
+          slot.classList.add('empty', 'slot-standby');
+        } else {
+          slot.classList.add(colorClass);
+        }
+    
         slot.innerHTML = `
           <div class="slot-badge">${index + 1}</div>
           <div class="slot-category">${isStandby ? "" : cat}</div>
-          <div class="slot-name"><span class="question-mark">?</span></div>
+          <div class="slot-name">${isStandby ? '<span class="question-mark">?</span>' : ''}</div>
           <div class="slot-warning"></div>
         `;
         resultsDiv.appendChild(slot);
       });
     }
+
     function initializeDropdowns() {
       const brandSelect = document.getElementById("brandSelect");
       const countrySelect = document.getElementById("countrySelect");
@@ -1520,7 +1553,7 @@ select.filter-control {
         lastSelection.push(null);
       }
     
-      const oldVehicle = lastSelection[index]; // vorher merken
+      const oldVehicle = lastSelection[index];
     
       lastSelection[index] = { ...vehicle, ignoredFilters };
     
@@ -1535,19 +1568,22 @@ select.filter-control {
         ? `Ignorierte Filter: ${ignoredFilters.join(', ')}`
         : '';
     
-      slot.classList.remove('slot-yellow', 'slot-blue', 'slot-orange', 'slot-magenta');
+      // ❗ Farbanpassung
+      slot.classList.remove('empty', 'slot-yellow', 'slot-blue', 'slot-orange', 'slot-magenta');
       const colorClass =
-          ['Street Tier 1', 'Street Tier 2', 'Hypercar', 'Drift'].includes(category) ? 'slot-yellow' :
-          ['Racing', 'AGP'].includes(category) ? 'slot-blue' :
-          ['Rally', 'Rally Raid', 'Motocross'].includes(category) ? 'slot-orange' :
-          category === 'Monster Truck' ? 'slot-magenta' :
-          '';
+        ['Street Tier 1', 'Street Tier 2', 'Hypercar', 'Drift'].includes(category) ? 'slot-yellow' :
+        ['Racing', 'AGP'].includes(category) ? 'slot-blue' :
+        ['Rally', 'Rally Raid', 'Motocross'].includes(category) ? 'slot-orange' :
+        category === 'Monster Truck' ? 'slot-magenta' :
+        '';
+      if (colorClass) {
+        slot.classList.add(colorClass);
+      }
     
-      // Kurze Neon-Flash-Animation
+      // Flash-Effekt
       slot.classList.add("flash");
       setTimeout(() => slot.classList.remove("flash"), 800);
     
-      // Fahrzeug gleich wie vorher?
       const isSame = oldVehicle &&
         oldVehicle.brand === vehicle.brand &&
         oldVehicle.model === vehicle.model &&
@@ -1555,9 +1591,16 @@ select.filter-control {
     
       if (isSame) {
         showToast("🔁 keine Alternative verfügbar.", "#999");
-        copyToClipboard(true); // ohne Toast
+        copyToClipboard(true);
       } else {
-        copyToClipboard(); // mit normalem Toast
+        copyToClipboard();
+      }
+    }
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
       }
     }
 
@@ -1631,7 +1674,30 @@ select.filter-control {
     
       if (finalList.length === 0) return null;
     
-      const vehicle = finalList[Math.floor(Math.random() * finalList.length)];
+      // 🔥 Zufallsmischen
+      shuffle(finalList);
+    
+      // 🔥 Soft-Sperre: letzte 10 verhindern
+      if (!recentDraws[category]) {
+        recentDraws[category] = [];
+      }
+      const recent = recentDraws[category];
+    
+      let vehicle = finalList.find(v =>
+        !recent.some(r => r.brand === v.brand && r.model === v.model && r.year === v.year)
+      );
+    
+      // Falls ALLE Fahrzeuge schon in recent sind → irgendeins nehmen
+      if (!vehicle) {
+        vehicle = finalList[0];
+      }
+    
+      // 🔥 Fahrzeug merken
+      recent.push(vehicle);
+      if (recent.length > 10) {
+        recent.shift(); // ältestes Fahrzeug löschen
+      }
+    
       return { vehicle, ignoredFilters: ignored };
     }
 
@@ -1641,7 +1707,7 @@ select.filter-control {
       
       const currentEvent = ROTATION[getCurrentEventIndex()][0];
       
-      const spacer = '&emsp;&emsp;&emsp;&emsp;'; // schöner Abstand
+      const spacer = '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;';
       const message = `🏁 Ready for ${currentEvent}? Let's race! 🏁`;
       
       // Mehrfach Wiederholen, damit der Lauftext lang genug wird
