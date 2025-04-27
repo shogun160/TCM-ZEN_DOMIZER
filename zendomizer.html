@@ -979,7 +979,8 @@ select.filter-control {
                     grandraceCategories.push(catCheckBox);
                 }
             }
-            showToast("🏁 Grandrace Kategorien aktualisiert", "#39ff14", 5000); // 5 Sekunden sichtbar
+            const currentEventName = ROTATION[getCurrentEventIndex()][0];
+            showToast(`🏁 Neue Rotation: ${currentEventName}`, "#39ff14", 8000); /*wird 8sek angezeigt */
         }
     }
 
