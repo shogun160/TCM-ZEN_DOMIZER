@@ -569,6 +569,11 @@ select.filter-control {
   animation: pulse-text 1.2s infinite;
   line-height: 1;
 }
+.slot-box .question-mark {
+  font-size: 80px;
+  animation: pulse-text 1.2s infinite;
+  line-height: 1;
+}
 .slot-box.empty {
   perspective: 600px;
 }
@@ -1063,7 +1068,7 @@ select.filter-control {
         slot.innerHTML = `
           <div class="slot-badge">${index + 1}</div>
           <div class="slot-category">${isStandby ? "" : cat}</div>
-          <div class="slot-name">${isStandby ? '<span class="question-mark">?</span>' : ''}</div>
+          <div class="slot-name"><span class="question-mark">?</span></div>
           <div class="slot-warning"></div>
         `;
         resultsDiv.appendChild(slot);
