@@ -1223,7 +1223,7 @@ select.filter-control {
     }
     function drawRandomVehicles() {
       const filters = getCurrentFilters();
-      const selectedCategories = Array.from(document.querySelectorAll('.catCheckbox'))
+      const selectedOrder = Array.from(document.querySelectorAll('.catCheckbox'))
         .filter(cb => cb.checked)
         .map(cb => cb.value);
 
@@ -1232,12 +1232,12 @@ select.filter-control {
       const resultsDiv = document.getElementById('results');
       resultsDiv.innerHTML = '';
 
-      if (selectedCategories.length < 3) {
+      if (selectedOrder.length < 3) {
         resultsDiv.innerHTML = "<p>⚠️ Bitte 3 Kategorien auswählen.</p>";
         return;
       }
 
-      const shuffledCategories = selectedCategories.sort(() => 0.5 - Math.random()).slice(0, 3);
+      const shuffledCategories = selectedOrder.sort(() => 0.5 - Math.random()).slice(0, 3);
       const chosen = [];
 
       for (let cat of shuffledCategories) {
@@ -1444,16 +1444,16 @@ select.filter-control {
     
     function fillSlotBoxesWithResults() {
       const filters = getCurrentFilters();
-      const selectedCategories = selectedOrder.slice(0, 3);
+      const selectedOrder = selectedOrder.slice(0, 3);
     
-      if (selectedCategories.length < 3) {
+      if (selectedOrder.length < 3) {
         showToast("⚠️ Bitte 3 Kategorien auswählen.", "#f33");
         return;
       }
     
       const chosen = [];
     
-      for (let cat of selectedCategories) {
+      for (let cat of selectedOrder) {
         const result = drawVehicleForCategory(cat, filters, bikeFilterMode);
         if (!result) continue;
         const { vehicle, ignoredFilters } = result;
@@ -1739,7 +1739,7 @@ select.filter-control {
     
       console.log("📋 Aktueller Softfilter-Status:");
       
-      selectedCategories.forEach(category => {
+      selectedOrder.forEach(category => {
         const totalVehicles = vehicles.filter(v => v.category === category);
         const recent = recentDraws[category] || [];
         const available = totalVehicles.filter(v =>
