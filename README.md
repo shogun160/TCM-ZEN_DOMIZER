@@ -6,7 +6,8 @@
 <br>For Drift there are only a few cars available at the moment(Hoonigan & Mitsubishi).
 <br>This is because stearing of most of the other drift cars will block when using direct mode or a high dynamic maxlock value. More cars may be added later.
 <br>
-<br>Thank you [@wbcolon](https://github.com/wbcolon) for Integration the Grandrace rotation and automatic match of categories.
+<br>Thank you [@wbcolon](https://github.com/wbcolon) for Integration the Grandrace rotation and automatic match of categories. 
+<br>And of course the [motorfe.st roject](https://github.com/calamity-inc/motorfe.st/) for the rotation logic itself.
 <br>
 <br>V2.3
 <br>Carlist: Season 6 - 02.04.2025
