@@ -1705,7 +1705,6 @@ select.filter-control {
       if (finalList.length === 0) return null;
     
         // 🔥 Zufallsmischen
-        // 🔥 Zufallsmischen
         shuffle(finalList);
         
         // 🧠 Softfilter berücksichtigen
@@ -1740,9 +1739,10 @@ select.filter-control {
         let vehicle = availableVehicles[Math.floor(Math.random() * availableVehicles.length)];
         
         // 🔥 Fahrzeug merken
-        recentDraws[category].push(vehicle);
+        recent.push(vehicle);
         
         return { vehicle, ignoredFilters: ignored };
+
 
       // 📢 Smarte Dev-Console Ausgabe pro Kategorie (mit Blockierte Fahrzeuge und exakter Chance)
         if (finalList.length > 0) {
