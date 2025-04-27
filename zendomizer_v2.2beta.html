@@ -329,32 +329,35 @@
     }
     /* GO-Button (groß & grün) */
     .start-btn {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      font-size: 20px;
-      font-weight: bold;
-      text-transform: uppercase;
+      background: linear-gradient(135deg, #39ff14 0%, #0a3d00 100%); /* kräftiges Grün */
       border: 2px solid #39ff14;
-      color: #39ff14;
-      background: transparent;
+      color: black;
+      font-size: 18px;
+      font-weight: bold;
       cursor: pointer;
-      transition: all 0.2s ease;
+      border-radius: 12px; /* leicht abgerundet, wie Reset */
       display: flex;
       align-items: center;
       justify-content: center;
+      text-align: center;
+      width: 120px; /* Größe wie Reset-Kachel */
+      height: 60px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-sizing: border-box;
     }
     
-    .start-btn:not(.inactive):hover{
-      animation: pulse-neon 1.2s infinite;
-      background-color: rgba(0, 0, 0, 0.4);
+    /* Hover-Effekt */
+    .start-btn:not(.inactive):hover {
       transform: scale(1.05);
+      box-shadow: 0 0 12px #39ff14, 0 0 24px #39ff14;
     }
-    /* Klick-Effekt */
+    
+        /* Klick-Effekt */
     .start-btn.clicked {
-      box-shadow: 0 0 16px currentColor, inset 0 0 12px currentColor;
-      transform: scale(1.1);
+      transform: scale(0.95);
+      box-shadow: 0 0 6px #39ff14 inset;
     }
+    
     #copyNotice {
       color: lime;
       margin-top: 10px;
