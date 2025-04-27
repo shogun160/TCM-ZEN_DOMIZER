@@ -262,6 +262,46 @@
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
+    /* Inaktiver Zustand: Button ist ausgegraut und nicht klickbar */
+    .reset-special.inactive {
+      background-color: #bdbdbd;  /* Grau */
+      cursor: not-allowed;        /* Kein Klick */
+      opacity: 0.5;               /* Etwas transparenter */
+    }
+    
+    /* Pulsierender Effekt für den aktiven Reset-Button */
+    .reset-special.pulsate-red {
+      animation: pulsateRed 2s infinite;
+    }
+    
+    @keyframes pulsateRed {
+      0% {
+        box-shadow: 0 0 5px #f44336;
+      }
+      50% {
+        box-shadow: 0 0 20px #f44336;
+      }
+      100% {
+        box-shadow: 0 0 5px #f44336;
+      }
+    }
+    
+    /* Reset-Button Standard-Styling */
+    .reset-special {
+      padding: 10px 20px;
+      background-color: #f44336;  /* Rote Hintergrundfarbe */
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    /* Reset-Button, wenn er deaktiviert ist */
+    .reset-special:disabled {
+      background-color: #bdbdbd;  /* Grau */
+      cursor: not-allowed;
+    }
+
     /* Hover Effekt */
     .reset-special:hover {
       transform: scale(1.05);
@@ -1187,16 +1227,20 @@ select.filter-control {
     let lastSelection = [];
 
     function updateResetButtonState() {
-      const btn = document.getElementById("resetBtnGrid");
+      const resetBtn = document.getElementById("resetButton");
       const filters = getCurrentFilters();
       const filtersActive = filters.brand || filters.country || filters.era || selectedOrder.length > 0;
     
-      btn.classList.remove("inactive", "pulsing");
-    
       if (!filtersActive && !drawExecuted) {
-        btn.classList.add("inactive");
-      } else {
-        btn.classList.add("pulsing");
+        // ❌ Keine Filter und keine Ziehung → Setze Button auf "inactive"
+        resetBtn.classList.remove("pulsate-red");
+        resetBtn.classList.add("inactive");
+        resetBtn.disabled = true; // Setzt den Button auf inaktiv
+      } else if (filtersActive || drawExecuted) {
+        // 🔥 Entweder Filter aktiv oder Ziehung gemacht → Setze Button auf "pulsierend rot"
+        resetBtn.classList.remove("inactive");
+        resetBtn.classList.add("pulsate-red");
+        resetBtn.disabled = false; // Button wird aktiv
       }
     }
 
