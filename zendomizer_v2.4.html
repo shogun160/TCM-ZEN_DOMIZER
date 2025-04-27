@@ -900,10 +900,12 @@ select.filter-control {
       ["Drift", "cat10"], // Drift integriert
     ]);
 
-    let selectedOrder = [];
-    let drawExecuted = false;
-    let grandraceCategories = [];
-    let recentDraws = {}; // 🆕 Merkt sich die letzten 10 Fahrzeuge pro Kategorie
+    // 🛠️ Globale Variablen ganz oben:
+    let vehicles = [];
+    let recentDraws = {}; // für Softfilter
+    let selectedOrder = []; // ausgewählte Kategorien
+    let drawExecuted = false; // ob schon gezogen wurde
+    let grandraceCategories = []; // für Grandrace-Modus
 
     function handleGrandraceCategoriesClick(checkbox) {
         if (checkbox.checked) {
