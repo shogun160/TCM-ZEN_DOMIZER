@@ -1150,6 +1150,12 @@ select.filter-control {
     
       const checkboxes = document.querySelectorAll('.catCheckbox');
       checkboxes.forEach(cb => cb.checked = false);
+
+      const grandraceCheckbox = document.getElementById('catGR');
+      if (grandraceCheckbox) {
+        grandraceCheckbox.checked = false;
+        handleGrandraceCategoriesClick(grandraceCheckbox);
+      }
     
       selectedOrder = [];
       updateCheckboxBadges();
@@ -1765,6 +1771,15 @@ select.filter-control {
     
     // Direkt beim Laden ausführen
     window.addEventListener('load', updateGrandraceTicker);
+    window.addEventListener('load', () => {
+    // GrandraceCategories beim Start aktivieren
+    const grandraceCheckbox = document.getElementById('catGR');
+    if (grandraceCheckbox) {
+      grandraceCheckbox.checked = true;
+      handleGrandraceCategoriesClick(grandraceCheckbox);
+      }
+    });
+
     
     // Optional: Alle 15 Sekunden neu prüfen
     setInterval(updateGrandraceTicker, 15000);
