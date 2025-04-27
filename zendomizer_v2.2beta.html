@@ -1537,7 +1537,7 @@ select.filter-control {
         lastSelection.push(null);
       }
     
-      const oldVehicle = lastSelection[index]; // vorher merken
+      const oldVehicle = lastSelection[index];
     
       lastSelection[index] = { ...vehicle, ignoredFilters };
     
@@ -1552,19 +1552,22 @@ select.filter-control {
         ? `Ignorierte Filter: ${ignoredFilters.join(', ')}`
         : '';
     
-      slot.classList.remove('slot-yellow', 'slot-blue', 'slot-orange', 'slot-magenta');
+      // ❗ Farbanpassung
+      slot.classList.remove('empty', 'slot-yellow', 'slot-blue', 'slot-orange', 'slot-magenta');
       const colorClass =
-          ['Street Tier 1', 'Street Tier 2', 'Hypercar', 'Drift'].includes(category) ? 'slot-yellow' :
-          ['Racing', 'AGP'].includes(category) ? 'slot-blue' :
-          ['Rally', 'Rally Raid', 'Motocross'].includes(category) ? 'slot-orange' :
-          category === 'Monster Truck' ? 'slot-magenta' :
-          '';
+        ['Street Tier 1', 'Street Tier 2', 'Hypercar', 'Drift'].includes(category) ? 'slot-yellow' :
+        ['Racing', 'AGP'].includes(category) ? 'slot-blue' :
+        ['Rally', 'Rally Raid', 'Motocross'].includes(category) ? 'slot-orange' :
+        category === 'Monster Truck' ? 'slot-magenta' :
+        '';
+      if (colorClass) {
+        slot.classList.add(colorClass);
+      }
     
-      // Kurze Neon-Flash-Animation
+      // Flash-Effekt
       slot.classList.add("flash");
       setTimeout(() => slot.classList.remove("flash"), 800);
     
-      // Fahrzeug gleich wie vorher?
       const isSame = oldVehicle &&
         oldVehicle.brand === vehicle.brand &&
         oldVehicle.model === vehicle.model &&
@@ -1572,9 +1575,9 @@ select.filter-control {
     
       if (isSame) {
         showToast("🔁 keine Alternative verfügbar.", "#999");
-        copyToClipboard(true); // ohne Toast
+        copyToClipboard(true);
       } else {
-        copyToClipboard(); // mit normalem Toast
+        copyToClipboard();
       }
     }
 
