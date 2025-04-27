@@ -1707,21 +1707,25 @@ select.filter-control {
       // 🔥 Zufallsmischen
       shuffle(finalList);
 
-      /// 📢 Ausgabe zur aktuellen Ziehung
-        console.log(`📦 Kategorie: ${category}`);
-        console.log(`🚗 Anzahl verfügbarer Fahrzeuge (nur Autos): ${finalList.length}`);
-        
+      // 📢 Smarte Dev-Console Ausgabe pro Kategorie
         if (finalList.length > 0) {
           const recent = recentDraws[category] || [];
-          const availableVehicles = finalList.filter(v => 
+          const availableVehicles = finalList.filter(v =>
             !recent.some(r => r.brand === v.brand && r.model === v.model && r.year === v.year)
           );
         
-          console.log(`🎯 Effektive Fahrzeuge nach Softsperre: ${availableVehicles.length}`);
-          console.log(`🎯 Wiederholungschance (ohne Softsperre): ${(1 / finalList.length * 100).toFixed(2)}% (1 zu ${finalList.length})`);
-          console.log(`🎯 Effektive Wiederholungschance (mit Softsperre): ${(1 / availableVehicles.length * 100).toFixed(2)}% (1 zu ${availableVehicles.length})`);
+          const theoreticalChance = (1 / finalList.length * 100).toFixed(2);
+          const effectiveChance = (1 / availableVehicles.length * 100).toFixed(2);
+        
+          if (recent.length < 10) {
+            // 🟢 Weniger als 10 alte Fahrzeuge → normale Anzeige
+            console.log(`📦 Kategorie: ${category} | 🚗 Fahrzeuge: ${finalList.length} | 🎯 Wiederholungswahrscheinlichkeit: ${theoreticalChance}% (1 zu ${finalList.length})`);
+          } else {
+            // 🟠 10 oder mehr alte Fahrzeuge → Softfilter berücksichtigen
+            console.log(`📦 Kategorie: ${category} | 🚗 Nach Softsperre: ${availableVehicles.length} | 🎯 Effektive Wiederholungswahrscheinlichkeit: ${effectiveChance}% (1 zu ${availableVehicles.length})`);
+          }
         } else {
-          console.log(`⚠️ Keine Fahrzeuge verfügbar.`);
+          console.log(`⚠️ Kategorie: ${category} | Keine Fahrzeuge verfügbar.`);
         }
     
       // 🔥 Soft-Sperre: letzte 10 verhindern
