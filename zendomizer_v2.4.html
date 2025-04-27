@@ -1711,7 +1711,7 @@ select.filter-control {
         if (!recentDraws[category]) {
           recentDraws[category] = [];
         }
-        const recent = recentDraws[category];
+        const recent = recentDraws[category]; // ✅ nur hier deklarieren
         
         // Fahrzeuge rausfiltern, die nicht in recentDraws liegen
         let availableVehicles = finalList.filter(v =>
