@@ -933,6 +933,9 @@ select.filter-control {
                     grandraceCategories.push(catCheckBox);
                 }
             }
+            updateSlotBoxes();
+            updateGoButtonState();
+            updateResetButtonState();
             showToast("🏁 Grandrace Kategorien aktualisiert", "#39ff14", 5000); // 5 Sekunden sichtbar
         }
     }
