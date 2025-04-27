@@ -44,21 +44,6 @@
       100% { transform: translateX(-100%); } /* - Ende weiter nach links statt  -67 */
     }
 
-    .pulsate-red {
-      animation: pulsateRed 2s infinite;
-    }
-    
-    @keyframes pulsateRed {
-      0% {
-        box-shadow: 0 0 5px #f44336;
-      }
-      50% {
-        box-shadow: 0 0 20px #f44336;
-      }
-      100% {
-        box-shadow: 0 0 5px #f44336;
-      }
-    }
 
     .toast {
       position: fixed;
@@ -1202,18 +1187,16 @@ select.filter-control {
     let lastSelection = [];
 
     function updateResetButtonState() {
-      const resetBtn = document.getElementById("resetButton");
+      const btn = document.getElementById("resetBtnGrid");
       const filters = getCurrentFilters();
       const filtersActive = filters.brand || filters.country || filters.era || selectedOrder.length > 0;
     
+      btn.classList.remove("inactive", "pulsing");
+    
       if (!filtersActive && !drawExecuted) {
-        // ❌ Keine Filter, keine Ziehung → Reset-Button deaktivieren
-        resetBtn.classList.remove("active", "pulsate-red");
-        resetBtn.disabled = true;
+        btn.classList.add("inactive");
       } else {
-        // Entweder Filter aktiv oder Ziehung gemacht → Reset-Button aktivieren + rot pulsieren
-        resetBtn.classList.add("active", "pulsate-red");
-        resetBtn.disabled = false;
+        btn.classList.add("pulsing");
       }
     }
 
