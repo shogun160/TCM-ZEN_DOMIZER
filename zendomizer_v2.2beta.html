@@ -933,9 +933,6 @@ select.filter-control {
                     grandraceCategories.push(catCheckBox);
                 }
             }
-            updateSlotBoxes();
-            updateGoButtonState();
-            updateResetButtonState();
             showToast("🏁 Grandrace Kategorien aktualisiert", "#39ff14", 5000); // 5 Sekunden sichtbar
         }
     }
@@ -1001,7 +998,6 @@ select.filter-control {
         }
       });
     }
-    
     function updateSlotBoxes() {
       const resultsDiv = document.getElementById('results');
       resultsDiv.innerHTML = '';
@@ -1018,24 +1014,34 @@ select.filter-control {
       categoriesToRender.forEach((cat, index) => {
         const isStandby = cat === "";
     
+        // Farbklasse bestimmen
+        let colorClass = '';
+        if (!isStandby) {
+          colorClass =
+            ['Street Tier 1', 'Street Tier 2', 'Hypercar', 'Drift'].includes(cat) ? 'slot-yellow' :
+            ['Racing', 'AGP'].includes(cat) ? 'slot-blue' :
+            ['Rally', 'Rally Raid', 'Motocross'].includes(cat) ? 'slot-orange' :
+            cat === 'Monster Truck' ? 'slot-magenta' :
+            '';
+        }
+    
         const slot = document.createElement('div');
         slot.classList.add('slot-box');
         if (isStandby) {
           slot.classList.add('empty', 'slot-standby');
         } else {
-          slot.classList.add('empty', 'slot-standby');
+          slot.classList.add(colorClass);
         }
     
         slot.innerHTML = `
           <div class="slot-badge">${index + 1}</div>
-          <div class="slot-category">${cat || ""}</div>
-          <div class="slot-name"><span class="question-mark">?</span></div>
+          <div class="slot-category">${isStandby ? "" : cat}</div>
+          <div class="slot-name">${isStandby ? '<span class="question-mark">?</span>' : ''}</div>
           <div class="slot-warning"></div>
         `;
         resultsDiv.appendChild(slot);
       });
     }
-
 
     function initializeDropdowns() {
       const brandSelect = document.getElementById("brandSelect");
