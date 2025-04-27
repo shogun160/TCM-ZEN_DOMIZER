@@ -1797,10 +1797,8 @@ select.filter-control {
       handleGrandraceCategoriesClick(grandraceCheckbox);
       }
     });
-
-    
-    // Optional: Alle 15 Sekunden neu prüfen
-    setInterval(updateGrandraceTicker, 15000);
+    // Optional: Alle 5 Sekunden neu prüfen
+    setInterval(updateGrandraceTicker, 5000);
 
     function showToast(message = "✅ In Zwischenablage kopiert!", color = "#0f0") {
       const toast = document.getElementById("toast");
