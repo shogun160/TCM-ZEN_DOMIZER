@@ -571,8 +571,10 @@ select.filter-control {
 }
 .slot-box .question-mark {
   font-size: 80px;
-  animation: pulse-text 1.2s infinite;
+  animation: spin3D 1.6s linear infinite, pulse-text 1.2s infinite;
   line-height: 1;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
 }
 .slot-box.empty {
   perspective: 600px;
