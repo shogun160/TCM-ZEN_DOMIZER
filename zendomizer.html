@@ -925,12 +925,7 @@ select.filter-control {
             let currentCategories = ROTATION[getCurrentEventIndex()][1];
             currentCategories = currentCategories.replace(/>/g, "→");
             
-            showToast(`🏁 Grandrace Rotation übernommen: ${currentEventName} (${currentCategories})`, "#39ff14", 8000);
-            /* ALTER BLOCK - OBEN NEUER TEST
-            const currentEventName = ROTATION[getCurrentEventIndex()][0];
-            const currentCategories = ROTATION[getCurrentEventIndex()][1];
-            showToast(`🏁 Grandrace aktiviert: ${currentEventName} (${currentCategories})`, "#39ff14", 8000);
-             */
+            showToast(`🏁 Grandrace Rotation übernommen: ${currentEventName} (${currentCategories})`, "#39ff14", 10000); /* 10 Sekunden Toast */
         } else {
             // Grandrace abgewählt → Kategorien abwählen
             for (let cb of grandraceCategories) {
@@ -986,13 +981,7 @@ select.filter-control {
             const currentEventName = ROTATION[getCurrentEventIndex()][0];
             let currentCategories = ROTATION[getCurrentEventIndex()][1];
             currentCategories = currentCategories.replace(/>/g, "→");
-            showToast(`🏁 Neue Rotation: ${currentEventName} (${currentCategories})`, "#39ff14", 8000);
-            /* Ab hier ALT - oben NEU TEST
-            // ✨ Jetzt schön den neuen Toast anzeigen:
-            const currentEventName = ROTATION[getCurrentEventIndex()][0];
-            const currentCategories = ROTATION[getCurrentEventIndex()][1];
-            showToast(`🏁 Neue Rotation: ${currentEventName} (${currentCategories})`, "#39ff14", 8000);
-            */
+            showToast(`🏁 Neue Rotation: ${currentEventName} (${currentCategories})`, "#39ff14", 10000); /* 10 Sekunden Toast */
         }
     }
     
