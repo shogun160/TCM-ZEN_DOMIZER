@@ -34,14 +34,14 @@
     
     #grandraceContent {
       display: inline-block;
-      padding-left: 100%; /* Start außerhalb */
+      padding-left: 0%; /* Start außerhalb */
       animation: scrollMarquee 30s linear infinite;
       white-space: nowrap;
     }
     
     @keyframes scrollMarquee {
       0% { transform: translateX(0%); }   /* - Start weiter nach links statt -18*/
-      100% { transform: translateX(-100%); } /* - Ende weiter nach links statt  -67 */
+      100% { transform: translateX(-200%); } /* - Ende weiter nach links statt  -67 */
     }
 
 
