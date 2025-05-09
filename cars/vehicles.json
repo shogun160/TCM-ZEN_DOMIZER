@@ -6154,5 +6154,23 @@
     "year": 2014,
     "country": "Japan",
     "era": "Modern"
+  },
+  {
+    "category": "Motocross",
+    "bike": false,
+    "brand": "KTM",
+    "model": "450 EXC Robbie Maddison Edition",
+    "year": 2015,
+    "country": "Österreich",
+    "era": "Modern"
+  },
+  {
+    "category": "Rally Raid",
+    "bike": false,
+    "brand": "Audi",
+    "model": "RS Q e-tron",
+    "year": 2024,
+    "country": "Deutschland",
+    "era": "Modern"
   }
 ]
