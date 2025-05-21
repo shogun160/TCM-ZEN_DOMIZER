@@ -1879,23 +1879,11 @@ select.filter-control {
       if (!toast || !message || message.trim() === "") return; // Keine leeren Toasts
     
       toast.innerHTML = message;
+    
+      // Fixer schwarzer Hintergrund mit Transparenz
+      toast.style.backgroundColor = "rgba(0, 0, 0, 0.75)";
+      toast.style.color = color; // Farbiger Text
       toast.style.opacity = 1;
-    
-      const baseAlpha = 0.8; // globale Transparenz
-    
-      // Farbe zu RGB auflösen
-      const tempDiv = document.createElement("div");
-      tempDiv.style.color = color;
-      document.body.appendChild(tempDiv);
-      const computedColor = getComputedStyle(tempDiv).color; // z. B. "rgb(0, 255, 0)"
-      document.body.removeChild(tempDiv);
-    
-      // RGB → RGBA
-      const rgba = computedColor.replace("rgb", "rgba").replace(")", `, ${baseAlpha})`);
-      toast.style.backgroundColor = rgba;
-    
-      // Schriftfarbe für Kontrast (optional, z. B. immer weiß)
-      toast.style.color = "#fff";
     
       if (window.toastTimer) clearTimeout(window.toastTimer);
       window.toastTimer = setTimeout(() => {
