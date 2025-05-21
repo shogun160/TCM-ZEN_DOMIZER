@@ -46,11 +46,11 @@ And of course to the [motorfe.st project](https://github.com/calamity-inc/motorf
 ### 🏁 Startseite
 ![Zendomizer Startpage](assets/pic/Zendomizer_startpage.png)
 
-### 🎯 Grandrace-Auswahl aktiviert
-![Zendomizer Grandrace Selection](assets/pic/ZENdomizer_selection.png)
+### 🎯 Grandrace-Auswahl
+![Zendomizer Grandrace Selection](assets/pic/ZENdomizer_cat_selected.png)
 
-### 📋 Auswahl wird kopiert
+### 📋 ZENDomizer Auswahl "Your Pick"
 ![Zendomizer Clipboard Result](assets/pic/ZENdomizer_selection.png)
 
-### 📊 Ziehlog & Dev-Konsole
+### 📊 Log
 ![Zendomizer DevLog](assets/pic/ZENdomizer_DevCon_Log.png)
