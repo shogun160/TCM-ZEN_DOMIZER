@@ -906,6 +906,7 @@ select.filter-control {
     let grandraceCategories = [];
     let recentDraws = {}; // 🆕 Merkt sich die letzten Fahrzeuge pro Kategorie
     let toastTimer = null;
+    let previousMainStage = null;
     window.drawLog = [];
     window.drawRound = 1;
     window.devLoggingEnabled = false;
@@ -974,6 +975,7 @@ select.filter-control {
     
         // ⛔ Main Stage → Rotation abschalten
         if (isMainStage && grandraceActive) {
+          previousMainStage = true;
           // Nur Kategorien und Auswahl zurücksetzen – NICHT catGR deaktivieren
           for (let cb of document.querySelectorAll('.catCheckbox')) {
               if (cb.id !== 'catGR') {
@@ -993,8 +995,8 @@ select.filter-control {
         }
     
         // ✅ Main Stage vorbei → Grandrace Rotation wieder aktivieren
-        if (!isMainStage && grandraceActive) {
-            grandraceActive = true;
+        if (previousMainStage === true && !isMainStage && grandraceActive) {
+            previousMainStage = false;
             showToast("🏁 automatische Auswahl wieder aktiv", "#0af", 5000);
         }
     
