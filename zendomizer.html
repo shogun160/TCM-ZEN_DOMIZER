@@ -974,7 +974,7 @@ select.filter-control {
         const isMainStage = entry[2] === "Main Stage"; // ← Modifikator steht an dritter Stelle
     
         // ⛔ Main Stage → Rotation abschalten
-        if (isMainStage && grandraceActive) {
+        if (!previousMainStage && isMainStage && grandraceActive) {
           previousMainStage = true;
           // Nur Kategorien und Auswahl zurücksetzen – NICHT catGR deaktivieren
           for (let cb of document.querySelectorAll('.catCheckbox')) {
