@@ -26,10 +26,10 @@ And of course to the [motorfe.st project](https://github.com/calamity-inc/motorf
 - 🎯 **advanced draw logic** with fallback system – ensures a valid result even with tight filters
 - 🔁 **blacklist system** prevents repeats by writing a blacklit to browsers internal storage – with automatic reset when all options are drawn
 - 🧹 **hotkeys for power users**:
-  - `Shift + ?` – Show help
-  - `Shift + R` – Reset blacklist & counter  
-  - `Shift + X` – Clear draw log  
-  - `Shift + L` – Show draw log in console  
+  - `Shift + ?` – show help
+  - `Shift + R` – reset blacklist & counter  
+  - `Shift + X` – clear draw log  
+  - `Shift + L` – show draw log in console  
 - 📋 **copy to clipboard** - text output per category
 - 📲 **support for mobile phones**
 
