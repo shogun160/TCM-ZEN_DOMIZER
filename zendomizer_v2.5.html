@@ -1789,16 +1789,26 @@ select.filter-control {
           console.log(`⚠️ Kategorie: ${category} | 🔁 Alle Fahrzeuge bereits gezogen – Wiederholung erlaubt`);
         }
       }
+
+      // Aktive Filter erfassen
+      const applied = [];
+      if (filters.brand) applied.push(`Marke (${filters.brand})`);
+      if (filters.country) applied.push(`Land (${filters.country})`);
+      if (filters.era) applied.push(`Zeitraum (${filters.era})`);
+      if (bikeFilterMode === "no_bike") applied.push("Nur Autos");
+      else if (bikeFilterMode === "bike") applied.push("Nur Bikes");
+      else applied.push("Alle Fahrzeuge");
     
       // 🧾 Ziehung loggen
       window.drawLog.push({
         durchgang: window.drawRound,
-        timestamp: new Date().toISOString(),
         category: category,
         selected: `${vehicle.brand} ${vehicle.model} (${vehicle.year})`,
-        ignoredFilters: ignored,
+        appliedFilters: applied.length ? applied.join(", ") : "-",
+        ignoredFilters: ignored.length ? "❗ " + ignored.join(" | ") : "✅ Keine",
         blockedCount: blockedCount,
-        availableCount: finalList.length
+        availableCount: finalList.length,
+        timestamp: new Date().toISOString()
       });
     
       return { vehicle, ignoredFilters: ignored };
