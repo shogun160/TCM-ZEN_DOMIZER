@@ -1696,7 +1696,10 @@ select.filter-control {
       const oldVehicle = lastSelection[index];
     
       lastSelection[index] = { ...vehicle, ignoredFilters };
-    
+
+      window.drawRound++;
+      localStorage.setItem("zendomizerDrawRound", window.drawRound);
+
       const slot = document.querySelectorAll('.slot-box')[index];
       if (!slot) return;
     
