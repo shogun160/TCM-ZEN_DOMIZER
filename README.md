@@ -43,13 +43,13 @@ And of course to the [motorfe.st project](https://github.com/calamity-inc/motorf
 
 ## 🖼️ Screenshots
 
-### 🏁 Startseite
+### 🏁 Startpage
 ![Zendomizer Startpage](assets/pic/Zendomizer_startpage.png)
 
-### 🎯 Grandrace-Auswahl
+### 🎯 Grandrace-Selection
 ![Zendomizer Grandrace Selection](assets/pic/ZENdomizer_cat_selected.png)
 
-### 📋 ZENDomizer Auswahl "Your Pick"
+### 📋 ZENDomizer Selection "Your Pick"
 ![Zendomizer Clipboard Result](assets/pic/ZENdomizer_selection.png)
 
 ### 📊 Log
