@@ -26,7 +26,7 @@ And of course to the [motorfe.st project](https://github.com/calamity-inc/motorf
 
 ---
 
-## 🔧 Core Features & Highlights
+## 🔧 Core Features
 
 - 🎰 **Random Picker** for The Crew Motorfest – perfect for having fun , doing challenges or streams
 - 🏁 **Grandrace rotation** with automatic category selection (powered by motorfe.st) - Mainstage modifikator will be ignored
