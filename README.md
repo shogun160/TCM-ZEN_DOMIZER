@@ -1,6 +1,6 @@
 [<img src="https://github.com/user-attachments/assets/f32ae56e-248a-4780-9c39-da9c1b17f73e">](https://shogun160.github.io/TCM-ZEN_DOMIZER/zendomizer.html)
 
-# **Randomizer for The Crew Motorfest Grand Races**
+# **Randomizer for The Crew Motorfest Grand Races** (click picture to start)
 
 Available categories:
 - Street Tier 1
