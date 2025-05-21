@@ -904,6 +904,7 @@ select.filter-control {
     let drawExecuted = false;
     let grandraceCategories = [];
     let recentDraws = {}; // 🆕 Merkt sich die letzten 10 Fahrzeuge pro Kategorie
+    let toastTimer = null;
     window.drawLog = [];
     window.drawRound = 1;
     window.loggingEnabled = false;
@@ -1872,16 +1873,23 @@ select.filter-control {
     
     // Optional: Alle 15 Sekunden neu prüfen
     setInterval(updateGrandraceTicker, 15000);
-
-    function showToast(message = "✅ In Zwischenablage kopiert!", color = "#0f0") {
-      const toast = document.getElementById("toast");
-      toast.innerText = message;
-      toast.style.color = color;
-      toast.classList.add("show");
     
-      setTimeout(() => {
-        toast.classList.remove("show");
-      }, 3000);
+    function showToast(message = "✅ In Zwischenablage kopiert!", color = "#0af", duration = 3000) {
+      const toast = document.getElementById("toast");
+      if (!toast) return;
+    
+      toast.innerHTML = message;
+      toast.style.backgroundColor = color;
+      toast.style.opacity = 1;
+    
+      // Vorherigen Timer abbrechen, wenn vorhanden
+      if (toastTimer) clearTimeout(toastTimer);
+    
+      // Timer neu setzen
+      toastTimer = setTimeout(() => {
+        toast.style.opacity = 0;
+        toastTimer = null;
+      }, duration);
     }
     
     setInterval(checkGrandraceCategories, 1000); // alle 1000ms prüfen
