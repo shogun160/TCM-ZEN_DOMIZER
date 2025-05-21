@@ -1594,10 +1594,20 @@ select.filter-control {
           console.warn("⚠️ Fehler beim Parsen von recentDraws:", e);
           recentDraws = {};
         }
+      }
       const savedRound = localStorage.getItem("zendomizerDrawRound");
       if (savedRound) {
         window.drawRound = parseInt(savedRound, 10) || 1;
       }
+      const savedDrawLog = localStorage.getItem("zendomizerDrawLog");
+      if (savedDrawLog) {
+        try {
+          window.drawLog = JSON.parse(savedDrawLog);
+          console.log("🧾 Ziehlog aus localStorage geladen.");
+        } catch (e) {
+          console.warn("⚠️ Fehler beim Parsen von drawLog:", e);
+          window.drawLog = [];
+        }
       }
 
       fetch('cars/vehicles.json')
@@ -1827,7 +1837,7 @@ select.filter-control {
         availableCount: finalList.length,
         timestamp: new Date().toISOString()
       });
-    
+      localStorage.setItem("zendomizerDrawLog", JSON.stringify(window.drawLog));
       return { vehicle, ignoredFilters: ignored };
     }
 
