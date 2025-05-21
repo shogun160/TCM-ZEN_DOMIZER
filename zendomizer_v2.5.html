@@ -975,7 +975,7 @@ select.filter-control {
         // ⛔ Main Stage → Rotation abschalten
         if (isMainStage && grandraceActive) {
             grandraceActive = false;
-            clearCategorySelection(); // alles abwählen
+            resetSmart(); // alles abwählen
             showToast("🛑 Main Stage aktiv – manuelle Auswahl erforderlich", "#f44336", 7000);
             return; // keine automatische Auswahl durchführen
         }
