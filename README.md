@@ -49,7 +49,7 @@ And of course to the [motorfe.st project](https://github.com/calamity-inc/motorf
 ![Zendomizer Clipboard Result](assets/pic/ZENdomizer_2cat_selection.png)
 
 ### 📋 ZENDomizer Smart Filers - always get cars and see ignored filters
-![Zendomizer Clipboard Result](assets/pic/ZENdomizer_ignored_filters.png)
+<img src="assets/pic/ZENdomizer_ignored_filters.png" width="50%">
 
 ### 📊 Log
 ![Zendomizer DevLog](assets/pic/ZENdomizer_DevCon_Log.png)
