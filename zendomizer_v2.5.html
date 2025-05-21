@@ -1131,9 +1131,13 @@ select.filter-control {
       title.classList.add(selectedOrder.length === 0 ? 'standby' : 'active');
     
       const categoriesToRender = [...selectedOrder.slice(0, 3)];
-      while (categoriesToRender.length < 3) {
-        categoriesToRender.push("");
-      }
+        if (categoriesToRender.length === 2) {
+          categoriesToRender.push(categoriesToRender[0]); // 🧠 Dupliziere erste Kategorie als dritte
+        } else {
+          while (categoriesToRender.length < 3) {
+            categoriesToRender.push("");
+          }
+        }
     
       categoriesToRender.forEach((cat, index) => {
         const isStandby = cat === "";
@@ -1693,7 +1697,7 @@ select.filter-control {
       const btn = document.getElementById("goBtn");
       btn.classList.remove("inactive", "pulsing"); // 🔁 wichtig: beides entfernen
     
-      if (selectedOrder.length < 3) {
+      if (selectedOrder.length < 2) {
         btn.classList.add("inactive");
       } else {
         btn.classList.add("pulsing"); // 🟢 aktiv, wenn 3 Kategorien gewählt
