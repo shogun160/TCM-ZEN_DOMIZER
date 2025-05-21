@@ -3,16 +3,8 @@
 # **Randomizer for The Crew Motorfest Grand Races** (click picture to start)
 
 Available categories:
-- Street Tier 1
-- Street Tier 2
-- Hypercar
-- Drift
-- Racing
-- AGP
-- Motocross
-- Rally
-- Rally Raid
-- Monster Truck
+Street Tier 1    ||     Street Tier 2    ||     Hypercar    ||     Drift        ||     Racing
+AGP              ||     Motocross        ||     Rally       ||     Rally Raid   ||     Monster Truck
 
 ⚠️ *For Drift there are only a few cars available at the moment (Hoonigan & Mitsubishi). This is because steering will block for most other drift cars when using direct mode or high dynamic maxlock. More cars may be added later.*
 
