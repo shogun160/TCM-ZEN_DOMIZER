@@ -1914,14 +1914,13 @@ select.filter-control {
     document.addEventListener("keydown", function (e) {
       // SHIFT + ? → Hotkey-Legende anzeigen
       if (e.shiftKey && (e.key === '?' || e.key.toLowerCase() === 'h')) {
-        showToast(`
-          🎛️ Hotkey-Übersicht
-          ⏎ GO: Ziehung starten
-          🧹 Shift + R: Reset (Blacklist & Zähler)
-          📋 Shift + L: Log anzeigen
-          🗑️ Shift + X: Log löschen
-          ✏️ Shift + G: Dev Logging an/aus
-        `, "#0af", 30000); // 30 Sekunden
+        showToast(
+          "🎛️ Hotkey-Übersicht<br>" +
+          "📋 Shift + L: Log anzeigen<br>" +
+          "🧹 Shift + R: Reset (Blacklist & Zähler)<br>" +
+          "🗑️ Shift + X: Log löschen<br>" +
+          "✏️ Shift + G: Dev Logging an/aus<br>",
+          "#0af", 30000); // 30 Sekunden
       }
       // SHIFT + L → Ziehlog anzeigen
       if ((e.shiftKey) && e.key.toLowerCase() === 'l') {
