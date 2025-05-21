@@ -1939,15 +1939,15 @@ select.filter-control {
         window.drawRound = 1;
         localStorage.setItem("zendomizerDrawRound", "1");
         showToast("🧹 Blacklist wurde gelöscht!", "#f44336");
-        console.log("🧹 recentDraws wurde per Tastenkombi zurückgesetzt.");
+        console.log("🧹 recentDraws wurde per Hotkey zurückgesetzt.");
         window.drawLog.push({
-          durchgang: '= NEUE SESSION =',
-          category: '-',
-          selected: 'RESET Blacklist',
-          appliedFilters: '-',
-          ignoredFilters: '-',
-          blockedCount: '-',
-          availableCount: '-',
+          durchgang: NEUE SESSION,
+          category: -,
+          selected: RESET Blacklist,
+          appliedFilters: -,
+          ignoredFilters: -,
+          blockedCount: -,
+          availableCount: -,
           timestamp: new Date().toLocaleString("de-DE")
         });
         localStorage.setItem("zendomizerDrawLog", JSON.stringify(window.drawLog));
@@ -1957,7 +1957,7 @@ select.filter-control {
         window.drawLog = [];
         localStorage.removeItem("zendomizerDrawLog");
         showToast("🗑️ Ziehlog gelöscht", "#f44336");
-        console.log("🗑️ drawLog wurde per Tastenkombi zurückgesetzt.");
+        console.log("🗑️ drawLog wurde per Hotkey zurückgesetzt.");
       }
       // SHIFT + G → Logging aktivieren/deaktivieren
       if (e.shiftKey && e.key.toLowerCase() === 'g') {
