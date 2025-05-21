@@ -40,3 +40,17 @@ And of course to the [motorfe.st project](https://github.com/calamity-inc/motorf
 - 📋 **Copy to clipboard** - text output per category
 
 ---
+
+## 🖼️ Screenshots
+
+### 🏁 Startseite
+![Zendomizer Startpage](assets/pic/Zendomizer_startpage.png)
+
+### 🎯 Grandrace-Auswahl aktiviert
+![Zendomizer Grandrace Selection](assets/pic/ZENdomizer_selection.png)
+
+### 📋 Auswahl wird kopiert
+![Zendomizer Clipboard Result](assets/pic/ZENdomizer_selection.png)
+
+### 📊 Ziehlog & Dev-Konsole
+![Zendomizer DevLog](assets/pic/ZENdomizer_DevCon_Log.png)
