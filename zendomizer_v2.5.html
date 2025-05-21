@@ -905,6 +905,7 @@ select.filter-control {
     let grandraceCategories = [];
     let recentDraws = {}; // 🆕 Merkt sich die letzten 10 Fahrzeuge pro Kategorie
     window.drawLog = [];
+    window.drawRound = 1;
 
     function handleGrandraceCategoriesClick(checkbox) {
         if (checkbox.checked) {
@@ -1514,7 +1515,7 @@ select.filter-control {
         showToast("⚠️ Nicht genügend Fahrzeuge gefunden.", "#f33");
         return;
       }
-    
+      window.drawRound++;
       lastSelection = chosen;
     
       const resultsDiv = document.getElementById('results');
@@ -1807,6 +1808,7 @@ select.filter-control {
       }
       // 🧾 Ziehung loggen
       window.drawLog.push({
+        durchgang: window.drawRound,
         timestamp: new Date().toISOString(),
         category: category,
         selected: `${vehicle.brand} ${vehicle.model} (${vehicle.year})`,
