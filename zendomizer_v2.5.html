@@ -1688,6 +1688,7 @@ select.filter-control {
     function drawVehicleForCategory(category, filters, bikeFilterMode) {
       let ignored = [];
     
+      // 🔎 1. Grundfilter
       let finalList = vehicles.filter(v =>
         v.category === category &&
         (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
@@ -1696,6 +1697,7 @@ select.filter-control {
         (!filters.brand || v.brand === filters.brand)
       );
     
+      // 🔁 2. Fallbacks – nacheinander Filter lockern
       if (finalList.length === 0 && bikeFilterMode !== 'all') {
         finalList = vehicles.filter(v =>
           v.category === category &&
@@ -1753,59 +1755,41 @@ select.filter-control {
         if (finalList.length > 0) ignored.push("Alle Filter");
       }
     
-      if (finalList.length === 0) return null;
+      if (finalList.length === 0) return null; // ❌ gar kein Fahrzeug gefunden
     
-      // 🔥 Zufallsmischen
-      shuffle(finalList);
-        // 🔍 Soft-Sperre prüfen
-        if (!recentDraws[category]) {
-          recentDraws[category] = [];
-        }
-        const recent = recentDraws[category];
-        
-        // Nur verfügbare Fahrzeuge ohne Wiederholung
-        const availableVehicles = finalList.filter(v =>
-          !recent.some(r => r.brand === v.brand && r.model === v.model && r.year === v.year)
-        );
-        const blockedCount = finalList.length - availableVehicles.length;
-
-      // 📢 Smarte Dev-Console Ausgabe pro Kategorie (mit Blockierte Fahrzeuge und exakter Chance)
-        if (finalList.length > 0) {
-          const availableVehicles = finalList.filter(v =>
-            !recent.some(r => r.brand === v.brand && r.model === v.model && r.year === v.year)
-          );
-        
-          const blockedCount = finalList.length - availableVehicles.length;
-        
-          if (availableVehicles.length > 0) {
-            const effectiveChance = (1 / availableVehicles.length * 100).toFixed(2);
-            console.log(`📦 Kategorie: ${category} | 🚗 Verfügbar: ${availableVehicles.length} | 🚫 Geblockt: ${blockedCount} | 🎯 Effektive Wiederholungswahrscheinlichkeit: ${effectiveChance}% (1 zu ${availableVehicles.length})`);
-          } else {
-            console.log(`⚠️ Kategorie: ${category} | 🚫 Keine Fahrzeuge verfügbar nach Softsperre! (Alle ${blockedCount} blockiert)`);
-          }
-        } else {
-          console.log(`⚠️ Kategorie: ${category} | 🚫 Keine Fahrzeuge verfügbar.`);
-        }
-    
-      // 🔥 Soft-Sperre: letzte 10 verhindern
+      // 📦 Soft-Sperre aktivieren
       if (!recentDraws[category]) {
         recentDraws[category] = [];
       }
+      const recent = recentDraws[category];
     
-      let vehicle = finalList.find(v =>
+      const availableVehicles = finalList.filter(v =>
         !recent.some(r => r.brand === v.brand && r.model === v.model && r.year === v.year)
       );
     
-      // Falls ALLE Fahrzeuge schon in recent sind → irgendeins nehmen
-      if (!vehicle) {
-        vehicle = finalList[0];
+      const blockedCount = finalList.length - availableVehicles.length;
+      const allBlocked = availableVehicles.length === 0;
+    
+      const pool = allBlocked ? finalList : availableVehicles;
+      shuffle(pool);
+    
+      const vehicle = pool[0];
+    
+      // 🔒 In Blacklist eintragen (nur wenn noch nicht drin)
+      if (!recent.some(r => r.brand === vehicle.brand && r.model === vehicle.model && r.year === vehicle.year)) {
+        recent.push(vehicle);
       }
     
-      // 🔥 Fahrzeug merken
-      recent.push(vehicle);
-      if (recent.length > 10) {
-        recent.shift(); // ältestes Fahrzeug löschen
+      // 📢 Konsoleninfo
+      if (finalList.length > 0) {
+        if (availableVehicles.length > 0) {
+          const effectiveChance = (1 / availableVehicles.length * 100).toFixed(2);
+          console.log(`📦 Kategorie: ${category} | 🚗 Verfügbar: ${availableVehicles.length} | 🚫 Geblockt: ${blockedCount} | 🎯 Trefferchance: ${effectiveChance}%`);
+        } else {
+          console.log(`⚠️ Kategorie: ${category} | 🔁 Alle Fahrzeuge bereits gezogen – Wiederholung erlaubt`);
+        }
       }
+    
       // 🧾 Ziehung loggen
       window.drawLog.push({
         durchgang: window.drawRound,
