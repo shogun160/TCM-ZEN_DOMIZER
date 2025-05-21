@@ -936,7 +936,24 @@ select.filter-control {
                 handleCategoryClick(cb);
             }
             grandraceCategories = [];
-            showToast("↩️ Grandrace Kategorien deaktiviert", "#39ff14"); // ↩️ Toast beim Deaktivieren
+            
+            // 🧼 Filter zurücksetzen
+            document.getElementById("brandSelect").value = "";
+            document.getElementById("countrySelect").value = "";
+            document.getElementById("eraSelect").value = "";
+            
+            bikeFilterMode = "no_bike";
+            const bfb = document.getElementById("bikeFilterBtn");
+            bfb.innerText = "Nur Autos";
+            bfb.classList.add("bike-active");
+            
+            // 💡 Reset-Status neu setzen
+            updateFilterHighlighting();
+            updateResetButtonState();
+            updateGoButtonState();
+            
+            // ↩️ Toast beim Deaktivieren
+            showToast("↩️ Grandrace Kategorien & Filter zurückgesetzt", "#39ff14");
         }
     }
 
