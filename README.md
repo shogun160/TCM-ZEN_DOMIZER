@@ -31,6 +31,7 @@ And of course to the [motorfe.st project](https://github.com/calamity-inc/motorf
   - `Shift + L` – Show draw log in console  
   - `Shift + ?` – Show help  
 - 📋 **Copy to clipboard** - text output per category
+- 📲 **desktop and mobile support**
 
 ---
 
