@@ -1902,6 +1902,15 @@ select.filter-control {
         });
       }, { once: true });
     });
+    document.addEventListener("keydown", function (e) {
+      // SHIFT + L zum Löschen der Blacklist
+      if ((e.shiftKey) && e.key.toLowerCase() === 'l') {
+        recentDraws = {};
+        localStorage.removeItem("zendomizerRecentDraws");
+        showToast("🧹 Blacklist wurde gelöscht!", "#f44336");
+        console.log("🧹 recentDraws wurde per Tastenkombi zurückgesetzt.");
+      }
+    });
   </script>
 <div id="toast" class="toast">✅ In Zwischenablage kopiert!</div>
 </body>
