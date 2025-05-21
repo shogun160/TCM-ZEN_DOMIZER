@@ -844,7 +844,6 @@ select.filter-control {
 </div>
 <script src="https://shogun160.github.io/TCM-ZEN_DOMIZER/cars/vehicles.json" type="application/json"></script>
 <script>
-    window.drawLog = [];
     /*
      * BEGIN: Borrowed from https://github.com/calamity-inc/motorfe.st/
      */
@@ -905,6 +904,7 @@ select.filter-control {
     let drawExecuted = false;
     let grandraceCategories = [];
     let recentDraws = {}; // 🆕 Merkt sich die letzten 10 Fahrzeuge pro Kategorie
+    window.drawLog = [];
 
     function handleGrandraceCategoriesClick(checkbox) {
         if (checkbox.checked) {
@@ -1756,6 +1756,17 @@ select.filter-control {
     
       // 🔥 Zufallsmischen
       shuffle(finalList);
+        // 🔍 Soft-Sperre prüfen
+        if (!recentDraws[category]) {
+          recentDraws[category] = [];
+        }
+        const recent = recentDraws[category];
+        
+        // Nur verfügbare Fahrzeuge ohne Wiederholung
+        const availableVehicles = finalList.filter(v =>
+          !recent.some(r => r.brand === v.brand && r.model === v.model && r.year === v.year)
+        );
+        const blockedCount = finalList.length - availableVehicles.length;
 
       // 📢 Smarte Dev-Console Ausgabe pro Kategorie (mit Blockierte Fahrzeuge und exakter Chance)
         if (finalList.length > 0) {
@@ -1796,16 +1807,15 @@ select.filter-control {
       if (recent.length > 10) {
         recent.shift(); // ältestes Fahrzeug löschen
       }
-      ```js
-      // 🔚 Logging
-        window.drawLog.push({
-          timestamp: new Date().toISOString(),
-          category: category,
-          selected: `${vehicle.brand} ${vehicle.model} (${vehicle.year})`,
-          ignoredFilters: ignored,
-          blockedCount: blockedCount,
-          availableCount: finalList.length
-        });
+      // 🧾 Ziehung loggen
+      window.drawLog.push({
+        timestamp: new Date().toISOString(),
+        category: category,
+        selected: `${vehicle.brand} ${vehicle.model} (${vehicle.year})`,
+        ignoredFilters: ignored,
+        blockedCount: blockedCount,
+        availableCount: finalList.length
+      });
     
       return { vehicle, ignoredFilters: ignored };
     }
