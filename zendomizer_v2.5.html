@@ -1909,6 +1909,17 @@ select.filter-control {
         localStorage.removeItem("zendomizerRecentDraws");
         showToast("🧹 Blacklist wurde gelöscht!", "#f44336");
         console.log("🧹 recentDraws wurde per Tastenkombi zurückgesetzt.");
+        window.drawLog.push({
+          durchgang: "-",
+          category: "🧹 System",
+          selected: "Blacklist zurückgesetzt",
+          appliedFilters: "-",
+          ignoredFilters: "-",
+          blockedCount: "-",
+          availableCount: "-",
+          timestamp: new Date().toISOString()
+        });
+        localStorage.setItem("zendomizerDrawLog", JSON.stringify(window.drawLog));
       }
     });
   </script>
