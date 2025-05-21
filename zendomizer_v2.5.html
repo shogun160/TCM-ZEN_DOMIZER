@@ -1790,7 +1790,6 @@ select.filter-control {
       if (!recentDraws[category]) {
         recentDraws[category] = [];
       }
-      const recent = recentDraws[category];
     
       let vehicle = finalList.find(v =>
         !recent.some(r => r.brand === v.brand && r.model === v.model && r.year === v.year)
