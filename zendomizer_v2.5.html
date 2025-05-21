@@ -974,14 +974,26 @@ select.filter-control {
     
         // ⛔ Main Stage → Rotation abschalten
         if (isMainStage && grandraceActive) {
-            grandraceActive = false;
-            resetSmart(); // alles abwählen
-            showToast("🛑 Main Stage aktiv – manuelle Auswahl erforderlich", "#f44336", 7000);
-            return; // keine automatische Auswahl durchführen
+          // Nur Kategorien und Auswahl zurücksetzen – NICHT catGR deaktivieren
+          for (let cb of document.querySelectorAll('.catCheckbox')) {
+              if (cb.id !== 'catGR') {
+                  cb.checked = false;
+                  cb.disabled = false;
+              }
+          }
+          selectedOrder = [];
+          grandraceCategories = [];
+          updateCheckboxBadges();
+          updateSlotBoxes();
+          updateResetButtonState();
+          updateGoButtonState();
+     
+          showToast("🛑 Main Stage aktiv – manuelle Auswahl erforderlich", "#f44336", 7000);
+          return;
         }
     
         // ✅ Main Stage vorbei → Grandrace Rotation wieder aktivieren
-        if (!isMainStage && !grandraceActive) {
+        if (!isMainStage && grandraceActive) {
             grandraceActive = true;
             showToast("🏁 automatische Auswahl wieder aktiv", "#0af", 5000);
         }
@@ -1051,22 +1063,28 @@ select.filter-control {
         selectedOrder = selectedOrder.filter(v => v !== value);
       }
     
-      // Checkbox-Badges aktualisieren (dein vorhandener Call)
       updateCheckboxBadges();
     
-      // HOVER-Handling je nach Anzahl aktivierter Kategorien
-      const checkedBoxes = document.querySelectorAll('.catCheckbox:checked');
+      // HOVER-Handling je nach Anzahl aktivierter Kategorien (ohne Grandrace)
+      const checkedBoxes = Array.from(document.querySelectorAll('.catCheckbox:checked'))
+                                .filter(cb => cb.id !== 'catGR');
       const grid = document.querySelector('.category-grid');
     
       if (checkedBoxes.length >= 3) {
         grid.classList.add('limit-reached');
-        document.querySelectorAll('.catCheckbox:not(:checked)').forEach(cb => cb.disabled = true);
+        document.querySelectorAll('.catCheckbox:not(:checked)').forEach(cb => {
+          if (cb.id !== 'catGR') cb.disabled = true; // ⛔ Grandrace bleibt aktivierbar
+        });
       } else {
         grid.classList.remove('limit-reached');
-        document.querySelectorAll('.catCheckbox').forEach(cb => cb.disabled = false);
+        document.querySelectorAll('.catCheckbox').forEach(cb => {
+          if (cb.id !== 'catGR') cb.disabled = false;
+        });
       }
+    
       // Slotboxen sofort anzeigen
       updateSlotBoxes();
+    
       // Your Pick Titel aktivieren/deaktivieren
       const title = document.getElementById('yourPickTitle');
       if (selectedOrder.length > 0) {
@@ -1076,9 +1094,11 @@ select.filter-control {
         title.classList.remove('active');
         title.classList.add('standby');
       }
+    
       updateResetButtonState();
-      updateGoButtonState(); // 🟢 Aktiviert/deaktiviert den GO-Button passend
+      updateGoButtonState();
     }
+    
     function updateCheckboxBadges() {
       const allCheckboxes = document.querySelectorAll('.catCheckbox');
       allCheckboxes.forEach(cb => {
