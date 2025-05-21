@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>ZENDOMIZER v2.4 | Vehicle list 05/2024</title>
+<title>ZENDOMIZER v2.5 | Vehicle list 05/2024</title>
 <style>
     body {
       font-family: 'Orbitron', sans-serif;
@@ -906,6 +906,7 @@ select.filter-control {
     let grandraceCategories = [];
     let recentDraws = {}; // 🆕 Merkt sich die letzten Fahrzeuge pro Kategorie
     let toastTimer = null;
+    let previousMainStage = null;
     window.drawLog = [];
     window.drawRound = 1;
     window.devLoggingEnabled = false;
@@ -974,15 +975,28 @@ select.filter-control {
     
         // ⛔ Main Stage → Rotation abschalten
         if (isMainStage && grandraceActive) {
-            grandraceActive = false;
-            resetSmart(); // alles abwählen
-            showToast("🛑 Main Stage aktiv – manuelle Auswahl erforderlich", "#f44336", 7000);
-            return; // keine automatische Auswahl durchführen
+          previousMainStage = true;
+          // Nur Kategorien und Auswahl zurücksetzen – NICHT catGR deaktivieren
+          for (let cb of document.querySelectorAll('.catCheckbox')) {
+              if (cb.id !== 'catGR') {
+                  cb.checked = false;
+                  cb.disabled = false;
+              }
+          }
+          selectedOrder = [];
+          grandraceCategories = [];
+          updateCheckboxBadges();
+          updateSlotBoxes();
+          updateResetButtonState();
+          updateGoButtonState();
+     
+          showToast("🛑 Main Stage aktiv – manuelle Auswahl erforderlich", "#f44336", 7000);
+          return;
         }
     
         // ✅ Main Stage vorbei → Grandrace Rotation wieder aktivieren
-        if (!isMainStage && !grandraceActive) {
-            grandraceActive = true;
+        if (previousMainStage === true && !isMainStage && grandraceActive) {
+            previousMainStage = false;
             showToast("🏁 automatische Auswahl wieder aktiv", "#0af", 5000);
         }
     
@@ -1051,22 +1065,28 @@ select.filter-control {
         selectedOrder = selectedOrder.filter(v => v !== value);
       }
     
-      // Checkbox-Badges aktualisieren (dein vorhandener Call)
       updateCheckboxBadges();
     
-      // HOVER-Handling je nach Anzahl aktivierter Kategorien
-      const checkedBoxes = document.querySelectorAll('.catCheckbox:checked');
+      // HOVER-Handling je nach Anzahl aktivierter Kategorien (ohne Grandrace)
+      const checkedBoxes = Array.from(document.querySelectorAll('.catCheckbox:checked'))
+                                .filter(cb => cb.id !== 'catGR');
       const grid = document.querySelector('.category-grid');
     
       if (checkedBoxes.length >= 3) {
         grid.classList.add('limit-reached');
-        document.querySelectorAll('.catCheckbox:not(:checked)').forEach(cb => cb.disabled = true);
+        document.querySelectorAll('.catCheckbox:not(:checked)').forEach(cb => {
+          if (cb.id !== 'catGR') cb.disabled = true; // ⛔ Grandrace bleibt aktivierbar
+        });
       } else {
         grid.classList.remove('limit-reached');
-        document.querySelectorAll('.catCheckbox').forEach(cb => cb.disabled = false);
+        document.querySelectorAll('.catCheckbox').forEach(cb => {
+          if (cb.id !== 'catGR') cb.disabled = false;
+        });
       }
+    
       // Slotboxen sofort anzeigen
       updateSlotBoxes();
+    
       // Your Pick Titel aktivieren/deaktivieren
       const title = document.getElementById('yourPickTitle');
       if (selectedOrder.length > 0) {
@@ -1076,9 +1096,11 @@ select.filter-control {
         title.classList.remove('active');
         title.classList.add('standby');
       }
+    
       updateResetButtonState();
-      updateGoButtonState(); // 🟢 Aktiviert/deaktiviert den GO-Button passend
+      updateGoButtonState();
     }
+    
     function updateCheckboxBadges() {
       const allCheckboxes = document.querySelectorAll('.catCheckbox');
       allCheckboxes.forEach(cb => {
@@ -1109,9 +1131,13 @@ select.filter-control {
       title.classList.add(selectedOrder.length === 0 ? 'standby' : 'active');
     
       const categoriesToRender = [...selectedOrder.slice(0, 3)];
-      while (categoriesToRender.length < 3) {
-        categoriesToRender.push("");
-      }
+        if (categoriesToRender.length === 2) {
+          categoriesToRender.push(categoriesToRender[0]); // 🧠 Dupliziere erste Kategorie als dritte
+        } else {
+          while (categoriesToRender.length < 3) {
+            categoriesToRender.push("");
+          }
+        }
     
       categoriesToRender.forEach((cat, index) => {
         const isStandby = cat === "";
@@ -1306,9 +1332,12 @@ select.filter-control {
       const resultsDiv = document.getElementById('results');
       resultsDiv.innerHTML = '';
 
-      if (selectedCategories.length < 3) {
-        resultsDiv.innerHTML = "<p>⚠️ Bitte 3 Kategorien auswählen.</p>";
+      if (selectedCategories.length < 2) {
+        resultsDiv.innerHTML = "<p>⚠️ Bitte mindestens 2 Kategorien auswählen.</p>";
         return;
+      }
+      if (selectedCategories.length === 2) {
+        selectedCategories.push(selectedCategories[0]);
       }
 
       const shuffledCategories = selectedCategories.sort(() => 0.5 - Math.random()).slice(0, 3);
@@ -1516,18 +1545,21 @@ select.filter-control {
       }, 750); // Dauer halbiert
     }
     
-    function fillSlotBoxesWithResults() {
+    function fillSlotBoxesWithResults(orderOverride = null) {
       const filters = getCurrentFilters();
-      const selectedCategories = selectedOrder.slice(0, 3);
+      const categories = orderOverride || selectedOrder.slice(0, 3);
     
-      if (selectedCategories.length < 3) {
-        showToast("⚠️ Bitte 3 Kategorien auswählen.", "#f33");
+      if (categories.length < 2) {
+        showToast("⚠️ Bitte mindestens 2 Kategorien auswählen.", "#f33");
         return;
+      }
+      if (categories.length === 2) {
+        categories.push(categories[0]); // Dupliziere erste Kategorie
       }
     
       const chosen = [];
     
-      for (let cat of selectedCategories) {
+      for (let cat of categories) {
         const result = drawVehicleForCategory(cat, filters, bikeFilterMode);
         if (!result) continue;
         const { vehicle, ignoredFilters } = result;
@@ -1538,6 +1570,7 @@ select.filter-control {
         showToast("⚠️ Nicht genügend Fahrzeuge gefunden.", "#f33");
         return;
       }
+    
       window.drawRound++;
       localStorage.setItem("zendomizerDrawRound", window.drawRound);
       lastSelection = chosen;
@@ -1555,40 +1588,45 @@ select.filter-control {
           : '';
     
         slot.classList.remove('empty', 'slot-yellow', 'slot-blue', 'slot-orange', 'slot-magenta');
-          
+    
         const colorClass =
           ['Street Tier 1', 'Street Tier 2', 'Hypercar', 'Drift'].includes(v.category) ? 'slot-yellow' :
           ['Racing', 'AGP'].includes(v.category) ? 'slot-blue' :
           ['Rally', 'Rally Raid', 'Motocross'].includes(v.category) ? 'slot-orange' :
-          v.category === 'Monster Truck' ? 'slot-magenta' :
-          '';
-
+          v.category === 'Monster Truck' ? 'slot-magenta' : '';
+    
         slot.classList.add(colorClass);
-        // ✨ Neon-Flash-Animation für GO
         slot.classList.add("flash");
         setTimeout(() => slot.classList.remove("flash"), 800);
-
       });
     
       copyToClipboard();
     }
 
     function handleGo() {
-      if (selectedOrder.length < 3) return; // ❌ GO nur bei 3 Kategorien erlaubt
+      if (selectedOrder.length < 2) return; // ❌ GO erst ab 2 Kategorien
     
       drawExecuted = true;
-      fillSlotBoxesWithResults();
+    
+      // 🧠 Sonderfall: 2 Kategorien → erste Kategorie als dritte wiederholen
+      const effectiveOrder = [...selectedOrder];
+      if (effectiveOrder.length === 2) {
+        effectiveOrder.push(effectiveOrder[0]);
+      }
+    
+      fillSlotBoxesWithResults(effectiveOrder); // ⬅️ Übergib effektive Reihenfolge
       updateResetButtonState();
     
       const btn = document.getElementById("goBtn");
-      btn.classList.add("active");
-      btn.classList.add("clicked");
+      btn.classList.add("active", "clicked");
+      setTimeout(() => btn.classList.remove("active", "clicked"), 750);
     
-      setTimeout(() => {
-        btn.classList.remove("active");
-        btn.classList.remove("clicked");
-      }, 750); // Dauer halbiert
+      // 🌀 Info bei Wiederholung
+      if (selectedOrder.length === 2) {
+        showToast(`🔁 Kategorie 3: <b>${effectiveOrder[2]}</b> wurde wiederholt`, "#ffa500", 6000);
+      }
     }
+
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') drawRandomVehicles();
       if (e.key.toLowerCase() === 'c') copyToClipboard();
@@ -1659,7 +1697,7 @@ select.filter-control {
       const btn = document.getElementById("goBtn");
       btn.classList.remove("inactive", "pulsing"); // 🔁 wichtig: beides entfernen
     
-      if (selectedOrder.length < 3) {
+      if (selectedOrder.length < 2) {
         btn.classList.add("inactive");
       } else {
         btn.classList.add("pulsing"); // 🟢 aktiv, wenn 3 Kategorien gewählt
