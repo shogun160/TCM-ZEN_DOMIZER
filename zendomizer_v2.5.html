@@ -1907,15 +1907,14 @@ select.filter-control {
     });
     document.addEventListener("keydown", function (e) {
       // SHIFT + ? → Hotkey-Legende anzeigen
-      if (e.shiftKey && e.key === '?' || e.key === 'h') {
+      if (e.shiftKey && (e.key === '?' || e.key.toLowerCase() === 'h')) {
         showToast(`
-          🎛️ <b>Hotkey-Übersicht</b><br>
-          ⏎ <b>GO</b>: Ziehung starten<br>
-          🧹 <b>Shift + R</b>: Reset (Blacklist & Zähler)<br>
-          📋 <b>Shift + L</b>: Log anzeigen<br>
-          🗑️ <b>Shift + X</b>: Log löschen<br>
-          ✏️ <b>Shift + G</b>: Logging an/aus<br>
-          ❓ <b>Shift + ?</b>: Diese Hilfe
+          🎛️ Hotkey-Übersicht
+          ⏎ GO: Ziehung starten
+          🧹 Shift + R: Reset (Blacklist & Zähler)
+          📋 Shift + L: Log anzeigen
+          🗑️ Shift + X: Log löschen
+          ✏️ Shift + G: Logging an/aus
         `, "#0af", 30000); // 30 Sekunden
       }
       // SHIFT + L → Ziehlog anzeigen
