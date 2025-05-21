@@ -1941,14 +1941,14 @@ select.filter-control {
         showToast("🧹 Blacklist wurde gelöscht!", "#f44336");
         console.log("🧹 recentDraws wurde per Tastenkombi zurückgesetzt.");
         window.drawLog.push({
-          durchgang: "=== NEUE SESSION ===",
-          category: "-",
-          selected: "RESET Blacklist",
-          appliedFilters: "-",
-          ignoredFilters: "-",
-          blockedCount: "-",
-          availableCount: "-",
-          timestamp: new Date().toISOString()
+          durchgang: '= NEUE SESSION =',
+          category: '-',
+          selected: 'RESET Blacklist',
+          appliedFilters: '-',
+          ignoredFilters: '-',
+          blockedCount: '-',
+          availableCount: '-',
+          timestamp: new Date().toLocaleString("de-DE")
         });
         localStorage.setItem("zendomizerDrawLog", JSON.stringify(window.drawLog));
       }
