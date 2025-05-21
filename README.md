@@ -19,19 +19,19 @@ And of course to the [motorfe.st project](https://github.com/calamity-inc/motorf
 
 ## 🔧 Core Features
 
-- 🎰 **Random Picker** for The Crew Motorfest – perfect for having fun , doing challenges or streams
-- 🧠 **Fully flexible** choose from several filters like country, brand or select just 2 categories to repeat the first selection (Rally --> Rally Raid --> Rally)
+- 🎰 **random picker** for The Crew Motorfest – perfect for having fun , doing challenges or streams
+- 🧠 **fully flexible** choose from several filters like country, brand or select just 2 categories to repeat the first selection (Rally --> Rally Raid --> Rally)
 - 🔒 **rocking solid** if no filter matches the filters are ignored one after the other - ignored filters are be displayed
 - 🏁 **Grandrace rotation** with automatic category selection (powered by motorfe.st) - can be de/-actived with the *Grandrace Catgerories* Button - Mainstage modifikator will be ignored
-- 🎯 **Advanced draw logic** with fallback system – ensures a valid result even with tight filters
-- 🔁 **Blacklist system** prevents repeats – with automatic reset when all options are drawn
-- 🧹 **Hotkeys for power users**:
+- 🎯 **advanced draw logic** with fallback system – ensures a valid result even with tight filters
+- 🔁 **blacklist system** prevents repeats by writing a blacklit to browsers internal storage – with automatic reset when all options are drawn
+- 🧹 **hotkeys for power users**:
+  - `Shift + ?` – Show help
   - `Shift + R` – Reset blacklist & counter  
   - `Shift + X` – Clear draw log  
   - `Shift + L` – Show draw log in console  
-  - `Shift + ?` – Show help  
-- 📋 **Copy to clipboard** - text output per category
-- 📲 **desktop and mobile support**
+- 📋 **copy to clipboard** - text output per category
+- 📲 **support for mobile phones**
 
 ---
 
