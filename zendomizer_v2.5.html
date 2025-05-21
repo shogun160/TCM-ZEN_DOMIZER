@@ -1807,6 +1807,29 @@ select.filter-control {
     
       const blockedCount = finalList.length - availableVehicles.length;
       const allBlocked = availableVehicles.length === 0;
+
+      // 🧹 Wenn alle Fahrzeuge dieser Kategorie gezogen wurden → Blacklist zurücksetzen
+      if (allBlocked && recent.length === finalList.length) {
+        console.log(`🧹 Kategorie: ${category} – Blacklist automatisch zurückgesetzt (alle ${recent.length} Fahrzeuge wurden gezogen)`);
+        recentDraws[category] = [];
+        localStorage.setItem("zendomizerRecentDraws", JSON.stringify(recentDraws));
+      
+        // 👉 2) Toast anzeigen
+        showToast(`🧹 Kategorie <b>${category}</b>: Alle Fahrzeuge wurden gezogen – Blacklist wurde zurückgesetzt.`, "#ffa500", 7000);
+    
+        // 👉 3) Vermerk im Ziehlog
+        window.drawLog.push({
+          durchgang: "-",
+          category: category,
+          selected: "Blacklist zurückgesetzt (Rotation vollständig)",
+          appliedFilters: "-",
+          ignoredFilters: "-",
+          blockedCount: finalList.length,
+          availableCount: finalList.length,
+          timestamp: new Date().toLocaleString("de-DE")
+        });
+        localStorage.setItem("zendomizerDrawLog", JSON.stringify(window.drawLog));
+      }
     
       const pool = allBlocked ? finalList : availableVehicles;
       shuffle(pool);
