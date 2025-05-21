@@ -1876,19 +1876,16 @@ select.filter-control {
     
     function showToast(message = "✅ In Zwischenablage kopiert!", color = "#0af", duration = 3000) {
       const toast = document.getElementById("toast");
-      if (!toast) return;
+      if (!toast || !message || message.trim() === "") return; // ❗ Blockiere leere Nachrichten
     
       toast.innerHTML = message;
       toast.style.backgroundColor = color;
       toast.style.opacity = 1;
     
-      // Vorherigen Timer abbrechen, wenn vorhanden
-      if (toastTimer) clearTimeout(toastTimer);
-    
-      // Timer neu setzen
-      toastTimer = setTimeout(() => {
+      if (window.toastTimer) clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(() => {
         toast.style.opacity = 0;
-        toastTimer = null;
+        window.toastTimer = null;
       }, duration);
     }
     
