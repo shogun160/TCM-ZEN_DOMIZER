@@ -1838,7 +1838,7 @@ select.filter-control {
         ignoredFilters: ignored.length ? "❗ " + ignored.join(" | ") : "✅ Keine",
         blockedCount: blockedCount,
         availableCount: finalList.length,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toLocaleString("de-DE")
       });
       localStorage.setItem("zendomizerDrawLog", JSON.stringify(window.drawLog));
     }
