@@ -902,8 +902,13 @@ select.filter-control {
 
     let selectedOrder = [];
     let drawExecuted = false;
+    let grandraceActive = true;
     let grandraceCategories = [];
-    let recentDraws = {}; // 🆕 Merkt sich die letzten 10 Fahrzeuge pro Kategorie
+    let recentDraws = {}; // 🆕 Merkt sich die letzten Fahrzeuge pro Kategorie
+    let toastTimer = null;
+    window.drawLog = [];
+    window.drawRound = 1;
+    window.devLoggingEnabled = false;
 
     function handleGrandraceCategoriesClick(checkbox) {
         if (checkbox.checked) {
@@ -959,34 +964,54 @@ select.filter-control {
 
     function checkGrandraceCategories() {
         const grandraceCheckbox = document.getElementById('catGR');
-        if (!grandraceCheckbox.checked) {
-            return; // ❗ Wenn Grandrace nicht aktiv ist, abbrechen!
+    
+        // 🟥 Wenn Grandrace nicht aktiv ist (z. B. Checkbox manuell abgewählt)
+        if (!grandraceCheckbox.checked) return;
+    
+        const index = getCurrentEventIndex();
+        const entry = ROTATION[index];
+        const isMainStage = entry[2] === "Main Stage"; // ← Modifikator steht an dritter Stelle
+    
+        // ⛔ Main Stage → Rotation abschalten
+        if (isMainStage && grandraceActive) {
+            grandraceActive = false;
+            resetSmart(); // alles abwählen
+            showToast("🛑 Main Stage aktiv – manuelle Auswahl erforderlich", "#f44336", 7000);
+            return; // keine automatische Auswahl durchführen
         }
     
-        const expectedCategories = ROTATION[getCurrentEventIndex()][1].split(" > ");
+        // ✅ Main Stage vorbei → Grandrace Rotation wieder aktivieren
+        if (!isMainStage && !grandraceActive) {
+            grandraceActive = true;
+            showToast("🏁 automatische Auswahl wieder aktiv", "#0af", 5000);
+        }
+    
+        // 🔁 Wenn Grandrace aktiv: Rotation anwenden
+        if (!grandraceActive) return;
+    
+        const expectedCategories = entry[1].split(" > ");
         const expectedIds = expectedCategories.map(cat => ROTATION_MAP.get(cat));
     
-        // Aktuelle ausgewählte Kategorien IDs
         const selectedIds = Array.from(document.querySelectorAll('.catCheckbox:checked'))
                                   .map(cb => cb.id)
-                                  .filter(id => id !== "catGR"); // Grandrace-Button selbst ignorieren
+                                  .filter(id => id !== "catGR");
     
         expectedIds.sort();
         selectedIds.sort();
     
         if (!arraysEqual(expectedIds, selectedIds)) {
-            // ✅ Rotation hat sich geändert → jetzt wirklich alles neu setzen:
+            // ✅ Rotation hat sich geändert → alles neu setzen:
     
-            selectedOrder = []; // 🧹 Reihenfolge jetzt erst löschen
+            selectedOrder = [];
     
             for (let cb of document.querySelectorAll('.catCheckbox')) {
                 if (cb.id !== "catGR") {
                     cb.checked = false;
-                    cb.disabled = false; // sicher entsperren
+                    cb.disabled = false;
                 }
             }
     
-            grandraceCategories = []; // Array auch leeren!
+            grandraceCategories = [];
     
             for (let cat of expectedCategories) {
                 const catBoxId = ROTATION_MAP.get(cat);
@@ -997,11 +1022,11 @@ select.filter-control {
                     grandraceCategories.push(catCheckBox);
                 }
             }
-
-            const currentEventName = ROTATION[getCurrentEventIndex()][0];
-            let currentCategories = ROTATION[getCurrentEventIndex()][1];
-            currentCategories = currentCategories.replace(/>/g, "→");
-            showToast(`🏁 Neue Rotation: ${currentEventName} | ${currentCategories}`, "#39ff14", 10000); /* 10 Sekunden Toast */
+    
+            const currentEventName = entry[0];
+            const currentCategories = entry[1].replace(/>/g, "→");
+    
+            showToast(`🏁 Neue Rotation: ${currentEventName} | ${currentCategories}`, "#39ff14", 10000);
         }
     }
     
@@ -1513,7 +1538,8 @@ select.filter-control {
         showToast("⚠️ Nicht genügend Fahrzeuge gefunden.", "#f33");
         return;
       }
-    
+      window.drawRound++;
+      localStorage.setItem("zendomizerDrawRound", window.drawRound);
       lastSelection = chosen;
     
       const resultsDiv = document.getElementById('results');
@@ -1565,7 +1591,6 @@ select.filter-control {
     }
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') drawRandomVehicles();
-      if (e.key.toLowerCase() === 'r') repeatDraw();
       if (e.key.toLowerCase() === 'c') copyToClipboard();
     });
 
@@ -1581,7 +1606,32 @@ select.filter-control {
       if (localStorage.getItem('darkmode') === 'true') {
         document.body.classList.add('dark');
       }
-    
+
+      const savedRecentDraws = localStorage.getItem("zendomizerRecentDraws");
+      if (savedRecentDraws) {
+        try {
+          recentDraws = JSON.parse(savedRecentDraws);
+          console.log("📦 Blacklist aus localStorage geladen.");
+        } catch (e) {
+          console.warn("⚠️ Fehler beim Parsen von recentDraws:", e);
+          recentDraws = {};
+        }
+      }
+      const savedRound = localStorage.getItem("zendomizerDrawRound");
+      if (savedRound) {
+        window.drawRound = parseInt(savedRound, 10) || 1;
+      }
+      const savedDrawLog = localStorage.getItem("zendomizerDrawLog");
+      if (savedDrawLog) {
+        try {
+          window.drawLog = JSON.parse(savedDrawLog);
+          console.log("🧾 Ziehlog aus localStorage geladen.");
+        } catch (e) {
+          console.warn("⚠️ Fehler beim Parsen von drawLog:", e);
+          window.drawLog = [];
+        }
+      }
+
       fetch('cars/vehicles.json')
         .then(response => response.json())
         .then(data => {
@@ -1625,6 +1675,17 @@ select.filter-control {
       }
     
       const { vehicle, ignoredFilters } = result;
+      // Manuell zur Blacklist hinzufügen, wenn noch nicht enthalten
+      if (!recentDraws[category]) {
+        recentDraws[category] = [];
+      }
+      if (!recentDraws[category].some(r =>
+        r.brand === vehicle.brand && r.model === vehicle.model && r.year === vehicle.year
+      )) {
+        recentDraws[category].push(vehicle);
+        localStorage.setItem("zendomizerRecentDraws", JSON.stringify(recentDraws));
+      }
+        
       const index = selectedOrder.indexOf(category);
       if (index === -1) return;
     
@@ -1635,7 +1696,10 @@ select.filter-control {
       const oldVehicle = lastSelection[index];
     
       lastSelection[index] = { ...vehicle, ignoredFilters };
-    
+
+      window.drawRound++;
+      localStorage.setItem("zendomizerDrawRound", window.drawRound);
+
       const slot = document.querySelectorAll('.slot-box')[index];
       if (!slot) return;
     
@@ -1686,6 +1750,7 @@ select.filter-control {
     function drawVehicleForCategory(category, filters, bikeFilterMode) {
       let ignored = [];
     
+      // 🔎 1. Grundfilter
       let finalList = vehicles.filter(v =>
         v.category === category &&
         (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
@@ -1694,6 +1759,7 @@ select.filter-control {
         (!filters.brand || v.brand === filters.brand)
       );
     
+      // 🔁 2. Fallbacks – nacheinander Filter lockern
       if (finalList.length === 0 && bikeFilterMode !== 'all') {
         finalList = vehicles.filter(v =>
           v.category === category &&
@@ -1751,53 +1817,88 @@ select.filter-control {
         if (finalList.length > 0) ignored.push("Alle Filter");
       }
     
-      if (finalList.length === 0) return null;
+      if (finalList.length === 0) return null; // ❌ gar kein Fahrzeug gefunden
     
-      // 🔥 Zufallsmischen
-      shuffle(finalList);
-
-      // 📢 Smarte Dev-Console Ausgabe pro Kategorie (mit Blockierte Fahrzeuge und exakter Chance)
-        if (finalList.length > 0) {
-          const recent = recentDraws[category] || [];
-          const availableVehicles = finalList.filter(v =>
-            !recent.some(r => r.brand === v.brand && r.model === v.model && r.year === v.year)
-          );
-        
-          const blockedCount = finalList.length - availableVehicles.length;
-        
-          if (availableVehicles.length > 0) {
-            const effectiveChance = (1 / availableVehicles.length * 100).toFixed(2);
-            console.log(`📦 Kategorie: ${category} | 🚗 Verfügbar: ${availableVehicles.length} | 🚫 Geblockt: ${blockedCount} | 🎯 Effektive Wiederholungswahrscheinlichkeit: ${effectiveChance}% (1 zu ${availableVehicles.length})`);
-          } else {
-            console.log(`⚠️ Kategorie: ${category} | 🚫 Keine Fahrzeuge verfügbar nach Softsperre! (Alle ${blockedCount} blockiert)`);
-          }
-        } else {
-          console.log(`⚠️ Kategorie: ${category} | 🚫 Keine Fahrzeuge verfügbar.`);
-        }
-    
-      // 🔥 Soft-Sperre: letzte 10 verhindern
+      // 📦 Soft-Sperre aktivieren
       if (!recentDraws[category]) {
         recentDraws[category] = [];
       }
       const recent = recentDraws[category];
     
-      let vehicle = finalList.find(v =>
+      const availableVehicles = finalList.filter(v =>
         !recent.some(r => r.brand === v.brand && r.model === v.model && r.year === v.year)
       );
     
-      // Falls ALLE Fahrzeuge schon in recent sind → irgendeins nehmen
-      if (!vehicle) {
-        vehicle = finalList[0];
+      const blockedCount = finalList.length - availableVehicles.length;
+      const allBlocked = availableVehicles.length === 0;
+
+      // 🧹 Wenn alle Fahrzeuge dieser Kategorie gezogen wurden → Blacklist zurücksetzen
+      if (allBlocked && recent.length === finalList.length) {
+        console.log(`🧹 Kategorie: ${category} – Blacklist automatisch zurückgesetzt (alle ${recent.length} Fahrzeuge wurden gezogen)`);
+        recentDraws[category] = [];
+        localStorage.setItem("zendomizerRecentDraws", JSON.stringify(recentDraws));
+      
+        // 👉 2) Toast anzeigen
+        showToast(`🧹 Kategorie <b>${category}</b>: Alle Fahrzeuge wurden gezogen – Blacklist wurde zurückgesetzt.`, "#ffa500", 7000);
+    
+        // 👉 3) Vermerk im Ziehlog
+        window.drawLog.push({
+          durchgang: "-",
+          category: category,
+          selected: "Blacklist zurückgesetzt (Rotation vollständig)",
+          appliedFilters: "-",
+          ignoredFilters: "-",
+          blockedCount: finalList.length,
+          availableCount: finalList.length,
+          timestamp: new Date().toLocaleString("de-DE")
+        });
+        localStorage.setItem("zendomizerDrawLog", JSON.stringify(window.drawLog));
       }
     
-      // 🔥 Fahrzeug merken
-      recent.push(vehicle);
-      if (recent.length > 10) {
-        recent.shift(); // ältestes Fahrzeug löschen
+      const pool = allBlocked ? finalList : availableVehicles;
+      shuffle(pool);
+    
+      const vehicle = pool[0];
+    
+      // 🔒 In Blacklist eintragen (nur wenn noch nicht drin)
+      if (!recent.some(r => r.brand === vehicle.brand && r.model === vehicle.model && r.year === vehicle.year)) {
+        recent.push(vehicle);
+        localStorage.setItem("zendomizerRecentDraws", JSON.stringify(recentDraws));
       }
     
-      return { vehicle, ignoredFilters: ignored };
-    }
+      // 📢 Konsoleninfo (nur wenn Dev-Logging aktiv)
+      if (window.devLoggingEnabled && finalList.length > 0) {
+        if (availableVehicles.length > 0) {
+          const effectiveChance = (1 / availableVehicles.length * 100).toFixed(2);
+          console.log(`📦 Kategorie: ${category} | 🚗 Verfügbar: ${availableVehicles.length} | 🚫 Geblockt: ${blockedCount} | 🎯 Wahrscheinlichkeit: ${effectiveChance}%`);
+        } else {
+          console.log(`⚠️ Kategorie: ${category} | 🔁 Alle Fahrzeuge bereits gezogen – Wiederholung erlaubt`);
+        }
+      }
+
+      // Aktive Filter erfassen
+      const applied = [];
+      if (filters.brand) applied.push(`Marke (${filters.brand})`);
+      if (filters.country) applied.push(`Land (${filters.country})`);
+      if (filters.era) applied.push(`Zeitraum (${filters.era})`);
+      if (bikeFilterMode === "no_bike") applied.push("Nur Autos");
+      else if (bikeFilterMode === "bike") applied.push("Nur Bikes");
+      else applied.push("Alle Fahrzeuge");
+    
+      // 🧾 Ziehung loggen
+     window.drawLog.push({
+      durchgang: window.drawRound,
+      category: category,
+      selected: `${vehicle.brand} ${vehicle.model} (${vehicle.year})`,
+      appliedFilters: applied.length ? applied.join(", ") : "-",
+      ignoredFilters: ignored.length ? "❗ " + ignored.join(" | ") : "✅ Keine",
+      blockedCount: blockedCount,
+      availableCount: finalList.length,
+      timestamp: new Date().toLocaleString("de-DE")
+    });
+    localStorage.setItem("zendomizerDrawLog", JSON.stringify(window.drawLog));
+    return { vehicle, ignoredFilters: ignored };
+}
 
     function updateGrandraceTicker() {
       const tickerContent = document.getElementById('grandraceContent');
@@ -1827,16 +1928,23 @@ select.filter-control {
     
     // Optional: Alle 15 Sekunden neu prüfen
     setInterval(updateGrandraceTicker, 15000);
-
-    function showToast(message = "✅ In Zwischenablage kopiert!", color = "#0f0") {
-      const toast = document.getElementById("toast");
-      toast.innerText = message;
-      toast.style.color = color;
-      toast.classList.add("show");
     
-      setTimeout(() => {
-        toast.classList.remove("show");
-      }, 3000);
+    function showToast(message = "✅ In Zwischenablage kopiert!", color = "#0af", duration = 3000) {
+      const toast = document.getElementById("toast");
+      if (!toast || !message || message.trim() === "") return; // Keine leeren Toasts
+    
+      toast.innerHTML = message;
+    
+      // Fixer schwarzer Hintergrund mit Transparenz
+      toast.style.backgroundColor = "rgba(0, 0, 0, 0.75)";
+      toast.style.color = color; // Farbiger Text
+      toast.style.opacity = 1;
+    
+      if (window.toastTimer) clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(() => {
+        toast.style.opacity = 0;
+        window.toastTimer = null;
+      }, duration);
     }
     
     setInterval(checkGrandraceCategories, 1000); // alle 1000ms prüfen
@@ -1859,6 +1967,63 @@ select.filter-control {
           }
         });
       }, { once: true });
+    });
+    document.addEventListener("keydown", function (e) {
+      // SHIFT + ? → Hotkey-Legende anzeigen
+      if (e.shiftKey && (e.key === '?' || e.key.toLowerCase() === 'h')) {
+        showToast(
+          "🎛️ Hotkey-Übersicht<br>" +
+          "📋 Shift + L: Log anzeigen<br>" +
+          "🧹 Shift + R: Reset (Blacklist & Zähler)<br>" +
+          "🗑️ Shift + X: Log löschen<br>" +
+          "✏️ Shift + G: Dev Logging an/aus<br>",
+          "#0af", 30000); // 30 Sekunden
+      }
+      // SHIFT + L → Ziehlog anzeigen
+      if ((e.shiftKey) && e.key.toLowerCase() === 'l') {
+        if (window.drawLog && window.drawLog.length) {
+          console.table(window.drawLog);
+          showToast("📋 Ziehlog geöffnet", "#0af");
+        } else {
+          console.log("ℹ️ Ziehlog ist leer.");
+          showToast("ℹ️ Kein Ziehlog vorhanden", "#aaa");
+        }
+      }
+      // SHIFT + L → Blacklist Löschen
+      if ((e.shiftKey) && e.key.toLowerCase() === 'r') {
+        recentDraws = {};
+        localStorage.removeItem("zendomizerRecentDraws");
+        // 🔄 Zähler zurücksetzen
+        window.drawRound = 1;
+        localStorage.setItem("zendomizerDrawRound", "1");
+        showToast("🧹 Blacklist wurde gelöscht!", "#f44336");
+        console.log("🧹 recentDraws wurde per Hotkey zurückgesetzt.");
+        window.drawLog.push({
+          durchgang: 'RESET',
+          category: '-',
+          selected: '-',
+          appliedFilters: '-',
+          ignoredFilters: '-',
+          blockedCount: '-',
+          availableCount: '-',
+          timestamp: new Date().toLocaleString("de-DE")
+        });
+        localStorage.setItem("zendomizerDrawLog", JSON.stringify(window.drawLog));
+      }
+      // SHIFT + X → Ziehlog zurücksetzen
+      if ((e.shiftKey) && e.key.toLowerCase() === 'x') {
+        window.drawLog = [];
+        localStorage.removeItem("zendomizerDrawLog");
+        showToast("🗑️ Ziehlog gelöscht", "#f44336");
+        console.log("🗑️ drawLog wurde per Hotkey zurückgesetzt.");
+      }
+      // SHIFT + G → Logging aktivieren/deaktivieren
+      if (e.shiftKey && e.key.toLowerCase() === 'g') {
+        window.devLoggingEnabled = !window.devLoggingEnabled;
+        const state = window.devLoggingEnabled ? "aktiviert" : "deaktiviert";
+        showToast(`🛠️ Dev-Logging ${state}`, window.devLoggingEnabled ? "#0af" : "#aaa");
+        console.log(`🛠️ Dev-Logging wurde ${state}`);
+      }
     });
   </script>
 <div id="toast" class="toast">✅ In Zwischenablage kopiert!</div>
