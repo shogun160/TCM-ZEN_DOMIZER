@@ -6172,5 +6172,23 @@
     "year": 2024,
     "country": "Deutschland",
     "era": "Modern"
+  },
+  {
+    "category": "Racing",
+    "bike": false,
+    "brand": "Radical",
+    "model": "RXC 600R",
+    "year": 2024,
+    "country": "England",
+    "era": "Modern"
+  },
+  {
+    "category": "Racing",
+    "bike": false,
+    "brand": "Radical",
+    "model": "SR10 XXR",
+    "year": 2024,
+    "country": "England",
+    "era": "Modern"
   }
 ]
