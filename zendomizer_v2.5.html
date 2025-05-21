@@ -1841,6 +1841,8 @@ select.filter-control {
       });
       localStorage.setItem("zendomizerDrawLog", JSON.stringify(window.drawLog));
     }
+        return { vehicle, ignoredFilters: ignored };
+}
 
     function updateGrandraceTicker() {
       const tickerContent = document.getElementById('grandraceContent');
