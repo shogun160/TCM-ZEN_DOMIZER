@@ -1583,7 +1583,18 @@ select.filter-control {
       if (localStorage.getItem('darkmode') === 'true') {
         document.body.classList.add('dark');
       }
-    
+
+      const savedRecentDraws = localStorage.getItem("zendomizerRecentDraws");
+      if (savedRecentDraws) {
+        try {
+          recentDraws = JSON.parse(savedRecentDraws);
+          console.log("📦 Blacklist aus localStorage geladen.");
+        } catch (e) {
+          console.warn("⚠️ Fehler beim Parsen von recentDraws:", e);
+          recentDraws = {};
+        }
+      }
+
       fetch('cars/vehicles.json')
         .then(response => response.json())
         .then(data => {
@@ -1778,6 +1789,7 @@ select.filter-control {
       // 🔒 In Blacklist eintragen (nur wenn noch nicht drin)
       if (!recent.some(r => r.brand === vehicle.brand && r.model === vehicle.model && r.year === vehicle.year)) {
         recent.push(vehicle);
+        localStorage.setItem("zendomizerRecentDraws", JSON.stringify(recentDraws));
       }
     
       // 📢 Konsoleninfo
