@@ -2,7 +2,7 @@
 
 # **Randomizer for The Crew Motorfest Grand Races** (click picture to start)
 
-Available categories:
+🚘 *Available categories*
 Street Tier 1    ||     Street Tier 2    ||     Hypercar    ||     Drift        ||     Racing
 AGP              ||     Motocross        ||     Rally       ||     Rally Raid   ||     Monster Truck
 
