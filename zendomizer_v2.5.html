@@ -1654,6 +1654,17 @@ select.filter-control {
       }
     
       const { vehicle, ignoredFilters } = result;
+      // Manuell zur Blacklist hinzufügen, wenn noch nicht enthalten
+      if (!recentDraws[category]) {
+        recentDraws[category] = [];
+      }
+      if (!recentDraws[category].some(r =>
+        r.brand === vehicle.brand && r.model === vehicle.model && r.year === vehicle.year
+      )) {
+        recentDraws[category].push(vehicle);
+        localStorage.setItem("zendomizerRecentDraws", JSON.stringify(recentDraws));
+      }
+        
       const index = selectedOrder.indexOf(category);
       if (index === -1) return;
     
