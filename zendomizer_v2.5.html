@@ -1770,7 +1770,6 @@ select.filter-control {
 
       // 📢 Smarte Dev-Console Ausgabe pro Kategorie (mit Blockierte Fahrzeuge und exakter Chance)
         if (finalList.length > 0) {
-          const recent = recentDraws[category] || [];
           const availableVehicles = finalList.filter(v =>
             !recent.some(r => r.brand === v.brand && r.model === v.model && r.year === v.year)
           );
