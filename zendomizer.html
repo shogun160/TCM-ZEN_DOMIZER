@@ -818,7 +818,7 @@ select.filter-control {
           <label for="cat5" class="catLabel cat-orange"><span>Motocross</span></label>
       </div>
       <div class="catWrapper">
-          <input type="checkbox" id="catGR" class="catCheckbox" onchange="handleGrandraceCategoriesClick(this)"/>
+          <input type="checkbox" id="catGR" class="catCheckbox"/>
           <label for="catGR" class="catLabel cat-green"><span>Grandrace<br>Categories</span></label>
       </div>
       <div class="catWrapper">
@@ -911,138 +911,108 @@ select.filter-control {
     window.drawRound = 1;
     window.devLoggingEnabled = false;
 
-    function handleGrandraceCategoriesClick(checkbox) {
-        if (checkbox.checked) {
-            // Grandrace ausgewählt → Kategorien anwählen
-            grandraceCategories = [];
-            let grCatString = ROTATION[getCurrentEventIndex()][1];
-            let grCatArray = grCatString.split(" > ");
-            grCatArray.forEach((grCat, index) => {
-              setTimeout(() => {
-                let catBoxId = ROTATION_MAP.get(grCat);
-                let catCheckBox = document.getElementById(catBoxId);
-                if (catCheckBox != null) {
-                  catCheckBox.checked = true;
-                  catCheckBox.disabled = false;
-                  handleCategoryClick(catCheckBox);
-                  grandraceCategories.push(catCheckBox);
-                }
-              }, index * 300); // ✨ 300ms Verzögerung pro Kategorie
-            });
-
-            const currentEventName = ROTATION[getCurrentEventIndex()][0];
-            let currentCategories = ROTATION[getCurrentEventIndex()][1];
-            currentCategories = currentCategories.replace(/>/g, "→");
-            
-            showToast(`🏁 Grandrace Rotation übernommen: ${currentEventName} | ${currentCategories}`, "#39ff14", 10000); /* 10 Sekunden Toast */
-        } else {
-            // Grandrace abgewählt → Kategorien abwählen
-            for (let cb of grandraceCategories) {
-                cb.checked = false;
-                handleCategoryClick(cb);
-            }
-            grandraceCategories = [];
-            
-            // 🧼 Filter zurücksetzen
-            document.getElementById("brandSelect").value = "";
-            document.getElementById("countrySelect").value = "";
-            document.getElementById("eraSelect").value = "";
-            
-            bikeFilterMode = "no_bike";
-            const bfb = document.getElementById("bikeFilterBtn");
-            bfb.innerText = "Nur Autos";
-            bfb.classList.add("bike-active");
-            
-            // 💡 Reset-Status neu setzen
-            updateFilterHighlighting();
-            updateResetButtonState();
-            updateGoButtonState();
-            
-            // ↩️ Toast beim Deaktivieren
-            showToast("↩️ Grandrace Kategorien & Filter zurückgesetzt", "#39ff14");
-        }
-    }
-
-    function checkGrandraceCategories() {
-        const grandraceCheckbox = document.getElementById('catGR');
+    function updateGrandraceState(triggeredByClick = false) {
+      const grandraceCheckbox = document.getElementById('catGR');
+      if (!grandraceCheckbox.checked) return; // Grandrace nicht aktiv
     
-        // 🟥 Wenn Grandrace nicht aktiv ist (z. B. Checkbox manuell abgewählt)
-        if (!grandraceCheckbox.checked) return;
+      const index = getCurrentEventIndex();
+      const entry = ROTATION[index];
+      const isMainStage = entry[2] === "Main Stage";
     
-        const index = getCurrentEventIndex();
-        const entry = ROTATION[index];
-        const isMainStage = entry[2] === "Main Stage"; // ← Modifikator steht an dritter Stelle
+      // 🟥 Wenn Main Stage neu erkannt → einmaliger Reset
+      if (!previousMainStage && isMainStage && grandraceActive) {
+        previousMainStage = true;
     
-        // ⛔ Main Stage → Rotation abschalten
-        if (!previousMainStage && isMainStage && grandraceActive) {
-          previousMainStage = true;
-          // Nur Kategorien und Auswahl zurücksetzen – NICHT catGR deaktivieren
-          for (let cb of document.querySelectorAll('.catCheckbox')) {
-              if (cb.id !== 'catGR') {
-                  cb.checked = false;
-                  cb.disabled = false;
-              }
+        for (let cb of document.querySelectorAll('.catCheckbox')) {
+          if (cb.id !== 'catGR') {
+            cb.checked = false;
+            cb.disabled = false;
           }
-          selectedOrder = [];
-          grandraceCategories = [];
-          updateCheckboxBadges();
-          updateSlotBoxes();
-          updateResetButtonState();
-          updateGoButtonState();
-     
-          showToast("🛑 Main Stage aktiv – manuelle Auswahl erforderlich", "#f44336", 7000);
-          return;
+        }
+        selectedOrder = [];
+        grandraceCategories = [];
+        updateCheckboxBadges();
+        updateSlotBoxes();
+        updateResetButtonState();
+        updateGoButtonState();
+    
+        showToast("🛑 Main Stage aktiv – manuelle Auswahl erforderlich", "#f44336", 7000);
+        return;
+      }
+    
+      // ✅ Wenn Main Stage vorbei ist
+      if (previousMainStage && !isMainStage) {
+        previousMainStage = false;
+        showToast("🏁 automatische Auswahl wieder aktiv", "#0af", 5000);
+      }
+    
+      if (!grandraceActive || isMainStage) return;
+    
+      const expectedCategories = entry[1].split(" > ");
+      const expectedIds = expectedCategories.map(cat => ROTATION_MAP.get(cat));
+    
+      const selectedIds = Array.from(document.querySelectorAll('.catCheckbox:checked'))
+        .map(cb => cb.id)
+        .filter(id => id !== "catGR");
+    
+      expectedIds.sort();
+      selectedIds.sort();
+    
+      if (!arraysEqual(expectedIds, selectedIds) || triggeredByClick) {
+        selectedOrder = [];
+        for (let cb of document.querySelectorAll('.catCheckbox')) {
+          if (cb.id !== 'catGR') {
+            cb.checked = false;
+            cb.disabled = false;
+          }
         }
     
-        // ✅ Main Stage vorbei → Grandrace Rotation wieder aktivieren
-        if (previousMainStage === true && !isMainStage && grandraceActive) {
-            previousMainStage = false;
-            showToast("🏁 automatische Auswahl wieder aktiv", "#0af", 5000);
-        }
+        grandraceCategories = [];
     
-        // 🔁 Wenn Grandrace aktiv: Rotation anwenden
-        if (!grandraceActive) return;
+        expectedCategories.forEach((cat) => {
+          const catBoxId = ROTATION_MAP.get(cat);
+          const catCheckBox = document.getElementById(catBoxId);
+          if (catCheckBox) {
+            catCheckBox.checked = true;
+            handleCategoryClick(catCheckBox);
+            grandraceCategories.push(catCheckBox);
+          }
+        });
     
-        const expectedCategories = entry[1].split(" > ");
-        const expectedIds = expectedCategories.map(cat => ROTATION_MAP.get(cat));
-    
-        const selectedIds = Array.from(document.querySelectorAll('.catCheckbox:checked'))
-                                  .map(cb => cb.id)
-                                  .filter(id => id !== "catGR");
-    
-        expectedIds.sort();
-        selectedIds.sort();
-    
-        if (!arraysEqual(expectedIds, selectedIds)) {
-            // ✅ Rotation hat sich geändert → alles neu setzen:
-    
-            selectedOrder = [];
-    
-            for (let cb of document.querySelectorAll('.catCheckbox')) {
-                if (cb.id !== "catGR") {
-                    cb.checked = false;
-                    cb.disabled = false;
-                }
-            }
-    
-            grandraceCategories = [];
-    
-            for (let cat of expectedCategories) {
-                const catBoxId = ROTATION_MAP.get(cat);
-                const catCheckBox = document.getElementById(catBoxId);
-                if (catCheckBox != null) {
-                    catCheckBox.checked = true;
-                    handleCategoryClick(catCheckBox);
-                    grandraceCategories.push(catCheckBox);
-                }
-            }
-    
-            const currentEventName = entry[0];
-            const currentCategories = entry[1].replace(/>/g, "→");
-    
-            showToast(`🏁 Neue Rotation: ${currentEventName} | ${currentCategories}`, "#39ff14", 10000);
-        }
+        const currentEventName = entry[0];
+        const currentCategories = entry[1].replace(/>/g, "→");
+        showToast(`🏁 ${triggeredByClick ? "Grandrace Rotation übernommen" : "Neue Rotation"}: ${currentEventName} | ${currentCategories}`, "#39ff14", 10000);
+      }
     }
+
+    document.getElementById('catGR').addEventListener('change', (e) => {
+      if (!e.target.checked) {
+        // Grandrace deaktiviert → alles zurücksetzen
+        for (let cb of grandraceCategories) {
+          cb.checked = false;
+          handleCategoryClick(cb);
+        }
+        grandraceCategories = [];
+    
+        document.getElementById("brandSelect").value = "";
+        document.getElementById("countrySelect").value = "";
+        document.getElementById("eraSelect").value = "";
+    
+        bikeFilterMode = "no_bike";
+        const bfb = document.getElementById("bikeFilterBtn");
+        bfb.innerText = "Nur Autos";
+        bfb.classList.add("bike-active");
+    
+        updateFilterHighlighting();
+        updateResetButtonState();
+        updateGoButtonState();
+    
+        showToast("↩️ Grandrace Kategorien & Filter zurückgesetzt", "#39ff14");
+      } else {
+        // Aktivierung → Rotation setzen
+        updateGrandraceState(true);
+      }
+    });
     
     // Mini-Helfer außerhalb der Funktion:
     function arraysEqual(a, b) {
@@ -1246,11 +1216,11 @@ select.filter-control {
       checkboxes.forEach(cb => cb.checked = false);
 
       const grandraceCheckbox = document.getElementById('catGR');
-      if (grandraceCheckbox) {
-        grandraceCheckbox.checked = false;
-        handleGrandraceCategoriesClick(grandraceCheckbox);
-      }
-    
+        if (grandraceCheckbox) {
+          grandraceCheckbox.checked = false;
+          grandraceCheckbox.dispatchEvent(new Event('change'));
+        }
+            
       selectedOrder = [];
       updateCheckboxBadges();
       updateFilterHighlighting();
@@ -1634,7 +1604,10 @@ select.filter-control {
 
     window.onload = () => {
       bikeFilterMode = "no_bike";
-    
+      const initialIndex = getCurrentEventIndex();
+      const initialEntry = ROTATION[initialIndex];
+      previousMainStage = initialEntry[2] === "Main Stage";
+
       const bfb = document.getElementById("bikeFilterBtn");
       if (bfb) {
         bfb.innerText = "Nur Autos";
@@ -1958,7 +1931,7 @@ select.filter-control {
         if (grandraceCheckbox) {
             grandraceCheckbox.checked = true;
             setTimeout(() => {
-                handleGrandraceCategoriesClick(grandraceCheckbox);
+              updateGrandraceState(true);
             }, 300); // ✨ 300ms Verzögerung NUR beim Laden
         }
     });
@@ -1985,7 +1958,7 @@ select.filter-control {
       }, duration);
     }
     
-    setInterval(checkGrandraceCategories, 1000); // alle 1000ms prüfen
+    setInterval(() => updateGrandraceState(false), 1000); // alle 1000ms prüfen
     
     const countrySelect = document.getElementById('countrySelect');
     
