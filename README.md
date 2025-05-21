@@ -10,7 +10,7 @@
 <br>And of course to the [motorfe.st project](https://github.com/calamity-inc/motorfe.st/) for the rotation logic itself.
 <br>
 <br>V2.3
-<br>Carlist: Season 6 - 07.05.2025
+<br>Carlist: Season 6 - 21.05.2025
 <br>
 <br>make sure to check out [Twitch](https://www.twitch.tv/xthepapapyr0)
 
