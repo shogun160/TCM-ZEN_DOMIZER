@@ -1924,6 +1924,13 @@ select.filter-control {
         });
         localStorage.setItem("zendomizerDrawLog", JSON.stringify(window.drawLog));
       }
+      // SHIFT + X → Ziehlog zurücksetzen
+      if ((e.shiftKey) && e.key.toLowerCase() === 'x') {
+        window.drawLog = [];
+        localStorage.removeItem("zendomizerDrawLog");
+        showToast("🗑️ Ziehlog gelöscht", "#f44336");
+        console.log("🗑️ drawLog wurde per Tastenkombi zurückgesetzt.");
+      }
     });
   </script>
 <div id="toast" class="toast">✅ In Zwischenablage kopiert!</div>
