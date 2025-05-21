@@ -1907,6 +1907,9 @@ select.filter-control {
       if ((e.shiftKey) && e.key.toLowerCase() === 'l') {
         recentDraws = {};
         localStorage.removeItem("zendomizerRecentDraws");
+        // 🔄 Zähler zurücksetzen
+        window.drawRound = 1;
+        localStorage.setItem("zendomizerDrawRound", "1");
         showToast("🧹 Blacklist wurde gelöscht!", "#f44336");
         console.log("🧹 recentDraws wurde per Tastenkombi zurückgesetzt.");
         window.drawLog.push({
