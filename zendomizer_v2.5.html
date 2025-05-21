@@ -1516,6 +1516,7 @@ select.filter-control {
         return;
       }
       window.drawRound++;
+      localStorage.setItem("zendomizerDrawRound", window.drawRound);
       lastSelection = chosen;
     
       const resultsDiv = document.getElementById('results');
@@ -1593,6 +1594,10 @@ select.filter-control {
           console.warn("⚠️ Fehler beim Parsen von recentDraws:", e);
           recentDraws = {};
         }
+      const savedRound = localStorage.getItem("zendomizerDrawRound");
+      if (savedRound) {
+        window.drawRound = parseInt(savedRound, 10) || 1;
+      }
       }
 
       fetch('cars/vehicles.json')
