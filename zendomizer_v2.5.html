@@ -1942,12 +1942,12 @@ select.filter-control {
         console.log("🧹 recentDraws wurde per Hotkey zurückgesetzt.");
         window.drawLog.push({
           durchgang: 'RESET Blacklist',
-          category:,
-          selected:,
-          appliedFilters:,
-          ignoredFilters:,
-          blockedCount: ,
-          availableCount: ,
+          category: '-',
+          selected: '-',
+          appliedFilters: '-',
+          ignoredFilters: '-',
+          blockedCount: '-',
+          availableCount: '-',
           timestamp: new Date().toLocaleString("de-DE")
         });
         localStorage.setItem("zendomizerDrawLog", JSON.stringify(window.drawLog));
