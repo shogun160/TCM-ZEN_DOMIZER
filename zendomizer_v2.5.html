@@ -1328,9 +1328,12 @@ select.filter-control {
       const resultsDiv = document.getElementById('results');
       resultsDiv.innerHTML = '';
 
-      if (selectedCategories.length < 3) {
-        resultsDiv.innerHTML = "<p>⚠️ Bitte 3 Kategorien auswählen.</p>";
+      if (selectedCategories.length < 2) {
+        resultsDiv.innerHTML = "<p>⚠️ Bitte mindestens 2 Kategorien auswählen.</p>";
         return;
+      }
+      if (selectedCategories.length === 2) {
+        selectedCategories.push(selectedCategories[0]);
       }
 
       const shuffledCategories = selectedCategories.sort(() => 0.5 - Math.random()).slice(0, 3);
@@ -1538,18 +1541,21 @@ select.filter-control {
       }, 750); // Dauer halbiert
     }
     
-    function fillSlotBoxesWithResults() {
+    function fillSlotBoxesWithResults(orderOverride = null) {
       const filters = getCurrentFilters();
-      const selectedCategories = selectedOrder.slice(0, 3);
+      const categories = orderOverride || selectedOrder.slice(0, 3);
     
-      if (selectedCategories.length < 3) {
-        showToast("⚠️ Bitte 3 Kategorien auswählen.", "#f33");
+      if (categories.length < 2) {
+        showToast("⚠️ Bitte mindestens 2 Kategorien auswählen.", "#f33");
         return;
+      }
+      if (categories.length === 2) {
+        categories.push(categories[0]); // Dupliziere erste Kategorie
       }
     
       const chosen = [];
     
-      for (let cat of selectedCategories) {
+      for (let cat of categories) {
         const result = drawVehicleForCategory(cat, filters, bikeFilterMode);
         if (!result) continue;
         const { vehicle, ignoredFilters } = result;
@@ -1560,6 +1566,7 @@ select.filter-control {
         showToast("⚠️ Nicht genügend Fahrzeuge gefunden.", "#f33");
         return;
       }
+    
       window.drawRound++;
       localStorage.setItem("zendomizerDrawRound", window.drawRound);
       lastSelection = chosen;
@@ -1577,40 +1584,45 @@ select.filter-control {
           : '';
     
         slot.classList.remove('empty', 'slot-yellow', 'slot-blue', 'slot-orange', 'slot-magenta');
-          
+    
         const colorClass =
           ['Street Tier 1', 'Street Tier 2', 'Hypercar', 'Drift'].includes(v.category) ? 'slot-yellow' :
           ['Racing', 'AGP'].includes(v.category) ? 'slot-blue' :
           ['Rally', 'Rally Raid', 'Motocross'].includes(v.category) ? 'slot-orange' :
-          v.category === 'Monster Truck' ? 'slot-magenta' :
-          '';
-
+          v.category === 'Monster Truck' ? 'slot-magenta' : '';
+    
         slot.classList.add(colorClass);
-        // ✨ Neon-Flash-Animation für GO
         slot.classList.add("flash");
         setTimeout(() => slot.classList.remove("flash"), 800);
-
       });
     
       copyToClipboard();
     }
 
     function handleGo() {
-      if (selectedOrder.length < 3) return; // ❌ GO nur bei 3 Kategorien erlaubt
+      if (selectedOrder.length < 2) return; // ❌ GO erst ab 2 Kategorien
     
       drawExecuted = true;
-      fillSlotBoxesWithResults();
+    
+      // 🧠 Sonderfall: 2 Kategorien → erste Kategorie als dritte wiederholen
+      const effectiveOrder = [...selectedOrder];
+      if (effectiveOrder.length === 2) {
+        effectiveOrder.push(effectiveOrder[0]);
+      }
+    
+      fillSlotBoxesWithResults(effectiveOrder); // ⬅️ Übergib effektive Reihenfolge
       updateResetButtonState();
     
       const btn = document.getElementById("goBtn");
-      btn.classList.add("active");
-      btn.classList.add("clicked");
+      btn.classList.add("active", "clicked");
+      setTimeout(() => btn.classList.remove("active", "clicked"), 750);
     
-      setTimeout(() => {
-        btn.classList.remove("active");
-        btn.classList.remove("clicked");
-      }, 750); // Dauer halbiert
+      // 🌀 Info bei Wiederholung
+      if (selectedOrder.length === 2) {
+        showToast(`🔁 Kategorie 3: <b>${effectiveOrder[2]}</b> wurde wiederholt`, "#ffa500", 6000);
+      }
     }
+
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') drawRandomVehicles();
       if (e.key.toLowerCase() === 'c') copyToClipboard();
