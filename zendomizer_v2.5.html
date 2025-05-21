@@ -963,34 +963,54 @@ select.filter-control {
 
     function checkGrandraceCategories() {
         const grandraceCheckbox = document.getElementById('catGR');
-        if (!grandraceCheckbox.checked) {
-            return; // ❗ Wenn Grandrace nicht aktiv ist, abbrechen!
+    
+        // 🟥 Wenn Grandrace nicht aktiv ist (z. B. Checkbox manuell abgewählt)
+        if (!grandraceCheckbox.checked) return;
+    
+        const index = getCurrentEventIndex();
+        const entry = ROTATION[index];
+        const isMainStage = entry[2] === "Main Stage"; // ← Modifikator steht an dritter Stelle
+    
+        // ⛔ Main Stage → Rotation abschalten
+        if (isMainStage && grandraceActive) {
+            grandraceActive = false;
+            clearCategorySelection(); // alles abwählen
+            showToast("🛑 Main Stage aktiv – manuelle Auswahl erforderlich", "#f44336", 7000);
+            return; // keine automatische Auswahl durchführen
         }
     
-        const expectedCategories = ROTATION[getCurrentEventIndex()][1].split(" > ");
+        // ✅ Main Stage vorbei → Grandrace Rotation wieder aktivieren
+        if (!isMainStage && !grandraceActive) {
+            grandraceActive = true;
+            showToast("🏁 automatische Auswahl wieder aktiv", "#0af", 5000);
+        }
+    
+        // 🔁 Wenn Grandrace aktiv: Rotation anwenden
+        if (!grandraceActive) return;
+    
+        const expectedCategories = entry[1].split(" > ");
         const expectedIds = expectedCategories.map(cat => ROTATION_MAP.get(cat));
     
-        // Aktuelle ausgewählte Kategorien IDs
         const selectedIds = Array.from(document.querySelectorAll('.catCheckbox:checked'))
                                   .map(cb => cb.id)
-                                  .filter(id => id !== "catGR"); // Grandrace-Button selbst ignorieren
+                                  .filter(id => id !== "catGR");
     
         expectedIds.sort();
         selectedIds.sort();
     
         if (!arraysEqual(expectedIds, selectedIds)) {
-            // ✅ Rotation hat sich geändert → jetzt wirklich alles neu setzen:
+            // ✅ Rotation hat sich geändert → alles neu setzen:
     
-            selectedOrder = []; // 🧹 Reihenfolge jetzt erst löschen
+            selectedOrder = [];
     
             for (let cb of document.querySelectorAll('.catCheckbox')) {
                 if (cb.id !== "catGR") {
                     cb.checked = false;
-                    cb.disabled = false; // sicher entsperren
+                    cb.disabled = false;
                 }
             }
     
-            grandraceCategories = []; // Array auch leeren!
+            grandraceCategories = [];
     
             for (let cat of expectedCategories) {
                 const catBoxId = ROTATION_MAP.get(cat);
@@ -1001,11 +1021,11 @@ select.filter-control {
                     grandraceCategories.push(catCheckBox);
                 }
             }
-
-            const currentEventName = ROTATION[getCurrentEventIndex()][0];
-            let currentCategories = ROTATION[getCurrentEventIndex()][1];
-            currentCategories = currentCategories.replace(/>/g, "→");
-            showToast(`🏁 Neue Rotation: ${currentEventName} | ${currentCategories}`, "#39ff14", 10000); /* 10 Sekunden Toast */
+    
+            const currentEventName = entry[0];
+            const currentCategories = entry[1].replace(/>/g, "→");
+    
+            showToast(`🏁 Neue Rotation: ${currentEventName} | ${currentCategories}`, "#39ff14", 10000);
         }
     }
     
