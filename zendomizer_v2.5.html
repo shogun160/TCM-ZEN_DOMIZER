@@ -1920,7 +1920,7 @@ select.filter-control {
           🧹 Shift + R: Reset (Blacklist & Zähler)
           📋 Shift + L: Log anzeigen
           🗑️ Shift + X: Log löschen
-          ✏️ Shift + G: Logging an/aus
+          ✏️ Shift + G: Dev Logging an/aus
         `, "#0af", 30000); // 30 Sekunden
       }
       // SHIFT + L → Ziehlog anzeigen
@@ -1962,11 +1962,11 @@ select.filter-control {
         console.log("🗑️ drawLog wurde per Tastenkombi zurückgesetzt.");
       }
       // SHIFT + G → Logging aktivieren/deaktivieren
-      if ((e.shiftKey) && e.key.toLowerCase() === 'g') {
-        window.loggingEnabled = !window.loggingEnabled;
-        const state = window.loggingEnabled ? "aktiviert" : "deaktiviert";
-        showToast(`✏️ Ziehlog ${state}`, window.loggingEnabled ? "#0af" : "#aaa");
-        console.log(`✏️ drawLog wurde ${state}`);
+      if (e.shiftKey && e.key.toLowerCase() === 'g') {
+        window.devLoggingEnabled = !window.devLoggingEnabled;
+        const state = window.devLoggingEnabled ? "aktiviert" : "deaktiviert";
+        showToast(`🛠️ Dev-Logging ${state}`, window.devLoggingEnabled ? "#0af" : "#aaa");
+        console.log(`🛠️ Dev-Logging wurde ${state}`);
       }
     });
   </script>
