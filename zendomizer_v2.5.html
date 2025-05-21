@@ -1906,6 +1906,18 @@ select.filter-control {
       }, { once: true });
     });
     document.addEventListener("keydown", function (e) {
+      // SHIFT + ? → Hotkey-Legende anzeigen
+      if (e.shiftKey && e.key === '?' || e.key === 'h') {
+        showToast(`
+          🎛️ <b>Hotkey-Übersicht</b><br>
+          ⏎ <b>GO</b>: Ziehung starten<br>
+          🧹 <b>Shift + R</b>: Reset (Blacklist & Zähler)<br>
+          📋 <b>Shift + L</b>: Log anzeigen<br>
+          🗑️ <b>Shift + X</b>: Log löschen<br>
+          ✏️ <b>Shift + G</b>: Logging an/aus<br>
+          ❓ <b>Shift + ?</b>: Diese Hilfe
+        `, "#0af", 30000); // 30 Sekunden
+      }
       // SHIFT + L → Ziehlog anzeigen
       if ((e.shiftKey) && e.key.toLowerCase() === 'l') {
         if (window.drawLog && window.drawLog.length) {
