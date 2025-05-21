@@ -1903,8 +1903,18 @@ select.filter-control {
       }, { once: true });
     });
     document.addEventListener("keydown", function (e) {
-      // SHIFT + L zum Löschen der Blacklist
+      // SHIFT + L → Ziehlog anzeigen
       if ((e.shiftKey) && e.key.toLowerCase() === 'l') {
+        if (window.drawLog && window.drawLog.length) {
+          console.table(window.drawLog);
+          showToast("📋 Ziehlog geöffnet", "#0af");
+        } else {
+          console.log("ℹ️ Ziehlog ist leer.");
+          showToast("ℹ️ Kein Ziehlog vorhanden", "#aaa");
+        }
+      }
+      // SHIFT + L → Blacklist Löschen
+      if ((e.shiftKey) && e.key.toLowerCase() === 'r') {
         recentDraws = {};
         localStorage.removeItem("zendomizerRecentDraws");
         // 🔄 Zähler zurücksetzen
