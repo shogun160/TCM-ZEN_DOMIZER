@@ -906,6 +906,7 @@ select.filter-control {
     let recentDraws = {}; // 🆕 Merkt sich die letzten 10 Fahrzeuge pro Kategorie
     window.drawLog = [];
     window.drawRound = 1;
+    window.loggingEnabled = false;
 
     function handleGrandraceCategoriesClick(checkbox) {
         if (checkbox.checked) {
@@ -1827,6 +1828,7 @@ select.filter-control {
       else applied.push("Alle Fahrzeuge");
     
       // 🧾 Ziehung loggen
+      if (window.loggingEnabled) {
       window.drawLog.push({
         durchgang: window.drawRound,
         category: category,
@@ -1838,7 +1840,6 @@ select.filter-control {
         timestamp: new Date().toISOString()
       });
       localStorage.setItem("zendomizerDrawLog", JSON.stringify(window.drawLog));
-      return { vehicle, ignoredFilters: ignored };
     }
 
     function updateGrandraceTicker() {
@@ -1940,6 +1941,13 @@ select.filter-control {
         localStorage.removeItem("zendomizerDrawLog");
         showToast("🗑️ Ziehlog gelöscht", "#f44336");
         console.log("🗑️ drawLog wurde per Tastenkombi zurückgesetzt.");
+      }
+      // SHIFT + G → Logging aktivieren/deaktivieren
+      if ((e.shiftKey) && e.key.toLowerCase() === 'g') {
+        window.loggingEnabled = !window.loggingEnabled;
+        const state = window.loggingEnabled ? "aktiviert" : "deaktiviert";
+        showToast(`✏️ Ziehlog ${state}`, window.loggingEnabled ? "#0af" : "#aaa");
+        console.log(`✏️ drawLog wurde ${state}`);
       }
     });
   </script>
