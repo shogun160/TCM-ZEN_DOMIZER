@@ -20,8 +20,9 @@ And of course to the [motorfe.st project](https://github.com/calamity-inc/motorf
 ## 🔧 Core Features
 
 - 🎰 **Random Picker** for The Crew Motorfest – perfect for having fun , doing challenges or streams
-- 🏁 **Grandrace rotation** with automatic category selection (powered by motorfe.st) - Mainstage modifikator will be ignored
 - 🧠 **Fully flexible** choose from several filters like country, brand or select just 2 categories to repeat the first selection (Rally --> Rally Raid --> Rally)
+- 🔒 **rocking solid** if no filter matches the filters are ignored one after the other - ignored filters are be displayed
+- 🏁 **Grandrace rotation** with automatic category selection (powered by motorfe.st) - can be de/-actived with the *Grandrace Catgerories* Button - Mainstage modifikator will be ignored
 - 🎯 **Advanced draw logic** with fallback system – ensures a valid result even with tight filters
 - 🔁 **Blacklist system** prevents repeats – with automatic reset when all options are drawn
 - 🧹 **Hotkeys for power users**:
@@ -46,6 +47,9 @@ And of course to the [motorfe.st project](https://github.com/calamity-inc/motorf
 
 ### 📋 ZENDomizer Selection "Your Pick" - only 2 categories selected
 ![Zendomizer Clipboard Result](assets/pic/ZENdomizer_2cat_selection.png)
+
+### 📋 ZENDomizer Smart Filers - always get cars and see ignored filters
+![Zendomizer Clipboard Result](assets/pic/ZENdomizer_ignored_filters.png)
 
 ### 📊 Log
 ![Zendomizer DevLog](assets/pic/ZENdomizer_DevCon_Log.png)
