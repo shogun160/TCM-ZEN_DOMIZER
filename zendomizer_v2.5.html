@@ -891,10 +891,14 @@ select.filter-control {
         return [currentDay, currentMinutes]
     }
 
+        /*
+     * END: Borrowed from https://github.com/calamity-inc/motorfe.st/
+     */
+
     // Format ist [ <Tag>,  <Minuten> ], Tage werden von 1 (Montag) bis 7 (Sonntag) durchnumeriert.
     // Die Zeiten unten müssen angepasst werden.
-    const GRDAY_START = [ 4, 5*60 ];  // Donnerstag, 5:00 Uhr
-    const GRDAY_STOP = [ 7, 5*60 ];   // Sonntag, 5:00 Uhr
+    const GRDAY_START = [ 6, 9*60 ];  // Samstag, 9:00 Uhr
+    const GRDAY_STOP = [ 8, 9*60 ];   // Sonntag, 9:00 Uhr
 
     function isGrandRaceDay() {
         let currentUtc = getCurrentUTC();
@@ -903,10 +907,6 @@ select.filter-control {
             (currentUtc[0] === GRDAY_START[0] && currentUtc[1] >= GRDAY_START[1]) ||    // Proper time of START day
             (currentUtc[0] === GRDAY_STOP[0] && currentUtc[1] <= GRDAY_STOP[1])         // Proper time on STOP day
     }
-
-    /*
-     * END: Borrowed from https://github.com/calamity-inc/motorfe.st/
-     */
 
     /* Map rotation types to checkbox Ids */
     const ROTATION_MAP = new Map([
