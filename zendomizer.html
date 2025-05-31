@@ -884,6 +884,27 @@ select.filter-control {
     /*
      * END: Borrowed from https://github.com/calamity-inc/motorfe.st/
      */
+    function getCurrentUTC()
+    {
+        let currentDate = new Date();
+        let currentDay = currentDate.getDay()
+        let currentMinutes = currentDate.getHours()*60 + currentDate.getMinutes();
+
+        return [currentDay, currentMinutes]
+    }
+
+        // Format ist [ <Tag>,  <Minuten> ], Tage werden von 1 (Montag) bis 7 (Sonntag) durchnumeriert.
+    // Die Zeiten unten müssen angepasst werden.
+    const GRDAY_START = [ 6, 9*60 ];  // Samstag, 9:00 Uhr
+    const GRDAY_STOP = [ 8, 9*60 ];   // Sonntag, 9:00 Uhr
+
+    function isGrandRaceDay() {
+        let currentUtc = getCurrentUTC();
+
+        return (GRDAY_START[0] < currentUtc[0] && currentUtc[0] < GRDAY_STOP[0]) ||     // Day in between, always the proper time
+            (currentUtc[0] === GRDAY_START[0] && currentUtc[1] >= GRDAY_START[1]) ||    // Proper time of START day
+            (currentUtc[0] === GRDAY_STOP[0] && currentUtc[1] <= GRDAY_STOP[1])         // Proper time on STOP day
+    }
 
     /* Map rotation types to checkbox Ids */
     const ROTATION_MAP = new Map([
@@ -1918,7 +1939,8 @@ select.filter-control {
       const currentEvent = ROTATION[getCurrentEventIndex()][0];
       
       const spacer = '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;';
-      const message = `🏁 Ready for <strong class="pulse-glow">${currentEvent}</strong>? Let's race! 🏁`;
+      const message = `🏁 Ready for <strong class="pulse-glow">${currentEvent}</strong>? Let's race! 🏁` + (isGrandRaceDay() ? " | It's modificator day 🏁" :
+          "");
       
       // Mehrfach Wiederholen, damit der Lauftext lang genug wird
       tickerContent.innerHTML = (message + spacer).repeat(8);
