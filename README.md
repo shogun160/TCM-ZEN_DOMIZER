@@ -43,13 +43,13 @@ And of course to the [motorfe.st project](https://github.com/calamity-inc/motorf
 ### 🎯 Grandrace-Selection
 ![Zendomizer Grandrace Selection](assets/pic/ZENdomizer_cat_selected.png)
 
-### 📋 ZENDomizer Selection "Your Pick"
+### 🎰 ZENDomizer Selection "Your Pick"
 ![Zendomizer Clipboard Result](assets/pic/ZENdomizer_selection.png)
 
-### 📋 ZENDomizer Selection "Your Pick" - only 2 categories selected
+### 🎰 ZENDomizer Selection "Your Pick" - only 2 categories selected
 ![Zendomizer Clipboard Result](assets/pic/ZENdomizer_2cat_selection.png)
 
-### 📋 ZENDomizer Smart Filers - always get cars and see ignored filters
+### 🎰 ZENDomizer Smart Filers - always get cars and see ignored filters
 <img src="assets/pic/ZENdomizer_ignored_filters.png" width="35%">
 
 ### 📊 Log
