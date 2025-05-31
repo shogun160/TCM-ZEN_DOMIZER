@@ -22,7 +22,7 @@ And of course a special thanka also to the [motorfe.st project](https://github.c
 - 🎰 **random picker - keep the experiance fresh** for The Crew Motorfest – perfect for having fun , doing challenges or streams
 - 🧠 **fully flexible** choose from several filters like country, brand or select just 2 categories to repeat the first selection (Rally --> Rally Raid --> Rally)
 - 🔒 **rocking solid** if no filter matches, the filters are ignored one after the other - ignored filters are displayed
-- 🏁 **Grandrace rotation** with automatic category selection (powered by motorfe.st) - can be de/-actived with the *Grandrace Catgerories* Button - Mainstage modifikator will be ignored
+- 🏁 **Grandrace rotation** with automatic category selection (powered by motorfe.st) - can be de-/actived with the *Grandrace Catgerories* Button - Mainstage modifikator will be ignored
 - 🎯 **advanced draw logic** with fallback system – ensures a valid result even with tight filters
 - 🔁 **blacklist system** prevents repeats by writing a blacklit to browsers internal storage – with automatic reset when all options are drawn
 - 🧹 **hotkeys for power users**:
