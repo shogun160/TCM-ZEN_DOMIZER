@@ -13,7 +13,7 @@ And of course to the [motorfe.st project](https://github.com/calamity-inc/motorf
 **Version:** v2.4  
 **Carlist:** Season 6 – 21.05.2025
 
-👉 Make sure to check out [Twitch](https://www.twitch.tv/xthepapapyr0) ,[Discord](https://discord.gg/mJKXNPTG) and this awesome TCM Site [Tunerfest](https://tunerfest.app/grand-races)
+👉 Make sure to check out [Twitch](https://www.twitch.tv/xthepapapyr0) & [Discord](https://discord.gg/mJKXNPTG).
 
 ---
 
