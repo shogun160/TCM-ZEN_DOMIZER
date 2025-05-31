@@ -49,7 +49,7 @@ And of course a special thanka also to the [motorfe.st project](https://github.c
 ### 🎰 ZENDomizer Selection "Your Pick" - only 2 categories selected
 ![Zendomizer Clipboard Result](assets/pic/ZENdomizer_2cat_selection.png)
 
-### 🎰 ZENDomizer Smart Filers - always get cars and see ignored filters
+### 🎰 ZENDomizer Smart Filters - always get cars and see ignored filters
 <img src="assets/pic/ZENdomizer_ignored_filters.png" width="35%">
 
 ### 📊 Log
