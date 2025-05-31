@@ -895,8 +895,8 @@ select.filter-control {
 
         // Format ist [ <Tag>,  <Minuten> ], Tage werden von 1 (Montag) bis 7 (Sonntag) durchnumeriert.
     // Die Zeiten unten müssen angepasst werden.
-    const GRDAY_START = [ 6, 9*60 ];  // Samstag, 9:00 Uhr
-    const GRDAY_STOP = [ 8, 9*60 ];   // Sonntag, 9:00 Uhr
+    const GRDAY_START = [ 6, 9*60 ];  // Samstag, 9:00 Uhr UTC
+    const GRDAY_STOP = [ 8, 9*60 ];   // Sonntag, 9:00 Uhr UTC
 
     function isGrandRaceDay() {
         let currentUtc = getCurrentUTC();
