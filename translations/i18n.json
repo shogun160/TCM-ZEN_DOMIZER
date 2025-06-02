@@ -1,0 +1,36 @@
+{
+  "de": {
+    "filter_country": "Land wählen",
+    "filter_brand": "Marke wählen",
+    "filter_era": "Zeitraum wählen",
+    "bike_no": "Nur Autos",
+    "bike_yes": "Nur Bikes",
+    "bike_all": "Alle Fahrzeuge",
+    "copied": "✅ In Zwischenablage kopiert!",
+    "not_enough_cars": "⚠️ Nicht genügend Fahrzeuge gefunden.",
+    "repeated": "🔁 Kategorie 3: <b>{category}</b> wurde wiederholt",
+    "ignored_filters": "Ignorierte Filter:",
+    "GRcat_autoselect_back": "🏁 automatische Auswahl wieder aktiv",
+    "GRcat_mainstage_manual": "🛑 Main Stage aktiv – manuelle Auswahl erforderlich",
+    "rotation_applied": "🏁 Neue Rotation: {event} | {categories}",
+    "ticker_base": "🏁 Bereit für <strong class='pulse-glow'>{event}</strong>? Let's race!",
+    "ticker_modificator": " Es ist Modificator-Tag 🏁"
+  },
+  "en": {
+    "filter_country": "Select country",
+    "filter_brand": "Select brand",
+    "filter_era": "Select era",
+    "bike_no": "Cars only",
+    "bike_yes": "Bikes only",
+    "bike_all": "All vehicles",
+    "copied": "✅ Copied to clipboard!",
+    "not_enough_cars": "⚠️ Not enough vehicles found.",
+    "repeated": "🔁 Category 3: <b>{category}</b> was repeated",
+    "ignored_filters": "Ignored filters:",
+    "GRcat_autoselect_back": "🏁 Auto selection re-enabled",
+    "GRcat_mainstage_manual": "🛑 Main Stage active – manual selection required",
+    "rotation_applied": "🏁 New rotation: {event} | {categories}",
+    "ticker_base": "🏁 Ready for <strong class='pulse-glow'>{event}</strong>? Let's race!",
+    "ticker_modificator": " It's modificator day 🏁"
+  }
+}
