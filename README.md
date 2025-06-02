@@ -19,7 +19,7 @@ And of course a special thank also to the [motorfe.st project](https://github.co
 
 ## 🔧 Core Features
 
-- 🎰 **random picker - keep the experiance fresh** for The Crew Motorfest – perfect for having fun , doing challenges or streams
+- 🎰 **random picker** for The Crew Motorfest – perfect for having fun , doing challenges or streams **keep the experience fresh**
 - 🧠 **fully flexible** choose from several filters like country, brand or select just 2 categories to repeat the first selection (Rally --> Rally Raid --> Rally)
 - 🔒 **rocking solid** if no filter matches, the filters are ignored one after the other - ignored filters are displayed
 - 🏁 **Grandrace rotation** with automatic category selection (powered by motorfe.st) - can be de-/actived with the *Grandrace Catgerories* Button - Mainstage modifikator will be ignored ⚠️ *rotation on saturday is currently not working correctly because of changing modificators and routes*
