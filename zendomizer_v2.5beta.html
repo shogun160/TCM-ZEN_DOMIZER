@@ -755,92 +755,89 @@ select.filter-control {
 <body>
 <div class="machine-wrapper"></div>
 <div class="layout"><div class="left-panel">
-    <div class="filter-wrapper">
-        <div class="filter-grid">
-            <button id="bikeFilterBtn" class="filter-control" onclick="toggleBikeFilter()">loading...</button>
-            <select id="countrySelect" class="filter-control" onchange="updateFilterHighlighting()">
-                <option value="">Land wählen</option>
-            </select>
-            <select id="brandSelect" class="filter-control" onchange="updateFilterHighlighting()">
-                <option value="">Marke wählen</option>
-            </select>
-            <select id="eraSelect" class="filter-control" onchange="updateFilterHighlighting()">
-                <option value="">Zeitraum wählen</option>
-            </select>
-        </div>
-    </div>
-    <div class="category-grid">
-      <!-- Reihe 1 -->
-      <div class="catWrapper">
-          <input type="checkbox" id="cat1" class="catCheckbox" onchange="handleCategoryClick(this)" value="Street Tier 1"/>
-          <label for="cat1" class="catLabel cat-yellow"><span>Street<br>Tier 1</span></label>
-      </div>
-      <div class="catWrapper">
-          <input type="checkbox" id="cat2" class="catCheckbox" onchange="handleCategoryClick(this)" value="Street Tier 2"/>
-          <label for="cat2" class="catLabel cat-yellow"><span>Street<br>Tier 2</span></label>
-      </div>
-      <div class="catWrapper">
-          <input type="checkbox" id="cat8" class="catCheckbox" onchange="handleCategoryClick(this)" value="Hypercar"/>
-          <label for="cat8" class="catLabel cat-yellow"><span>Hypercar</span></label>
-      </div>
-    
-      <!-- Reihe 2 -->
-      <div class="catWrapper">
-          <input type="checkbox" id="cat10" class="catCheckbox" onchange="handleCategoryClick(this)" value="Drift"/>
-          <label for="cat10" class="catLabel cat-yellow"><span>Drift</span></label>
-      </div>
-      <div class="catWrapper">
-          <input type="checkbox" id="cat3" class="catCheckbox" onchange="handleCategoryClick(this)" value="Racing"/>
-          <label for="cat3" class="catLabel cat-blue"><span>Racing</span></label>
-      </div>
-      <div class="catWrapper">
-          <input type="checkbox" id="cat4" class="catCheckbox" onchange="handleCategoryClick(this)" value="AGP"/>
-          <label for="cat4" class="catLabel cat-blue"><span>AGP</span></label>
-      </div>
-    
-      <!-- Reihe 3 -->
-      <div class="catWrapper">
-          <input type="checkbox" id="cat7" class="catCheckbox" onchange="handleCategoryClick(this)" value="Rally"/>
-          <label for="cat7" class="catLabel cat-orange"><span>Rally</span></label>
-      </div>
-      <div class="catWrapper">
-          <input type="checkbox" id="cat6" class="catCheckbox" onchange="handleCategoryClick(this)" value="Rally Raid"/>
-          <label for="cat6" class="catLabel cat-orange"><span>Rally Raid</span></label>
-      </div>
-      <div class="catWrapper">
-          <input type="checkbox" id="cat9" class="catCheckbox" onchange="handleCategoryClick(this)" value="Monster Truck"/>
-          <label for="cat9" class="catLabel cat-magenta"><span>Monster Truck</span></label>
-      </div>
-    
-      <!-- Reihe 4 -->
-      <div class="catWrapper">
-          <input type="checkbox" id="cat5" class="catCheckbox" onchange="handleCategoryClick(this)" value="Motocross"/>
-          <label for="cat5" class="catLabel cat-orange"><span>Motocross</span></label>
-      </div>
-      <div class="catWrapper">
-          <input type="checkbox" id="catGR" class="catCheckbox"/>
-          <label for="catGR" class="catLabel cat-green"><span>Grandrace<br>Categories</span></label>
-      </div>
-      <div class="catWrapper">
-        <button id="resetBtnGrid" class="catLabel cat-reset reset-special" onclick="resetSmart()"><span>RESET</span></button>
-      </div>
-    </div>        
+<div class="filter-wrapper">
+<div class="filter-grid">
+<button class="filter-control" id="bikeFilterBtn" onclick="toggleBikeFilter()">loading...</button>
+<select class="filter-control" id="countrySelect" onchange="updateFilterHighlighting()">
+<option value=""></option>
+</select>
+<select class="filter-control" id="brandSelect" onchange="updateFilterHighlighting()">
+<option value=""></option>
+</select>
+<select class="filter-control" id="eraSelect" onchange="updateFilterHighlighting()">
+<option value=""></option>
+</select>
 </div>
-    <div class="center-panel">
-        <div class="button-top">
-            <button id="goBtn" class="start-btn" onclick="handleGo()">GO</button>
-        </div>
-    </div>
-    <div class="right-panel">
-      <div class="results-panel">
-        <h2 id="yourPickTitle" class="your-pick-title standby">Your Pick</h2>
-        <div id="results"></div>
-      </div>
-      <!-- Grandrace Ticker kommt JETZT hier in die rechte Spalte -->
-      <div id="grandraceTicker" class="marquee">
-        <div id="grandraceContent"></div>
-      </div>
-    </div> <!-- Ende right-panel -->
+</div>
+<div class="category-grid">
+<!-- Reihe 1 -->
+<div class="catWrapper">
+<input class="catCheckbox" id="cat1" onchange="handleCategoryClick(this)" type="checkbox" value="Street Tier 1"/>
+<label class="catLabel cat-yellow" for="cat1"><span>Street<br/>Tier 1</span></label>
+</div>
+<div class="catWrapper">
+<input class="catCheckbox" id="cat2" onchange="handleCategoryClick(this)" type="checkbox" value="Street Tier 2"/>
+<label class="catLabel cat-yellow" for="cat2"><span>Street<br/>Tier 2</span></label>
+</div>
+<div class="catWrapper">
+<input class="catCheckbox" id="cat8" onchange="handleCategoryClick(this)" type="checkbox" value="Hypercar"/>
+<label class="catLabel cat-yellow" for="cat8"><span>Hypercar</span></label>
+</div>
+<!-- Reihe 2 -->
+<div class="catWrapper">
+<input class="catCheckbox" id="cat10" onchange="handleCategoryClick(this)" type="checkbox" value="Drift"/>
+<label class="catLabel cat-yellow" for="cat10"><span>Drift</span></label>
+</div>
+<div class="catWrapper">
+<input class="catCheckbox" id="cat3" onchange="handleCategoryClick(this)" type="checkbox" value="Racing"/>
+<label class="catLabel cat-blue" for="cat3"><span>Racing</span></label>
+</div>
+<div class="catWrapper">
+<input class="catCheckbox" id="cat4" onchange="handleCategoryClick(this)" type="checkbox" value="AGP"/>
+<label class="catLabel cat-blue" for="cat4"><span>AGP</span></label>
+</div>
+<!-- Reihe 3 -->
+<div class="catWrapper">
+<input class="catCheckbox" id="cat7" onchange="handleCategoryClick(this)" type="checkbox" value="Rally"/>
+<label class="catLabel cat-orange" for="cat7"><span>Rally</span></label>
+</div>
+<div class="catWrapper">
+<input class="catCheckbox" id="cat6" onchange="handleCategoryClick(this)" type="checkbox" value="Rally Raid"/>
+<label class="catLabel cat-orange" for="cat6"><span>Rally Raid</span></label>
+</div>
+<div class="catWrapper">
+<input class="catCheckbox" id="cat9" onchange="handleCategoryClick(this)" type="checkbox" value="Monster Truck"/>
+<label class="catLabel cat-magenta" for="cat9"><span>Monster Truck</span></label>
+</div>
+<!-- Reihe 4 -->
+<div class="catWrapper">
+<input class="catCheckbox" id="cat5" onchange="handleCategoryClick(this)" type="checkbox" value="Motocross"/>
+<label class="catLabel cat-orange" for="cat5"><span>Motocross</span></label>
+</div>
+<div class="catWrapper">
+<input class="catCheckbox" id="catGR" type="checkbox"/>
+<label class="catLabel cat-green" for="catGR"><span>Grandrace<br/>Categories</span></label>
+</div>
+<div class="catWrapper">
+<button class="catLabel cat-reset reset-special" id="resetBtnGrid" onclick="resetSmart()"><span>RESET</span></button>
+</div>
+</div>
+</div>
+<div class="center-panel">
+<div class="button-top">
+<button class="start-btn" id="goBtn" onclick="handleGo()">GO</button>
+</div>
+</div>
+<div class="right-panel">
+<div class="results-panel">
+<h2 class="your-pick-title standby" id="yourPickTitle">Your Pick</h2>
+<div id="results"></div>
+</div>
+<!-- Grandrace Ticker kommt JETZT hier in die rechte Spalte -->
+<div class="marquee" id="grandraceTicker">
+<div id="grandraceContent"></div>
+</div>
+</div> <!-- Ende right-panel -->
 </div>
 <script src="https://shogun160.github.io/TCM-ZEN_DOMIZER/cars/vehicles.json" type="application/json"></script>
 <script>
@@ -852,7 +849,7 @@ select.filter-control {
         ["Kahakuloa", "ST1 > Rally > ST2"],
         ["Kalaeloa", "AGP > Hyper > ST1"],
         ["Mauna Pele", "Racing > AGP > ST2"],
-        ["Wahiawa Fields", "AGP > Racing > Rally", "Main Stage"],
+        ["Wahiawa Fields", "AGP > Racing > Rally", t("main_stage")],
         ["Diamond Head", "AGP > Rally > Racing"],
         ["Kaena Point", "ST1 > Motocross > RR"],
         ["Diamond Head", "Racing > Hyper > ST2"],
@@ -860,7 +857,7 @@ select.filter-control {
         ["Kaneohe", "RR > ST1 > Racing"],
         ["Haleiwa", "Hyper > Racing > ST2"],
         ["Ma'akua Black Beach", "ST2 > RR > Racing"],
-        ["Haleiwa", "Rally > AGP > Racing", "Main Stage"],
+        ["Haleiwa", "Rally > AGP > Racing", t("main_stage")],
         ["Waikiki", "Racing > Hyper > ST2"],
         ["Wailea", "AGP > Hyper > Racing"],
         ["Kalaeloa", "Motocross > Rally/Plane > Drift"],
@@ -868,7 +865,7 @@ select.filter-control {
         ["Mauna Pele", "Rally > ST1 > Hyper"],
         ["Kealaloloa", "ST1 > RR > Hyper"],
         ["Nuuanu - Punchbowl", "Motocross > Monster > Rally"],
-        ["Kahuku", "Racing > Rally > AGP", "Main Stage"],
+        ["Kahuku", "Racing > Rally > AGP", t("main_stage")],
         ["Ma'akua Black Beach", "Hyper > ST2 > AGP"],
         ["Wailea", "ST2 > Hyper > Racing"],
         ["Kula", "Racing > AGP > ST2"],
@@ -938,7 +935,7 @@ select.filter-control {
     
       const index = getCurrentEventIndex();
       const entry = ROTATION[index];
-      const isMainStage = entry[2] === "Main Stage";
+      const isMainStage = entry[2] === t("main_stage");
     
       // 🟥 Wenn Main Stage neu erkannt → einmaliger Reset
       if (!previousMainStage && isMainStage && grandraceActive) {
@@ -1021,7 +1018,7 @@ select.filter-control {
     
         bikeFilterMode = "no_bike";
         const bfb = document.getElementById("bikeFilterBtn");
-        bfb.innerText = "Nur Autos";
+        bfb.innerText = t("bike_no");
         bfb.classList.add("bike-active");
     
         updateFilterHighlighting();
@@ -1230,7 +1227,7 @@ select.filter-control {
     
       bikeFilterMode = "no_bike";
       const bfb = document.getElementById("bikeFilterBtn");
-      bfb.innerText = "Nur Autos";
+      bfb.innerText = t("bike_no");
       bfb.classList.add("bike-active");
     
       const checkboxes = document.querySelectorAll('.catCheckbox');
@@ -1289,15 +1286,15 @@ select.filter-control {
       const btn = document.getElementById("bikeFilterBtn");
       if (bikeFilterMode === 'no_bike') {
         bikeFilterMode = 'bike';
-        btn.innerText = "Nur Bikes";
+        btn.innerText = t("bike_yes");
         btn.classList.add("bike-active");
       } else if (bikeFilterMode === 'bike') {
         bikeFilterMode = 'all';
-        btn.innerText = "Alle Fahrzeuge";
+        btn.innerText = t("bike_all");
         btn.classList.remove("bike-active");
       } else {
         bikeFilterMode = 'no_bike';
-        btn.innerText = "Nur Autos";
+        btn.innerText = t("bike_no");
         btn.classList.add("bike-active");
       }
       if (!drawExecuted) updateResetButtonState();
@@ -1324,7 +1321,7 @@ select.filter-control {
       resultsDiv.innerHTML = '';
 
       if (selectedCategories.length < 2) {
-        resultsDiv.innerHTML = "<p>⚠️ Bitte mindestens 2 Kategorien auswählen.</p>";
+        resultsDiv.innerHTML = `<p>${t("no_selection")}</p>`;
         return;
       }
       if (selectedCategories.length === 2) {
@@ -1360,7 +1357,11 @@ select.filter-control {
             );
             if (fallback.length > 0) {
               finalList = fallback;
-              ignored.push(bikeFilterMode === 'no_bike' ? 'Nur Autos' : 'Nur Bikes');
+              ignored.push(
+  bikeFilterMode === 'no_bike' ? t("bike_no") :
+  bikeFilterMode === 'bike' ? t("bike_yes") :
+  t("bike_all")
+);
             }
           }
         }
@@ -1375,7 +1376,11 @@ select.filter-control {
           );
           if (fallback.length > 0) {
             finalList = fallback;
-            ignored.push(`Zeitraum (${filters.era})`);
+            ignored.push(
+  bikeFilterMode === 'no_bike' ? t("bike_no") :
+  bikeFilterMode === 'bike' ? t("bike_yes") :
+  t("bike_all")
+);
           }
         }
 
@@ -1388,7 +1393,11 @@ select.filter-control {
           );
           if (fallback.length > 0) {
             finalList = fallback;
-            ignored.push(`Marke (${filters.brand})`);
+            ignored.push(
+  bikeFilterMode === 'no_bike' ? t("bike_no") :
+  bikeFilterMode === 'bike' ? t("bike_yes") :
+  t("bike_all")
+);
           }
         }
 
@@ -1401,7 +1410,11 @@ select.filter-control {
           );
           if (fallback.length > 0) {
             finalList = fallback;
-            ignored.push(`Land (${filters.country})`);
+            ignored.push(
+  bikeFilterMode === 'no_bike' ? t("bike_no") :
+  bikeFilterMode === 'bike' ? t("bike_yes") :
+  t("bike_all")
+);
           }
         }
 
@@ -1413,9 +1426,21 @@ select.filter-control {
           );
           if (fallback.length > 0) {
             finalList = fallback;
-            if (filters.era) ignored.push(`Zeitraum (${filters.era})`);
-            if (filters.brand) ignored.push(`Marke (${filters.brand})`);
-            if (filters.country) ignored.push(`Land (${filters.country})`);
+            if (filters.era) ignored.push(
+  bikeFilterMode === 'no_bike' ? t("bike_no") :
+  bikeFilterMode === 'bike' ? t("bike_yes") :
+  t("bike_all")
+);
+            if (filters.brand) ignored.push(
+  bikeFilterMode === 'no_bike' ? t("bike_no") :
+  bikeFilterMode === 'bike' ? t("bike_yes") :
+  t("bike_all")
+);
+            if (filters.country) ignored.push(
+  bikeFilterMode === 'no_bike' ? t("bike_no") :
+  bikeFilterMode === 'bike' ? t("bike_yes") :
+  t("bike_all")
+);
           }
         }
 
@@ -1424,7 +1449,11 @@ select.filter-control {
           const fallback = vehicles.filter(v => v.category === cat);
           if (fallback.length > 0) {
             finalList = fallback;
-            ignored.push('Alle');
+            ignored.push(
+  bikeFilterMode === 'no_bike' ? t("bike_no") :
+  bikeFilterMode === 'bike' ? t("bike_yes") :
+  t("bike_all")
+);
           }
         }
 
@@ -1449,7 +1478,7 @@ select.filter-control {
       }
 
       if (chosen.length !== 3) {
-        resultsDiv.innerHTML = "<p>⚠️ Nicht genügend Fahrzeuge gefunden.</p>";
+        resultsDiv.innerHTML = `<p>${t("not_enough_cars")}</p>`;
         return;
       }
 
@@ -1494,7 +1523,7 @@ select.filter-control {
         const warnDiv = slot.querySelector('.slot-warning');
         if (warnDiv) {
           warnDiv.innerHTML = v.ignoredFilters?.length
-            ? `Ignorierte Filter: ${v.ignoredFilters.join(', ')}`
+            ? `${t("ignored_filters")}: ${v.ignoredFilters.join(', ')}`
             : '';
         }
       });
@@ -1575,7 +1604,7 @@ select.filter-control {
     
         nameDiv.textContent = `${v.brand} ${v.model} (${v.year})`;
         warnDiv.innerHTML = v.ignoredFilters.length
-          ? `Ignorierte Filter: ${v.ignoredFilters.join(', ')}`
+          ? `${t("ignored_filters")}: ${v.ignoredFilters.join(', ')}`
           : '';
     
         slot.classList.remove('empty', 'slot-yellow', 'slot-blue', 'slot-orange', 'slot-magenta');
@@ -1627,11 +1656,11 @@ select.filter-control {
       bikeFilterMode = "no_bike";
       const initialIndex = getCurrentEventIndex();
       const initialEntry = ROTATION[initialIndex];
-      previousMainStage = initialEntry[2] === "Main Stage";
+      previousMainStage = initialEntry[2] === t("main_stage");
 
       const bfb = document.getElementById("bikeFilterBtn");
       if (bfb) {
-        bfb.innerText = "Nur Autos";
+        bfb.innerText = t("bike_no");
         bfb.classList.add("bike-active"); // 💡 Button grün glühen lassen
       }
     
@@ -1799,7 +1828,11 @@ select.filter-control {
           (!filters.era || v.era === filters.era) &&
           (!filters.brand || v.brand === filters.brand)
         );
-        if (finalList.length > 0) ignored.push("Bike-Filter");
+        if (finalList.length > 0) ignored.push(
+  bikeFilterMode === 'no_bike' ? t("bike_no") :
+  bikeFilterMode === 'bike' ? t("bike_yes") :
+  t("bike_all")
+);
       }
     
       if (finalList.length === 0 && filters.era) {
@@ -1809,7 +1842,11 @@ select.filter-control {
           (!filters.country || v.country === filters.country) &&
           (!filters.brand || v.brand === filters.brand)
         );
-        if (finalList.length > 0) ignored.push(`Zeitraum (${filters.era})`);
+        if (finalList.length > 0) ignored.push(
+  bikeFilterMode === 'no_bike' ? t("bike_no") :
+  bikeFilterMode === 'bike' ? t("bike_yes") :
+  t("bike_all")
+);
       }
     
       if (finalList.length === 0 && filters.brand) {
@@ -1819,7 +1856,11 @@ select.filter-control {
           (!filters.country || v.country === filters.country) &&
           (!filters.era || v.era === filters.era)
         );
-        if (finalList.length > 0) ignored.push(`Marke (${filters.brand})`);
+        if (finalList.length > 0) ignored.push(
+  bikeFilterMode === 'no_bike' ? t("bike_no") :
+  bikeFilterMode === 'bike' ? t("bike_yes") :
+  t("bike_all")
+);
       }
     
       if (finalList.length === 0 && filters.country) {
@@ -1829,7 +1870,11 @@ select.filter-control {
           (!filters.era || v.era === filters.era) &&
           (!filters.brand || v.brand === filters.brand)
         );
-        if (finalList.length > 0) ignored.push(`Land (${filters.country})`);
+        if (finalList.length > 0) ignored.push(
+  bikeFilterMode === 'no_bike' ? t("bike_no") :
+  bikeFilterMode === 'bike' ? t("bike_yes") :
+  t("bike_all")
+);
       }
     
       if (finalList.length === 0) {
@@ -1838,15 +1883,31 @@ select.filter-control {
           (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike))
         );
         if (finalList.length > 0) {
-          if (filters.era) ignored.push(`Zeitraum (${filters.era})`);
-          if (filters.brand) ignored.push(`Marke (${filters.brand})`);
-          if (filters.country) ignored.push(`Land (${filters.country})`);
+          if (filters.era) ignored.push(
+  bikeFilterMode === 'no_bike' ? t("bike_no") :
+  bikeFilterMode === 'bike' ? t("bike_yes") :
+  t("bike_all")
+);
+          if (filters.brand) ignored.push(
+  bikeFilterMode === 'no_bike' ? t("bike_no") :
+  bikeFilterMode === 'bike' ? t("bike_yes") :
+  t("bike_all")
+);
+          if (filters.country) ignored.push(
+  bikeFilterMode === 'no_bike' ? t("bike_no") :
+  bikeFilterMode === 'bike' ? t("bike_yes") :
+  t("bike_all")
+);
         }
       }
     
       if (finalList.length === 0) {
         finalList = vehicles.filter(v => v.category === category);
-        if (finalList.length > 0) ignored.push("Alle Filter");
+        if (finalList.length > 0) ignored.push(
+  bikeFilterMode === 'no_bike' ? t("bike_no") :
+  bikeFilterMode === 'bike' ? t("bike_yes") :
+  t("bike_all")
+);
       }
     
       if (finalList.length === 0) return null; // ❌ gar kein Fahrzeug gefunden
@@ -1913,9 +1974,9 @@ select.filter-control {
       if (filters.brand) applied.push(`Marke (${filters.brand})`);
       if (filters.country) applied.push(`Land (${filters.country})`);
       if (filters.era) applied.push(`Zeitraum (${filters.era})`);
-      if (bikeFilterMode === "no_bike") applied.push("Nur Autos");
-      else if (bikeFilterMode === "bike") applied.push("Nur Bikes");
-      else applied.push("Alle Fahrzeuge");
+      if (bikeFilterMode === "no_bike") applied.push(t("bike_no"));
+      else if (bikeFilterMode === "bike") applied.push(t("bike_yes"));
+      else applied.push(t("bike_all"));
     
       // 🧾 Ziehung loggen
      window.drawLog.push({
@@ -2059,6 +2120,37 @@ select.filter-control {
       }
     });
   </script>
-<div id="toast" class="toast">✅ In Zwischenablage kopiert!</div>
+<div class="toast" id="toast">✅ In Zwischenablage kopiert!</div>
+
+<script>
+  const langCycle = ["de", "en"];
+  function cycleLanguage() {
+    const currentIndex = langCycle.indexOf(currentLang);
+    const nextLang = langCycle[(currentIndex + 1) % langCycle.length];
+    applyLanguage(nextLang);
+    updateLangButton();
+  }
+
+  function updateLangButton() {
+    const btn = document.getElementById("langBtn");
+    btn.textContent = currentLang === "de" ? "🇩🇪" : "🇬🇧";
+  }
+
+  window.addEventListener("load", () => {
+    const btn = document.createElement("button");
+    btn.id = "langBtn";
+    btn.style.position = "fixed";
+    btn.style.top = "10px";
+    btn.style.right = "10px";
+    btn.style.zIndex = "5000";
+    btn.style.fontSize = "20px";
+    btn.style.border = "none";
+    btn.style.background = "transparent";
+    btn.style.cursor = "pointer";
+    btn.onclick = cycleLanguage;
+    document.body.appendChild(btn);
+    updateLangButton();
+  });
+</script>
 </body>
 </html>
