@@ -759,13 +759,13 @@ select.filter-control {
         <div class="filter-grid">
             <button id="bikeFilterBtn" class="filter-control" onclick="toggleBikeFilter()">loading...</button>
             <select id="countrySelect" class="filter-control" onchange="updateFilterHighlighting()">
-                <option value="">Land wählen</option>
+                <option value="">select country</option>
             </select>
             <select id="brandSelect" class="filter-control" onchange="updateFilterHighlighting()">
-                <option value="">Marke wählen</option>
+                <option value="">select brand</option>
             </select>
             <select id="eraSelect" class="filter-control" onchange="updateFilterHighlighting()">
-                <option value="">Zeitraum wählen</option>
+                <option value="">select period</option>
             </select>
         </div>
     </div>
@@ -1021,7 +1021,7 @@ select.filter-control {
     
         bikeFilterMode = "no_bike";
         const bfb = document.getElementById("bikeFilterBtn");
-        bfb.innerText = "Nur Autos";
+        bfb.innerText = "cars only";
         bfb.classList.add("bike-active");
     
         updateFilterHighlighting();
@@ -1230,7 +1230,7 @@ select.filter-control {
     
       bikeFilterMode = "no_bike";
       const bfb = document.getElementById("bikeFilterBtn");
-      bfb.innerText = "Nur Autos";
+      bfb.innerText = "cars only";
       bfb.classList.add("bike-active");
     
       const checkboxes = document.querySelectorAll('.catCheckbox');
@@ -1289,15 +1289,15 @@ select.filter-control {
       const btn = document.getElementById("bikeFilterBtn");
       if (bikeFilterMode === 'no_bike') {
         bikeFilterMode = 'bike';
-        btn.innerText = "Nur Bikes";
+        btn.innerText = "bikes only";
         btn.classList.add("bike-active");
       } else if (bikeFilterMode === 'bike') {
         bikeFilterMode = 'all';
-        btn.innerText = "Alle Fahrzeuge";
+        btn.innerText = "all vehicles";
         btn.classList.remove("bike-active");
       } else {
         bikeFilterMode = 'no_bike';
-        btn.innerText = "Nur Autos";
+        btn.innerText = "cars only";
         btn.classList.add("bike-active");
       }
       if (!drawExecuted) updateResetButtonState();
@@ -1360,7 +1360,7 @@ select.filter-control {
             );
             if (fallback.length > 0) {
               finalList = fallback;
-              ignored.push(bikeFilterMode === 'no_bike' ? 'Nur Autos' : 'Nur Bikes');
+              ignored.push(bikeFilterMode === 'no_bike' ? 'cars only' : 'bikes only');
             }
           }
         }
@@ -1631,7 +1631,7 @@ select.filter-control {
 
       const bfb = document.getElementById("bikeFilterBtn");
       if (bfb) {
-        bfb.innerText = "Nur Autos";
+        bfb.innerText = "cars only";
         bfb.classList.add("bike-active"); // 💡 Button grün glühen lassen
       }
     
@@ -1913,9 +1913,9 @@ select.filter-control {
       if (filters.brand) applied.push(`Marke (${filters.brand})`);
       if (filters.country) applied.push(`Land (${filters.country})`);
       if (filters.era) applied.push(`Zeitraum (${filters.era})`);
-      if (bikeFilterMode === "no_bike") applied.push("Nur Autos");
-      else if (bikeFilterMode === "bike") applied.push("Nur Bikes");
-      else applied.push("Alle Fahrzeuge");
+      if (bikeFilterMode === "no_bike") applied.push("cars only");
+      else if (bikeFilterMode === "bike") applied.push("bikes only");
+      else applied.push("all vehicles");
     
       // 🧾 Ziehung loggen
      window.drawLog.push({
