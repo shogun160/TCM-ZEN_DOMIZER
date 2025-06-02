@@ -111,7 +111,7 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 12px;
-      margin-top: 0px;     /* höher schieben */
+      margin-top: 0px;     /* 🟢 höher schieben */
       margin-bottom: 0px;  /* optional: Luft unten */
     }
     /* === NEON-GRUNDSTIL KACHEL === */
@@ -881,7 +881,9 @@ select.filter-control {
     {
         return ((((new Date() / 1000) - ROTATION_START) % ROTATION_DURATION) / EVENT_DURATION) | 0;
     }
-
+    /*
+     * END: Borrowed from https://github.com/calamity-inc/motorfe.st/
+     */
     function getCurrentUTC()
     {
         let currentDate = new Date();
@@ -891,14 +893,10 @@ select.filter-control {
         return [currentDay, currentMinutes]
     }
 
-        /*
-     * END: Borrowed from https://github.com/calamity-inc/motorfe.st/
-     */
-
-    // Format ist [ <Tag>,  <Minuten> ], Tage werden von 1 (Montag) bis 7 (Sonntag) durchnumeriert.
+        // Format ist [ <Tag>,  <Minuten> ], Tage werden von 1 (Montag) bis 7 (Sonntag) durchnumeriert.
     // Die Zeiten unten müssen angepasst werden.
-    const GRDAY_START = [ 6, 9*60 ];  // Samstag, 9:00 Uhr
-    const GRDAY_STOP = [ 8, 9*60 ];   // Sonntag, 9:00 Uhr
+    const GRDAY_START = [ 6, 9*60 ];  // Samstag, 9:00 Uhr UTC
+    const GRDAY_STOP = [ 8, 9*60 ];   // Sonntag, 9:00 Uhr UTC
 
     function isGrandRaceDay() {
         let currentUtc = getCurrentUTC();
@@ -1941,7 +1939,7 @@ select.filter-control {
       const currentEvent = ROTATION[getCurrentEventIndex()][0];
       
       const spacer = '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;';
-      const message = `🏁 Ready for <strong class="pulse-glow">${currentEvent}</strong>? Let's race! 🏁` + (isGrandRaceDay() ? " | It's modificator day 🏁" :
+      const message = `🏁 Ready for <strong class="pulse-glow">${currentEvent}</strong>? Let's race! 🏁` + (isGrandRaceDay() ? " It's modificator day 🏁" :
           "");
       
       // Mehrfach Wiederholen, damit der Lauftext lang genug wird
@@ -2007,11 +2005,11 @@ select.filter-control {
       // SHIFT + ? → Hotkey-Legende anzeigen
       if (e.shiftKey && (e.key === '?' || e.key.toLowerCase() === 'h')) {
         showToast(
-          "🎛️ Hotkey-Übersicht<br>" +
-          "📋 Shift + L: Log anzeigen<br>" +
-          "🧹 Shift + R: Reset (Blacklist & Zähler)<br>" +
-          "🗑️ Shift + X: Log löschen<br>" +
-          "✏️ Shift + G: Dev Logging an/aus<br>",
+          "🎛️ Hotkeys<br>" +
+          "📋 Shift + L: show Log<br>" +
+          "🧹 Shift + R: reset (blacklist & counter)<br>" +
+          "🗑️ Shift + X: delete log<br>" +
+          "✏️ Shift + G: dev Logging on/off<br>",
           "#0af", 30000); // 30 Sekunden
       }
       // SHIFT + L → Ziehlog anzeigen
