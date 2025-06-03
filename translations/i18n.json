@@ -47,7 +47,7 @@
     "draw_reset": "↩️ draw cleared",
     "filters_reset": "↩️ filters cleared",
     "blacklist_cleared": "🧹 Blacklist cleared!",
-    "drawlog_cleared": "🗑️ Draw log cleared"
+    "drawlog_cleared": "🗑️ Draw log cleared",
     "rotation_applied_manual": "🏁 Grandrace rotation applied",
     "rotation_applied_auto": "🏁 New rotation"
   }
