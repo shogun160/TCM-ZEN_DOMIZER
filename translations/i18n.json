@@ -16,9 +16,12 @@
     "ignored_filters": "Ignorierte Filter:",
     "GRcat_autoselect_back": "🏁 automatische Kategorien wieder aktiv",
     "GRcat_mainstage_manual": "🛑 Main Stage aktiv – manuelle Auswahl erforderlich",
+    "GRcat_reset_all": "↩️ Grandrace Kategorien & Filter zurückgesetzt",
     "rotation_applied": "🏁 Neue Rotation: {event} | {categories}",
     "ticker_base": "🏁 Bereit für <strong class='pulse-glow'>{event}</strong>? Let's race!",
-    "ticker_modificator": " Es ist Modifikatortag 🏁"
+    "ticker_modificator": " Es ist Modifikatortag 🏁",
+    "draw_reset": "↩️ Ziehung zurückgesetzt",
+    "filters_reset": "↩️ Filter zurückgesetzt!"
   },
   "en": {
     "filter_country": "Select country",
@@ -33,8 +36,13 @@
     "ignored_filters": "Ignored filters:",
     "GRcat_autoselect_back": "🏁 Auto selection for Gradnrace categories re-enabled",
     "GRcat_mainstage_manual": "🛑 Main Stage active – manual selection required",
+    "GRcat_reset_all": "GRcat_reset_all": "↩️ Reset Grandrace categories and filters",
     "rotation_applied": "🏁 New rotation: {event} | {categories}",
     "ticker_base": "🏁 Ready for <strong class='pulse-glow'>{event}</strong>? Let's race!",
-    "ticker_modificator": " It's modificator day 🏁"
+    "ticker_modificator": " It's modificator day 🏁",
+    "draw_reset": "↩️ reset draw",
+    "filters_reset": "↩️ reset filters"
+
+
   }
 }
