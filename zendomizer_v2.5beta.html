@@ -626,7 +626,7 @@ select.filter-control {
   mix-blend-mode: screen;
 }
 .slot-standby {
-  color: #660066; /* noch dunkler: tiefes dunkelpink/violett */
+  color: #660066; /* noch dunkler: tiefes dunkelpink/viot */
   border-color: #660066;
   box-shadow: 0 0 2px #660066;
   background: rgba(0, 0, 0, 0.7); /* etwas dunklerer Hintergrund */
@@ -652,7 +652,7 @@ select.filter-control {
 }
 
 .slot-standby .slot-badge {
-  color: #3d2233;         /* dunkler, matter Violettton statt pink #993366*/
+  color: #3d2233;         /* dunkler, matter Viotton statt pink #993366*/
   text-shadow: none;      /* kein Leuchteffekt */
   opacity: 0.4;           /* leicht transparent für den „aus“-Effekt */
 }
@@ -853,6 +853,7 @@ select.filter-control {
   let currentLang = localStorage.getItem("zendomizerLang") || "de";
   let translations = {};
   let availableLanguages = [];
+  let bikeFilterMode = "no_bike";
 
   function t(key, vars = {}) {
     let str = translations?.[currentLang]?.[key] || key;
