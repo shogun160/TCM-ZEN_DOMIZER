@@ -873,6 +873,11 @@ select.filter-control {
     return key ? t(key) : value;
   }
 
+  function translateCountry(value) {
+    const key = "country_" + (value || "").toLowerCase().replace(/\s+/g, "_");
+    return t(key);
+  }
+
   fetch("translations/i18n.json")
     .then(res => res.json())
     .then(data => {
@@ -1327,7 +1332,7 @@ select.filter-control {
       [...countrySet].sort().forEach(country => {
         const option = document.createElement("option");
         option.value = country;
-        option.textContent = countryRenameMap[country] || country;
+        option.textContent = translateCountry(country);
         countrySelect.appendChild(option);
       });
     
@@ -1541,7 +1546,7 @@ select.filter-control {
           );
           if (fallback.length > 0) {
             finalList = fallback;
-            ignored.push(`${t("label_country")} (${filters.country})`);
+            ignored.push(`${t("label_country")} (${translateCountry(filters.country)})`);
           }
         }
 
@@ -1555,7 +1560,7 @@ select.filter-control {
             finalList = fallback;
             if (filters.era) ignored.push(`${t("label_era")} (${translateEra(filters.era)})`);
             if (filters.brand) ignored.push(`${t("label_brand")} (${filters.brand})`);
-            if (filters.country) ignored.push(`${t("label_country")} (${filters.country})`);
+            if (filters.country) ignored.push(`${t("label_country")} (${translateCountry(filters.country)})`);
           }
         }
 
@@ -1969,7 +1974,7 @@ select.filter-control {
           (!filters.era || v.era === filters.era) &&
           (!filters.brand || v.brand === filters.brand)
         );
-        if (finalList.length > 0) ignored.push(`${t("label_country")} (${filters.country})`);
+        if (finalList.length > 0) ignored.push(`${t("label_country")} (${translateCountry(filters.country)})`);
       }
     
       if (finalList.length === 0) {
@@ -1980,7 +1985,7 @@ select.filter-control {
         if (finalList.length > 0) {
           if (filters.era) ignored.push(`${t("label_era")} (${translateEra(filters.era)})`);
           if (filters.brand) ignored.push(`${t("label_brand")} (${filters.brand})`);
-          if (filters.country) ignored.push(`${t("label_country")} (${filters.country})`);
+          if (filters.country) ignored.push(`${t("label_country")} (${translateCountry(filters.country)})`);
         }
       }
     
