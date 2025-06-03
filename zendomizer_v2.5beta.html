@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>ZENDOMIZER v2.5 | Vehicle list 05/2024</title>
+<title>ZENDOMIZER v2.6 | Vehicle list 05/2024</title>
 <style>
     body {
       font-family: 'Orbitron', sans-serif;
@@ -15,6 +15,12 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+    }
+
+    .lang-button.active {
+      outline: 2px solid #00E5FF;
+      border-radius: 6px;
+      transition: all 0.3s ease;
     }
 
     #grandraceTicker {
@@ -759,13 +765,13 @@ select.filter-control {
         <div class="filter-grid">
             <button id="bikeFilterBtn" class="filter-control" onclick="toggleBikeFilter()">loading...</button>
             <select id="countrySelect" class="filter-control" onchange="updateFilterHighlighting()">
-                <option value=""></option>
+                <option value=""></option> <!-- Text wird per JS gesetzt: t("filter_country") -->
             </select>
             <select id="brandSelect" class="filter-control" onchange="updateFilterHighlighting()">
-                <option value=""></option>
+                <option value=""></option> <!-- Text wird per JS gesetzt: t("filter_brand") -->
             </select>
             <select id="eraSelect" class="filter-control" onchange="updateFilterHighlighting()">
-                <option value=""></option>
+                <option value=""></option> <!-- Text wird per JS gesetzt: t("filter_era") -->
             </select>
         </div>
     </div>
@@ -844,6 +850,83 @@ select.filter-control {
 </div>
 <script src="https://shogun160.github.io/TCM-ZEN_DOMIZER/cars/vehicles.json" type="application/json"></script>
 <script>
+  let currentLang = localStorage.getItem("zendomizerLang") || "de";
+  let translations = {};
+  let availableLanguages = [];
+
+  function t(key, vars = {}) {
+    let str = translations?.[currentLang]?.[key] || key;
+    for (const [k, v] of Object.entries(vars)) {
+      str = str.replaceAll(`{${k}}`, v);
+    }
+    return str;
+  }
+
+  fetch("translations/i18n.json")
+    .then(res => res.json())
+    .then(data => {
+      translations = data;
+      availableLanguages = Object.keys(data.meta || {});
+      createLanguageSwitcher();
+      applyTranslations();
+    })
+    .catch(err => {
+      console.error("❌ Fehler beim Laden der Übersetzungen:", err);
+    });
+  function createLanguageSwitcher() {
+    const container = document.createElement("div");
+    container.id = "langSwitcher";
+    container.style.position = "absolute";
+    container.style.top = "12px";
+    container.style.right = "12px";
+    container.style.zIndex = "500";
+    container.style.display = "flex";
+    container.style.gap = "12px";
+
+    for (const lang of availableLanguages) {
+      const meta = translations.meta[lang];
+      const btn = document.createElement("button");
+      btn.innerHTML = meta.flag || lang.toUpperCase();
+      btn.title = meta.label || lang;
+      btn.style.fontSize = "28px";
+      btn.style.cursor = "pointer";
+      btn.style.background = "transparent";
+      btn.style.border = "none";
+
+      btn.classList.add("lang-button");
+      if (lang === currentLang) {
+        btn.classList.add("active");
+      }
+
+
+      btn.onclick = () => {
+        currentLang = lang;
+        localStorage.setItem("zendomizerLang", lang);
+        applyTranslations();
+        document.querySelectorAll(".lang-button").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+      };
+
+      container.appendChild(btn);
+    }
+
+    document.body.appendChild(container);
+  }
+
+
+  function applyTranslations() {
+    document.querySelector("#countrySelect option[value='']").textContent = t("filter_country");
+    document.querySelector("#brandSelect option[value='']").textContent = t("filter_brand");
+    document.querySelector("#eraSelect option[value='']").textContent = t("filter_era");
+
+    const bfb = document.getElementById("bikeFilterBtn");
+    if (bfb) {
+      if (bikeFilterMode === "no_bike") bfb.innerText = t("bike_no");
+      else if (bikeFilterMode === "bike") bfb.innerText = t("bike_yes");
+      else bfb.innerText = t("bike_all");
+    }
+  }
+
     /*
      * BEGIN: Borrowed from https://github.com/calamity-inc/motorfe.st/
      */
@@ -852,7 +935,7 @@ select.filter-control {
         ["Kahakuloa", "ST1 > Rally > ST2"],
         ["Kalaeloa", "AGP > Hyper > ST1"],
         ["Mauna Pele", "Racing > AGP > ST2"],
-        ["Wahiawa Fields", "AGP > Racing > Rally", t("main_stage")],
+        ["Wahiawa Fields", "AGP > Racing > Rally", "Main Stage"],
         ["Diamond Head", "AGP > Rally > Racing"],
         ["Kaena Point", "ST1 > Motocross > RR"],
         ["Diamond Head", "Racing > Hyper > ST2"],
@@ -860,7 +943,7 @@ select.filter-control {
         ["Kaneohe", "RR > ST1 > Racing"],
         ["Haleiwa", "Hyper > Racing > ST2"],
         ["Ma'akua Black Beach", "ST2 > RR > Racing"],
-        ["Haleiwa", "Rally > AGP > Racing", t("main_stage")],
+        ["Haleiwa", "Rally > AGP > Racing", "Main Stage"],
         ["Waikiki", "Racing > Hyper > ST2"],
         ["Wailea", "AGP > Hyper > Racing"],
         ["Kalaeloa", "Motocross > Rally/Plane > Drift"],
@@ -868,7 +951,7 @@ select.filter-control {
         ["Mauna Pele", "Rally > ST1 > Hyper"],
         ["Kealaloloa", "ST1 > RR > Hyper"],
         ["Nuuanu - Punchbowl", "Motocross > Monster > Rally"],
-        ["Kahuku", "Racing > Rally > AGP", t("main_stage")],
+        ["Kahuku", "Racing > Rally > AGP", "Main Stage"],
         ["Ma'akua Black Beach", "Hyper > ST2 > AGP"],
         ["Wailea", "ST2 > Hyper > Racing"],
         ["Kula", "Racing > AGP > ST2"],
@@ -938,7 +1021,7 @@ select.filter-control {
     
       const index = getCurrentEventIndex();
       const entry = ROTATION[index];
-      const isMainStage = entry[2] === t("main_stage");
+      const isMainStage = entry[2] === "Main Stage";
     
       // 🟥 Wenn Main Stage neu erkannt → einmaliger Reset
       if (!previousMainStage && isMainStage && grandraceActive) {
@@ -1297,7 +1380,7 @@ select.filter-control {
         btn.classList.remove("bike-active");
       } else {
         bikeFilterMode = 'no_bike';
-        btn.innerText = t("bike_no");
+        btn.innerText = "Nur Autos";
         btn.classList.add("bike-active");
       }
       if (!drawExecuted) updateResetButtonState();
@@ -1324,7 +1407,7 @@ select.filter-control {
       resultsDiv.innerHTML = '';
 
       if (selectedCategories.length < 2) {
-        resultsDiv.innerHTML = `<p>${t("no_selection")}</p>`;
+        resultsDiv.innerHTML = "<p>⚠️ Bitte mindestens 2 Kategorien auswählen.</p>";
         return;
       }
       if (selectedCategories.length === 2) {
@@ -1360,11 +1443,7 @@ select.filter-control {
             );
             if (fallback.length > 0) {
               finalList = fallback;
-              ignored.push(
-  bikeFilterMode === 'no_bike' ? t("bike_no") :
-  bikeFilterMode === 'bike' ? t("bike_yes") :
-  t("bike_all")
-);
+              ignored.push(bikeFilterMode === 'no_bike' ? 'Nur Autos' : 'Nur Bikes');
             }
           }
         }
@@ -1379,11 +1458,7 @@ select.filter-control {
           );
           if (fallback.length > 0) {
             finalList = fallback;
-            ignored.push(
-  bikeFilterMode === 'no_bike' ? t("bike_no") :
-  bikeFilterMode === 'bike' ? t("bike_yes") :
-  t("bike_all")
-);
+            ignored.push(`${t("filter_era")} (${filters.era})`);
           }
         }
 
@@ -1396,11 +1471,7 @@ select.filter-control {
           );
           if (fallback.length > 0) {
             finalList = fallback;
-            ignored.push(
-  bikeFilterMode === 'no_bike' ? t("bike_no") :
-  bikeFilterMode === 'bike' ? t("bike_yes") :
-  t("bike_all")
-);
+            ignored.push(`${t("filter_brand")} (${filters.brand})`);
           }
         }
 
@@ -1413,11 +1484,7 @@ select.filter-control {
           );
           if (fallback.length > 0) {
             finalList = fallback;
-            ignored.push(
-  bikeFilterMode === 'no_bike' ? t("bike_no") :
-  bikeFilterMode === 'bike' ? t("bike_yes") :
-  t("bike_all")
-);
+            ignored.push(`${t("filter_country")} (${filters.country})`);
           }
         }
 
@@ -1429,21 +1496,9 @@ select.filter-control {
           );
           if (fallback.length > 0) {
             finalList = fallback;
-            if (filters.era) ignored.push(
-  bikeFilterMode === 'no_bike' ? t("bike_no") :
-  bikeFilterMode === 'bike' ? t("bike_yes") :
-  t("bike_all")
-);
-            if (filters.brand) ignored.push(
-  bikeFilterMode === 'no_bike' ? t("bike_no") :
-  bikeFilterMode === 'bike' ? t("bike_yes") :
-  t("bike_all")
-);
-            if (filters.country) ignored.push(
-  bikeFilterMode === 'no_bike' ? t("bike_no") :
-  bikeFilterMode === 'bike' ? t("bike_yes") :
-  t("bike_all")
-);
+            if (filters.era) ignored.push(`${t("filter_era")} (${filters.era})`);
+            if (filters.brand) ignored.push(`${t("filter_brand")} (${filters.brand})`);
+            if (filters.country) ignored.push(`${t("filter_country")} (${filters.country})`);
           }
         }
 
@@ -1452,11 +1507,7 @@ select.filter-control {
           const fallback = vehicles.filter(v => v.category === cat);
           if (fallback.length > 0) {
             finalList = fallback;
-            ignored.push(
-  bikeFilterMode === 'no_bike' ? t("bike_no") :
-  bikeFilterMode === 'bike' ? t("bike_yes") :
-  t("bike_all")
-);
+            ignored.push('Alle');
           }
         }
 
@@ -1481,7 +1532,7 @@ select.filter-control {
       }
 
       if (chosen.length !== 3) {
-        resultsDiv.innerHTML = `<p>${t("not_enough_cars")}</p>`;
+        resultsDiv.innerHTML = "<p>⚠️ Nicht genügend Fahrzeuge gefunden.</p>";
         return;
       }
 
@@ -1525,8 +1576,8 @@ select.filter-control {
         // .slot-warning nur füllen, wenn Filter ignoriert wurden
         const warnDiv = slot.querySelector('.slot-warning');
         if (warnDiv) {
-          warnDiv.innerHTML = v.ignoredFilters?.length
-            ? `${t("ignored_filters")}: ${v.ignoredFilters.join(', ')}`
+          warnDiv.innerHTML = v.ignoredFilters.length ? `${t("ignored_filters")} ${v.ignoredFilters.join(", ")}` : '';
+            ? `Ignorierte Filter: ${v.ignoredFilters.join(', ')}`
             : '';
         }
       });
@@ -1607,7 +1658,7 @@ select.filter-control {
     
         nameDiv.textContent = `${v.brand} ${v.model} (${v.year})`;
         warnDiv.innerHTML = v.ignoredFilters.length
-          ? `${t("ignored_filters")}: ${v.ignoredFilters.join(', ')}`
+          ? `Ignorierte Filter: ${v.ignoredFilters.join(', ')}`
           : '';
     
         slot.classList.remove('empty', 'slot-yellow', 'slot-blue', 'slot-orange', 'slot-magenta');
@@ -1659,7 +1710,7 @@ select.filter-control {
       bikeFilterMode = "no_bike";
       const initialIndex = getCurrentEventIndex();
       const initialEntry = ROTATION[initialIndex];
-      previousMainStage = initialEntry[2] === t("main_stage");
+      previousMainStage = initialEntry[2] === "Main Stage";
 
       const bfb = document.getElementById("bikeFilterBtn");
       if (bfb) {
@@ -1831,11 +1882,7 @@ select.filter-control {
           (!filters.era || v.era === filters.era) &&
           (!filters.brand || v.brand === filters.brand)
         );
-        if (finalList.length > 0) ignored.push(
-  bikeFilterMode === 'no_bike' ? t("bike_no") :
-  bikeFilterMode === 'bike' ? t("bike_yes") :
-  t("bike_all")
-);
+        if (finalList.length > 0) ignored.push("Bike-Filter");
       }
     
       if (finalList.length === 0 && filters.era) {
@@ -1845,11 +1892,7 @@ select.filter-control {
           (!filters.country || v.country === filters.country) &&
           (!filters.brand || v.brand === filters.brand)
         );
-        if (finalList.length > 0) ignored.push(
-  bikeFilterMode === 'no_bike' ? t("bike_no") :
-  bikeFilterMode === 'bike' ? t("bike_yes") :
-  t("bike_all")
-);
+        if (finalList.length > 0) ignored.push(`${t("filter_era")} (${filters.era})`);
       }
     
       if (finalList.length === 0 && filters.brand) {
@@ -1859,11 +1902,7 @@ select.filter-control {
           (!filters.country || v.country === filters.country) &&
           (!filters.era || v.era === filters.era)
         );
-        if (finalList.length > 0) ignored.push(
-  bikeFilterMode === 'no_bike' ? t("bike_no") :
-  bikeFilterMode === 'bike' ? t("bike_yes") :
-  t("bike_all")
-);
+        if (finalList.length > 0) ignored.push(`${t("filter_brand")} (${filters.brand})`);
       }
     
       if (finalList.length === 0 && filters.country) {
@@ -1873,11 +1912,7 @@ select.filter-control {
           (!filters.era || v.era === filters.era) &&
           (!filters.brand || v.brand === filters.brand)
         );
-        if (finalList.length > 0) ignored.push(
-  bikeFilterMode === 'no_bike' ? t("bike_no") :
-  bikeFilterMode === 'bike' ? t("bike_yes") :
-  t("bike_all")
-);
+        if (finalList.length > 0) ignored.push(`${t("filter_country")} (${filters.country})`);
       }
     
       if (finalList.length === 0) {
@@ -1886,31 +1921,15 @@ select.filter-control {
           (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike))
         );
         if (finalList.length > 0) {
-          if (filters.era) ignored.push(
-  bikeFilterMode === 'no_bike' ? t("bike_no") :
-  bikeFilterMode === 'bike' ? t("bike_yes") :
-  t("bike_all")
-);
-          if (filters.brand) ignored.push(
-  bikeFilterMode === 'no_bike' ? t("bike_no") :
-  bikeFilterMode === 'bike' ? t("bike_yes") :
-  t("bike_all")
-);
-          if (filters.country) ignored.push(
-  bikeFilterMode === 'no_bike' ? t("bike_no") :
-  bikeFilterMode === 'bike' ? t("bike_yes") :
-  t("bike_all")
-);
+          if (filters.era) ignored.push(`${t("filter_era")} (${filters.era})`);
+          if (filters.brand) ignored.push(`${t("filter_brand")} (${filters.brand})`);
+          if (filters.country) ignored.push(`${t("filter_country")} (${filters.country})`);
         }
       }
     
       if (finalList.length === 0) {
         finalList = vehicles.filter(v => v.category === category);
-        if (finalList.length > 0) ignored.push(
-  bikeFilterMode === 'no_bike' ? t("bike_no") :
-  bikeFilterMode === 'bike' ? t("bike_yes") :
-  t("bike_all")
-);
+        if (finalList.length > 0) ignored.push("Alle Filter");
       }
     
       if (finalList.length === 0) return null; // ❌ gar kein Fahrzeug gefunden
@@ -1977,9 +1996,9 @@ select.filter-control {
       if (filters.brand) applied.push(`Marke (${filters.brand})`);
       if (filters.country) applied.push(`Land (${filters.country})`);
       if (filters.era) applied.push(`Zeitraum (${filters.era})`);
-      if (bikeFilterMode === "no_bike") applied.push(t("bike_no"));
-      else if (bikeFilterMode === "bike") applied.push(t("bike_yes"));
-      else applied.push(t("bike_all"));
+      if (bikeFilterMode === "no_bike") applied.push("Nur Autos");
+      else if (bikeFilterMode === "bike") applied.push("Nur Bikes");
+      else applied.push("Alle Fahrzeuge");
     
       // 🧾 Ziehung loggen
      window.drawLog.push({
