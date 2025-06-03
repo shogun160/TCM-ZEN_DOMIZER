@@ -10,7 +10,7 @@
 Thanks to [@wbcolon](https://github.com/wbcolon) for integrating the Grandrace rotation and automatic matching categories.  
 And of course a special thank also to the [motorfe.st project](https://github.com/calamity-inc/motorfe.st/) for the rotation logic itself.
 
-**Version:** v2.5  
+**Version:** v2.6  
 **Carlist:** Season 6 – 21.05.2025
 
 👉 Make sure to check out [Twitch](https://www.twitch.tv/xthepapapyr0) & [Discord](https://discord.gg/mJKXNPTG).
@@ -31,6 +31,7 @@ And of course a special thank also to the [motorfe.st project](https://github.co
   - `Shift + X` – clear draw log  
   - `Shift + L` – show draw log in console  
 - 📋 **copy to clipboard** - text output per category
+- 🇬🇧/🇩🇪 **multilanguage support**
 - 📲 **support for mobile phones**
 
 ---
