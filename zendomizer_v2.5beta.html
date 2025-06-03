@@ -1646,7 +1646,7 @@ select.filter-control {
     
     function copyToClipboard(silent = false) {
       if (!lastSelection || lastSelection.length === 0) {
-        if (!silent) showToast("⚠️ Keine Auswahl zum Kopieren.");
+        if (!silent) showToast(t("no_selection_to_copy"));
         return;
       }
     
@@ -1682,7 +1682,7 @@ select.filter-control {
       const categories = orderOverride || selectedOrder.slice(0, 3);
     
       if (categories.length < 2) {
-        showToast("⚠️ Bitte mindestens 2 Kategorien auswählen.", "#f33");
+        showToast(t("min_two_categories"), "#f33");
         return;
       }
       if (categories.length === 2) {
@@ -1830,7 +1830,7 @@ select.filter-control {
       const filters = getCurrentFilters();
       const result = drawVehicleForCategory(category, filters, bikeFilterMode);
       if (!result) {
-        showToast(`⚠️ Kein Fahrzeug für ${category} gefunden.`, "#f33");
+        showToast(`${t("no_vehicle_found")}: ${category}`, "#f33");
         return;
       }
     
@@ -2115,11 +2115,6 @@ select.filter-control {
     countrySelect.addEventListener('change', () => {
       const selectedOption = countrySelect.options[countrySelect.selectedIndex];
     
-      if (selectedOption.text === 'Vereinigte Arabische Emirate') {
-        selectedOption.text = 'Arabische Emirate';
-        selectedOption.setAttribute('data-original', 'Vereinigte Arabische Emirate');
-      }
-    
       // Bei erneutem Öffnen Dropdown zurücksetzen
       countrySelect.addEventListener('mousedown', () => {
         Array.from(countrySelect.options).forEach(opt => {
@@ -2132,22 +2127,16 @@ select.filter-control {
     document.addEventListener("keydown", function (e) {
       // SHIFT + ? → Hotkey-Legende anzeigen
       if (e.shiftKey && (e.key === '?' || e.key.toLowerCase() === 'h')) {
-        showToast(
-          "🎛️ Hotkeys<br>" +
-          "📋 Shift + L: show Log<br>" +
-          "🧹 Shift + R: reset (blacklist & counter)<br>" +
-          "🗑️ Shift + X: delete log<br>" +
-          "✏️ Shift + G: dev Logging on/off<br>",
-          "#0af", 30000); // 30 Sekunden
+        showToast(t("hotkey_help"), "#0af", 30000);
       }
       // SHIFT + L → Ziehlog anzeigen
       if ((e.shiftKey) && e.key.toLowerCase() === 'l') {
         if (window.drawLog && window.drawLog.length) {
           console.table(window.drawLog);
-          showToast("📋 Ziehlog geöffnet", "#0af");
+          showToast("📋 log opened", "#0af");
         } else {
-          console.log("ℹ️ Ziehlog ist leer.");
-          showToast("ℹ️ Kein Ziehlog vorhanden", "#aaa");
+          console.log("ℹ️ log is empty.");
+          showToast("ℹ️ log is empty", "#aaa");
         }
       }
       // SHIFT + L → Blacklist Löschen
