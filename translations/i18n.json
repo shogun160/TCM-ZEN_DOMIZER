@@ -46,6 +46,7 @@
     "no_selection_to_copy": "⚠️ Keine Auswahl zum Kopieren.",
     "min_two_categories": "⚠️ Bitte mindestens 2 Kategorien auswählen.",
     "no_vehicle_found": "⚠️ Kein Fahrzeug gefunden",
+    "clipboard_heading": "🎲 ZENDOMIZER Auswahl:\n\n",
     "hotkey_help": "🎛️ Hotkeys<br>📋 Shift + L: Log anzeigen<br>🧹 Shift + R: zurücksetzen (Blacklist & Zähler)<br>🗑️ Shift + X: Log löschen<br>✏️ Shift + G: Dev-Logging an/aus<br>"
 
   },
@@ -92,6 +93,7 @@
     "no_selection_to_copy": "⚠️ No selection to copy.",
     "min_two_categories": "⚠️ Please select at least 2 categories.",
     "no_vehicle_found": "⚠️ No vehicle found",
+    "clipboard_heading": "🎲 ZENDOMIZER Selection:\n\n",
     "hotkey_help": "🎛️ Hotkeys<br>📋 Shift + L: show Log<br>🧹 Shift + R: reset (blacklist & counter)<br>🗑️ Shift + X: delete log<br>✏️ Shift + G: dev logging on/off<br>"
   }
 }
