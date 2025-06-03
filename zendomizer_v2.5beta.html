@@ -862,6 +862,16 @@ select.filter-control {
     }
     return str;
   }
+  // Mapping für Era-Werte
+  const eraTranslationKeys = {
+    "classic": "era_classic",
+    "modern": "era_modern"
+  };
+
+  function translateEra(value) {
+    const key = eraTranslationKeys[value?.toLowerCase()];
+    return key ? t(key) : value;
+  }
 
   fetch("translations/i18n.json")
     .then(res => res.json())
@@ -1279,7 +1289,7 @@ select.filter-control {
       [...eraSet].sort().forEach(era => {
         const option = document.createElement("option");
         option.value = era;
-        option.textContent = era;
+        option.textContent = translateEra(era);
         eraSelect.appendChild(option);
       });
     }
@@ -1459,7 +1469,7 @@ select.filter-control {
           );
           if (fallback.length > 0) {
             finalList = fallback;
-            ignored.push(`${t("label_era")} (${filters.era})`);
+            ignored.push(`${t("label_era")} (${translateEra(filters.era)})`);
           }
         }
 
@@ -1497,7 +1507,7 @@ select.filter-control {
           );
           if (fallback.length > 0) {
             finalList = fallback;
-            if (filters.era) ignored.push(`${t("label_era")} (${filters.era})`);
+            if (filters.era) ignored.push(`${t("label_era")} (${translateEra(filters.era)})`);
             if (filters.brand) ignored.push(`${t("label_brand")} (${filters.brand})`);
             if (filters.country) ignored.push(`${t("label_country")} (${filters.country})`);
           }
@@ -1893,7 +1903,7 @@ select.filter-control {
           (!filters.country || v.country === filters.country) &&
           (!filters.brand || v.brand === filters.brand)
         );
-        if (finalList.length > 0) ignored.push(`${t("label_era")} (${filters.era})`);
+        if (finalList.length > 0) ignored.push(`${t("label_era")} (${translateEra(filters.era)})`);
       }
     
       if (finalList.length === 0 && filters.brand) {
@@ -1922,7 +1932,7 @@ select.filter-control {
           (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike))
         );
         if (finalList.length > 0) {
-          if (filters.era) ignored.push(`${t("label_era")} (${filters.era})`);
+          if (filters.era) ignored.push(`${t("label_era")} (${translateEra(filters.era)})`);
           if (filters.brand) ignored.push(`${t("label_brand")} (${filters.brand})`);
           if (filters.country) ignored.push(`${t("label_country")} (${filters.country})`);
         }
