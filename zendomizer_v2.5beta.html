@@ -1086,11 +1086,7 @@ select.filter-control {
     
         const currentEventName = entry[0];
         const currentCategories = entry[1].replace(/>/g, "→");
-        showToast(t("rotation_applied", {
-          event: currentEventName,
-          categories: currentCategories
-        }), "#39ff14", 10000);
-
+        showToast(`${t(triggeredByClick ? "rotation_applied_manual" : "rotation_applied_auto")}: ${currentEventName} | ${currentCategories}`, "#39ff14", 10000);
       }
     }
 
