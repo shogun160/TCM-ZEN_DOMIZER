@@ -1576,8 +1576,8 @@ select.filter-control {
         // .slot-warning nur füllen, wenn Filter ignoriert wurden
         const warnDiv = slot.querySelector('.slot-warning');
         if (warnDiv) {
-          warnDiv.innerHTML = v.ignoredFilters.length ? `${t("ignored_filters")} ${v.ignoredFilters.join(", ")}` : '';
-            ? `Ignorierte Filter: ${v.ignoredFilters.join(', ')}`
+          warnDiv.innerHTML = (v.ignoredFilters && v.ignoredFilters.length)
+            ? `${t("ignored_filters")} ${v.ignoredFilters.join(", ")}`
             : '';
         }
       });
