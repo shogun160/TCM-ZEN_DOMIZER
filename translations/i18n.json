@@ -30,7 +30,20 @@
     "rotation_applied_manual": "🏁 Grandrace Rotation übernommen",
     "rotation_applied_auto": "🏁 Neue Rotation",
     "era_classic": "Klassisch",
-    "era_modern": "Modern",
+    "era_modern": "Modern","country_austria": "Österreich",
+    "country_croatia": "Croatia",
+    "country_denmark": "Dänemark",
+    "country_england": "England",
+    "country_france": "Frankreich",
+    "country_germany": "Deutschland",
+    "country_italy": "Italien",
+    "country_japan": "Japan",
+    "country_netherlands": "Niederlande",
+    "country_russia": "Russland",
+    "country_sweden": "Schweden",
+    "country_uae": "Arabische Emirate",
+    "country_usa": "USA"
+
   },
   "en": {
     "filter_country": "Select country",
@@ -59,6 +72,18 @@
     "rotation_applied_manual": "🏁 Grandrace rotation applied",
     "rotation_applied_auto": "🏁 New rotation",
     "era_classic": "Classic",
-    "era_modern": "Modern"
+    "era_modern": "Modern","country_austria": "Austria",
+    "country_croatia": "Croatia",
+    "country_denmark": "Denmark",
+    "country_england": "England",
+    "country_france": "France",
+    "country_germany": "Germany",
+    "country_italy": "Italy",
+    "country_japan": "Japan",
+    "country_netherlands": "Netherlands",
+    "country_russia": "Russia",
+    "country_sweden": "Sweden",
+    "country_uae": "UAE",
+    "country_usa": "USA"
   }
 }
