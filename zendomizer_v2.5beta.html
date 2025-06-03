@@ -1649,8 +1649,8 @@ select.filter-control {
         if (!silent) showToast(t("no_selection_to_copy"));
         return;
       }
-    
-      let result = "🎲 ZENDOMIZER Auswahl:\n\n";
+
+      let result = t("clipboard_heading");
     
       lastSelection.forEach(vehicle => {
         result += `|| ${vehicle.category}:\n  ${vehicle.brand} ${vehicle.model} (${vehicle.year})\n\n`;
