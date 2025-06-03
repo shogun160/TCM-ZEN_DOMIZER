@@ -6,7 +6,7 @@
     "model": 500,
     "year": 1930,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally",
@@ -15,7 +15,7 @@
     "model": "124 Rally ",
     "year": 2017,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -24,7 +24,7 @@
     "model": "124 Spider",
     "year": 2017,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -33,7 +33,7 @@
     "model": 500,
     "year": 2008,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -42,7 +42,7 @@
     "model": "NSX GT3 ",
     "year": 2017,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -51,7 +51,7 @@
     "model": "NSX ",
     "year": 2017,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -60,7 +60,7 @@
     "model": "8C Competizione",
     "year": 2007,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -69,7 +69,7 @@
     "model": "33 Stradale",
     "year": 1968,
     "country": "Italien",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -78,7 +78,7 @@
     "model": "4C",
     "year": 2013,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -87,7 +87,7 @@
     "model": "4C Serpente Edizione",
     "year": 2013,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -96,7 +96,7 @@
     "model": "8C Competizione",
     "year": 2007,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -105,7 +105,7 @@
     "model": "Giulia GTAm",
     "year": 2021,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -114,7 +114,7 @@
     "model": "Giulia Quadrifolglio",
     "year": 2017,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -123,7 +123,7 @@
     "model": "Giulia Quadrifolglio Outclassed Edition",
     "year": 2017,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -132,7 +132,7 @@
     "model": "Giulia GTAm Rival Ed.",
     "year": 2021,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -141,7 +141,7 @@
     "model": "Nomad",
     "year": 2015,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -150,7 +150,7 @@
     "model": "Atom",
     "year": 2015,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -159,7 +159,7 @@
     "model": "Vulcan",
     "year": 2016,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -168,7 +168,7 @@
     "model": "Vulcan The Duke",
     "year": 2016,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -177,7 +177,7 @@
     "model": "DB5",
     "year": 1963,
     "country": "GB",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -186,7 +186,7 @@
     "model": "V12 Vantage Zagato",
     "year": 2012,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -195,7 +195,7 @@
     "model": "V8 Vantage S",
     "year": 2012,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -204,7 +204,7 @@
     "model": "Vanquish",
     "year": 2012,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -213,7 +213,7 @@
     "model": "DBS",
     "year": 2022,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -222,7 +222,7 @@
     "model": "RS 3 LMS",
     "year": 2017,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally",
@@ -231,7 +231,7 @@
     "model": "S1 EKS RX quattro",
     "year": 2017,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -240,7 +240,7 @@
     "model": "RS 2 Avant",
     "year": 1993,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -249,7 +249,7 @@
     "model": "RS 3 Sportback",
     "year": 2022,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -258,7 +258,7 @@
     "model": "RS 5 Coupé",
     "year": 2018,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -267,7 +267,7 @@
     "model": "RS 7 Sportback",
     "year": 2022,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -276,7 +276,7 @@
     "model": "RS 5 Coupé USST Official Edition",
     "year": 2018,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -285,7 +285,7 @@
     "model": "R8 V10 Spyder",
     "year": 2021,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -294,7 +294,7 @@
     "model": "R8 Coupé V10 Plus",
     "year": 2016,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -303,7 +303,7 @@
     "model": "TT RS Coupe",
     "year": 2017,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -312,7 +312,7 @@
     "model": "TT RS Roadster",
     "year": 2022,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -321,7 +321,7 @@
     "model": "RS Q8",
     "year": 2022,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -330,7 +330,7 @@
     "model": "R8 Spyder Motorfest Edition",
     "year": 2021,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -339,7 +339,7 @@
     "model": "RS 6 Avant",
     "year": 2021,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -348,7 +348,7 @@
     "model": "RS 6 Avant Yiannimize Ed.",
     "year": 2021,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -357,7 +357,7 @@
     "model": "RS 6 Avant Chase Squad Ed.",
     "year": 2021,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -366,7 +366,7 @@
     "model": "Continental Supersports",
     "year": 2010,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -375,7 +375,7 @@
     "model": "Mulliner Bacalar",
     "year": 2020,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -384,7 +384,7 @@
     "model": "Continental Supersports",
     "year": 2010,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -393,7 +393,7 @@
     "model": "M Performance M4 Racing",
     "year": 2014,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -402,7 +402,7 @@
     "model": "M6 GT3 ",
     "year": 2016,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -411,7 +411,7 @@
     "model": "Z4 GT3 ",
     "year": 2011,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -420,7 +420,7 @@
     "model": "S1000RR",
     "year": 2015,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -429,7 +429,7 @@
     "model": "Z4 sDrive35is",
     "year": 2011,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -438,7 +438,7 @@
     "model": "R1200GS Adventure",
     "year": 2014,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -447,7 +447,7 @@
     "model": "R1200GS Adventure",
     "year": 2014,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -456,7 +456,7 @@
     "model": "X6M",
     "year": 2010,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -465,7 +465,7 @@
     "model": "Z4 sDrive35is 2011",
     "year": 2011,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -474,7 +474,7 @@
     "model": "M2",
     "year": 2017,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -483,7 +483,7 @@
     "model": "M2 Beehive Edition",
     "year": 2017,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -492,7 +492,7 @@
     "model": "M3 Sport Evolution",
     "year": 1990,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -501,7 +501,7 @@
     "model": "M3 Erlkönig Ed.",
     "year": 1990,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -510,7 +510,7 @@
     "model": "S1000RR",
     "year": 2015,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -519,7 +519,7 @@
     "model": "M5",
     "year": 2011,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -528,7 +528,7 @@
     "model": "M4",
     "year": 2014,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -537,7 +537,7 @@
     "model": "i8 Roadster",
     "year": 2018,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -546,7 +546,7 @@
     "model": "i8 Roadster Stellar Edition",
     "year": 2018,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -555,7 +555,7 @@
     "model": "M8 No Rules Edition",
     "year": 2019,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -564,7 +564,7 @@
     "model": "M8 Performance Edition",
     "year": 2019,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -573,7 +573,7 @@
     "model": "Z4 M40i",
     "year": 2019,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -582,7 +582,7 @@
     "model": "Z4 M40i Agent Edition",
     "year": 2019,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -591,7 +591,7 @@
     "model": "Z4 M40i Motorfest Edition",
     "year": 2019,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -600,7 +600,7 @@
     "model": "M4 Compétition Coupé",
     "year": 2021,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -609,7 +609,7 @@
     "model": "M4 Liberty Walk Edition",
     "year": 2021,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -618,7 +618,7 @@
     "model": "M8 Competition Coupe",
     "year": 2019,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -627,7 +627,7 @@
     "model": "M8 Competition Coupe Interception Unit",
     "year": 2019,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -636,7 +636,7 @@
     "model": "M5 CS",
     "year": 2022,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -645,7 +645,7 @@
     "model": "M5 CS Rival Ed.",
     "year": 2022,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -654,7 +654,7 @@
     "model": "Centodieci",
     "year": 2019,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -663,7 +663,7 @@
     "model": "Chiron",
     "year": 2017,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -672,7 +672,7 @@
     "model": "Chiron Carbon Edition",
     "year": 2017,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -681,7 +681,7 @@
     "model": "Chiron Interception Unit",
     "year": 2017,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -690,7 +690,7 @@
     "model": "Chiron Super Sport 300+",
     "year": 2019,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -699,7 +699,7 @@
     "model": "EB110 Super Sport",
     "year": 1992,
     "country": "Frankreich",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Hypercar",
@@ -708,7 +708,7 @@
     "model": "EB110 Super Sport Anodized Edition",
     "year": 1992,
     "country": "Frankreich",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Hypercar",
@@ -717,7 +717,7 @@
     "model": "Divo",
     "year": 2019,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -726,7 +726,7 @@
     "model": "Divo Magma Edition",
     "year": 2019,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -735,7 +735,7 @@
     "model": "Divo Emerald Storm Edition",
     "year": 2019,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -744,7 +744,7 @@
     "model": "La Voiture Noire",
     "year": 2019,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -753,7 +753,7 @@
     "model": "Veyron 16.4 Grand Sport Vitesse",
     "year": 2016,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -762,7 +762,7 @@
     "model": "Veyron Deep Blue Edition",
     "year": 2016,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -771,7 +771,7 @@
     "model": "Veyron 16.4 Grand Sport Vitesse Edition One",
     "year": 2016,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -780,7 +780,7 @@
     "model": "Veyron Barchetta",
     "year": 2015,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -789,7 +789,7 @@
     "model": "Veyron Barchetta Velvet Ed.",
     "year": 2015,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -798,7 +798,7 @@
     "model": "Atlantic Concept",
     "year": 2015,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -807,7 +807,7 @@
     "model": "Chiron Super Sport 300+ Devine Edition",
     "year": 2019,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -816,7 +816,7 @@
     "model": "Bolide",
     "year": 2020,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -825,7 +825,7 @@
     "model": "Type 57 SC Atlantic",
     "year": 1936,
     "country": "Frankreich",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -834,7 +834,7 @@
     "model": "GNX",
     "year": 1987,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -843,7 +843,7 @@
     "model": "GNX El Sereno Lowrider Ed.",
     "year": 1987,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -852,7 +852,7 @@
     "model": "GNX West Side Lowrider Ed.",
     "year": 1987,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Racing",
@@ -861,7 +861,7 @@
     "model": "Escalade",
     "year": 2012,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally",
@@ -870,7 +870,7 @@
     "model": "Escalade Enforcer Edition",
     "year": 2012,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -879,7 +879,7 @@
     "model": "Escalade",
     "year": 2012,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -888,7 +888,7 @@
     "model": "Eldorado Brougham",
     "year": 1957,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -897,7 +897,7 @@
     "model": "Escalade",
     "year": 2012,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -906,7 +906,7 @@
     "model": "Cyclone XP-74 Concept",
     "year": 1959,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -915,7 +915,7 @@
     "model": "Coupe Deville",
     "year": 1949,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -924,7 +924,7 @@
     "model": "Coupe Deville Marco's Cab",
     "year": 1949,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Hypercar",
@@ -933,7 +933,7 @@
     "model": "Corvette C7 ZR1",
     "year": 2019,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -942,7 +942,7 @@
     "model": "Corvette C7 ZR1 Convertible",
     "year": 2019,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -951,7 +951,7 @@
     "model": "Corvette C7 ZR1 Convertible Long Range Edition",
     "year": 2019,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -960,7 +960,7 @@
     "model": "Corvette C7 ZR1 Gold Nugget Edition",
     "year": 2019,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -969,7 +969,7 @@
     "model": "Corvette Z06 Convertible",
     "year": 2023,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Monster Truck",
@@ -978,7 +978,7 @@
     "model": "Camaro SS",
     "year": 2010,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Monster Truck",
@@ -987,7 +987,7 @@
     "model": "Silverado 1500",
     "year": 2010,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -996,7 +996,7 @@
     "model": "Camaro RS",
     "year": 1969,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Racing",
@@ -1005,7 +1005,7 @@
     "model": "Camaro SS",
     "year": 2010,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -1014,7 +1014,7 @@
     "model": "Silverado 1500",
     "year": 2009,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -1023,7 +1023,7 @@
     "model": "Corvette C3",
     "year": 1968,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Racing",
@@ -1032,7 +1032,7 @@
     "model": "Corvette C3 F1R3 Ed.",
     "year": 1968,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Racing",
@@ -1041,7 +1041,7 @@
     "model": "Corvette C6R",
     "year": 2005,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -1050,7 +1050,7 @@
     "model": "Corvette C8.R",
     "year": 2020,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -1059,7 +1059,7 @@
     "model": "Impala Sport Sedan",
     "year": 1967,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Rally",
@@ -1068,7 +1068,7 @@
     "model": "Camaro RS",
     "year": 1969,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Rally",
@@ -1077,7 +1077,7 @@
     "model": "Camaro SS",
     "year": 2010,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally",
@@ -1086,7 +1086,7 @@
     "model": "Camaro Z28  Enforcer Unit",
     "year": 1971,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Rally Raid",
@@ -1095,7 +1095,7 @@
     "model": "Camaro RS",
     "year": 1969,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Rally Raid",
@@ -1104,7 +1104,7 @@
     "model": "Camaro SS",
     "year": 2010,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -1113,7 +1113,7 @@
     "model": "Silverado 1500 Evo1",
     "year": 2010,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -1122,7 +1122,7 @@
     "model": "Silverado 1500 Evo2",
     "year": 2010,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -1131,7 +1131,7 @@
     "model": "Silverado 1500 Intrepid Outdoors",
     "year": 2010,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -1140,7 +1140,7 @@
     "model": 3100,
     "year": 1951,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -1149,7 +1149,7 @@
     "model": "3100 The Rocket Co.",
     "year": 1951,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -1158,7 +1158,7 @@
     "model": "Corvette C2",
     "year": 1963,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -1167,7 +1167,7 @@
     "model": "Corvette C2 2.0 Edition",
     "year": 1963,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -1176,7 +1176,7 @@
     "model": "Corvette Grand Sport",
     "year": 1963,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -1185,7 +1185,7 @@
     "model": "Corvette Grand Sport Armored Edition",
     "year": 1963,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -1194,7 +1194,7 @@
     "model": "Impala Sport Sedan",
     "year": 1967,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -1203,7 +1203,7 @@
     "model": "Camaro RS",
     "year": 1969,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -1212,7 +1212,7 @@
     "model": "Camaro RS Ghost Edition",
     "year": 1969,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -1221,7 +1221,7 @@
     "model": "Chevelle SS",
     "year": 1970,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -1230,7 +1230,7 @@
     "model": "Silverado 1500",
     "year": 2010,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -1239,7 +1239,7 @@
     "model": "Camaro Z28 ",
     "year": 1971,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -1248,7 +1248,7 @@
     "model": "Corvette C3",
     "year": 1968,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -1257,7 +1257,7 @@
     "model": "Impala LowRider Naranja Edicion",
     "year": 1967,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -1266,7 +1266,7 @@
     "model": "Impala LowRider Red Duchess Edition",
     "year": 1967,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -1275,7 +1275,7 @@
     "model": "Caprice",
     "year": 1971,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -1284,7 +1284,7 @@
     "model": "Caprice Weasel D. Customs Donk Ed.",
     "year": 1971,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -1293,7 +1293,7 @@
     "model": "3100 Big-Block Edition",
     "year": 1951,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -1302,7 +1302,7 @@
     "model": "Corvette ZR1",
     "year": 2009,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -1311,7 +1311,7 @@
     "model": "Camaro SS",
     "year": 2010,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -1320,7 +1320,7 @@
     "model": "Camaro SS Bend Edition",
     "year": 2010,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -1329,7 +1329,7 @@
     "model": "Corvette C7 Stingray",
     "year": 2014,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -1338,7 +1338,7 @@
     "model": "Camaro ZL1",
     "year": 2017,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -1347,7 +1347,7 @@
     "model": "Camaro ZL1 Rift Edition",
     "year": 2017,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -1356,7 +1356,7 @@
     "model": "Corvette C8 Stingray",
     "year": 2020,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -1365,7 +1365,7 @@
     "model": "Corvette C8 Stingray Donut Media Ed.",
     "year": 2020,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -1374,7 +1374,7 @@
     "model": "Corvette C8 Stingray Interception Unit",
     "year": 2020,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -1383,7 +1383,7 @@
     "model": "CAMARO Z28 Hoonigan Ed",
     "year": 1971,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -1392,7 +1392,7 @@
     "model": "Impala American Custo Ed.",
     "year": 1967,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -1401,7 +1401,7 @@
     "model": "300C SRT8 Limousine",
     "year": 2013,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -1410,7 +1410,7 @@
     "model": "300C SRT8",
     "year": 2013,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -1419,7 +1419,7 @@
     "model": "300 SRT8 Crown Edition",
     "year": 2013,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -1428,7 +1428,7 @@
     "model": "GT",
     "year": 2008,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally",
@@ -1437,7 +1437,7 @@
     "model": "C3 Racing ",
     "year": 2017,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "AGP",
@@ -1446,7 +1446,7 @@
     "model": "Concept Spruemeister SM71",
     "year": 2023,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "AGP",
@@ -1455,7 +1455,7 @@
     "model": "Yasiddesign X American Petrol",
     "year": 2021,
     "country": "GB",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Hypercar",
@@ -1464,7 +1464,7 @@
     "model": "K.S. Masked Leader",
     "year": 2020,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -1473,7 +1473,7 @@
     "model": "Tempesta",
     "year": 2022,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -1482,7 +1482,7 @@
     "model": "K.S. Death Racer Ed.",
     "year": 2020,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -1491,7 +1491,7 @@
     "model": "Tempesta Rival Ed.",
     "year": 2022,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally",
@@ -1500,7 +1500,7 @@
     "model": "Tkachenko Ice Hunter",
     "year": 2021,
     "country": "Russland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Rally Raid",
@@ -1509,7 +1509,7 @@
     "model": "Hunter 51",
     "year": 2021,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Monster Truck",
@@ -1518,7 +1518,7 @@
     "model": "DMC-12 Monster Truck Edition",
     "year": 1981,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -1527,7 +1527,7 @@
     "model": "DMC-12",
     "year": 1981,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -1536,7 +1536,7 @@
     "model": "DMC-12 RAD Edition",
     "year": 1981,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -1545,7 +1545,7 @@
     "model": "DMC-12 Rival Ed.",
     "year": 1981,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Monster Truck",
@@ -1554,7 +1554,7 @@
     "model": "Challenger SRT-8 392",
     "year": 2012,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -1563,7 +1563,7 @@
     "model": "Challenger SRT-8 392",
     "year": 2012,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -1572,7 +1572,7 @@
     "model": "Charger R/T Hemi",
     "year": 1969,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Racing",
@@ -1581,7 +1581,7 @@
     "model": "Charger SRT-8 ",
     "year": 2012,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -1590,7 +1590,7 @@
     "model": "Viper Competition Coupe",
     "year": 2003,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally",
@@ -1599,7 +1599,7 @@
     "model": "Challenger SRT-8 392",
     "year": 2012,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally",
@@ -1608,7 +1608,7 @@
     "model": "Charger R/T Hemi",
     "year": 1969,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Rally",
@@ -1617,7 +1617,7 @@
     "model": "Charger SRT-8 ",
     "year": 2012,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -1626,7 +1626,7 @@
     "model": "Challenger SRT-8 392",
     "year": 2012,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -1635,7 +1635,7 @@
     "model": "Charger R/T® Hemi Mad Ed.",
     "year": 1969,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -1644,7 +1644,7 @@
     "model": "Challenger R/T",
     "year": 1970,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -1653,7 +1653,7 @@
     "model": "Challenger R/T Riff Edition",
     "year": 1970,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -1662,7 +1662,7 @@
     "model": "Charger R/T Hemi®",
     "year": 1969,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -1671,7 +1671,7 @@
     "model": "Charger R/T Hemi® Masked Edition",
     "year": 1969,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -1680,7 +1680,7 @@
     "model": "Viper SRT-10 Coupe",
     "year": 2010,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -1689,7 +1689,7 @@
     "model": "Challenger SRT-8 392",
     "year": 2012,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -1698,7 +1698,7 @@
     "model": "Charger SRT-8",
     "year": 2012,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -1707,7 +1707,7 @@
     "model": "Charger SRT-8 Lab Edition",
     "year": 2012,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -1716,7 +1716,7 @@
     "model": "SRT Viper GTS Lightning Edition",
     "year": 2013,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -1725,7 +1725,7 @@
     "model": "Challenger SRT Demon",
     "year": 2018,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -1734,7 +1734,7 @@
     "model": "Challenger SRT Demon Interception Unit",
     "year": 2018,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -1743,7 +1743,7 @@
     "model": "Challenger SRT Demon Awaken Edition",
     "year": 2018,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -1752,7 +1752,7 @@
     "model": "Challenger SRT Hellcat",
     "year": 2017,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -1761,7 +1761,7 @@
     "model": "Charger SRT Hellcat Redeye Widebody",
     "year": 2023,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -1770,7 +1770,7 @@
     "model": "Viper SRT-10 GTS",
     "year": 2013,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -1779,7 +1779,7 @@
     "model": "Viper SRT-10 Coupe Mad Edition",
     "year": 2010,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -1788,7 +1788,7 @@
     "model": "Panigale R ",
     "year": 2015,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -1797,7 +1797,7 @@
     "model": "Hypermotard",
     "year": 2015,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -1806,7 +1806,7 @@
     "model": "Monster 1200 S",
     "year": 2015,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -1815,7 +1815,7 @@
     "model": "Hypermotard",
     "year": 2015,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -1824,7 +1824,7 @@
     "model": "Diavel",
     "year": 2015,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -1833,7 +1833,7 @@
     "model": "Monster 1200 S",
     "year": 2015,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -1842,7 +1842,7 @@
     "model": "Panigale R",
     "year": 2015,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -1851,7 +1851,7 @@
     "model": "draXter",
     "year": 2016,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -1860,7 +1860,7 @@
     "model": "F8 Spider",
     "year": 2020,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -1869,7 +1869,7 @@
     "model": "458 Speciale",
     "year": 2014,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -1878,7 +1878,7 @@
     "model": "488 Pista",
     "year": 2018,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -1887,7 +1887,7 @@
     "model": "812 Superfast",
     "year": 2017,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -1896,7 +1896,7 @@
     "model": "Enzo Ferrari",
     "year": 2002,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -1905,7 +1905,7 @@
     "model": "F12tdf",
     "year": 2016,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -1914,7 +1914,7 @@
     "model": "LAFERRARI",
     "year": 2014,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -1923,7 +1923,7 @@
     "model": "SF90 Stradale",
     "year": 2020,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -1932,7 +1932,7 @@
     "model": "365 GTB/4 Competizione (Daytona)",
     "year": 1971,
     "country": "Italien",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Racing",
@@ -1941,7 +1941,7 @@
     "model": "458 Italia GT2",
     "year": 2011,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -1950,7 +1950,7 @@
     "model": "488 GT3",
     "year": 2016,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -1959,7 +1959,7 @@
     "model": "599XX Evo",
     "year": 2011,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -1968,7 +1968,7 @@
     "model": "F40 LM",
     "year": 1989,
     "country": "Italien",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Racing",
@@ -1977,7 +1977,7 @@
     "model": "FXX K",
     "year": 2014,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -1986,7 +1986,7 @@
     "model": "488 GT3 AF Corse",
     "year": 2016,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -1995,7 +1995,7 @@
     "model": "308 GTS",
     "year": 1977,
     "country": "Italien",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -2004,7 +2004,7 @@
     "model": "F40",
     "year": 1987,
     "country": "Italien",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -2013,7 +2013,7 @@
     "model": "F12berlinetta",
     "year": 2013,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -2022,7 +2022,7 @@
     "model": "512TR",
     "year": 1991,
     "country": "Italien",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -2031,7 +2031,7 @@
     "model": "Roma",
     "year": 2020,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -2040,7 +2040,7 @@
     "model": "GT",
     "year": 2017,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -2049,7 +2049,7 @@
     "model": "GT Interception Unit",
     "year": 2017,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Monster Truck",
@@ -2058,7 +2058,7 @@
     "model": "F-150 SVT Raptor",
     "year": 2010,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Monster Truck",
@@ -2067,7 +2067,7 @@
     "model": "Mustang GT",
     "year": 2011,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -2076,7 +2076,7 @@
     "model": "F-150 SVT Raptor",
     "year": 2010,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -2085,7 +2085,7 @@
     "model": "Focus RS",
     "year": 2010,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -2094,7 +2094,7 @@
     "model": "GT",
     "year": 2005,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -2103,7 +2103,7 @@
     "model": "GT Le Mans Race Car",
     "year": 2017,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -2112,7 +2112,7 @@
     "model": "GT Airfoil Edition",
     "year": 2016,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -2121,7 +2121,7 @@
     "model": "Mustang GT",
     "year": 2011,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally",
@@ -2130,7 +2130,7 @@
     "model": "FIESTA ",
     "year": 2017,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally",
@@ -2139,7 +2139,7 @@
     "model": "Focus RS",
     "year": 2010,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally",
@@ -2148,7 +2148,7 @@
     "model": "Focus RS RX",
     "year": 2016,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally",
@@ -2157,7 +2157,7 @@
     "model": "Focus RS RX Glow Motorsport Ed.",
     "year": 2016,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally",
@@ -2166,7 +2166,7 @@
     "model": "Mustang GT",
     "year": 2011,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally",
@@ -2175,7 +2175,7 @@
     "model": "Puma Hybrid Rally1",
     "year": 2022,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally",
@@ -2184,7 +2184,7 @@
     "model": "Fiesta Red Bull Ed.",
     "year": 2017,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -2193,7 +2193,7 @@
     "model": "Bronco",
     "year": 2021,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -2202,7 +2202,7 @@
     "model": "Bronco Hawaii Scenic Tour Ed.",
     "year": 2021,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -2211,7 +2211,7 @@
     "model": "F-150 Raptor Race Truck ",
     "year": 2017,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -2220,7 +2220,7 @@
     "model": "F-150 Raptor Race Truck Ghost Recon Edition",
     "year": 2017,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -2229,7 +2229,7 @@
     "model": "F-150 SVT Raptor EVO2",
     "year": 2010,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -2238,7 +2238,7 @@
     "model": "F-150 SVT Raptor EVO1 Enforcer Edition",
     "year": 2010,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -2247,7 +2247,7 @@
     "model": "F-150 SVT Raptor from Outer Space",
     "year": 2010,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -2256,7 +2256,7 @@
     "model": "Focus RS",
     "year": 2010,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -2265,7 +2265,7 @@
     "model": "Mustang GT",
     "year": 2011,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -2274,7 +2274,7 @@
     "model": "Mustang Boss 429",
     "year": 1969,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -2283,7 +2283,7 @@
     "model": "MUSTANG BOSS 429 Lime Edition",
     "year": 1969,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -2292,7 +2292,7 @@
     "model": "Crown Victoria",
     "year": 2008,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -2301,7 +2301,7 @@
     "model": "Crown Victoria Interception Unit",
     "year": 2008,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -2310,7 +2310,7 @@
     "model": "Crown Victoria Limousine",
     "year": 2008,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -2319,7 +2319,7 @@
     "model": "F-150 SVT Raptor",
     "year": 2010,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -2328,7 +2328,7 @@
     "model": "Crown Victoria Marco's Cab",
     "year": 2008,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -2337,7 +2337,7 @@
     "model": "Focus RS",
     "year": 2010,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -2346,7 +2346,7 @@
     "model": "Focus RS",
     "year": 2016,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -2355,7 +2355,7 @@
     "model": "Mustang Mach-E GT",
     "year": 2021,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -2364,7 +2364,7 @@
     "model": "GT",
     "year": 2005,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -2373,7 +2373,7 @@
     "model": "GT Ruby Edition",
     "year": 2005,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -2382,7 +2382,7 @@
     "model": "Mustang GT",
     "year": 2011,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -2391,7 +2391,7 @@
     "model": "Shelby GT500",
     "year": 2013,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -2400,7 +2400,7 @@
     "model": "Mustang GT Fastback",
     "year": 2015,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -2409,7 +2409,7 @@
     "model": "Mustang GT Fastback Stunt Edition",
     "year": 2015,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -2418,7 +2418,7 @@
     "model": "Mustang GT Convertible",
     "year": 2024,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -2427,7 +2427,7 @@
     "model": "Mustang GT Convertible Motorfest Edition",
     "year": 2024,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -2436,7 +2436,7 @@
     "model": "Mustang Shelby GT500",
     "year": 2020,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -2445,7 +2445,7 @@
     "model": "Mustang Shelby GT500 Interception Unit",
     "year": 2020,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -2454,7 +2454,7 @@
     "model": "Mustang Shelby GT500 Road Force One",
     "year": 2020,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -2463,7 +2463,7 @@
     "model": "Mustang Shelby GT500 Tribute Edition",
     "year": 2020,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -2472,7 +2472,7 @@
     "model": "Mustang Dark Horse",
     "year": 2024,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -2481,7 +2481,7 @@
     "model": "Mustang Dark Horse Chase Squad Ed.",
     "year": 2024,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -2490,7 +2490,7 @@
     "model": "Nissan GT-R Nismo GT3",
     "year": 2020,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally",
@@ -2499,7 +2499,7 @@
     "model": "Nissan 370Z East African Safari Z",
     "year": 2020,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -2508,7 +2508,7 @@
     "model": "Nissan 370Z Dominion Edition",
     "year": 2022,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -2517,7 +2517,7 @@
     "model": "Gold Leader Z",
     "year": 1975,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -2526,7 +2526,7 @@
     "model": "Hummer EV",
     "year": 2022,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -2535,7 +2535,7 @@
     "model": "T.50",
     "year": 2023,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -2544,7 +2544,7 @@
     "model": "T.50",
     "year": 2024,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -2553,7 +2553,7 @@
     "model": "Street Glide ",
     "year": 2017,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -2562,7 +2562,7 @@
     "model": "Iron 883",
     "year": 2017,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -2571,7 +2571,7 @@
     "model": "Civic Type R",
     "year": 2021,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -2580,7 +2580,7 @@
     "model": "Civic Type R",
     "year": 2016,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -2589,7 +2589,7 @@
     "model": "Civic Type R Fitted Edition",
     "year": 2021,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -2598,7 +2598,7 @@
     "model": "Integra Type R",
     "year": 1998,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -2607,7 +2607,7 @@
     "model": "CBR1000RR SP2",
     "year": 2018,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -2616,7 +2616,7 @@
     "model": "CB1000R 2018 Neo Sports Café",
     "year": 2018,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -2625,7 +2625,7 @@
     "model": "NSX",
     "year": 1992,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -2634,7 +2634,7 @@
     "model": "S2000 Ultimate Edition",
     "year": 2009,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -2643,7 +2643,7 @@
     "model": "S2000 Kamea Hadar Edition",
     "year": 2009,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -2652,7 +2652,7 @@
     "model": "S2000 Motorfest Edition",
     "year": 2009,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -2661,7 +2661,7 @@
     "model": "S2000 Red Panther Edition",
     "year": 2009,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -2670,7 +2670,7 @@
     "model": "AUDI S1 e-tron quattro Hoonitron",
     "year": 2021,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -2679,7 +2679,7 @@
     "model": "Chevrolet Caprice Donk",
     "year": 1971,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -2688,7 +2688,7 @@
     "model": "CHEVROLET Big Block 632 Camaro",
     "year": 1988,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -2697,7 +2697,7 @@
     "model": "PORSCHE Scotto’s 911 Turbo RWB",
     "year": 1993,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -2706,7 +2706,7 @@
     "model": "AUDI Scotto’s Coupé quattro",
     "year": 1990,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Monster Truck",
@@ -2715,7 +2715,7 @@
     "model": "H1 Alpha",
     "year": 2006,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -2724,7 +2724,7 @@
     "model": "H1 Alpha Rally Raid Evo1",
     "year": 2006,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -2733,7 +2733,7 @@
     "model": "H1 Alpha Rally Raid Evo2",
     "year": 2006,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -2742,7 +2742,7 @@
     "model": "H1 Alpha US Wildlife Watchers",
     "year": 2006,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -2751,7 +2751,7 @@
     "model": "HX Concept",
     "year": 2008,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -2760,7 +2760,7 @@
     "model": "HX Concept Enforcer Edition",
     "year": 2008,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -2769,7 +2769,7 @@
     "model": "H1 Alpha",
     "year": 2006,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -2778,7 +2778,7 @@
     "model": "XP-1 Warp Drive",
     "year": 2022,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -2787,7 +2787,7 @@
     "model": "Chief Dark Horse",
     "year": 2015,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -2796,7 +2796,7 @@
     "model": "Scout 2015",
     "year": 2015,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -2805,7 +2805,7 @@
     "model": "Scout The Cruiser Edition",
     "year": 2015,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -2814,7 +2814,7 @@
     "model": "FTR 1200 S",
     "year": 2019,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -2823,7 +2823,7 @@
     "model": "Q60 Project Black S Concept",
     "year": 2018,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "AGP",
@@ -2832,7 +2832,7 @@
     "model": " IVT AGP R-07",
     "year": 2023,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -2841,7 +2841,7 @@
     "model": "Aezus",
     "year": 2024,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -2850,7 +2850,7 @@
     "model": "Aezus – Stealth Edition",
     "year": 2024,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -2859,7 +2859,7 @@
     "model": "Aezus Chase Squad Ed.",
     "year": 2024,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -2868,7 +2868,7 @@
     "model": "Falcon IVT-R1000",
     "year": 2023,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -2877,7 +2877,7 @@
     "model": "IVT Falcon S-1000 Adventure Edition",
     "year": 2023,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -2886,7 +2886,7 @@
     "model": "IVT Falcon R-1200 R",
     "year": 2023,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -2895,7 +2895,7 @@
     "model": "Ogmios",
     "year": 2024,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -2904,7 +2904,7 @@
     "model": "Ogmios Chase Squad Ed.",
     "year": 2024,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -2913,7 +2913,7 @@
     "model": "C-X75 Concept",
     "year": 2013,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -2922,7 +2922,7 @@
     "model": "C-X75 Concept Lunar Year Edition",
     "year": 2013,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -2931,7 +2931,7 @@
     "model": "C-X75 Concept Exo Edition",
     "year": 2013,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -2940,7 +2940,7 @@
     "model": "XJ220",
     "year": 1992,
     "country": "GB",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -2949,7 +2949,7 @@
     "model": "E-Type Roadster Temptation Edition",
     "year": 1961,
     "country": "GB",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -2958,7 +2958,7 @@
     "model": "E-Type Series 1 Coupé",
     "year": 1961,
     "country": "GB",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -2967,7 +2967,7 @@
     "model": "E-Type Series 1 Coupé The Champion Edition",
     "year": 1961,
     "country": "GB",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -2976,7 +2976,7 @@
     "model": "E-Type Series 1 Roadster",
     "year": 1961,
     "country": "GB",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -2985,7 +2985,7 @@
     "model": "D-Type",
     "year": 1955,
     "country": "GB",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -2994,7 +2994,7 @@
     "model": "F-Type SVR Coupe",
     "year": 2017,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -3003,7 +3003,7 @@
     "model": "F-Type SVR Coupe Professional Edition",
     "year": 2017,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -3012,7 +3012,7 @@
     "model": "XE SV Project 8",
     "year": 2018,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Monster Truck",
@@ -3021,7 +3021,7 @@
     "model": "Grand Cherokee SRT8® 2012",
     "year": 2012,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -3030,7 +3030,7 @@
     "model": "Grand Cherokee SRT8® ",
     "year": 2012,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -3039,7 +3039,7 @@
     "model": "MOAB Quicksand Concept",
     "year": 2017,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -3048,7 +3048,7 @@
     "model": "Wrangler Evo1",
     "year": 2012,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -3057,7 +3057,7 @@
     "model": "Wrangler Evo2",
     "year": 2012,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -3066,7 +3066,7 @@
     "model": "Wrangler Unlimited Rubicon 392",
     "year": 2021,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -3075,7 +3075,7 @@
     "model": "Gladiator",
     "year": 2021,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -3084,7 +3084,7 @@
     "model": "Wrangler 392 Adventure Ed.",
     "year": 2021,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -3093,7 +3093,7 @@
     "model": "Wrangler",
     "year": 2012,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -3102,7 +3102,7 @@
     "model": "Grand Cherokee SRT8®",
     "year": 2012,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -3111,7 +3111,7 @@
     "model": "Wrangler - Pioneer Edition",
     "year": 2012,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Motocross",
@@ -3120,7 +3120,7 @@
     "model": "KX450F",
     "year": 2015,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -3129,7 +3129,7 @@
     "model": "GPZ 900 R Ninja",
     "year": 1984,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Racing",
@@ -3138,7 +3138,7 @@
     "model": "Ninja H2",
     "year": 2015,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -3147,7 +3147,7 @@
     "model": "Z1000 ABS",
     "year": 2015,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -3156,7 +3156,7 @@
     "model": "KX450F",
     "year": 2015,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -3165,7 +3165,7 @@
     "model": "KX450F",
     "year": 2015,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -3174,7 +3174,7 @@
     "model": "Ninja H2",
     "year": 2015,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -3183,7 +3183,7 @@
     "model": "Ninja H2 Light Rider Edition",
     "year": 2015,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -3192,7 +3192,7 @@
     "model": "Z1000 ABS",
     "year": 2015,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -3201,7 +3201,7 @@
     "model": "GPZ 900 R Ninja",
     "year": 1984,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Hypercar",
@@ -3210,7 +3210,7 @@
     "model": "Agera R",
     "year": 2012,
     "country": "Schweden",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -3219,7 +3219,7 @@
     "model": "CCR",
     "year": 2004,
     "country": "Schweden",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -3228,7 +3228,7 @@
     "model": "Gemera",
     "year": 2020,
     "country": "Schweden",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -3237,7 +3237,7 @@
     "model": "Gemera Outclassed Edition",
     "year": 2020,
     "country": "Schweden",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -3246,7 +3246,7 @@
     "model": "Jesko",
     "year": 2020,
     "country": "Schweden",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -3255,7 +3255,7 @@
     "model": "One:1",
     "year": 2014,
     "country": "Schweden",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -3264,7 +3264,7 @@
     "model": "Regera",
     "year": 2015,
     "country": "Schweden",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -3273,7 +3273,7 @@
     "model": "CCGT",
     "year": 2007,
     "country": "Schweden",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -3282,7 +3282,7 @@
     "model": "Nissan 240SX (S14)",
     "year": 1998,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "AGP",
@@ -3291,7 +3291,7 @@
     "model": "X-Bow R ",
     "year": 2016,
     "country": "Österreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "AGP",
@@ -3300,7 +3300,7 @@
     "model": "X-Bow R Spear Racing Ed.",
     "year": 2016,
     "country": "Österreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -3309,7 +3309,7 @@
     "model": "X-Bow GTX",
     "year": 2020,
     "country": "Österreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Motocross",
@@ -3318,7 +3318,7 @@
     "model": "450 EXC",
     "year": 2015,
     "country": "Österreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Motocross",
@@ -3327,7 +3327,7 @@
     "model": "450 EXC Nighthawk Edition",
     "year": 2015,
     "country": "Österreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Motocross",
@@ -3336,7 +3336,7 @@
     "model": "450 EXC Redbull",
     "year": 2015,
     "country": "Österreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -3345,7 +3345,7 @@
     "model": "1190 RC8 R Track",
     "year": 2015,
     "country": "Österreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -3354,7 +3354,7 @@
     "model": "1190 RC8 R Track Power Track Edition",
     "year": 2015,
     "country": "Österreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -3363,7 +3363,7 @@
     "model": "RC16 - Red Bull Team",
     "year": 2022,
     "country": "Österreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -3372,7 +3372,7 @@
     "model": "RC16 - Tech 3 Team",
     "year": 2022,
     "country": "Österreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -3381,7 +3381,7 @@
     "model": "X-Bow GT2",
     "year": 2020,
     "country": "Österreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -3390,7 +3390,7 @@
     "model": "X-Bow GT4",
     "year": 2016,
     "country": "Österreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -3399,7 +3399,7 @@
     "model": "X-Bow GT4 Raw Edition",
     "year": 2016,
     "country": "Österreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -3408,7 +3408,7 @@
     "model": "X-BOW R Experience Red Bull Ring",
     "year": 2016,
     "country": "Österreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -3417,7 +3417,7 @@
     "model": "450 Rally",
     "year": 2015,
     "country": "Österreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -3426,7 +3426,7 @@
     "model": "525 XC (Race Spec)",
     "year": 2011,
     "country": "Österreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -3435,7 +3435,7 @@
     "model": "450 EXC",
     "year": 2015,
     "country": "Österreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -3444,7 +3444,7 @@
     "model": "1190 RC8 R",
     "year": 2015,
     "country": "Österreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -3453,7 +3453,7 @@
     "model": "1290 SUPER DUKE R ABS",
     "year": 2015,
     "country": "Österreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -3462,7 +3462,7 @@
     "model": "X-Bow R",
     "year": 2016,
     "country": "Österreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -3471,7 +3471,7 @@
     "model": "Aventador LP 700-4",
     "year": 2012,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -3480,7 +3480,7 @@
     "model": "Countach LPI 800-4",
     "year": 2021,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -3489,7 +3489,7 @@
     "model": "Egoista",
     "year": 2013,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -3498,7 +3498,7 @@
     "model": "Huracan Performante",
     "year": 2018,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -3507,7 +3507,7 @@
     "model": "Reventon",
     "year": 2007,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -3516,7 +3516,7 @@
     "model": "Revuelto",
     "year": 2023,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -3525,7 +3525,7 @@
     "model": "Sián Roadster",
     "year": 2020,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -3534,7 +3534,7 @@
     "model": "Terzo Millennio",
     "year": 2017,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -3543,7 +3543,7 @@
     "model": "Veneno",
     "year": 2013,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -3552,7 +3552,7 @@
     "model": "Veneno Interception Unit",
     "year": 2013,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -3561,7 +3561,7 @@
     "model": "SC20",
     "year": 2020,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -3570,7 +3570,7 @@
     "model": "Essenza SCV12",
     "year": 2020,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -3579,7 +3579,7 @@
     "model": "Gallardo LP 570-4 Super Trofeo",
     "year": 2013,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -3588,7 +3588,7 @@
     "model": "Huracan LP620-2 Super Trofeo",
     "year": 2015,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -3597,7 +3597,7 @@
     "model": "Murciélago RGT",
     "year": 2003,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -3606,7 +3606,7 @@
     "model": "Miura SV",
     "year": 1971,
     "country": "Italien",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -3615,7 +3615,7 @@
     "model": "Countach LP 5000 Quattrovalvole",
     "year": 1985,
     "country": "Italien",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -3624,7 +3624,7 @@
     "model": "Diablo GT",
     "year": 1999,
     "country": "Italien",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -3633,7 +3633,7 @@
     "model": "Murciélago LP640",
     "year": 2006,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -3642,7 +3642,7 @@
     "model": "Gallardo LP 570-4 Superleggera",
     "year": 2011,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -3651,7 +3651,7 @@
     "model": "Huracán LP610-4",
     "year": 2014,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -3660,7 +3660,7 @@
     "model": "Urus",
     "year": 2017,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -3669,7 +3669,7 @@
     "model": "Diablo GT Pura Potenza Edition",
     "year": 1999,
     "country": "Italien",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Rally",
@@ -3678,7 +3678,7 @@
     "model": "Delta S4",
     "year": 1985,
     "country": "Italien",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Rally",
@@ -3687,7 +3687,7 @@
     "model": "Delta S4 Hoodlum Racing Crew Ed.",
     "year": 1985,
     "country": "Italien",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Rally",
@@ -3696,7 +3696,7 @@
     "model": "Rally 037",
     "year": 1982,
     "country": "Italien",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Rally",
@@ -3705,7 +3705,7 @@
     "model": "Statos HF GR4",
     "year": 1976,
     "country": "Italien",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -3714,7 +3714,7 @@
     "model": "Stratos HF Stradale",
     "year": 1975,
     "country": "Italien",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Rally Raid",
@@ -3723,7 +3723,7 @@
     "model": "Defender Works V8 Pierce Edition",
     "year": 2018,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -3732,7 +3732,7 @@
     "model": "Defender 90 Works V8 70th Edition",
     "year": 2018,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -3741,7 +3741,7 @@
     "model": "Defender Works V8 Intrepid Outdoors",
     "year": 2018,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -3750,7 +3750,7 @@
     "model": "Defender 110 V8",
     "year": 2022,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -3759,7 +3759,7 @@
     "model": "Mclaren 720S Spider",
     "year": 2019,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -3768,7 +3768,7 @@
     "model": "Honda NSX",
     "year": 1992,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Hypercar",
@@ -3777,7 +3777,7 @@
     "model": "Evija",
     "year": 2022,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -3786,7 +3786,7 @@
     "model": "Evija Pure Edition",
     "year": 2022,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally",
@@ -3795,7 +3795,7 @@
     "model": "Exige S",
     "year": 2013,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -3804,7 +3804,7 @@
     "model": "Evora GTE",
     "year": 2012,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -3813,7 +3813,7 @@
     "model": "Evora GTE Overcut Edition",
     "year": 2012,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -3822,7 +3822,7 @@
     "model": "Exige S",
     "year": 2013,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -3831,7 +3831,7 @@
     "model": "Emira",
     "year": 2022,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -3840,7 +3840,7 @@
     "model": "Alfieri",
     "year": 2014,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -3849,7 +3849,7 @@
     "model": "MC12",
     "year": 2004,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -3858,7 +3858,7 @@
     "model": "MC20",
     "year": 2021,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -3867,7 +3867,7 @@
     "model": "MC20 Cielo",
     "year": 2023,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -3876,7 +3876,7 @@
     "model": "GranTurismo S",
     "year": 2009,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -3885,7 +3885,7 @@
     "model": "MC12 versione Corse",
     "year": 2006,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -3894,7 +3894,7 @@
     "model": "Ghibli 4.9 SS Coupe",
     "year": 1969,
     "country": "Italien",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -3903,7 +3903,7 @@
     "model": "GranTurismo S",
     "year": 2009,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -3912,7 +3912,7 @@
     "model": "Levante Trofeo",
     "year": 2021,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -3921,7 +3921,7 @@
     "model": "MX5",
     "year": 2016,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally",
@@ -3930,7 +3930,7 @@
     "model": "RX-7 Evo Group B",
     "year": 1985,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Rally Raid",
@@ -3939,7 +3939,7 @@
     "model": "MX-5 MIATA NA",
     "year": 1989,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Rally Raid",
@@ -3948,7 +3948,7 @@
     "model": "MX-5 MIATA NA Spearhog Ed.",
     "year": 1989,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -3957,7 +3957,7 @@
     "model": "COSMO Sport",
     "year": 1967,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -3966,7 +3966,7 @@
     "model": "RX-3",
     "year": 1972,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -3975,7 +3975,7 @@
     "model": "RX-3 Supercharged Edition",
     "year": 1972,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -3984,7 +3984,7 @@
     "model": "RX-7 Turbo 10th Anniversary",
     "year": 1988,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -3993,7 +3993,7 @@
     "model": "RX-7 Turbo Sakura Edition",
     "year": 1988,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -4002,7 +4002,7 @@
     "model": "MX-5 MIATA NA",
     "year": 1989,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -4011,7 +4011,7 @@
     "model": "RX-3 Raigyo Edition",
     "year": 1972,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -4020,7 +4020,7 @@
     "model": "RX-7 Turbo Outline Edition",
     "year": 1988,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -4029,7 +4029,7 @@
     "model": "RX7",
     "year": 2002,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -4038,7 +4038,7 @@
     "model": "RX7 Shirogane Edition",
     "year": 2002,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -4047,7 +4047,7 @@
     "model": "RX-8",
     "year": 2010,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -4056,7 +4056,7 @@
     "model": "RX-8 Gold Edition",
     "year": 2010,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -4065,7 +4065,7 @@
     "model": "RX-8 Thunderwave Edition",
     "year": 2010,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -4074,7 +4074,7 @@
     "model": "MX-5",
     "year": 2016,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -4083,7 +4083,7 @@
     "model": "RX-8 Pearl Edition",
     "year": 2010,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -4092,7 +4092,7 @@
     "model": "12C",
     "year": 2013,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -4101,7 +4101,7 @@
     "model": "720S Spider",
     "year": 2019,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -4110,7 +4110,7 @@
     "model": "720S Spider Blast Edition",
     "year": 2019,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -4119,7 +4119,7 @@
     "model": "765LT",
     "year": 2020,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -4128,7 +4128,7 @@
     "model": "Elva",
     "year": 2021,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -4137,7 +4137,7 @@
     "model": "F1",
     "year": 1993,
     "country": "GB",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Hypercar",
@@ -4146,7 +4146,7 @@
     "model": "P1",
     "year": 2013,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -4155,7 +4155,7 @@
     "model": "P1 Gold Line Edition",
     "year": 2013,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -4164,7 +4164,7 @@
     "model": "Senna",
     "year": 2018,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -4173,7 +4173,7 @@
     "model": "12C GT3",
     "year": 2014,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -4182,7 +4182,7 @@
     "model": "Senna GTR",
     "year": 2020,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -4191,7 +4191,7 @@
     "model": "AMG-One",
     "year": 2022,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -4200,7 +4200,7 @@
     "model": "C 63 Touring Car ",
     "year": 2016,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -4209,7 +4209,7 @@
     "model": "C-Coupé Touring Car ",
     "year": 2012,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -4218,7 +4218,7 @@
     "model": "GT3",
     "year": 2015,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -4227,7 +4227,7 @@
     "model": "SL 63 ",
     "year": 2009,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -4236,7 +4236,7 @@
     "model": "SLS GT3",
     "year": 2011,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -4245,7 +4245,7 @@
     "model": "C 63 Coupé Black Series",
     "year": 2012,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -4254,7 +4254,7 @@
     "model": "GT",
     "year": 2015,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -4263,7 +4263,7 @@
     "model": "C 63 S Coupé",
     "year": 2016,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -4272,7 +4272,7 @@
     "model": "SL 63",
     "year": 2009,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -4281,7 +4281,7 @@
     "model": "SLS",
     "year": 2010,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -4290,7 +4290,7 @@
     "model": "SL 63 4MATIC+",
     "year": 2022,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -4299,7 +4299,7 @@
     "model": "Vision EQ Silver Arrow",
     "year": 2018,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -4308,7 +4308,7 @@
     "model": "300 SLR UHLENHAUT COUPE ",
     "year": 1955,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Racing",
@@ -4317,7 +4317,7 @@
     "model": "SLR McLaren 722 GT",
     "year": 2007,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -4326,7 +4326,7 @@
     "model": "X-Class",
     "year": 2017,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -4335,7 +4335,7 @@
     "model": "GLC 250 4MATIC Coupé",
     "year": 2016,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -4344,7 +4344,7 @@
     "model": "300 SLR Uhlehaut Coupe",
     "year": 1955,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -4353,7 +4353,7 @@
     "model": "SLR McLaren 722 Edition",
     "year": 2007,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -4362,7 +4362,7 @@
     "model": "Cooper S ",
     "year": 2010,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -4371,7 +4371,7 @@
     "model": "Cooper S Checkered Edition",
     "year": 2010,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally",
@@ -4380,7 +4380,7 @@
     "model": "Cooper S ",
     "year": 2010,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally",
@@ -4389,7 +4389,7 @@
     "model": "Cooper S Countryman ALL4 ",
     "year": 2013,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -4398,7 +4398,7 @@
     "model": "Countryman ALL4 Racing",
     "year": 2013,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -4407,7 +4407,7 @@
     "model": "Cooper S ",
     "year": 2010,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -4416,7 +4416,7 @@
     "model": "Cooper S Countryman ALL4",
     "year": 2013,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -4425,7 +4425,7 @@
     "model": "Cooper S",
     "year": 1969,
     "country": "GB",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Rally",
@@ -4434,7 +4434,7 @@
     "model": "Lancer WRC05",
     "year": 2005,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -4443,7 +4443,7 @@
     "model": "FTO GP Version R",
     "year": 1997,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -4452,7 +4452,7 @@
     "model": "Eclipse GSX",
     "year": 1999,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -4461,7 +4461,7 @@
     "model": "Eclipse Star Edition",
     "year": 1999,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -4470,7 +4470,7 @@
     "model": "FTO Version R Nebula Edition",
     "year": 1997,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -4479,7 +4479,7 @@
     "model": "3000GT VR4",
     "year": 1994,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -4488,7 +4488,7 @@
     "model": "3000GT VR4 Interception Unit",
     "year": 1994,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -4497,7 +4497,7 @@
     "model": "3000GT VR4 No Rules Edition",
     "year": 1994,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -4506,7 +4506,7 @@
     "model": "Lancer Evolution VI GSR",
     "year": 1999,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -4515,7 +4515,7 @@
     "model": "Lancer Evolution X",
     "year": 2014,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -4524,7 +4524,7 @@
     "model": "Lancer Evolution X Black Knight Edition",
     "year": 2014,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -4533,7 +4533,7 @@
     "model": "Lancer Evolution X Red Fury Edition",
     "year": 2014,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -4542,7 +4542,7 @@
     "model": "Lancer Evolution IX",
     "year": 2006,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -4551,7 +4551,7 @@
     "model": "Lancer Evolution VI GSR Hoonigan Ed",
     "year": 1999,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Hypercar",
@@ -4560,7 +4560,7 @@
     "model": "R390 GT1 Road Version",
     "year": 1998,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Hypercar",
@@ -4569,7 +4569,7 @@
     "model": "GT-R50 by Italdesign",
     "year": 2021,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Monster Truck",
@@ -4578,7 +4578,7 @@
     "model": "370Z (Z34)",
     "year": 2013,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Monster Truck",
@@ -4587,7 +4587,7 @@
     "model": "Skyline GT-R (R34)",
     "year": 2002,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -4596,7 +4596,7 @@
     "model": "370Z (Z34) Racing Ed.",
     "year": 2013,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -4605,7 +4605,7 @@
     "model": "GT-R Nismo GT3",
     "year": 2018,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -4614,7 +4614,7 @@
     "model": "Skyline GT-R (R34) Racing Ed.",
     "year": 2002,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally",
@@ -4623,7 +4623,7 @@
     "model": "370Z (Z34)",
     "year": 2013,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally",
@@ -4632,7 +4632,7 @@
     "model": "Fairlady Z 432 (PS30)",
     "year": 1970,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Rally",
@@ -4641,7 +4641,7 @@
     "model": "Skyline GT-R (R34)",
     "year": 2002,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -4650,7 +4650,7 @@
     "model": "370Z (Z34)",
     "year": 2013,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -4659,7 +4659,7 @@
     "model": "Skyline GT-R (R34)",
     "year": 2002,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -4668,7 +4668,7 @@
     "model": "Fairlady Z 432 (PS30) Under The Stars Edition",
     "year": 1970,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -4677,7 +4677,7 @@
     "model": "300 ZX (Z32)",
     "year": 1994,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -4686,7 +4686,7 @@
     "model": "300 ZX (Z32) Malu Edition",
     "year": 1994,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -4695,7 +4695,7 @@
     "model": "240 SX (S14)",
     "year": 1998,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -4704,7 +4704,7 @@
     "model": "Fairlady Z 432 (PS30)",
     "year": 1970,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -4713,7 +4713,7 @@
     "model": "300 ZX (Z32) Kaido-ou Edition",
     "year": 1994,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -4722,7 +4722,7 @@
     "model": "Skyline GT-R (R34)",
     "year": 2002,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -4731,7 +4731,7 @@
     "model": "Skyline GT-R (R34) High Octane Edition",
     "year": 2002,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -4740,7 +4740,7 @@
     "model": "Skyline GT-R (R34) Lucky Dragon Edition",
     "year": 2002,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -4749,7 +4749,7 @@
     "model": "350Z Roadster",
     "year": 2004,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -4758,7 +4758,7 @@
     "model": "370Z (Z34)",
     "year": 2013,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -4767,7 +4767,7 @@
     "model": "GT-R Haru Edition",
     "year": 2015,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -4776,7 +4776,7 @@
     "model": "Z",
     "year": 2023,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -4785,7 +4785,7 @@
     "model": "370Z Nismo",
     "year": 2016,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -4794,7 +4794,7 @@
     "model": "GT-R ",
     "year": 2015,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -4803,7 +4803,7 @@
     "model": "GT-R Nismo",
     "year": 2020,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -4812,7 +4812,7 @@
     "model": "Skyline GT-R (R34) Blackpanthaa Ed.",
     "year": 2002,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -4821,7 +4821,7 @@
     "model": "350Z Roadster Ultimate Ed.",
     "year": 2004,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -4830,7 +4830,7 @@
     "model": "Skyline GT-R (R32)",
     "year": 1989,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Hypercar",
@@ -4839,7 +4839,7 @@
     "model": "M500",
     "year": 2022,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -4848,7 +4848,7 @@
     "model": "M600",
     "year": 2010,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -4857,7 +4857,7 @@
     "model": "M600 Lunar Year Ed.",
     "year": 2020,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -4866,7 +4866,7 @@
     "model": "Huayra",
     "year": 2012,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -4875,7 +4875,7 @@
     "model": "Huayra Rubicone Edizione",
     "year": 2012,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -4884,7 +4884,7 @@
     "model": "Zonda F",
     "year": 2005,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -4893,7 +4893,7 @@
     "model": "Zonda F Primary Edition",
     "year": 2005,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -4902,7 +4902,7 @@
     "model": "Utopi",
     "year": 2023,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -4911,7 +4911,7 @@
     "model": "Zonda R",
     "year": 2008,
     "country": "Italien",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally",
@@ -4920,7 +4920,7 @@
     "model": "205 T16 Evo 2",
     "year": 1984,
     "country": "Frankreich",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Rally Raid",
@@ -4929,7 +4929,7 @@
     "model": "3008 DKR Maxi",
     "year": 2018,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -4938,7 +4938,7 @@
     "model": "Road Runner",
     "year": 1970,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -4947,7 +4947,7 @@
     "model": "Road Runner Freedom Edition",
     "year": 1970,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -4956,7 +4956,7 @@
     "model": "Road Runner La Verrde Edition",
     "year": 1970,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Rally Raid",
@@ -4965,7 +4965,7 @@
     "model": "GTO The Judge",
     "year": 1969,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Rally Raid",
@@ -4974,7 +4974,7 @@
     "model": "GTO The Judge Sparrow Competition Ed.",
     "year": 1969,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -4983,7 +4983,7 @@
     "model": "GTO",
     "year": 1966,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -4992,7 +4992,7 @@
     "model": "GTO The Judge",
     "year": 1969,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -5001,7 +5001,7 @@
     "model": "Firebird",
     "year": 1977,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -5010,7 +5010,7 @@
     "model": "Firebird Golden Wing Edition",
     "year": 1977,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -5019,7 +5019,7 @@
     "model": "Firebird",
     "year": 1982,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -5028,7 +5028,7 @@
     "model": "GTO Rival Ed.",
     "year": 1966,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Hypercar",
@@ -5037,7 +5037,7 @@
     "model": "911 GT1 Straβenversion (993)",
     "year": 1996,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Hypercar",
@@ -5046,7 +5046,7 @@
     "model": "918 Spyder",
     "year": 2015,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -5055,7 +5055,7 @@
     "model": "918 Spyder Silvery Edition",
     "year": 2015,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -5064,7 +5064,7 @@
     "model": "Carrera GT",
     "year": 2003,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -5073,7 +5073,7 @@
     "model": "Carrera GT Green Flash Edition",
     "year": 2003,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -5082,7 +5082,7 @@
     "model": "911 GT3 Rs Chase Squad Ed.",
     "year": 2023,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -5091,7 +5091,7 @@
     "model": "919 Street",
     "year": 2017,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -5100,7 +5100,7 @@
     "model": "911 Carrera RSR Turbo",
     "year": 1974,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Racing",
@@ -5109,7 +5109,7 @@
     "model": "911 Carrera RSR Turbo Pulse Performance Ed.",
     "year": 1974,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Racing",
@@ -5118,7 +5118,7 @@
     "model": "911 GT3 Cup",
     "year": 2017,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -5127,7 +5127,7 @@
     "model": "917K ",
     "year": 1970,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Racing",
@@ -5136,7 +5136,7 @@
     "model": "935 2.0 Coupé Baby",
     "year": 1977,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Racing",
@@ -5145,7 +5145,7 @@
     "model": "935 2.0 Coupé Baby Old-Timer Edition",
     "year": 1977,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Rally",
@@ -5154,7 +5154,7 @@
     "model": "911 GT3 RS RD Limited Edition",
     "year": 2016,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -5163,7 +5163,7 @@
     "model": "959 Raid",
     "year": 1985,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -5172,7 +5172,7 @@
     "model": "550 Spyder",
     "year": 1955,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -5181,7 +5181,7 @@
     "model": "356",
     "year": 1948,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -5190,7 +5190,7 @@
     "model": "911 Director’S Cut Edition",
     "year": 1964,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -5199,7 +5199,7 @@
     "model": 911,
     "year": 1964,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -5208,7 +5208,7 @@
     "model": "911 Carrera RS 2.7",
     "year": 1972,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -5217,7 +5217,7 @@
     "model": "928 S4",
     "year": 1991,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -5226,7 +5226,7 @@
     "model": "911 Turbo",
     "year": 1993,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -5235,7 +5235,7 @@
     "model": "911 (993) GT",
     "year": 1996,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -5244,7 +5244,7 @@
     "model": "911 GT3 RS",
     "year": 2016,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -5253,7 +5253,7 @@
     "model": "911 GT3 RS Splatter Edition",
     "year": 2016,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -5262,7 +5262,7 @@
     "model": "Cayman GT4",
     "year": 2016,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -5271,7 +5271,7 @@
     "model": "Cayman GT4 Carbon Edition",
     "year": 2016,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -5280,7 +5280,7 @@
     "model": "Cayman GT4 Wasp Edition",
     "year": 2016,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -5289,7 +5289,7 @@
     "model": "911 Speedster",
     "year": 2019,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -5298,7 +5298,7 @@
     "model": "911 Speedster Winter Agent Edition",
     "year": 2019,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -5307,7 +5307,7 @@
     "model": "718 Spyder",
     "year": 2021,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -5316,7 +5316,7 @@
     "model": "718 Spyder Fitted Edition",
     "year": 2021,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -5325,7 +5325,7 @@
     "model": "Taycan Turbo S",
     "year": 2021,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -5334,7 +5334,7 @@
     "model": "Panamera Turbo S Sport Turismo",
     "year": 2022,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -5343,7 +5343,7 @@
     "model": "911 (992) Carrera 4S",
     "year": 2020,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -5352,7 +5352,7 @@
     "model": "911 (992) Carrera 4S Timeless Edition",
     "year": 2020,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -5361,7 +5361,7 @@
     "model": "Cayenne Turbo GT (coupé)",
     "year": 2022,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -5370,7 +5370,7 @@
     "model": "959",
     "year": 1986,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -5379,7 +5379,7 @@
     "model": "Cayenne Turbo GT Basalt Edition",
     "year": 2022,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -5388,7 +5388,7 @@
     "model": "Taycan Turbo S Thunder Ed.",
     "year": 2021,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -5397,7 +5397,7 @@
     "model": "911 GT3 RS",
     "year": 2023,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "AGP",
@@ -5406,7 +5406,7 @@
     "model": "Alpha Mark X",
     "year": 2020,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "AGP",
@@ -5415,7 +5415,7 @@
     "model": "Concept Glow Motorsport",
     "year": 2023,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "AGP",
@@ -5424,7 +5424,7 @@
     "model": "Concept Pulse Performance",
     "year": 2023,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "AGP",
@@ -5433,7 +5433,7 @@
     "model": "Concept Sparrow Competition",
     "year": 2023,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "AGP",
@@ -5442,7 +5442,7 @@
     "model": "Concept Spear Racing",
     "year": 2023,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "AGP",
@@ -5451,7 +5451,7 @@
     "model": "Mark II",
     "year": 2018,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -5460,7 +5460,7 @@
     "model": "FLASHBACK",
     "year": 1986,
     "country": "Frankreich",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Hypercar",
@@ -5469,7 +5469,7 @@
     "model": "LUCKY-ONE Marble Edition",
     "year": 2022,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -5478,7 +5478,7 @@
     "model": "Lucky-One",
     "year": 2022,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Monster Truck",
@@ -5487,7 +5487,7 @@
     "model": "HuP ONE",
     "year": 1930,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Racing",
@@ -5496,7 +5496,7 @@
     "model": "HuP ONE Racing Ed.",
     "year": 1930,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Rally Raid",
@@ -5505,7 +5505,7 @@
     "model": "Buggy",
     "year": 2017,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -5514,7 +5514,7 @@
     "model": "HuP One",
     "year": 1930,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -5523,7 +5523,7 @@
     "model": "HuP One Burning Wheels Edition",
     "year": 1930,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -5532,7 +5532,7 @@
     "model": "HuP One Clumsy Edition",
     "year": 1930,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -5541,7 +5541,7 @@
     "model": "HuP One Marco's Cab",
     "year": 1930,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Rally Raid",
@@ -5550,7 +5550,7 @@
     "model": "1500 Rebel TRX Concept",
     "year": 2017,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -5559,7 +5559,7 @@
     "model": "1500 Rebel TRX Concept Enforcer Edition",
     "year": 2017,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "AGP",
@@ -5568,7 +5568,7 @@
     "model": "RB13",
     "year": 2017,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "AGP",
@@ -5577,7 +5577,7 @@
     "model": "RB14",
     "year": 2018,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "AGP",
@@ -5586,7 +5586,7 @@
     "model": "RB14 Disruption Edition",
     "year": 2018,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "AGP",
@@ -5595,7 +5595,7 @@
     "model": "RB18",
     "year": 2022,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "AGP",
@@ -5604,7 +5604,7 @@
     "model": "RB20",
     "year": 2024,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -5613,7 +5613,7 @@
     "model": "TreZor",
     "year": 2016,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -5622,7 +5622,7 @@
     "model": "R.S.01",
     "year": 2016,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally",
@@ -5631,7 +5631,7 @@
     "model": "Maxi 5 Turbo",
     "year": 1985,
     "country": "Frankreich",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -5640,7 +5640,7 @@
     "model": "Megane RS",
     "year": 2018,
     "country": "Frankreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -5649,7 +5649,7 @@
     "model": "Nevera",
     "year": 2022,
     "country": "Croatia",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -5658,7 +5658,7 @@
     "model": "Nevera Time Attack Ed.",
     "year": 2023,
     "country": "Croatia",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -5667,7 +5667,7 @@
     "model": "Dodge Charger \"Tusk\"",
     "year": 1969,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Rally Raid",
@@ -5676,7 +5676,7 @@
     "model": "3400 K",
     "year": 2007,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -5685,7 +5685,7 @@
     "model": "S7 Twin-Turbo",
     "year": 2005,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -5694,7 +5694,7 @@
     "model": "S7 Twin-Turbo Glacier Edition",
     "year": 2005,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -5703,7 +5703,7 @@
     "model": "S1 GT4 Cup",
     "year": 2020,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -5712,7 +5712,7 @@
     "model": "S7R",
     "year": 2000,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -5721,7 +5721,7 @@
     "model": "S1",
     "year": 2020,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -5730,7 +5730,7 @@
     "model": "S1 Icebreaker Edition",
     "year": 2020,
     "country": "USA",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -5739,7 +5739,7 @@
     "model": "GT500",
     "year": 1967,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Rally",
@@ -5748,7 +5748,7 @@
     "model": "GT500 Americar Edition",
     "year": 1967,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -5757,7 +5757,7 @@
     "model": "Cobra 427",
     "year": 1964,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -5766,7 +5766,7 @@
     "model": "GT500",
     "year": 1967,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Racing",
@@ -5775,7 +5775,7 @@
     "model": "C8 LaViolette GT2-R",
     "year": 2008,
     "country": "Niederlande",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -5784,7 +5784,7 @@
     "model": "C8 Aileron",
     "year": 2008,
     "country": "Niederlande",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -5793,7 +5793,7 @@
     "model": "C8 Aileron All In Edition",
     "year": 2008,
     "country": "Niederlande",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Motocross",
@@ -5802,7 +5802,7 @@
     "model": "RM-Z 450",
     "year": 2016,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -5811,7 +5811,7 @@
     "model": "GSX-RR ",
     "year": 2016,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -5820,7 +5820,7 @@
     "model": "GSX-R 1000R",
     "year": 2018,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -5829,7 +5829,7 @@
     "model": "Tacoma",
     "year": 2021,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -5838,7 +5838,7 @@
     "model": "2000GT",
     "year": 1967,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -5847,7 +5847,7 @@
     "model": "Supra Ryujin Edition",
     "year": 2000,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -5856,7 +5856,7 @@
     "model": "Supra A80",
     "year": 2000,
     "country": "Japan",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 2",
@@ -5865,7 +5865,7 @@
     "model": "GR Supra",
     "year": 2021,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -5874,7 +5874,7 @@
     "model": "GR Supra LBWK Edition",
     "year": 2021,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -5883,7 +5883,7 @@
     "model": "GR86",
     "year": 2022,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -5892,7 +5892,7 @@
     "model": "Sagaris",
     "year": 2004,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -5901,7 +5901,7 @@
     "model": "Griffith",
     "year": 2017,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -5910,7 +5910,7 @@
     "model": "Griffith Peppermint Edition",
     "year": 2017,
     "country": "GB",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Monster Truck",
@@ -5919,7 +5919,7 @@
     "model": "Kombi High School Edition",
     "year": 1966,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Racing",
@@ -5928,7 +5928,7 @@
     "model": "Electic R (ID.R)",
     "year": 2019,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -5937,7 +5937,7 @@
     "model": "Beetle",
     "year": 1967,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Rally Raid",
@@ -5946,7 +5946,7 @@
     "model": "Beetle Hoodlum Racing Crew Ed.",
     "year": 1967,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Rally Raid",
@@ -5955,7 +5955,7 @@
     "model": "ID Buggy",
     "year": 2019,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -5964,7 +5964,7 @@
     "model": "Race Touareg 3",
     "year": 2011,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -5973,7 +5973,7 @@
     "model": "Kombi 21 Window Bus",
     "year": 1966,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -5982,7 +5982,7 @@
     "model": "Kombi DAK1NE Edition",
     "year": 1966,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -5991,7 +5991,7 @@
     "model": "Kombi Ghost Hunt Edition",
     "year": 1966,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -6000,7 +6000,7 @@
     "model": "Beetle",
     "year": 1967,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -6009,7 +6009,7 @@
     "model": "Beetle Kahakai Edition",
     "year": 1967,
     "country": "Deutschland",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Street Tier 1",
@@ -6018,7 +6018,7 @@
     "model": "Touareg NF",
     "year": 2011,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -6027,7 +6027,7 @@
     "model": "Golf GTI",
     "year": 2014,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 1",
@@ -6036,7 +6036,7 @@
     "model": "GOLF GTI Dash Edition",
     "year": 2014,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -6045,7 +6045,7 @@
     "model": "Lykan Hypersport",
     "year": 2017,
     "country": "Vereinigte Arabische Emirate",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -6054,7 +6054,7 @@
     "model": "Lykan Hypersport Chase Squad Ed.",
     "year": 2017,
     "country": "Vereinigte Arabische Emirate",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Motocross",
@@ -6063,7 +6063,7 @@
     "model": "YZ450F",
     "year": 2018,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -6072,7 +6072,7 @@
     "model": "YZR-M1 2016",
     "year": 2016,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Street Tier 2",
@@ -6081,7 +6081,7 @@
     "model": "VMAX 1700",
     "year": 2014,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -6090,7 +6090,7 @@
     "model": "TSR-S",
     "year": 2020,
     "country": "Dänemark",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Hypercar",
@@ -6099,7 +6099,7 @@
     "model": "TSR-SSHMEE150",
     "year": 2020,
     "country": "Dänemark",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Drift",
@@ -6108,7 +6108,7 @@
     "model": "Mitsubishi Lancer Evolution IX",
     "year": 2006,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Drift",
@@ -6117,7 +6117,7 @@
     "model": "Audi S1 e-tron quattro Hoonitron",
     "year": 2021,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Drift",
@@ -6126,7 +6126,7 @@
     "model": "Ford Hoonicorn Mustang",
     "year": 1965,
     "country": "USA",
-    "era": "Klassisch"
+    "era": "classic"
   },
   {
     "category": "Drift",
@@ -6135,7 +6135,7 @@
     "model": "Lancer Evolution VI GSR",
     "year": 1999,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Drift",
@@ -6144,7 +6144,7 @@
     "model": "Lancer Evolution VI GSR Flow Edition",
     "year": 1999,
     "country": "Japan",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Motocross",
@@ -6153,7 +6153,7 @@
     "model": "450 EXC Robbie Maddison Edition",
     "year": 2015,
     "country": "Österreich",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Rally Raid",
@@ -6162,7 +6162,7 @@
     "model": "RS Q e-tron",
     "year": 2024,
     "country": "Deutschland",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -6171,7 +6171,7 @@
     "model": "RXC 600R",
     "year": 2024,
     "country": "England",
-    "era": "Modern"
+    "era": "modern"
   },
   {
     "category": "Racing",
@@ -6180,6 +6180,6 @@
     "model": "SR10 XXR",
     "year": 2024,
     "country": "England",
-    "era": "Modern"
+    "era": "modern"
   }
 ]
