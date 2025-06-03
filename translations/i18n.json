@@ -23,7 +23,9 @@
     "draw_reset": "↩️ Ziehung zurückgesetzt",
     "filters_reset": "↩️ Filter zurückgesetzt!",
     "blacklist_cleared": "🧹 Blacklist wurde gelöscht!",
-    "drawlog_cleared": "🗑️ Ziehlog gelöscht"
+    "drawlog_cleared": "🗑️ Ziehlog gelöscht",
+    "rotation_applied_manual": "🏁 Grandrace Rotation übernommen",
+    "rotation_applied_auto": "🏁 Neue Rotation"
   },
   "en": {
     "filter_country": "Select country",
@@ -46,5 +48,7 @@
     "filters_reset": "↩️ reset filters",
     "blacklist_cleared": "🧹 Blacklist cleared!",
     "drawlog_cleared": "🗑️ Draw log cleared"
+    "rotation_applied_manual": "🏁 Grandrace rotation applied",
+    "rotation_applied_auto": "🏁 New rotation"
   }
 }
