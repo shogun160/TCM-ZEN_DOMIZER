@@ -1000,8 +1000,9 @@ select.filter-control {
       else if (bikeFilterMode === "bike") bfb.innerText = t("bike_yes");
       else bfb.innerText = t("bike_all");
     }
+    updateSlotBoxes();
     rebuildEraDropdown();
-    rebuildCountryDropdown(); 
+    rebuildCountryDropdown();
   }
 
     /*
