@@ -1303,7 +1303,7 @@ select.filter-control {
         drawExecuted = false;
         updateSlotBoxes();
         updateResetButtonState();
-        showToast("draw_reset", "#f44336");
+        showToast(t("draw_reset"), "#f44336");
         return;
       }
     
@@ -2113,8 +2113,8 @@ select.filter-control {
         // 🔄 Zähler zurücksetzen
         window.drawRound = 1;
         localStorage.setItem("zendomizerDrawRound", "1");
-        showToast("🧹 Blacklist wurde gelöscht!", "#f44336");
-        console.log("🧹 recentDraws wurde per Hotkey zurückgesetzt.");
+        showToast(t("blacklist_cleared"), "#f44336");
+        console.log("🧹 reset recentDraws via hotkey.");
         window.drawLog.push({
           durchgang: 'RESET',
           category: '-',
@@ -2131,18 +2131,18 @@ select.filter-control {
       if ((e.shiftKey) && e.key.toLowerCase() === 'x') {
         window.drawLog = [];
         localStorage.removeItem("zendomizerDrawLog");
-        showToast("🗑️ Ziehlog gelöscht", "#f44336");
-        console.log("🗑️ drawLog wurde per Hotkey zurückgesetzt.");
+        showToast(t("drawlog_cleared"), "#f44336");
+        console.log("🗑️ drawLog cleared via hotkey");
       }
       // SHIFT + G → Logging aktivieren/deaktivieren
       if (e.shiftKey && e.key.toLowerCase() === 'g') {
         window.devLoggingEnabled = !window.devLoggingEnabled;
-        const state = window.devLoggingEnabled ? "aktiviert" : "deaktiviert";
+        const state = window.devLoggingEnabled ? "activ" : "inactive";
         showToast(`🛠️ Dev-Logging ${state}`, window.devLoggingEnabled ? "#0af" : "#aaa");
-        console.log(`🛠️ Dev-Logging wurde ${state}`);
+        console.log(`🛠️ Dev-Logging was ${state}`);
       }
     });
   </script>
-<div id="toast" class="toast">✅ In Zwischenablage kopiert!</div>
+<div id="toast" class="toast"></div>
 </body>
 </html>
