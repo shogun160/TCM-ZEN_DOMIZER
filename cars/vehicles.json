@@ -5,7 +5,7 @@
     "brand": "Abarth",
     "model": 500,
     "year": 1930,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -14,7 +14,7 @@
     "brand": "Abarth",
     "model": "124 Rally ",
     "year": 2017,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -23,7 +23,7 @@
     "brand": "Abarth",
     "model": "124 Spider",
     "year": 2017,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -32,7 +32,7 @@
     "brand": "Abarth",
     "model": 500,
     "year": 2008,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -59,7 +59,7 @@
     "brand": "Alfa Romeo",
     "model": "8C Competizione",
     "year": 2007,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -68,7 +68,7 @@
     "brand": "Alfa Romeo",
     "model": "33 Stradale",
     "year": 1968,
-    "country": "Italien",
+    "country": "italy",
     "era": "classic"
   },
   {
@@ -77,7 +77,7 @@
     "brand": "Alfa Romeo",
     "model": "4C",
     "year": 2013,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -86,7 +86,7 @@
     "brand": "Alfa Romeo",
     "model": "4C Serpente Edizione",
     "year": 2013,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -95,7 +95,7 @@
     "brand": "Alfa Romeo",
     "model": "8C Competizione",
     "year": 2007,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -104,7 +104,7 @@
     "brand": "Alfa Romeo",
     "model": "Giulia GTAm",
     "year": 2021,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -113,7 +113,7 @@
     "brand": "Alfa Romeo",
     "model": "Giulia Quadrifolglio",
     "year": 2017,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -122,7 +122,7 @@
     "brand": "Alfa Romeo",
     "model": "Giulia Quadrifolglio Outclassed Edition",
     "year": 2017,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -131,7 +131,7 @@
     "brand": "Alfa Romeo",
     "model": "Giulia GTAm Rival Ed.",
     "year": 2021,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -221,7 +221,7 @@
     "brand": "Audi",
     "model": "RS 3 LMS",
     "year": 2017,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -230,7 +230,7 @@
     "brand": "Audi",
     "model": "S1 EKS RX quattro",
     "year": 2017,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -239,7 +239,7 @@
     "brand": "Audi",
     "model": "RS 2 Avant",
     "year": 1993,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -248,7 +248,7 @@
     "brand": "Audi",
     "model": "RS 3 Sportback",
     "year": 2022,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -257,7 +257,7 @@
     "brand": "Audi",
     "model": "RS 5 Coupé",
     "year": 2018,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -266,7 +266,7 @@
     "brand": "Audi",
     "model": "RS 7 Sportback",
     "year": 2022,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -275,7 +275,7 @@
     "brand": "Audi",
     "model": "RS 5 Coupé USST Official Edition",
     "year": 2018,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -284,7 +284,7 @@
     "brand": "Audi",
     "model": "R8 V10 Spyder",
     "year": 2021,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -293,7 +293,7 @@
     "brand": "Audi",
     "model": "R8 Coupé V10 Plus",
     "year": 2016,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -302,7 +302,7 @@
     "brand": "Audi",
     "model": "TT RS Coupe",
     "year": 2017,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -311,7 +311,7 @@
     "brand": "Audi",
     "model": "TT RS Roadster",
     "year": 2022,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -320,7 +320,7 @@
     "brand": "Audi",
     "model": "RS Q8",
     "year": 2022,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -329,7 +329,7 @@
     "brand": "Audi",
     "model": "R8 Spyder Motorfest Edition",
     "year": 2021,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -338,7 +338,7 @@
     "brand": "Audi",
     "model": "RS 6 Avant",
     "year": 2021,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -347,7 +347,7 @@
     "brand": "Audi",
     "model": "RS 6 Avant Yiannimize Ed.",
     "year": 2021,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -356,7 +356,7 @@
     "brand": "Audi",
     "model": "RS 6 Avant Chase Squad Ed.",
     "year": 2021,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -392,7 +392,7 @@
     "brand": "BMW",
     "model": "M Performance M4 Racing",
     "year": 2014,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -401,7 +401,7 @@
     "brand": "BMW",
     "model": "M6 GT3 ",
     "year": 2016,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -410,7 +410,7 @@
     "brand": "BMW",
     "model": "Z4 GT3 ",
     "year": 2011,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -419,7 +419,7 @@
     "brand": "BMW",
     "model": "S1000RR",
     "year": 2015,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -428,7 +428,7 @@
     "brand": "BMW",
     "model": "Z4 sDrive35is",
     "year": 2011,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -437,7 +437,7 @@
     "brand": "BMW",
     "model": "R1200GS Adventure",
     "year": 2014,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -446,7 +446,7 @@
     "brand": "BMW",
     "model": "R1200GS Adventure",
     "year": 2014,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -455,7 +455,7 @@
     "brand": "BMW",
     "model": "X6M",
     "year": 2010,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -464,7 +464,7 @@
     "brand": "BMW",
     "model": "Z4 sDrive35is 2011",
     "year": 2011,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -473,7 +473,7 @@
     "brand": "BMW",
     "model": "M2",
     "year": 2017,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -482,7 +482,7 @@
     "brand": "BMW",
     "model": "M2 Beehive Edition",
     "year": 2017,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -491,7 +491,7 @@
     "brand": "BMW",
     "model": "M3 Sport Evolution",
     "year": 1990,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -500,7 +500,7 @@
     "brand": "BMW",
     "model": "M3 Erlkönig Ed.",
     "year": 1990,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -509,7 +509,7 @@
     "brand": "BMW",
     "model": "S1000RR",
     "year": 2015,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -518,7 +518,7 @@
     "brand": "BMW",
     "model": "M5",
     "year": 2011,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -527,7 +527,7 @@
     "brand": "BMW",
     "model": "M4",
     "year": 2014,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -536,7 +536,7 @@
     "brand": "BMW",
     "model": "i8 Roadster",
     "year": 2018,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -545,7 +545,7 @@
     "brand": "BMW",
     "model": "i8 Roadster Stellar Edition",
     "year": 2018,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -554,7 +554,7 @@
     "brand": "BMW",
     "model": "M8 No Rules Edition",
     "year": 2019,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -563,7 +563,7 @@
     "brand": "BMW",
     "model": "M8 Performance Edition",
     "year": 2019,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -572,7 +572,7 @@
     "brand": "BMW",
     "model": "Z4 M40i",
     "year": 2019,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -581,7 +581,7 @@
     "brand": "BMW",
     "model": "Z4 M40i Agent Edition",
     "year": 2019,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -590,7 +590,7 @@
     "brand": "BMW",
     "model": "Z4 M40i Motorfest Edition",
     "year": 2019,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -599,7 +599,7 @@
     "brand": "BMW",
     "model": "M4 Compétition Coupé",
     "year": 2021,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -608,7 +608,7 @@
     "brand": "BMW",
     "model": "M4 Liberty Walk Edition",
     "year": 2021,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -617,7 +617,7 @@
     "brand": "BMW",
     "model": "M8 Competition Coupe",
     "year": 2019,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -626,7 +626,7 @@
     "brand": "BMW",
     "model": "M8 Competition Coupe Interception Unit",
     "year": 2019,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -635,7 +635,7 @@
     "brand": "BMW",
     "model": "M5 CS",
     "year": 2022,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -644,7 +644,7 @@
     "brand": "BMW",
     "model": "M5 CS Rival Ed.",
     "year": 2022,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -653,7 +653,7 @@
     "brand": "Bugatti",
     "model": "Centodieci",
     "year": 2019,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -662,7 +662,7 @@
     "brand": "Bugatti",
     "model": "Chiron",
     "year": 2017,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -671,7 +671,7 @@
     "brand": "Bugatti",
     "model": "Chiron Carbon Edition",
     "year": 2017,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -680,7 +680,7 @@
     "brand": "Bugatti",
     "model": "Chiron Interception Unit",
     "year": 2017,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -689,7 +689,7 @@
     "brand": "Bugatti",
     "model": "Chiron Super Sport 300+",
     "year": 2019,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -698,7 +698,7 @@
     "brand": "Bugatti",
     "model": "EB110 Super Sport",
     "year": 1992,
-    "country": "Frankreich",
+    "country": "france",
     "era": "classic"
   },
   {
@@ -707,7 +707,7 @@
     "brand": "Bugatti",
     "model": "EB110 Super Sport Anodized Edition",
     "year": 1992,
-    "country": "Frankreich",
+    "country": "france",
     "era": "classic"
   },
   {
@@ -716,7 +716,7 @@
     "brand": "Bugatti",
     "model": "Divo",
     "year": 2019,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -725,7 +725,7 @@
     "brand": "Bugatti",
     "model": "Divo Magma Edition",
     "year": 2019,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -734,7 +734,7 @@
     "brand": "Bugatti",
     "model": "Divo Emerald Storm Edition",
     "year": 2019,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -743,7 +743,7 @@
     "brand": "Bugatti",
     "model": "La Voiture Noire",
     "year": 2019,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -752,7 +752,7 @@
     "brand": "Bugatti",
     "model": "Veyron 16.4 Grand Sport Vitesse",
     "year": 2016,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -761,7 +761,7 @@
     "brand": "Bugatti",
     "model": "Veyron Deep Blue Edition",
     "year": 2016,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -770,7 +770,7 @@
     "brand": "Bugatti",
     "model": "Veyron 16.4 Grand Sport Vitesse Edition One",
     "year": 2016,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -779,7 +779,7 @@
     "brand": "Bugatti",
     "model": "Veyron Barchetta",
     "year": 2015,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -788,7 +788,7 @@
     "brand": "Bugatti",
     "model": "Veyron Barchetta Velvet Ed.",
     "year": 2015,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -797,7 +797,7 @@
     "brand": "Bugatti",
     "model": "Atlantic Concept",
     "year": 2015,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -806,7 +806,7 @@
     "brand": "Bugatti",
     "model": "Chiron Super Sport 300+ Devine Edition",
     "year": 2019,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -815,7 +815,7 @@
     "brand": "Bugatti",
     "model": "Bolide",
     "year": 2020,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -824,7 +824,7 @@
     "brand": "Bugatti",
     "model": "Type 57 SC Atlantic",
     "year": 1936,
-    "country": "Frankreich",
+    "country": "france",
     "era": "classic"
   },
   {
@@ -1427,7 +1427,7 @@
     "brand": "Citroën",
     "model": "GT",
     "year": 2008,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -1436,7 +1436,7 @@
     "brand": "Citroën",
     "model": "C3 Racing ",
     "year": 2017,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -1472,7 +1472,7 @@
     "brand": "Creators",
     "model": "Tempesta",
     "year": 2022,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -1490,7 +1490,7 @@
     "brand": "Creators",
     "model": "Tempesta Rival Ed.",
     "year": 2022,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -1499,7 +1499,7 @@
     "brand": "Creators",
     "model": "Tkachenko Ice Hunter",
     "year": 2021,
-    "country": "Russland",
+    "country": "russia",
     "era": "classic"
   },
   {
@@ -1787,7 +1787,7 @@
     "brand": "Ducati",
     "model": "Panigale R ",
     "year": 2015,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -1796,7 +1796,7 @@
     "brand": "Ducati",
     "model": "Hypermotard",
     "year": 2015,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -1805,7 +1805,7 @@
     "brand": "Ducati",
     "model": "Monster 1200 S",
     "year": 2015,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -1814,7 +1814,7 @@
     "brand": "Ducati",
     "model": "Hypermotard",
     "year": 2015,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -1823,7 +1823,7 @@
     "brand": "Ducati",
     "model": "Diavel",
     "year": 2015,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -1832,7 +1832,7 @@
     "brand": "Ducati",
     "model": "Monster 1200 S",
     "year": 2015,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -1841,7 +1841,7 @@
     "brand": "Ducati",
     "model": "Panigale R",
     "year": 2015,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -1850,7 +1850,7 @@
     "brand": "Ducati",
     "model": "draXter",
     "year": 2016,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -1859,7 +1859,7 @@
     "brand": "Ferrari",
     "model": "F8 Spider",
     "year": 2020,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -1868,7 +1868,7 @@
     "brand": "Ferrari",
     "model": "458 Speciale",
     "year": 2014,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -1877,7 +1877,7 @@
     "brand": "Ferrari",
     "model": "488 Pista",
     "year": 2018,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -1886,7 +1886,7 @@
     "brand": "Ferrari",
     "model": "812 Superfast",
     "year": 2017,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -1895,7 +1895,7 @@
     "brand": "Ferrari",
     "model": "Enzo Ferrari",
     "year": 2002,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -1904,7 +1904,7 @@
     "brand": "Ferrari",
     "model": "F12tdf",
     "year": 2016,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -1913,7 +1913,7 @@
     "brand": "Ferrari",
     "model": "LAFERRARI",
     "year": 2014,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -1922,7 +1922,7 @@
     "brand": "Ferrari",
     "model": "SF90 Stradale",
     "year": 2020,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -1931,7 +1931,7 @@
     "brand": "Ferrari",
     "model": "365 GTB/4 Competizione (Daytona)",
     "year": 1971,
-    "country": "Italien",
+    "country": "italy",
     "era": "classic"
   },
   {
@@ -1940,7 +1940,7 @@
     "brand": "Ferrari",
     "model": "458 Italia GT2",
     "year": 2011,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -1949,7 +1949,7 @@
     "brand": "Ferrari",
     "model": "488 GT3",
     "year": 2016,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -1958,7 +1958,7 @@
     "brand": "Ferrari",
     "model": "599XX Evo",
     "year": 2011,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -1967,7 +1967,7 @@
     "brand": "Ferrari",
     "model": "F40 LM",
     "year": 1989,
-    "country": "Italien",
+    "country": "italy",
     "era": "classic"
   },
   {
@@ -1976,7 +1976,7 @@
     "brand": "Ferrari",
     "model": "FXX K",
     "year": 2014,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -1985,7 +1985,7 @@
     "brand": "Ferrari",
     "model": "488 GT3 AF Corse",
     "year": 2016,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -1994,7 +1994,7 @@
     "brand": "Ferrari",
     "model": "308 GTS",
     "year": 1977,
-    "country": "Italien",
+    "country": "italy",
     "era": "classic"
   },
   {
@@ -2003,7 +2003,7 @@
     "brand": "Ferrari",
     "model": "F40",
     "year": 1987,
-    "country": "Italien",
+    "country": "italy",
     "era": "classic"
   },
   {
@@ -2012,7 +2012,7 @@
     "brand": "Ferrari",
     "model": "F12berlinetta",
     "year": 2013,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -2021,7 +2021,7 @@
     "brand": "Ferrari",
     "model": "512TR",
     "year": 1991,
-    "country": "Italien",
+    "country": "italy",
     "era": "classic"
   },
   {
@@ -2030,7 +2030,7 @@
     "brand": "Ferrari",
     "model": "Roma",
     "year": 2020,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -2489,7 +2489,7 @@
     "brand": "Forsberg Racing",
     "model": "Nissan GT-R Nismo GT3",
     "year": 2020,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -2498,7 +2498,7 @@
     "brand": "Forsberg Racing",
     "model": "Nissan 370Z East African Safari Z",
     "year": 2020,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -2507,7 +2507,7 @@
     "brand": "Forsberg Racing",
     "model": "Nissan 370Z Dominion Edition",
     "year": 2022,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -2516,7 +2516,7 @@
     "brand": "Forsberg Racing",
     "model": "Gold Leader Z",
     "year": 1975,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -2570,7 +2570,7 @@
     "brand": "Honda",
     "model": "Civic Type R",
     "year": 2021,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -2579,7 +2579,7 @@
     "brand": "Honda",
     "model": "Civic Type R",
     "year": 2016,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -2588,7 +2588,7 @@
     "brand": "Honda",
     "model": "Civic Type R Fitted Edition",
     "year": 2021,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -2597,7 +2597,7 @@
     "brand": "Honda",
     "model": "Integra Type R",
     "year": 1998,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -2606,7 +2606,7 @@
     "brand": "Honda",
     "model": "CBR1000RR SP2",
     "year": 2018,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -2615,7 +2615,7 @@
     "brand": "Honda",
     "model": "CB1000R 2018 Neo Sports Café",
     "year": 2018,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -2624,7 +2624,7 @@
     "brand": "Honda",
     "model": "NSX",
     "year": 1992,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -2633,7 +2633,7 @@
     "brand": "Honda",
     "model": "S2000 Ultimate Edition",
     "year": 2009,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -2642,7 +2642,7 @@
     "brand": "Honda",
     "model": "S2000 Kamea Hadar Edition",
     "year": 2009,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -2651,7 +2651,7 @@
     "brand": "Honda",
     "model": "S2000 Motorfest Edition",
     "year": 2009,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -2660,7 +2660,7 @@
     "brand": "Honda",
     "model": "S2000 Red Panther Edition",
     "year": 2009,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -2669,7 +2669,7 @@
     "brand": "Hoonigan",
     "model": "AUDI S1 e-tron quattro Hoonitron",
     "year": 2021,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -2705,7 +2705,7 @@
     "brand": "Hoonigan",
     "model": "AUDI Scotto’s Coupé quattro",
     "year": 1990,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -2822,7 +2822,7 @@
     "brand": "Infiniti",
     "model": "Q60 Project Black S Concept",
     "year": 2018,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -2831,7 +2831,7 @@
     "brand": "Ivory-Tower",
     "model": " IVT AGP R-07",
     "year": 2023,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -2840,7 +2840,7 @@
     "brand": "Ivory-Tower",
     "model": "Aezus",
     "year": 2024,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -2849,7 +2849,7 @@
     "brand": "Ivory-Tower",
     "model": "Aezus – Stealth Edition",
     "year": 2024,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -2858,7 +2858,7 @@
     "brand": "Ivory-Tower",
     "model": "Aezus Chase Squad Ed.",
     "year": 2024,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -2867,7 +2867,7 @@
     "brand": "Ivory-Tower",
     "model": "Falcon IVT-R1000",
     "year": 2023,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -2876,7 +2876,7 @@
     "brand": "Ivory-Tower",
     "model": "IVT Falcon S-1000 Adventure Edition",
     "year": 2023,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -2885,7 +2885,7 @@
     "brand": "Ivory-Tower",
     "model": "IVT Falcon R-1200 R",
     "year": 2023,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -2894,7 +2894,7 @@
     "brand": "Ivory-Tower",
     "model": "Ogmios",
     "year": 2024,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -2903,7 +2903,7 @@
     "brand": "Ivory-Tower",
     "model": "Ogmios Chase Squad Ed.",
     "year": 2024,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -3119,7 +3119,7 @@
     "brand": "Kawasaki",
     "model": "KX450F",
     "year": 2015,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -3128,7 +3128,7 @@
     "brand": "Kawasaki",
     "model": "GPZ 900 R Ninja",
     "year": 1984,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -3137,7 +3137,7 @@
     "brand": "Kawasaki",
     "model": "Ninja H2",
     "year": 2015,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -3146,7 +3146,7 @@
     "brand": "Kawasaki",
     "model": "Z1000 ABS",
     "year": 2015,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -3155,7 +3155,7 @@
     "brand": "Kawasaki",
     "model": "KX450F",
     "year": 2015,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -3164,7 +3164,7 @@
     "brand": "Kawasaki",
     "model": "KX450F",
     "year": 2015,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -3173,7 +3173,7 @@
     "brand": "Kawasaki",
     "model": "Ninja H2",
     "year": 2015,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -3182,7 +3182,7 @@
     "brand": "Kawasaki",
     "model": "Ninja H2 Light Rider Edition",
     "year": 2015,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -3191,7 +3191,7 @@
     "brand": "Kawasaki",
     "model": "Z1000 ABS",
     "year": 2015,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -3200,7 +3200,7 @@
     "brand": "Kawasaki",
     "model": "GPZ 900 R Ninja",
     "year": 1984,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -3209,7 +3209,7 @@
     "brand": "Koenigsegg",
     "model": "Agera R",
     "year": 2012,
-    "country": "Schweden",
+    "country": "sweden",
     "era": "modern"
   },
   {
@@ -3218,7 +3218,7 @@
     "brand": "Koenigsegg",
     "model": "CCR",
     "year": 2004,
-    "country": "Schweden",
+    "country": "sweden",
     "era": "modern"
   },
   {
@@ -3227,7 +3227,7 @@
     "brand": "Koenigsegg",
     "model": "Gemera",
     "year": 2020,
-    "country": "Schweden",
+    "country": "sweden",
     "era": "modern"
   },
   {
@@ -3236,7 +3236,7 @@
     "brand": "Koenigsegg",
     "model": "Gemera Outclassed Edition",
     "year": 2020,
-    "country": "Schweden",
+    "country": "sweden",
     "era": "modern"
   },
   {
@@ -3245,7 +3245,7 @@
     "brand": "Koenigsegg",
     "model": "Jesko",
     "year": 2020,
-    "country": "Schweden",
+    "country": "sweden",
     "era": "modern"
   },
   {
@@ -3254,7 +3254,7 @@
     "brand": "Koenigsegg",
     "model": "One:1",
     "year": 2014,
-    "country": "Schweden",
+    "country": "sweden",
     "era": "modern"
   },
   {
@@ -3263,7 +3263,7 @@
     "brand": "Koenigsegg",
     "model": "Regera",
     "year": 2015,
-    "country": "Schweden",
+    "country": "sweden",
     "era": "modern"
   },
   {
@@ -3272,16 +3272,16 @@
     "brand": "Koenigsegg",
     "model": "CCGT",
     "year": 2007,
-    "country": "Schweden",
+    "country": "sweden",
     "era": "modern"
   },
   {
     "category": "Street Tier 1",
     "bike": false,
-    "brand": "KRC Japan",
+    "brand": "KRC japan",
     "model": "Nissan 240SX (S14)",
     "year": 1998,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -3470,7 +3470,7 @@
     "brand": "Lamborghini",
     "model": "Aventador LP 700-4",
     "year": 2012,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -3479,7 +3479,7 @@
     "brand": "Lamborghini",
     "model": "Countach LPI 800-4",
     "year": 2021,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -3488,7 +3488,7 @@
     "brand": "Lamborghini",
     "model": "Egoista",
     "year": 2013,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -3497,7 +3497,7 @@
     "brand": "Lamborghini",
     "model": "Huracan Performante",
     "year": 2018,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -3506,7 +3506,7 @@
     "brand": "Lamborghini",
     "model": "Reventon",
     "year": 2007,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -3515,7 +3515,7 @@
     "brand": "Lamborghini",
     "model": "Revuelto",
     "year": 2023,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -3524,7 +3524,7 @@
     "brand": "Lamborghini",
     "model": "Sián Roadster",
     "year": 2020,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -3533,7 +3533,7 @@
     "brand": "Lamborghini",
     "model": "Terzo Millennio",
     "year": 2017,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -3542,7 +3542,7 @@
     "brand": "Lamborghini",
     "model": "Veneno",
     "year": 2013,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -3551,7 +3551,7 @@
     "brand": "Lamborghini",
     "model": "Veneno Interception Unit",
     "year": 2013,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -3560,7 +3560,7 @@
     "brand": "Lamborghini",
     "model": "SC20",
     "year": 2020,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -3569,7 +3569,7 @@
     "brand": "Lamborghini",
     "model": "Essenza SCV12",
     "year": 2020,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -3578,7 +3578,7 @@
     "brand": "Lamborghini",
     "model": "Gallardo LP 570-4 Super Trofeo",
     "year": 2013,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -3587,7 +3587,7 @@
     "brand": "Lamborghini",
     "model": "Huracan LP620-2 Super Trofeo",
     "year": 2015,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -3596,7 +3596,7 @@
     "brand": "Lamborghini",
     "model": "Murciélago RGT",
     "year": 2003,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -3605,7 +3605,7 @@
     "brand": "Lamborghini",
     "model": "Miura SV",
     "year": 1971,
-    "country": "Italien",
+    "country": "italy",
     "era": "classic"
   },
   {
@@ -3614,7 +3614,7 @@
     "brand": "Lamborghini",
     "model": "Countach LP 5000 Quattrovalvole",
     "year": 1985,
-    "country": "Italien",
+    "country": "italy",
     "era": "classic"
   },
   {
@@ -3623,7 +3623,7 @@
     "brand": "Lamborghini",
     "model": "Diablo GT",
     "year": 1999,
-    "country": "Italien",
+    "country": "italy",
     "era": "classic"
   },
   {
@@ -3632,7 +3632,7 @@
     "brand": "Lamborghini",
     "model": "Murciélago LP640",
     "year": 2006,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -3641,7 +3641,7 @@
     "brand": "Lamborghini",
     "model": "Gallardo LP 570-4 Superleggera",
     "year": 2011,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -3650,7 +3650,7 @@
     "brand": "Lamborghini",
     "model": "Huracán LP610-4",
     "year": 2014,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -3659,7 +3659,7 @@
     "brand": "Lamborghini",
     "model": "Urus",
     "year": 2017,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -3668,7 +3668,7 @@
     "brand": "Lamborghini",
     "model": "Diablo GT Pura Potenza Edition",
     "year": 1999,
-    "country": "Italien",
+    "country": "italy",
     "era": "classic"
   },
   {
@@ -3677,7 +3677,7 @@
     "brand": "Lancia",
     "model": "Delta S4",
     "year": 1985,
-    "country": "Italien",
+    "country": "italy",
     "era": "classic"
   },
   {
@@ -3686,7 +3686,7 @@
     "brand": "Lancia",
     "model": "Delta S4 Hoodlum Racing Crew Ed.",
     "year": 1985,
-    "country": "Italien",
+    "country": "italy",
     "era": "classic"
   },
   {
@@ -3695,7 +3695,7 @@
     "brand": "Lancia",
     "model": "Rally 037",
     "year": 1982,
-    "country": "Italien",
+    "country": "italy",
     "era": "classic"
   },
   {
@@ -3704,7 +3704,7 @@
     "brand": "Lancia",
     "model": "Statos HF GR4",
     "year": 1976,
-    "country": "Italien",
+    "country": "italy",
     "era": "classic"
   },
   {
@@ -3713,7 +3713,7 @@
     "brand": "Lancia",
     "model": "Stratos HF Stradale",
     "year": 1975,
-    "country": "Italien",
+    "country": "italy",
     "era": "classic"
   },
   {
@@ -3767,7 +3767,7 @@
     "brand": "Liberty Walk",
     "model": "Honda NSX",
     "year": 1992,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -3839,7 +3839,7 @@
     "brand": "Maserati",
     "model": "Alfieri",
     "year": 2014,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -3848,7 +3848,7 @@
     "brand": "Maserati",
     "model": "MC12",
     "year": 2004,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -3857,7 +3857,7 @@
     "brand": "Maserati",
     "model": "MC20",
     "year": 2021,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -3866,7 +3866,7 @@
     "brand": "Maserati",
     "model": "MC20 Cielo",
     "year": 2023,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -3875,7 +3875,7 @@
     "brand": "Maserati",
     "model": "GranTurismo S",
     "year": 2009,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -3884,7 +3884,7 @@
     "brand": "Maserati",
     "model": "MC12 versione Corse",
     "year": 2006,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -3893,7 +3893,7 @@
     "brand": "Maserati",
     "model": "Ghibli 4.9 SS Coupe",
     "year": 1969,
-    "country": "Italien",
+    "country": "italy",
     "era": "classic"
   },
   {
@@ -3902,7 +3902,7 @@
     "brand": "Maserati",
     "model": "GranTurismo S",
     "year": 2009,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -3911,7 +3911,7 @@
     "brand": "Maserati",
     "model": "Levante Trofeo",
     "year": 2021,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -3920,7 +3920,7 @@
     "brand": "Mazda",
     "model": "MX5",
     "year": 2016,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -3929,7 +3929,7 @@
     "brand": "Mazda",
     "model": "RX-7 Evo Group B",
     "year": 1985,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -3938,7 +3938,7 @@
     "brand": "Mazda",
     "model": "MX-5 MIATA NA",
     "year": 1989,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -3947,7 +3947,7 @@
     "brand": "Mazda",
     "model": "MX-5 MIATA NA Spearhog Ed.",
     "year": 1989,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -3956,7 +3956,7 @@
     "brand": "Mazda",
     "model": "COSMO Sport",
     "year": 1967,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -3965,7 +3965,7 @@
     "brand": "Mazda",
     "model": "RX-3",
     "year": 1972,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -3974,7 +3974,7 @@
     "brand": "Mazda",
     "model": "RX-3 Supercharged Edition",
     "year": 1972,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -3983,7 +3983,7 @@
     "brand": "Mazda",
     "model": "RX-7 Turbo 10th Anniversary",
     "year": 1988,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -3992,7 +3992,7 @@
     "brand": "Mazda",
     "model": "RX-7 Turbo Sakura Edition",
     "year": 1988,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -4001,7 +4001,7 @@
     "brand": "Mazda",
     "model": "MX-5 MIATA NA",
     "year": 1989,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -4010,7 +4010,7 @@
     "brand": "Mazda",
     "model": "RX-3 Raigyo Edition",
     "year": 1972,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -4019,7 +4019,7 @@
     "brand": "Mazda",
     "model": "RX-7 Turbo Outline Edition",
     "year": 1988,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -4028,7 +4028,7 @@
     "brand": "Mazda",
     "model": "RX7",
     "year": 2002,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4037,7 +4037,7 @@
     "brand": "Mazda",
     "model": "RX7 Shirogane Edition",
     "year": 2002,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4046,7 +4046,7 @@
     "brand": "Mazda",
     "model": "RX-8",
     "year": 2010,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4055,7 +4055,7 @@
     "brand": "Mazda",
     "model": "RX-8 Gold Edition",
     "year": 2010,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4064,7 +4064,7 @@
     "brand": "Mazda",
     "model": "RX-8 Thunderwave Edition",
     "year": 2010,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4073,7 +4073,7 @@
     "brand": "Mazda",
     "model": "MX-5",
     "year": 2016,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4082,7 +4082,7 @@
     "brand": "Mazda",
     "model": "RX-8 Pearl Edition",
     "year": 2010,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4190,7 +4190,7 @@
     "brand": "Mercedes-AMG",
     "model": "AMG-One",
     "year": 2022,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -4199,7 +4199,7 @@
     "brand": "Mercedes-AMG",
     "model": "C 63 Touring Car ",
     "year": 2016,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -4208,7 +4208,7 @@
     "brand": "Mercedes-AMG",
     "model": "C-Coupé Touring Car ",
     "year": 2012,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -4217,7 +4217,7 @@
     "brand": "Mercedes-AMG",
     "model": "GT3",
     "year": 2015,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -4226,7 +4226,7 @@
     "brand": "Mercedes-AMG",
     "model": "SL 63 ",
     "year": 2009,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -4235,7 +4235,7 @@
     "brand": "Mercedes-AMG",
     "model": "SLS GT3",
     "year": 2011,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -4244,7 +4244,7 @@
     "brand": "Mercedes-AMG",
     "model": "C 63 Coupé Black Series",
     "year": 2012,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -4253,7 +4253,7 @@
     "brand": "Mercedes-AMG",
     "model": "GT",
     "year": 2015,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -4262,7 +4262,7 @@
     "brand": "Mercedes-AMG",
     "model": "C 63 S Coupé",
     "year": 2016,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -4271,7 +4271,7 @@
     "brand": "Mercedes-AMG",
     "model": "SL 63",
     "year": 2009,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -4280,7 +4280,7 @@
     "brand": "Mercedes-AMG",
     "model": "SLS",
     "year": 2010,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -4289,7 +4289,7 @@
     "brand": "Mercedes-AMG",
     "model": "SL 63 4MATIC+",
     "year": 2022,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -4298,7 +4298,7 @@
     "brand": "Mercedes-Benz",
     "model": "Vision EQ Silver Arrow",
     "year": 2018,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -4307,7 +4307,7 @@
     "brand": "Mercedes-Benz",
     "model": "300 SLR UHLENHAUT COUPE ",
     "year": 1955,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -4316,7 +4316,7 @@
     "brand": "Mercedes-Benz",
     "model": "SLR McLaren 722 GT",
     "year": 2007,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -4325,7 +4325,7 @@
     "brand": "Mercedes-Benz",
     "model": "X-Class",
     "year": 2017,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -4334,7 +4334,7 @@
     "brand": "Mercedes-Benz",
     "model": "GLC 250 4MATIC Coupé",
     "year": 2016,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -4343,7 +4343,7 @@
     "brand": "Mercedes-Benz",
     "model": "300 SLR Uhlehaut Coupe",
     "year": 1955,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -4352,7 +4352,7 @@
     "brand": "Mercedes-Benz",
     "model": "SLR McLaren 722 Edition",
     "year": 2007,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -4433,7 +4433,7 @@
     "brand": "Mitsubishi",
     "model": "Lancer WRC05",
     "year": 2005,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4442,7 +4442,7 @@
     "brand": "Mitsubishi",
     "model": "FTO GP Version R",
     "year": 1997,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -4451,7 +4451,7 @@
     "brand": "Mitsubishi",
     "model": "Eclipse GSX",
     "year": 1999,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -4460,7 +4460,7 @@
     "brand": "Mitsubishi",
     "model": "Eclipse Star Edition",
     "year": 1999,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -4469,7 +4469,7 @@
     "brand": "Mitsubishi",
     "model": "FTO Version R Nebula Edition",
     "year": 1997,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -4478,7 +4478,7 @@
     "brand": "Mitsubishi",
     "model": "3000GT VR4",
     "year": 1994,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -4487,7 +4487,7 @@
     "brand": "Mitsubishi",
     "model": "3000GT VR4 Interception Unit",
     "year": 1994,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -4496,7 +4496,7 @@
     "brand": "Mitsubishi",
     "model": "3000GT VR4 No Rules Edition",
     "year": 1994,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -4505,7 +4505,7 @@
     "brand": "Mitsubishi",
     "model": "Lancer Evolution VI GSR",
     "year": 1999,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -4514,7 +4514,7 @@
     "brand": "Mitsubishi",
     "model": "Lancer Evolution X",
     "year": 2014,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4523,7 +4523,7 @@
     "brand": "Mitsubishi",
     "model": "Lancer Evolution X Black Knight Edition",
     "year": 2014,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4532,7 +4532,7 @@
     "brand": "Mitsubishi",
     "model": "Lancer Evolution X Red Fury Edition",
     "year": 2014,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4541,7 +4541,7 @@
     "brand": "Mitsubishi",
     "model": "Lancer Evolution IX",
     "year": 2006,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4550,7 +4550,7 @@
     "brand": "Mitsubishi",
     "model": "Lancer Evolution VI GSR Hoonigan Ed",
     "year": 1999,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -4559,7 +4559,7 @@
     "brand": "Nissan",
     "model": "R390 GT1 Road Version",
     "year": 1998,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -4568,7 +4568,7 @@
     "brand": "Nissan",
     "model": "GT-R50 by Italdesign",
     "year": 2021,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4577,7 +4577,7 @@
     "brand": "Nissan",
     "model": "370Z (Z34)",
     "year": 2013,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4586,7 +4586,7 @@
     "brand": "Nissan",
     "model": "Skyline GT-R (R34)",
     "year": 2002,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4595,7 +4595,7 @@
     "brand": "Nissan",
     "model": "370Z (Z34) Racing Ed.",
     "year": 2013,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4604,7 +4604,7 @@
     "brand": "Nissan",
     "model": "GT-R Nismo GT3",
     "year": 2018,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4613,7 +4613,7 @@
     "brand": "Nissan",
     "model": "Skyline GT-R (R34) Racing Ed.",
     "year": 2002,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4622,7 +4622,7 @@
     "brand": "Nissan",
     "model": "370Z (Z34)",
     "year": 2013,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4631,7 +4631,7 @@
     "brand": "Nissan",
     "model": "Fairlady Z 432 (PS30)",
     "year": 1970,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -4640,7 +4640,7 @@
     "brand": "Nissan",
     "model": "Skyline GT-R (R34)",
     "year": 2002,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4649,7 +4649,7 @@
     "brand": "Nissan",
     "model": "370Z (Z34)",
     "year": 2013,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4658,7 +4658,7 @@
     "brand": "Nissan",
     "model": "Skyline GT-R (R34)",
     "year": 2002,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4667,7 +4667,7 @@
     "brand": "Nissan",
     "model": "Fairlady Z 432 (PS30) Under The Stars Edition",
     "year": 1970,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -4676,7 +4676,7 @@
     "brand": "Nissan",
     "model": "300 ZX (Z32)",
     "year": 1994,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -4685,7 +4685,7 @@
     "brand": "Nissan",
     "model": "300 ZX (Z32) Malu Edition",
     "year": 1994,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -4694,7 +4694,7 @@
     "brand": "Nissan",
     "model": "240 SX (S14)",
     "year": 1998,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -4703,7 +4703,7 @@
     "brand": "Nissan",
     "model": "Fairlady Z 432 (PS30)",
     "year": 1970,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -4712,7 +4712,7 @@
     "brand": "Nissan",
     "model": "300 ZX (Z32) Kaido-ou Edition",
     "year": 1994,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -4721,7 +4721,7 @@
     "brand": "Nissan",
     "model": "Skyline GT-R (R34)",
     "year": 2002,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4730,7 +4730,7 @@
     "brand": "Nissan",
     "model": "Skyline GT-R (R34) High Octane Edition",
     "year": 2002,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -4739,7 +4739,7 @@
     "brand": "Nissan",
     "model": "Skyline GT-R (R34) Lucky Dragon Edition",
     "year": 2002,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4748,7 +4748,7 @@
     "brand": "Nissan",
     "model": "350Z Roadster",
     "year": 2004,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4757,7 +4757,7 @@
     "brand": "Nissan",
     "model": "370Z (Z34)",
     "year": 2013,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4766,7 +4766,7 @@
     "brand": "Nissan",
     "model": "GT-R Haru Edition",
     "year": 2015,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4775,7 +4775,7 @@
     "brand": "Nissan",
     "model": "Z",
     "year": 2023,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4784,7 +4784,7 @@
     "brand": "Nissan",
     "model": "370Z Nismo",
     "year": 2016,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4793,7 +4793,7 @@
     "brand": "Nissan",
     "model": "GT-R ",
     "year": 2015,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4802,7 +4802,7 @@
     "brand": "Nissan",
     "model": "GT-R Nismo",
     "year": 2020,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4811,7 +4811,7 @@
     "brand": "Nissan",
     "model": "Skyline GT-R (R34) Blackpanthaa Ed.",
     "year": 2002,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4820,7 +4820,7 @@
     "brand": "Nissan",
     "model": "350Z Roadster Ultimate Ed.",
     "year": 2004,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -4829,7 +4829,7 @@
     "brand": "Nissan",
     "model": "Skyline GT-R (R32)",
     "year": 1989,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -4865,7 +4865,7 @@
     "brand": "Pagani",
     "model": "Huayra",
     "year": 2012,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -4874,7 +4874,7 @@
     "brand": "Pagani",
     "model": "Huayra Rubicone Edizione",
     "year": 2012,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -4883,7 +4883,7 @@
     "brand": "Pagani",
     "model": "Zonda F",
     "year": 2005,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -4892,7 +4892,7 @@
     "brand": "Pagani",
     "model": "Zonda F Primary Edition",
     "year": 2005,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -4901,7 +4901,7 @@
     "brand": "Pagani",
     "model": "Utopi",
     "year": 2023,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -4910,7 +4910,7 @@
     "brand": "Pagani",
     "model": "Zonda R",
     "year": 2008,
-    "country": "Italien",
+    "country": "italy",
     "era": "modern"
   },
   {
@@ -4919,7 +4919,7 @@
     "brand": "Peugeot",
     "model": "205 T16 Evo 2",
     "year": 1984,
-    "country": "Frankreich",
+    "country": "france",
     "era": "classic"
   },
   {
@@ -4928,7 +4928,7 @@
     "brand": "Peugeot",
     "model": "3008 DKR Maxi",
     "year": 2018,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -5036,7 +5036,7 @@
     "brand": "Porsche",
     "model": "911 GT1 Straβenversion (993)",
     "year": 1996,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -5045,7 +5045,7 @@
     "brand": "Porsche",
     "model": "918 Spyder",
     "year": 2015,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5054,7 +5054,7 @@
     "brand": "Porsche",
     "model": "918 Spyder Silvery Edition",
     "year": 2015,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5063,7 +5063,7 @@
     "brand": "Porsche",
     "model": "Carrera GT",
     "year": 2003,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5072,7 +5072,7 @@
     "brand": "Porsche",
     "model": "Carrera GT Green Flash Edition",
     "year": 2003,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5081,7 +5081,7 @@
     "brand": "Porsche",
     "model": "911 GT3 Rs Chase Squad Ed.",
     "year": 2023,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5090,7 +5090,7 @@
     "brand": "Porsche",
     "model": "919 Street",
     "year": 2017,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5099,7 +5099,7 @@
     "brand": "Porsche",
     "model": "911 Carrera RSR Turbo",
     "year": 1974,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -5108,7 +5108,7 @@
     "brand": "Porsche",
     "model": "911 Carrera RSR Turbo Pulse Performance Ed.",
     "year": 1974,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -5117,7 +5117,7 @@
     "brand": "Porsche",
     "model": "911 GT3 Cup",
     "year": 2017,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5126,7 +5126,7 @@
     "brand": "Porsche",
     "model": "917K ",
     "year": 1970,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -5135,7 +5135,7 @@
     "brand": "Porsche",
     "model": "935 2.0 Coupé Baby",
     "year": 1977,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -5144,7 +5144,7 @@
     "brand": "Porsche",
     "model": "935 2.0 Coupé Baby Old-Timer Edition",
     "year": 1977,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -5153,7 +5153,7 @@
     "brand": "Porsche",
     "model": "911 GT3 RS RD Limited Edition",
     "year": 2016,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5162,7 +5162,7 @@
     "brand": "Porsche",
     "model": "959 Raid",
     "year": 1985,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -5171,7 +5171,7 @@
     "brand": "Porsche",
     "model": "550 Spyder",
     "year": 1955,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -5180,7 +5180,7 @@
     "brand": "Porsche",
     "model": "356",
     "year": 1948,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -5189,7 +5189,7 @@
     "brand": "Porsche",
     "model": "911 Director’S Cut Edition",
     "year": 1964,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -5198,7 +5198,7 @@
     "brand": "Porsche",
     "model": 911,
     "year": 1964,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -5207,7 +5207,7 @@
     "brand": "Porsche",
     "model": "911 Carrera RS 2.7",
     "year": 1972,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -5216,7 +5216,7 @@
     "brand": "Porsche",
     "model": "928 S4",
     "year": 1991,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -5225,7 +5225,7 @@
     "brand": "Porsche",
     "model": "911 Turbo",
     "year": 1993,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -5234,7 +5234,7 @@
     "brand": "Porsche",
     "model": "911 (993) GT",
     "year": 1996,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -5243,7 +5243,7 @@
     "brand": "Porsche",
     "model": "911 GT3 RS",
     "year": 2016,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5252,7 +5252,7 @@
     "brand": "Porsche",
     "model": "911 GT3 RS Splatter Edition",
     "year": 2016,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5261,7 +5261,7 @@
     "brand": "Porsche",
     "model": "Cayman GT4",
     "year": 2016,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5270,7 +5270,7 @@
     "brand": "Porsche",
     "model": "Cayman GT4 Carbon Edition",
     "year": 2016,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5279,7 +5279,7 @@
     "brand": "Porsche",
     "model": "Cayman GT4 Wasp Edition",
     "year": 2016,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5288,7 +5288,7 @@
     "brand": "Porsche",
     "model": "911 Speedster",
     "year": 2019,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5297,7 +5297,7 @@
     "brand": "Porsche",
     "model": "911 Speedster Winter Agent Edition",
     "year": 2019,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5306,7 +5306,7 @@
     "brand": "Porsche",
     "model": "718 Spyder",
     "year": 2021,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5315,7 +5315,7 @@
     "brand": "Porsche",
     "model": "718 Spyder Fitted Edition",
     "year": 2021,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5324,7 +5324,7 @@
     "brand": "Porsche",
     "model": "Taycan Turbo S",
     "year": 2021,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5333,7 +5333,7 @@
     "brand": "Porsche",
     "model": "Panamera Turbo S Sport Turismo",
     "year": 2022,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5342,7 +5342,7 @@
     "brand": "Porsche",
     "model": "911 (992) Carrera 4S",
     "year": 2020,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5351,7 +5351,7 @@
     "brand": "Porsche",
     "model": "911 (992) Carrera 4S Timeless Edition",
     "year": 2020,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5360,7 +5360,7 @@
     "brand": "Porsche",
     "model": "Cayenne Turbo GT (coupé)",
     "year": 2022,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5369,7 +5369,7 @@
     "brand": "Porsche",
     "model": "959",
     "year": 1986,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -5378,7 +5378,7 @@
     "brand": "Porsche",
     "model": "Cayenne Turbo GT Basalt Edition",
     "year": 2022,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5387,7 +5387,7 @@
     "brand": "Porsche",
     "model": "Taycan Turbo S Thunder Ed.",
     "year": 2021,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5396,7 +5396,7 @@
     "brand": "Porsche",
     "model": "911 GT3 RS",
     "year": 2023,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5405,7 +5405,7 @@
     "brand": "PROTO",
     "model": "Alpha Mark X",
     "year": 2020,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -5414,7 +5414,7 @@
     "brand": "PROTO",
     "model": "Concept Glow Motorsport",
     "year": 2023,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -5423,7 +5423,7 @@
     "brand": "PROTO",
     "model": "Concept Pulse Performance",
     "year": 2023,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -5432,7 +5432,7 @@
     "brand": "PROTO",
     "model": "Concept Sparrow Competition",
     "year": 2023,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -5441,7 +5441,7 @@
     "brand": "PROTO",
     "model": "Concept Spear Racing",
     "year": 2023,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -5459,7 +5459,7 @@
     "brand": "PROTO",
     "model": "FLASHBACK",
     "year": 1986,
-    "country": "Frankreich",
+    "country": "france",
     "era": "classic"
   },
   {
@@ -5468,7 +5468,7 @@
     "brand": "PROTO",
     "model": "LUCKY-ONE Marble Edition",
     "year": 2022,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -5477,7 +5477,7 @@
     "brand": "PROTO",
     "model": "Lucky-One",
     "year": 2022,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -5612,7 +5612,7 @@
     "brand": "Renault",
     "model": "TreZor",
     "year": 2016,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -5621,7 +5621,7 @@
     "brand": "Renault",
     "model": "R.S.01",
     "year": 2016,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -5630,7 +5630,7 @@
     "brand": "Renault",
     "model": "Maxi 5 Turbo",
     "year": 1985,
-    "country": "Frankreich",
+    "country": "france",
     "era": "classic"
   },
   {
@@ -5639,7 +5639,7 @@
     "brand": "Renault",
     "model": "Megane RS",
     "year": 2018,
-    "country": "Frankreich",
+    "country": "france",
     "era": "modern"
   },
   {
@@ -5648,7 +5648,7 @@
     "brand": "Rimac",
     "model": "Nevera",
     "year": 2022,
-    "country": "Croatia",
+    "country": "croatia",
     "era": "modern"
   },
   {
@@ -5657,7 +5657,7 @@
     "brand": "Rimac",
     "model": "Nevera Time Attack Ed.",
     "year": 2023,
-    "country": "Croatia",
+    "country": "croatia",
     "era": "modern"
   },
   {
@@ -5675,7 +5675,7 @@
     "brand": "RUF",
     "model": "3400 K",
     "year": 2007,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5774,7 +5774,7 @@
     "brand": "Spyker",
     "model": "C8 LaViolette GT2-R",
     "year": 2008,
-    "country": "Niederlande",
+    "country": "netherlands",
     "era": "modern"
   },
   {
@@ -5783,7 +5783,7 @@
     "brand": "Spyker",
     "model": "C8 Aileron",
     "year": 2008,
-    "country": "Niederlande",
+    "country": "netherlands",
     "era": "modern"
   },
   {
@@ -5792,7 +5792,7 @@
     "brand": "Spyker",
     "model": "C8 Aileron All In Edition",
     "year": 2008,
-    "country": "Niederlande",
+    "country": "netherlands",
     "era": "modern"
   },
   {
@@ -5801,7 +5801,7 @@
     "brand": "Suzuki",
     "model": "RM-Z 450",
     "year": 2016,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -5810,7 +5810,7 @@
     "brand": "Suzuki",
     "model": "GSX-RR ",
     "year": 2016,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -5819,7 +5819,7 @@
     "brand": "Suzuki",
     "model": "GSX-R 1000R",
     "year": 2018,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -5828,7 +5828,7 @@
     "brand": "Toyota",
     "model": "Tacoma",
     "year": 2021,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -5837,7 +5837,7 @@
     "brand": "Toyota",
     "model": "2000GT",
     "year": 1967,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -5846,7 +5846,7 @@
     "brand": "Toyota",
     "model": "Supra Ryujin Edition",
     "year": 2000,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -5855,7 +5855,7 @@
     "brand": "Toyota",
     "model": "Supra A80",
     "year": 2000,
-    "country": "Japan",
+    "country": "japan",
     "era": "classic"
   },
   {
@@ -5864,7 +5864,7 @@
     "brand": "Toyota",
     "model": "GR Supra",
     "year": 2021,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -5873,7 +5873,7 @@
     "brand": "Toyota",
     "model": "GR Supra LBWK Edition",
     "year": 2021,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -5882,7 +5882,7 @@
     "brand": "Toyota",
     "model": "GR86",
     "year": 2022,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -5918,7 +5918,7 @@
     "brand": "Volkswagen",
     "model": "Kombi High School Edition",
     "year": 1966,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -5927,7 +5927,7 @@
     "brand": "Volkswagen",
     "model": "Electic R (ID.R)",
     "year": 2019,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5936,7 +5936,7 @@
     "brand": "Volkswagen",
     "model": "Beetle",
     "year": 1967,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -5945,7 +5945,7 @@
     "brand": "Volkswagen",
     "model": "Beetle Hoodlum Racing Crew Ed.",
     "year": 1967,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -5954,7 +5954,7 @@
     "brand": "Volkswagen",
     "model": "ID Buggy",
     "year": 2019,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5963,7 +5963,7 @@
     "brand": "Volkswagen",
     "model": "Race Touareg 3",
     "year": 2011,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -5972,7 +5972,7 @@
     "brand": "Volkswagen",
     "model": "Kombi 21 Window Bus",
     "year": 1966,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -5981,7 +5981,7 @@
     "brand": "Volkswagen",
     "model": "Kombi DAK1NE Edition",
     "year": 1966,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -5990,7 +5990,7 @@
     "brand": "Volkswagen",
     "model": "Kombi Ghost Hunt Edition",
     "year": 1966,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -5999,7 +5999,7 @@
     "brand": "Volkswagen",
     "model": "Beetle",
     "year": 1967,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -6008,7 +6008,7 @@
     "brand": "Volkswagen",
     "model": "Beetle Kahakai Edition",
     "year": 1967,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "classic"
   },
   {
@@ -6017,7 +6017,7 @@
     "brand": "Volkswagen",
     "model": "Touareg NF",
     "year": 2011,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -6026,7 +6026,7 @@
     "brand": "Volkswagen",
     "model": "Golf GTI",
     "year": 2014,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -6035,7 +6035,7 @@
     "brand": "Volkswagen",
     "model": "GOLF GTI Dash Edition",
     "year": 2014,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -6044,7 +6044,7 @@
     "brand": "W Motors",
     "model": "Lykan Hypersport",
     "year": 2017,
-    "country": "Vereinigte Arabische Emirate",
+    "country": "UAE",
     "era": "modern"
   },
   {
@@ -6053,7 +6053,7 @@
     "brand": "W Motors",
     "model": "Lykan Hypersport Chase Squad Ed.",
     "year": 2017,
-    "country": "Vereinigte Arabische Emirate",
+    "country": "UAE",
     "era": "modern"
   },
   {
@@ -6062,7 +6062,7 @@
     "brand": "Yamaha",
     "model": "YZ450F",
     "year": 2018,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -6071,7 +6071,7 @@
     "brand": "Yamaha",
     "model": "YZR-M1 2016",
     "year": 2016,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -6080,7 +6080,7 @@
     "brand": "Yamaha",
     "model": "VMAX 1700",
     "year": 2014,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -6089,7 +6089,7 @@
     "brand": "Zenvo",
     "model": "TSR-S",
     "year": 2020,
-    "country": "Dänemark",
+    "country": "denmark",
     "era": "modern"
   },
   {
@@ -6098,7 +6098,7 @@
     "brand": "Zenvo",
     "model": "TSR-SSHMEE150",
     "year": 2020,
-    "country": "Dänemark",
+    "country": "denmark",
     "era": "modern"
   },
   {
@@ -6107,7 +6107,7 @@
     "brand": "Hoonigan",
     "model": "Mitsubishi Lancer Evolution IX",
     "year": 2006,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -6116,7 +6116,7 @@
     "brand": "Hoonigan",
     "model": "Audi S1 e-tron quattro Hoonitron",
     "year": 2021,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
@@ -6134,7 +6134,7 @@
     "brand": "Mitsubishi",
     "model": "Lancer Evolution VI GSR",
     "year": 1999,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -6143,7 +6143,7 @@
     "brand": "Mitsubishi",
     "model": "Lancer Evolution VI GSR Flow Edition",
     "year": 1999,
-    "country": "Japan",
+    "country": "japan",
     "era": "modern"
   },
   {
@@ -6161,7 +6161,7 @@
     "brand": "Audi",
     "model": "RS Q e-tron",
     "year": 2024,
-    "country": "Deutschland",
+    "country": "germany",
     "era": "modern"
   },
   {
