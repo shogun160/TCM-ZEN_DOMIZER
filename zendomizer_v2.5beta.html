@@ -1658,7 +1658,7 @@ select.filter-control {
     
         nameDiv.textContent = `${v.brand} ${v.model} (${v.year})`;
         warnDiv.innerHTML = v.ignoredFilters.length
-          ? `Ignorierte Filter: ${v.ignoredFilters.join(', ')}`
+          ? `${t("ignored_filters")} ${v.ignoredFilters.join(', ')}`
           : '';
     
         slot.classList.remove('empty', 'slot-yellow', 'slot-blue', 'slot-orange', 'slot-magenta');
@@ -1823,7 +1823,7 @@ select.filter-control {
     
       nameDiv.textContent = `${vehicle.brand} ${vehicle.model} (${vehicle.year})`;
       warnDiv.innerHTML = ignoredFilters.length
-        ? `Ignorierte Filter: ${ignoredFilters.join(', ')}`
+        ? `${t("ignored_filters")} ${ignoredFilters.join(', ')}`
         : '';
     
       // ❗ Farbanpassung
