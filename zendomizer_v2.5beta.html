@@ -1040,14 +1040,14 @@ select.filter-control {
         updateResetButtonState();
         updateGoButtonState();
     
-        showToast("🛑 Main Stage aktiv – manuelle Auswahl erforderlich", "#f44336", 7000);
+        showToast(t("GRcat_mainstage_manual"), "#f44336", 7000);
         return;
       }
     
       // ✅ Wenn Main Stage vorbei ist
       if (previousMainStage && !isMainStage) {
         previousMainStage = false;
-        showToast("🏁 automatische Auswahl wieder aktiv", "#0af", 5000);
+        showToast(t("GRcat_autoselect_back"), "#0af", 5000);
       }
     
       if (!grandraceActive || isMainStage) return;
@@ -1111,7 +1111,7 @@ select.filter-control {
         updateResetButtonState();
         updateGoButtonState();
     
-        showToast("↩️ Grandrace Kategorien & Filter zurückgesetzt", "#39ff14");
+        showToast(t("GRcat_reset_all"), "#39ff14");
       } else {
         // Aktivierung → Rotation setzen
         updateGrandraceState(true);
@@ -1302,7 +1302,7 @@ select.filter-control {
         drawExecuted = false;
         updateSlotBoxes();
         updateResetButtonState();
-        showToast("↩️ Ziehung zurückgesetzt", "#f44336");
+        showToast("draw_reset", "#f44336");
         return;
       }
     
@@ -1600,7 +1600,7 @@ select.filter-control {
     
       navigator.clipboard.writeText(result.trim()).then(() => {
         if (!silent) {
-          showToast("✅ In Zwischenablage kopiert!");
+          showToast(t("copied"));
         }
       });
     }
@@ -1641,7 +1641,7 @@ select.filter-control {
       }
     
       if (chosen.length !== 3) {
-        showToast("⚠️ Nicht genügend Fahrzeuge gefunden.", "#f33");
+        showToast(t("not_enough_cars"), "#f33");
         return;
       }
     
