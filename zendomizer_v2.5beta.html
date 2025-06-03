@@ -1324,8 +1324,7 @@ select.filter-control {
 
     function initializeDropdowns() {
       const brandSelect = document.getElementById("brandSelect");
-      const countrySelect = document.getElementById("countrySelect");
-      const eraSelect = document.getElementById("eraSelect");
+      if (!brandSelect) return;
     
       const brandRenameMap = {
         'Gordon Murray Automobile': 'Gordan Murray'
@@ -1338,23 +1337,9 @@ select.filter-control {
         option.textContent = brandRenameMap[brand] || brand;
         brandSelect.appendChild(option);
       });
-    
-      const countrySet = new Set(vehicles.map(v => v.country));
-      [...countrySet].sort().forEach(country => {
-        const option = document.createElement("option");
-        option.value = country;
-        option.textContent = translateCountry(country);
-        countrySelect.appendChild(option);
-      });
-    
-      const eraSet = new Set(vehicles.map(v => v.era));
-      [...eraSet].sort().forEach(era => {
-        const option = document.createElement("option");
-        option.value = era;
-        option.textContent = translateEra(era);
-        eraSelect.appendChild(option);
-      });
     }
+
+
     function getCurrentFilters() {
       return {
         brand: document.getElementById("brandSelect").value,
