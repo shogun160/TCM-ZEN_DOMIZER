@@ -1094,7 +1094,12 @@ select.filter-control {
 
     function updateGrandraceState(triggeredByClick = false) {
       const grandraceCheckbox = document.getElementById('catGR');
-      if (!grandraceCheckbox.checked) return; // Grandrace nicht aktiv
+      if (!grandraceCheckbox.checked) {
+        if (triggeredByClick && isMainStage) {
+        showToast(t("GRcat_mainstage_manual"), "#f44336", 7000);
+      }
+      return;
+    }
     
       const index = getCurrentEventIndex();
       const entry = ROTATION[index];
