@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>ZENDOMIZER v2.5 | Vehicle list 05/2024</title>
+<title>ZENDOMIZER v2.6 | Vehicle list 05/2024</title>
 <style>
     body {
       font-family: 'Orbitron', sans-serif;
@@ -15,6 +15,12 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+    }
+
+    .lang-button.active {
+      outline: 2px solid #00E5FF;
+      border-radius: 6px;
+      transition: all 0.3s ease;
     }
 
     #grandraceTicker {
@@ -620,7 +626,7 @@ select.filter-control {
   mix-blend-mode: screen;
 }
 .slot-standby {
-  color: #660066; /* noch dunkler: tiefes dunkelpink/violett */
+  color: #660066; /* noch dunkler: tiefes dunkelpink/viot */
   border-color: #660066;
   box-shadow: 0 0 2px #660066;
   background: rgba(0, 0, 0, 0.7); /* etwas dunklerer Hintergrund */
@@ -646,7 +652,7 @@ select.filter-control {
 }
 
 .slot-standby .slot-badge {
-  color: #3d2233;         /* dunkler, matter Violettton statt pink #993366*/
+  color: #3d2233;         /* dunkler, matter Viotton statt pink #993366*/
   text-shadow: none;      /* kein Leuchteffekt */
   opacity: 0.4;           /* leicht transparent für den „aus“-Effekt */
 }
@@ -759,13 +765,13 @@ select.filter-control {
         <div class="filter-grid">
             <button id="bikeFilterBtn" class="filter-control" onclick="toggleBikeFilter()">loading...</button>
             <select id="countrySelect" class="filter-control" onchange="updateFilterHighlighting()">
-                <option value="">Land wählen</option>
+                <option value=""></option> <!-- Text wird per JS gesetzt: t("filter_country") -->
             </select>
             <select id="brandSelect" class="filter-control" onchange="updateFilterHighlighting()">
-                <option value="">Marke wählen</option>
+                <option value=""></option> <!-- Text wird per JS gesetzt: t("filter_brand") -->
             </select>
             <select id="eraSelect" class="filter-control" onchange="updateFilterHighlighting()">
-                <option value="">Zeitraum wählen</option>
+                <option value=""></option> <!-- Text wird per JS gesetzt: t("filter_era") -->
             </select>
         </div>
     </div>
@@ -844,6 +850,160 @@ select.filter-control {
 </div>
 <script src="https://shogun160.github.io/TCM-ZEN_DOMIZER/cars/vehicles.json" type="application/json"></script>
 <script>
+  let currentLang = localStorage.getItem("zendomizerLang") || "de";
+  let translations = {};
+  let availableLanguages = [];
+  let bikeFilterMode = "no_bike";
+
+  function t(key, vars = {}) {
+    let str = translations?.[currentLang]?.[key] || key;
+    for (const [k, v] of Object.entries(vars)) {
+      str = str.replaceAll(`{${k}}`, v);
+    }
+    return str;
+  }
+  // Mapping für Era-Werte
+  const eraTranslationKeys = {
+    "classic": "era_classic",
+    "modern": "era_modern"
+  };
+
+  function translateEra(value) {
+    const key = eraTranslationKeys[value?.toLowerCase()];
+    return key ? t(key) : value;
+  }
+
+  function translateCountry(value) {
+    const key = "country_" + (value || "").toLowerCase().replace(/\s+/g, "_");
+    return t(key);
+  }
+
+  let vehicles = [];
+
+  Promise.all([
+    fetch("translations/i18n.json").then(res => res.json()),
+    fetch("cars/vehicles.json").then(res => res.json())
+  ])
+  .then(([i18nData, vehicleData]) => {
+    translations = i18nData;
+    availableLanguages = Object.keys(i18nData.meta || {});
+    vehicles = vehicleData;
+
+    createLanguageSwitcher();
+    applyTranslations();
+    initializeDropdowns();
+    updateSlotBoxes();
+    updateResetButtonState();
+    updateGoButtonState();
+  })
+  .catch(err => {
+    console.error("❌ Fehler beim Laden der Daten:", err);
+  });
+
+  function createLanguageSwitcher() {
+    const container = document.createElement("div");
+    container.id = "langSwitcher";
+    container.style.position = "absolute";
+    container.style.top = "12px";
+    container.style.right = "12px";
+    container.style.zIndex = "500";
+    container.style.display = "flex";
+    container.style.gap = "12px";
+
+    for (const lang of availableLanguages) {
+      const meta = translations.meta[lang];
+      const btn = document.createElement("button");
+      btn.innerHTML = meta.flag || lang.toUpperCase();
+      btn.title = meta.label || lang;
+      btn.style.fontSize = "28px";
+      btn.style.cursor = "pointer";
+      btn.style.background = "transparent";
+      btn.style.border = "none";
+
+      btn.classList.add("lang-button");
+      if (lang === currentLang) {
+        btn.classList.add("active");
+      }
+
+
+      btn.onclick = () => {
+        currentLang = lang;
+        localStorage.setItem("zendomizerLang", lang);
+        applyTranslations();
+        document.querySelectorAll(".lang-button").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+      };
+
+      container.appendChild(btn);
+    }
+
+    document.body.appendChild(container);
+  }
+
+  function rebuildEraDropdown() {
+    const eraSelect = document.getElementById("eraSelect");
+    if (!eraSelect) return;
+
+    const selectedValue = eraSelect.value;
+    const eraSet = new Set(vehicles.map(v => v.era));
+
+    eraSelect.innerHTML = "";
+
+    const empty = document.createElement("option");
+    empty.value = "";
+    empty.textContent = t("filter_era");
+    eraSelect.appendChild(empty);
+
+    [...eraSet].sort().forEach(era => {
+      const option = document.createElement("option");
+      option.value = era;
+      option.textContent = translateEra(era);
+      eraSelect.appendChild(option);
+    });
+
+    eraSelect.value = selectedValue;
+  }
+
+  function rebuildCountryDropdown() {
+    const countrySelect = document.getElementById("countrySelect");
+    if (!countrySelect) return;
+
+    const selectedValue = countrySelect.value;
+    const countrySet = new Set(vehicles.map(v => v.country));
+
+    countrySelect.innerHTML = "";
+
+    const empty = document.createElement("option");
+    empty.value = "";
+    empty.textContent = t("filter_country");
+    countrySelect.appendChild(empty);
+
+    [...countrySet].sort().forEach(country => {
+      const option = document.createElement("option");
+      option.value = country;
+      option.textContent = t("country_" + (country || "").toLowerCase().replace(/\s+/g, "_")) || country;
+      countrySelect.appendChild(option);
+    });
+
+    countrySelect.value = selectedValue;
+  }
+
+
+  function applyTranslations() {
+    document.querySelector("#countrySelect option[value='']").textContent = t("filter_country");
+    document.querySelector("#brandSelect option[value='']").textContent = t("filter_brand");
+    document.querySelector("#eraSelect option[value='']").textContent = t("filter_era");
+
+    const bfb = document.getElementById("bikeFilterBtn");
+    if (bfb) {
+      if (bikeFilterMode === "no_bike") bfb.innerText = t("bike_no");
+      else if (bikeFilterMode === "bike") bfb.innerText = t("bike_yes");
+      else bfb.innerText = t("bike_all");
+    }
+    rebuildEraDropdown();
+    rebuildCountryDropdown();
+  }
+
     /*
      * BEGIN: Borrowed from https://github.com/calamity-inc/motorfe.st/
      */
@@ -957,14 +1117,14 @@ select.filter-control {
         updateResetButtonState();
         updateGoButtonState();
     
-        showToast("🛑 Main Stage aktiv – manuelle Auswahl erforderlich", "#f44336", 7000);
+        showToast(t("GRcat_mainstage_manual"), "#f44336", 7000);
         return;
       }
     
       // ✅ Wenn Main Stage vorbei ist
       if (previousMainStage && !isMainStage) {
         previousMainStage = false;
-        showToast("🏁 automatische Auswahl wieder aktiv", "#0af", 5000);
+        showToast(t("GRcat_autoselect_back"), "#0af", 5000);
       }
     
       if (!grandraceActive || isMainStage) return;
@@ -1002,7 +1162,7 @@ select.filter-control {
     
         const currentEventName = entry[0];
         const currentCategories = entry[1].replace(/>/g, "→");
-        showToast(`🏁 ${triggeredByClick ? "Grandrace Rotation übernommen" : "Neue Rotation"}: ${currentEventName} | ${currentCategories}`, "#39ff14", 10000);
+        showToast(`${t(triggeredByClick ? "rotation_applied_manual" : "rotation_applied_auto")}: ${currentEventName} | ${currentCategories}`, "#39ff14", 10000);
       }
     }
 
@@ -1021,14 +1181,14 @@ select.filter-control {
     
         bikeFilterMode = "no_bike";
         const bfb = document.getElementById("bikeFilterBtn");
-        bfb.innerText = "Nur Autos";
+        bfb.innerText = t("bike_no");
         bfb.classList.add("bike-active");
     
         updateFilterHighlighting();
         updateResetButtonState();
         updateGoButtonState();
     
-        showToast("↩️ Grandrace Kategorien & Filter zurückgesetzt", "#39ff14");
+        showToast(t("GRcat_reset_all"), "#39ff14");
       } else {
         // Aktivierung → Rotation setzen
         updateGrandraceState(true);
@@ -1164,15 +1324,10 @@ select.filter-control {
 
     function initializeDropdowns() {
       const brandSelect = document.getElementById("brandSelect");
-      const countrySelect = document.getElementById("countrySelect");
-      const eraSelect = document.getElementById("eraSelect");
+      if (!brandSelect) return;
     
       const brandRenameMap = {
         'Gordon Murray Automobile': 'Gordan Murray'
-      };
-    
-      const countryRenameMap = {
-        'Vereinigte Arabische Emirate': 'Arabische Emirate'
       };
     
       const brandSet = new Set(vehicles.map(v => v.brand));
@@ -1182,23 +1337,9 @@ select.filter-control {
         option.textContent = brandRenameMap[brand] || brand;
         brandSelect.appendChild(option);
       });
-    
-      const countrySet = new Set(vehicles.map(v => v.country));
-      [...countrySet].sort().forEach(country => {
-        const option = document.createElement("option");
-        option.value = country;
-        option.textContent = countryRenameMap[country] || country;
-        countrySelect.appendChild(option);
-      });
-    
-      const eraSet = new Set(vehicles.map(v => v.era));
-      [...eraSet].sort().forEach(era => {
-        const option = document.createElement("option");
-        option.value = era;
-        option.textContent = era;
-        eraSelect.appendChild(option);
-      });
     }
+
+
     function getCurrentFilters() {
       return {
         brand: document.getElementById("brandSelect").value,
@@ -1219,7 +1360,7 @@ select.filter-control {
         drawExecuted = false;
         updateSlotBoxes();
         updateResetButtonState();
-        showToast("↩️ Ziehung zurückgesetzt", "#f44336");
+        showToast(t("draw_reset"), "#f44336");
         return;
       }
     
@@ -1230,7 +1371,7 @@ select.filter-control {
     
       bikeFilterMode = "no_bike";
       const bfb = document.getElementById("bikeFilterBtn");
-      bfb.innerText = "Nur Autos";
+      bfb.innerText = t("bike_no");
       bfb.classList.add("bike-active");
     
       const checkboxes = document.querySelectorAll('.catCheckbox');
@@ -1251,7 +1392,7 @@ select.filter-control {
       updateSlotBoxes();
       updateResetButtonState();
       updateGoButtonState();
-      showToast("↩️ Filter zurückgesetzt!", "#f44336");
+      showToast(t("filters_reset"), "#f44336");
     }
     function updateFilterHighlighting() {
       const brand = document.getElementById("brandSelect");
@@ -1289,15 +1430,15 @@ select.filter-control {
       const btn = document.getElementById("bikeFilterBtn");
       if (bikeFilterMode === 'no_bike') {
         bikeFilterMode = 'bike';
-        btn.innerText = "Nur Bikes";
+        btn.innerText = t("bike_yes");
         btn.classList.add("bike-active");
       } else if (bikeFilterMode === 'bike') {
         bikeFilterMode = 'all';
-        btn.innerText = "Alle Fahrzeuge";
+        btn.innerText = t("bike_all");
         btn.classList.remove("bike-active");
       } else {
         bikeFilterMode = 'no_bike';
-        btn.innerText = "Nur Autos";
+        btn.innerText = t("bike_no");
         btn.classList.add("bike-active");
       }
       if (!drawExecuted) updateResetButtonState();
@@ -1375,7 +1516,7 @@ select.filter-control {
           );
           if (fallback.length > 0) {
             finalList = fallback;
-            ignored.push(`Zeitraum (${filters.era})`);
+            ignored.push(`${t("label_era")} (${translateEra(filters.era)})`);
           }
         }
 
@@ -1388,7 +1529,7 @@ select.filter-control {
           );
           if (fallback.length > 0) {
             finalList = fallback;
-            ignored.push(`Marke (${filters.brand})`);
+            ignored.push(`${t("label_brand")} (${filters.brand})`);
           }
         }
 
@@ -1401,7 +1542,7 @@ select.filter-control {
           );
           if (fallback.length > 0) {
             finalList = fallback;
-            ignored.push(`Land (${filters.country})`);
+            ignored.push(`${t("label_country")} (${translateCountry(filters.country)})`);
           }
         }
 
@@ -1413,9 +1554,9 @@ select.filter-control {
           );
           if (fallback.length > 0) {
             finalList = fallback;
-            if (filters.era) ignored.push(`Zeitraum (${filters.era})`);
-            if (filters.brand) ignored.push(`Marke (${filters.brand})`);
-            if (filters.country) ignored.push(`Land (${filters.country})`);
+            if (filters.era) ignored.push(`${t("label_era")} (${translateEra(filters.era)})`);
+            if (filters.brand) ignored.push(`${t("label_brand")} (${filters.brand})`);
+            if (filters.country) ignored.push(`${t("label_country")} (${translateCountry(filters.country)})`);
           }
         }
 
@@ -1493,8 +1634,8 @@ select.filter-control {
         // .slot-warning nur füllen, wenn Filter ignoriert wurden
         const warnDiv = slot.querySelector('.slot-warning');
         if (warnDiv) {
-          warnDiv.innerHTML = v.ignoredFilters?.length
-            ? `Ignorierte Filter: ${v.ignoredFilters.join(', ')}`
+          warnDiv.innerHTML = (v.ignoredFilters && v.ignoredFilters.length)
+            ? `${t("ignored_filters")} ${v.ignoredFilters.join(", ")}`
             : '';
         }
       });
@@ -1505,11 +1646,11 @@ select.filter-control {
     
     function copyToClipboard(silent = false) {
       if (!lastSelection || lastSelection.length === 0) {
-        if (!silent) showToast("⚠️ Keine Auswahl zum Kopieren.");
+        if (!silent) showToast(t("no_selection_to_copy"));
         return;
       }
-    
-      let result = "🎲 ZENDOMIZER Auswahl:\n\n";
+
+      let result = t("clipboard_heading");
     
       lastSelection.forEach(vehicle => {
         result += `|| ${vehicle.category}:\n  ${vehicle.brand} ${vehicle.model} (${vehicle.year})\n\n`;
@@ -1517,7 +1658,7 @@ select.filter-control {
     
       navigator.clipboard.writeText(result.trim()).then(() => {
         if (!silent) {
-          showToast("✅ In Zwischenablage kopiert!");
+          showToast(t("copied"));
         }
       });
     }
@@ -1541,7 +1682,7 @@ select.filter-control {
       const categories = orderOverride || selectedOrder.slice(0, 3);
     
       if (categories.length < 2) {
-        showToast("⚠️ Bitte mindestens 2 Kategorien auswählen.", "#f33");
+        showToast(t("min_two_categories"), "#f33");
         return;
       }
       if (categories.length === 2) {
@@ -1558,7 +1699,7 @@ select.filter-control {
       }
     
       if (chosen.length !== 3) {
-        showToast("⚠️ Nicht genügend Fahrzeuge gefunden.", "#f33");
+        showToast(t("not_enough_cars"), "#f33");
         return;
       }
     
@@ -1575,7 +1716,7 @@ select.filter-control {
     
         nameDiv.textContent = `${v.brand} ${v.model} (${v.year})`;
         warnDiv.innerHTML = v.ignoredFilters.length
-          ? `Ignorierte Filter: ${v.ignoredFilters.join(', ')}`
+          ? `${t("ignored_filters")} ${v.ignoredFilters.join(', ')}`
           : '';
     
         slot.classList.remove('empty', 'slot-yellow', 'slot-blue', 'slot-orange', 'slot-magenta');
@@ -1631,7 +1772,7 @@ select.filter-control {
 
       const bfb = document.getElementById("bikeFilterBtn");
       if (bfb) {
-        bfb.innerText = "Nur Autos";
+        bfb.innerText = t("bike_no");
         bfb.classList.add("bike-active"); // 💡 Button grün glühen lassen
       }
     
@@ -1664,19 +1805,6 @@ select.filter-control {
         }
       }
 
-      fetch('cars/vehicles.json')
-        .then(response => response.json())
-        .then(data => {
-          vehicles = data;
-          initializeDropdowns();
-          updateSlotBoxes();
-          updateResetButtonState();
-          updateGoButtonState();
-        })
-        .catch(err => {
-          console.error("🚨 Fehler beim Laden von vehicles.json:", err);
-          alert("⚠️ Fahrzeugdaten konnten nicht geladen werden.");
-        });
     };
     document.addEventListener('click', function(e) {
       const box = e.target.closest('.slot-box');
@@ -1702,7 +1830,7 @@ select.filter-control {
       const filters = getCurrentFilters();
       const result = drawVehicleForCategory(category, filters, bikeFilterMode);
       if (!result) {
-        showToast(`⚠️ Kein Fahrzeug für ${category} gefunden.`, "#f33");
+        showToast(`${t("no_vehicle_found")}: ${category}`, "#f33");
         return;
       }
     
@@ -1740,7 +1868,7 @@ select.filter-control {
     
       nameDiv.textContent = `${vehicle.brand} ${vehicle.model} (${vehicle.year})`;
       warnDiv.innerHTML = ignoredFilters.length
-        ? `Ignorierte Filter: ${ignoredFilters.join(', ')}`
+        ? `${t("ignored_filters")} ${ignoredFilters.join(', ')}`
         : '';
     
       // ❗ Farbanpassung
@@ -1809,7 +1937,7 @@ select.filter-control {
           (!filters.country || v.country === filters.country) &&
           (!filters.brand || v.brand === filters.brand)
         );
-        if (finalList.length > 0) ignored.push(`Zeitraum (${filters.era})`);
+        if (finalList.length > 0) ignored.push(`${t("label_era")} (${translateEra(filters.era)})`);
       }
     
       if (finalList.length === 0 && filters.brand) {
@@ -1819,7 +1947,7 @@ select.filter-control {
           (!filters.country || v.country === filters.country) &&
           (!filters.era || v.era === filters.era)
         );
-        if (finalList.length > 0) ignored.push(`Marke (${filters.brand})`);
+        if (finalList.length > 0) ignored.push(`${t("label_brand")} (${filters.brand})`);
       }
     
       if (finalList.length === 0 && filters.country) {
@@ -1829,7 +1957,7 @@ select.filter-control {
           (!filters.era || v.era === filters.era) &&
           (!filters.brand || v.brand === filters.brand)
         );
-        if (finalList.length > 0) ignored.push(`Land (${filters.country})`);
+        if (finalList.length > 0) ignored.push(`${t("label_country")} (${translateCountry(filters.country)})`);
       }
     
       if (finalList.length === 0) {
@@ -1838,9 +1966,9 @@ select.filter-control {
           (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike))
         );
         if (finalList.length > 0) {
-          if (filters.era) ignored.push(`Zeitraum (${filters.era})`);
-          if (filters.brand) ignored.push(`Marke (${filters.brand})`);
-          if (filters.country) ignored.push(`Land (${filters.country})`);
+          if (filters.era) ignored.push(`${t("label_era")} (${translateEra(filters.era)})`);
+          if (filters.brand) ignored.push(`${t("label_brand")} (${filters.brand})`);
+          if (filters.country) ignored.push(`${t("label_country")} (${translateCountry(filters.country)})`);
         }
       }
     
@@ -1987,11 +2115,6 @@ select.filter-control {
     countrySelect.addEventListener('change', () => {
       const selectedOption = countrySelect.options[countrySelect.selectedIndex];
     
-      if (selectedOption.text === 'Vereinigte Arabische Emirate') {
-        selectedOption.text = 'Arabische Emirate';
-        selectedOption.setAttribute('data-original', 'Vereinigte Arabische Emirate');
-      }
-    
       // Bei erneutem Öffnen Dropdown zurücksetzen
       countrySelect.addEventListener('mousedown', () => {
         Array.from(countrySelect.options).forEach(opt => {
@@ -2004,22 +2127,16 @@ select.filter-control {
     document.addEventListener("keydown", function (e) {
       // SHIFT + ? → Hotkey-Legende anzeigen
       if (e.shiftKey && (e.key === '?' || e.key.toLowerCase() === 'h')) {
-        showToast(
-          "🎛️ Hotkeys<br>" +
-          "📋 Shift + L: show Log<br>" +
-          "🧹 Shift + R: reset (blacklist & counter)<br>" +
-          "🗑️ Shift + X: delete log<br>" +
-          "✏️ Shift + G: dev Logging on/off<br>",
-          "#0af", 30000); // 30 Sekunden
+        showToast(t("hotkey_help"), "#0af", 30000);
       }
       // SHIFT + L → Ziehlog anzeigen
       if ((e.shiftKey) && e.key.toLowerCase() === 'l') {
         if (window.drawLog && window.drawLog.length) {
           console.table(window.drawLog);
-          showToast("📋 Ziehlog geöffnet", "#0af");
+          showToast("📋 log opened", "#0af");
         } else {
-          console.log("ℹ️ Ziehlog ist leer.");
-          showToast("ℹ️ Kein Ziehlog vorhanden", "#aaa");
+          console.log("ℹ️ log is empty.");
+          showToast("ℹ️ log is empty", "#aaa");
         }
       }
       // SHIFT + L → Blacklist Löschen
@@ -2029,8 +2146,8 @@ select.filter-control {
         // 🔄 Zähler zurücksetzen
         window.drawRound = 1;
         localStorage.setItem("zendomizerDrawRound", "1");
-        showToast("🧹 Blacklist wurde gelöscht!", "#f44336");
-        console.log("🧹 recentDraws wurde per Hotkey zurückgesetzt.");
+        showToast(t("blacklist_cleared"), "#f44336");
+        console.log("🧹 reset recentDraws via hotkey.");
         window.drawLog.push({
           durchgang: 'RESET',
           category: '-',
@@ -2047,18 +2164,18 @@ select.filter-control {
       if ((e.shiftKey) && e.key.toLowerCase() === 'x') {
         window.drawLog = [];
         localStorage.removeItem("zendomizerDrawLog");
-        showToast("🗑️ Ziehlog gelöscht", "#f44336");
-        console.log("🗑️ drawLog wurde per Hotkey zurückgesetzt.");
+        showToast(t("drawlog_cleared"), "#f44336");
+        console.log("🗑️ drawLog cleared via hotkey");
       }
       // SHIFT + G → Logging aktivieren/deaktivieren
       if (e.shiftKey && e.key.toLowerCase() === 'g') {
         window.devLoggingEnabled = !window.devLoggingEnabled;
-        const state = window.devLoggingEnabled ? "aktiviert" : "deaktiviert";
+        const state = window.devLoggingEnabled ? "activ" : "inactive";
         showToast(`🛠️ Dev-Logging ${state}`, window.devLoggingEnabled ? "#0af" : "#aaa");
-        console.log(`🛠️ Dev-Logging wurde ${state}`);
+        console.log(`🛠️ Dev-Logging was ${state}`);
       }
     });
   </script>
-<div id="toast" class="toast">✅ In Zwischenablage kopiert!</div>
+<div id="toast" class="toast"></div>
 </body>
 </html>
