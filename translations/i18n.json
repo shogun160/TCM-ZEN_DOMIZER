@@ -28,7 +28,9 @@
     "blacklist_cleared": "🧹 Blacklist wurde gelöscht!",
     "drawlog_cleared": "🗑️ Ziehlog gelöscht",
     "rotation_applied_manual": "🏁 Grandrace Rotation übernommen",
-    "rotation_applied_auto": "🏁 Neue Rotation"
+    "rotation_applied_auto": "🏁 Neue Rotation",
+    "era_classic": "Klassisch",
+    "era_modern": "Modern"
   },
   "en": {
     "filter_country": "Select country",
@@ -55,6 +57,8 @@
     "blacklist_cleared": "🧹 Blacklist cleared!",
     "drawlog_cleared": "🗑️ Draw log cleared",
     "rotation_applied_manual": "🏁 Grandrace rotation applied",
-    "rotation_applied_auto": "🏁 New rotation"
+    "rotation_applied_auto": "🏁 New rotation",
+    "era_classic": "Classic",
+    "era_modern": "Modern"
   }
 }
