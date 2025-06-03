@@ -1650,11 +1650,11 @@ select.filter-control {
     
     function copyToClipboard(silent = false) {
       if (!lastSelection || lastSelection.length === 0) {
-        if (!silent) showToast("⚠️ Keine Auswahl zum Kopieren.");
+        if (!silent) showToast(t("clipboard_empty"));
         return;
       }
     
-      let result = "🎲 ZENDOMIZER Auswahl:\n\n";
+      let result = t("zen_pick");
     
       lastSelection.forEach(vehicle => {
         result += `|| ${vehicle.category}:\n  ${vehicle.brand} ${vehicle.model} (${vehicle.year})\n\n`;
