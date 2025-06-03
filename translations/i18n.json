@@ -21,7 +21,9 @@
     "ticker_base": "🏁 Bereit für <strong class='pulse-glow'>{event}</strong>? Let's race!",
     "ticker_modificator": " Es ist Modifikatortag 🏁",
     "draw_reset": "↩️ Ziehung zurückgesetzt",
-    "filters_reset": "↩️ Filter zurückgesetzt!"
+    "filters_reset": "↩️ Filter zurückgesetzt!",
+    "blacklist_cleared": "🧹 Blacklist wurde gelöscht!",
+    "drawlog_cleared": "🗑️ Ziehlog gelöscht"
   },
   "en": {
     "filter_country": "Select country",
@@ -41,6 +43,8 @@
     "ticker_base": "🏁 Ready for <strong class='pulse-glow'>{event}</strong>? Let's race!",
     "ticker_modificator": " It's modificator day 🏁",
     "draw_reset": "↩️ reset draw",
-    "filters_reset": "↩️ reset filters"
+    "filters_reset": "↩️ reset filters",
+    "blacklist_cleared": "🧹 Blacklist cleared!",
+    "drawlog_cleared": "🗑️ Draw log cleared"
   }
 }
