@@ -1315,10 +1315,6 @@ select.filter-control {
         'Gordon Murray Automobile': 'Gordan Murray'
       };
     
-      const countryRenameMap = {
-        'Vereinigte Arabische Emirate': 'Arabische Emirate'
-      };
-    
       const brandSet = new Set(vehicles.map(v => v.brand));
       [...brandSet].sort().forEach(brand => {
         const option = document.createElement("option");
