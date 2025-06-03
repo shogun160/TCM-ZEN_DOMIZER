@@ -1086,7 +1086,11 @@ select.filter-control {
     
         const currentEventName = entry[0];
         const currentCategories = entry[1].replace(/>/g, "→");
-        showToast(`🏁 ${triggeredByClick ? "Grandrace Rotation übernommen" : "Neue Rotation"}: ${currentEventName} | ${currentCategories}`, "#39ff14", 10000);
+        showToast(t("rotation_applied", {
+          event: currentEventName,
+          categories: currentCategories
+        }), "#39ff14", 10000);
+
       }
     }
 
