@@ -924,6 +924,54 @@ select.filter-control {
     document.body.appendChild(container);
   }
 
+  function rebuildEraDropdown() {
+    const eraSelect = document.getElementById("eraSelect");
+    if (!eraSelect) return;
+
+    const selectedValue = eraSelect.value;
+    const eraSet = new Set(vehicles.map(v => v.era));
+
+    eraSelect.innerHTML = "";
+
+    const empty = document.createElement("option");
+    empty.value = "";
+    empty.textContent = t("filter_era");
+    eraSelect.appendChild(empty);
+
+    [...eraSet].sort().forEach(era => {
+      const option = document.createElement("option");
+      option.value = era;
+      option.textContent = translateEra(era);
+      eraSelect.appendChild(option);
+    });
+
+    eraSelect.value = selectedValue;
+  }
+
+  function rebuildCountryDropdown() {
+    const countrySelect = document.getElementById("countrySelect");
+    if (!countrySelect) return;
+
+    const selectedValue = countrySelect.value;
+    const countrySet = new Set(vehicles.map(v => v.country));
+
+    countrySelect.innerHTML = "";
+
+    const empty = document.createElement("option");
+    empty.value = "";
+    empty.textContent = t("filter_country");
+    countrySelect.appendChild(empty);
+
+    [...countrySet].sort().forEach(country => {
+      const option = document.createElement("option");
+      option.value = country;
+      option.textContent = t("country_" + (country || "").toLowerCase().replace(/\s+/g, "_")) || country;
+      countrySelect.appendChild(option);
+    });
+
+    countrySelect.value = selectedValue;
+  }
+
 
   function applyTranslations() {
     document.querySelector("#countrySelect option[value='']").textContent = t("filter_country");
@@ -936,6 +984,8 @@ select.filter-control {
       else if (bikeFilterMode === "bike") bfb.innerText = t("bike_yes");
       else bfb.innerText = t("bike_all");
     }
+    rebuildEraDropdown();
+    rebuildCountryDropdown(); 
   }
 
     /*
