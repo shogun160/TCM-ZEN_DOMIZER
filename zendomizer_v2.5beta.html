@@ -878,17 +878,29 @@ select.filter-control {
     return t(key);
   }
 
-  fetch("translations/i18n.json")
-    .then(res => res.json())
-    .then(data => {
-      translations = data;
-      availableLanguages = Object.keys(data.meta || {});
-      createLanguageSwitcher();
-      applyTranslations();
-    })
-    .catch(err => {
-      console.error("❌ Fehler beim Laden der Übersetzungen:", err);
-    });
+  x
+  let vehicles = [];
+
+  Promise.all([
+    fetch("translations/i18n.json").then(res => res.json()),
+    fetch("cars/vehicles.json").then(res => res.json())
+  ])
+  .then(([i18nData, vehicleData]) => {
+    translations = i18nData;
+    availableLanguages = Object.keys(i18nData.meta || {});
+    vehicles = vehicleData;
+
+    createLanguageSwitcher();
+    applyTranslations();
+    initializeDropdowns();
+    updateSlotBoxes();
+    updateResetButtonState();
+    updateGoButtonState();
+  })
+  .catch(err => {
+    console.error("❌ Fehler beim Laden der Daten:", err);
+  });
+
   function createLanguageSwitcher() {
     const container = document.createElement("div");
     container.id = "langSwitcher";
@@ -1809,19 +1821,6 @@ select.filter-control {
         }
       }
 
-      fetch('cars/vehicles.json')
-        .then(response => response.json())
-        .then(data => {
-          vehicles = data;
-          initializeDropdowns();
-          updateSlotBoxes();
-          updateResetButtonState();
-          updateGoButtonState();
-        })
-        .catch(err => {
-          console.error("🚨 Fehler beim Laden von vehicles.json:", err);
-          alert("⚠️ Fahrzeugdaten konnten nicht geladen werden.");
-        });
     };
     document.addEventListener('click', function(e) {
       const box = e.target.closest('.slot-box');
