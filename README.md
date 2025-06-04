@@ -1,6 +1,6 @@
 [<img src="https://github.com/user-attachments/assets/f32ae56e-248a-4780-9c39-da9c1b17f73e" width="360">](https://shogun160.github.io/TCM-ZEN_DOMIZER/zendomizer.html)
 
-# **Randomizer for The Crew Motorfest Grand Races** (click picture to start)
+# **Randomizer for The Crew Motorfest Grand Races** *(click picture above to start)*
 
 **Available categories**    
 🚘 *Street Tier 1* 🚘 *Street Tier 2* 🚘 *Hypercar* 🚘 *Drift* 🚘 *Racing* 🚘 *AGP* 🚘 *Motocross* 🚘 *Rally* 🚘 *Rally Raid* 🚘 *Monster Truck* 🚘 
@@ -55,3 +55,6 @@ And of course a special thank also to the [motorfe.st project](https://github.co
 
 ### 📊 Log
 ![Zendomizer DevLog](assets/pic/ZENdomizer_DevCon_Log.png)
+
+### Multi language - choose betwwen german and english
+![Zendomizer Multi language](assets/pic/ZENdomizer_multilanguage.png)
