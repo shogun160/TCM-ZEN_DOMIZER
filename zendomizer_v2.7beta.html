@@ -406,23 +406,20 @@
   align-items: center;
 }
 .machine-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;
   width: 100%;
-  height: 700px;
-  background-color: black;
-  z-index: 0;
-  display: flex;
-  justify-content: center;
+  max-width: 720px;      /* oder 960px, wie du magst */
+  aspect-ratio: 1 / 1;   /* Quadrat */
+  margin: 0 auto;
 }
+
 .machine-wrapper::before {
   content: "";
-  display: block;
-  width: 960px; /* oder deine Wunschbreite */
-  height: 700px;
-  background: url('https://raw.githubusercontent.com/shogun160/TCM-ZEN_DOMIZER/main/assets/pic/ZENDOMIZER_slotmachine.png') no-repeat center top;
+  position: absolute;
+  inset: 0;
+  background: url('ZENDOMIZER_slotmachine.png') no-repeat center center;
   background-size: contain;
+  z-index: 1;
 }
 .button-top {
   display: flex;
@@ -758,12 +755,12 @@ select.filter-control {
 }
 #wheelOverlay {
   position: absolute;
-  inset: 0; /* exakt über der Maschine */
-  width: 960px;
-  height: 700px;
-  z-index: 10;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
   pointer-events: none;
-  margin: 0 auto;
+  transform-origin: center center;
 }
 
 @keyframes spinWheel {
