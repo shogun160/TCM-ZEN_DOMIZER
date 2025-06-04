@@ -1779,6 +1779,8 @@ select.filter-control {
     
       const SPIN_DURATION = 1800;
       drawExecuted = true;
+
+      updateSlotBoxes(); // 🟢 Slotboxen mit Fragezeichen vorbereiten
     
       const effectiveOrder = [...selectedOrder];
       if (effectiveOrder.length === 2) {
