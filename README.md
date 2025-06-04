@@ -53,8 +53,8 @@ And of course a special thank also to the [motorfe.st project](https://github.co
 ### 🎰 ZENDomizer Smart Filters - always get cars and see ignored filters
 <img src="assets/pic/ZENdomizer_ignored_filters.png" width="35%">
 
-### 📊 Log
-![Zendomizer DevLog](assets/pic/ZENdomizer_DevCon_Log.png)
-
 ### Multi language - choose between german and english
 ![Zendomizer Multi language](assets/pic/ZENdomizer_multilanguage.png)
+
+### 📊 Log
+![Zendomizer DevLog](assets/pic/ZENdomizer_DevCon_Log.png)
