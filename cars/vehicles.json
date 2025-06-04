@@ -6183,6 +6183,15 @@
     "era": "modern"
   },
   {
+    "category": "Monster Truck",
+    "bike": false,
+    "brand": "Ford",
+    "model": "F-150 Raptor Race Truck Red Bull Ed.",
+    "year": 2017,
+    "country": "USA",
+    "era": "modern"
+  },
+  {
     "category": "Street Tier 1",
     "bike": false,
     "brand": "Mini",
