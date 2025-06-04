@@ -4,6 +4,7 @@
 
 **Available categories**    
 🚘 *Street Tier 1* 🚘 *Street Tier 2* 🚘 *Hypercar* 🚘 *Drift* 🚘 *Racing* 🚘 *AGP* 🚘 *Motocross* 🚘 *Rally* 🚘 *Rally Raid* 🚘 *Monster Truck* 🚘 
+*HINT: Sort your vehicles by brand*
 
 ⚠️ *For Drift there are only a few cars available at the moment (Hoonigan & most Mitsubishi). This is because steering will block for most other drift cars when using direct mode or high dynamic maxlock. More cars may be added later.*
 
@@ -29,7 +30,8 @@ And of course a special thank also to the [motorfe.st project](https://github.co
   - `Shift + ?` – show help
   - `Shift + R` – reset blacklist & counter  
   - `Shift + X` – clear draw log  
-  - `Shift + L` – show draw log in console  
+  - `Shift + L` – show draw log in console
+  - `Cntrl + C` – copy draw to clipboard again
 - 📋 **copy to clipboard** - text output per category
 - 🇬🇧/🇩🇪 **multilanguage support**
 - 📲 **support for mobile phones**
