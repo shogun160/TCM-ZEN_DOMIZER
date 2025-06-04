@@ -1779,6 +1779,9 @@ select.filter-control {
     
       const SPIN_DURATION = 1800;
       drawExecuted = true;
+      const wheel = document.getElementById("wheelOverlay");
+        wheel.classList.add("spin");
+        setTimeout(() => wheel.classList.remove("spin"), SPIN_DURATION);
       clearResults();  // ⬅️ Vor der neuen Ziehung: vorherige Ergebnisse löschen
     
       // 🧠 Sonderfall: 2 Kategorien → erste Kategorie als dritte wiederholen
@@ -1797,7 +1800,16 @@ select.filter-control {
       if (selectedOrder.length === 2) {
         showToast(`🔁 Kategorie 3: <b>${effectiveOrder[2]}</b> wurde wiederholt`, "#ffa500", 6000);
       }
+      const SPIN_DURATION = 1800; // optional verschiebbar in globale Konstante
+      const slots = document.querySelectorAll('.slot-box');
+      const allEmpty = Array.from(slots).every(slot => slot.classList.contains('empty'));
     
+      if (allEmpty) {
+        const wheel = document.getElementById("wheelOverlay");
+        wheel.classList.add("spin");
+        setTimeout(() => wheel.classList.remove("spin"), SPIN_DURATION);
+      }
+        
       // ✅ Ziehung ausführen
       fillSlotBoxesWithResults(effectiveOrder);
     }
