@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link rel="icon" type="image/png" href="assets/ZENdomizer_favicon.png">
-<title>ZENDOMIZER v2.6 | Vehicle list 05/2024</title>
+<title>ZENDOMIZER v2.7 | Vehicle list 06/2024</title>
 <style>
     body {
       font-family: 'Orbitron', sans-serif;
@@ -1095,7 +1095,12 @@ select.filter-control {
 
     function updateGrandraceState(triggeredByClick = false) {
       const grandraceCheckbox = document.getElementById('catGR');
-      if (!grandraceCheckbox.checked) return; // Grandrace nicht aktiv
+      if (!grandraceCheckbox.checked) {
+        if (triggeredByClick && isMainStage) {
+        showToast(t("GRcat_mainstage_manual"), "#f44336", 7000);
+      }
+      return;
+    }
     
       const index = getCurrentEventIndex();
       const entry = ROTATION[index];
