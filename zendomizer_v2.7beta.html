@@ -1779,6 +1779,7 @@ select.filter-control {
     
       const SPIN_DURATION = 1800;
       drawExecuted = true;
+      clearResults();  // ⬅️ Vor der neuen Ziehung: vorherige Ergebnisse löschen
     
       // 🧠 Sonderfall: 2 Kategorien → erste Kategorie als dritte wiederholen
       const effectiveOrder = [...selectedOrder];
@@ -1790,7 +1791,6 @@ select.filter-control {
       if (wheel) {
         // Dynamische Dauer an CSS übergeben
         document.documentElement.style.setProperty('--spin-duration', `${SPIN_DURATION}ms`);
-    
         wheel.classList.add("spin");
     
         // ⏱ Ergebnisanzeige verzögert
