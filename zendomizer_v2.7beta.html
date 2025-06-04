@@ -935,44 +935,54 @@ select.filter-control {
   });
 
   function createLanguageSwitcher() {
-    const container = document.createElement("div");
-    container.id = "langSwitcher";
-    container.style.position = "absolute";
-    container.style.top = "12px";
-    container.style.right = "12px";
-    container.style.zIndex = "500";
-    container.style.display = "flex";
-    container.style.gap = "12px";
-
-    for (const lang of availableLanguages) {
-      const meta = translations.meta[lang];
-      const btn = document.createElement("button");
-      btn.innerHTML = meta.flag || lang.toUpperCase();
-      btn.title = meta.label || lang;
-      btn.style.fontSize = "28px";
-      btn.style.cursor = "pointer";
-      btn.style.background = "transparent";
-      btn.style.border = "none";
-
-      btn.classList.add("lang-button");
-      if (lang === currentLang) {
-        btn.classList.add("active");
+      const container = document.createElement("div");
+      container.id = "langSwitcher";
+      container.style.position = "absolute";
+      container.style.top = "12px";
+      container.style.right = "12px";
+      container.style.zIndex = "500";
+      container.style.display = "flex";
+      container.style.gap = "12px";
+    
+      for (const lang of availableLanguages) {
+        const meta = translations.meta[lang];
+        const btn = document.createElement("button");
+    
+        // 🖼️ Flaggenbild einfügen
+        const img = document.createElement("img");
+        img.src = `translations/flags/${lang.toUpperCase()}.png`;
+        img.alt = meta.label || lang;
+        img.style.width = "36px";
+        img.style.height = "24px";
+        img.style.borderRadius = "4px";
+        img.style.objectFit = "cover";
+    
+        btn.appendChild(img);
+    
+        btn.title = meta.label || lang;
+        btn.classList.add("lang-button");
+        if (lang === currentLang) {
+          btn.classList.add("active");
+        }
+    
+        btn.style.fontSize = "0"; // Text unterdrücken
+        btn.style.cursor = "pointer";
+        btn.style.background = "transparent";
+        btn.style.border = "none";
+    
+        btn.onclick = () => {
+          currentLang = lang;
+          localStorage.setItem("zendomizerLang", lang);
+          applyTranslations();
+          document.querySelectorAll(".lang-button").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+        };
+    
+        container.appendChild(btn);
       }
-
-
-      btn.onclick = () => {
-        currentLang = lang;
-        localStorage.setItem("zendomizerLang", lang);
-        applyTranslations();
-        document.querySelectorAll(".lang-button").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-      };
-
-      container.appendChild(btn);
+    
+      document.body.appendChild(container);
     }
-
-    document.body.appendChild(container);
-  }
 
   function rebuildEraDropdown() {
     const eraSelect = document.getElementById("eraSelect");
