@@ -1797,7 +1797,8 @@ select.filter-control {
         effectiveOrder.forEach((_, index) => {
         setTimeout(() => {
           for (let i = 0; i <= index; i++) {
-            fillSlotBox(i, effectiveOrder[i]);
+            const flash = i === index; // Nur der neue Slot blinkt
+            fillSlotBox(i, effectiveOrder[i], flash);
           }
         }, 600 * (index + 1));
       });
@@ -1886,7 +1887,7 @@ select.filter-control {
       });
     }
     
-    function fillSlotBox(index, category) {
+    function fillSlotBox(index, category, flash = true) {
       const boxes = document.querySelectorAll(".slot-box");
       if (!boxes[index]) return;
     
@@ -1921,8 +1922,12 @@ select.filter-control {
       box.querySelector(".slot-warning").textContent =
         ignoredFilters.length ? `${t("ignored_filters")} ${ignoredFilters.join(", ")}` : "";
     
-      box.classList.add("drawn", "flash");
-      setTimeout(() => box.classList.remove("flash"), 800);
+      box.classList.add("drawn");
+    
+      if (flash) {
+        box.classList.add("flash");
+        setTimeout(() => box.classList.remove("flash"), 800);
+      }
     }
 
     
