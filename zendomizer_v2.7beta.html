@@ -1875,6 +1875,16 @@ select.filter-control {
         rerollSingleSlot(category);
       }
     });
+
+    function clearResults() {
+      const boxes = document.querySelectorAll(".slot-box");
+      boxes.forEach(box => {
+        box.classList.remove("drawn");
+        box.querySelector(".slot-name").textContent = "";
+        // Wenn du die Kategorie behalten willst, diese Zeile weglassen
+        // box.querySelector(".slot-category").textContent = "";
+      });
+    }
     
     function fillSlotBox(index, category) {
       const boxes = document.querySelectorAll(".slot-box");
