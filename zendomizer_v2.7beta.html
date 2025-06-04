@@ -778,7 +778,7 @@ select.filter-control {
 }
 
 #wheelOverlay.spin {
-  animation: spinWheel 2.8s ease-in-out;
+  animation: spinWheel var(--spin-duration) ease-in-out;
 }
 
 @keyframes spinWheel {
@@ -1777,6 +1777,7 @@ select.filter-control {
     function handleGo() {
       if (selectedOrder.length < 2) return; // ❌ GO erst ab 2 Kategorien
     
+      const SPIN_DURATION = 1800;
       drawExecuted = true;
     
       // 🧠 Sonderfall: 2 Kategorien → erste Kategorie als dritte wiederholen
@@ -1784,15 +1785,21 @@ select.filter-control {
       if (effectiveOrder.length === 2) {
         effectiveOrder.push(effectiveOrder[0]);
       }
+    
       const wheel = document.getElementById("wheelOverlay");
       if (wheel) {
+        // Dynamische Dauer an CSS übergeben
+        document.documentElement.style.setProperty('--spin-duration', `${SPIN_DURATION}ms`);
+    
         wheel.classList.add("spin");
+    
+        // ⏱ Ergebnisanzeige verzögert
         setTimeout(() => {
           wheel.classList.remove("spin");
-        }, 2800);
+          fillSlotBoxesWithResults(effectiveOrder); // ⬅️ Jetzt erst Ergebnisse anzeigen
+        }, SPIN_DURATION);
       }
-
-      fillSlotBoxesWithResults(effectiveOrder); // ⬅️ Übergib effektive Reihenfolge
+    
       updateResetButtonState();
     
       const btn = document.getElementById("goBtn");
