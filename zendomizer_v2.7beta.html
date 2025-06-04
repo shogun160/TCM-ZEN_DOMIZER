@@ -758,32 +758,22 @@ select.filter-control {
 }
 #wheelOverlay {
   position: absolute;
-  top: 72px;                   /*rad etwas zuweit unten*/
-  left: 50%;
-  transform: translateX(-50%);
-  width: 600px;                /* rad etwas zu klein */
+  inset: 0; /* exakt über der Maschine */
+  width: 960px;
+  height: 700px;
   z-index: 10;
   pointer-events: none;
+  margin: 0 auto;
 }
 
 @keyframes spinWheel {
-  0%   { transform: translateX(-50%) rotate(0deg); }
-  10%  { transform: translateX(-50%) rotate(72deg); }
-  20%  { transform: translateX(-50%) rotate(144deg); }
-  30%  { transform: translateX(-50%) rotate(216deg); }
-  40%  { transform: translateX(-50%) rotate(288deg); }
-  50%  { transform: translateX(-50%) rotate(360deg); }
-  60%  { transform: translateX(-50%) rotate(72deg); }
-  70%  { transform: translateX(-50%) rotate(144deg); }
-  80%  { transform: translateX(-50%) rotate(216deg); }
-  90%  { transform: translateX(-50%) rotate(288deg); }
-  100% { transform: translateX(-50%) rotate(360deg); }
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(720deg); }
 }
 
 #wheelOverlay.spin {
   animation: spinWheel 2.8s ease-in-out;
 }
-
     
 </style>
 </head>
