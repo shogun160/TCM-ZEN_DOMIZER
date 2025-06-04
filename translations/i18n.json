@@ -47,6 +47,8 @@
     "min_two_categories": "⚠️ Bitte mindestens 2 Kategorien auswählen.",
     "no_vehicle_found": "⚠️ Kein Fahrzeug gefunden",
     "clipboard_heading": "🎲 ZENDOMIZER Auswahl:\n\n",
+    "blacklist_reset_notice": "🧹 Kategorie <b>{category}</b>: Alle Fahrzeuge wurden gezogen – Blacklist wurde zurückgesetzt.",
+    "category_repeated": "🔁 Kategorie 3: <b>{category}</b> wird wiederholt.",
     "hotkey_help": "🎛️ Hotkeys<br>📋 Shift + L: Log anzeigen<br>🧹 Shift + R: zurücksetzen (Blacklist & Zähler)<br>🗑️ Shift + X: Log löschen<br>✏️ Shift + G: Dev-Logging an/aus<br>"
 
   },
@@ -94,6 +96,8 @@
     "min_two_categories": "⚠️ Please select at least 2 categories.",
     "no_vehicle_found": "⚠️ No vehicle found",
     "clipboard_heading": "🎲 ZENDOMIZER Selection:\n\n",
+    "blacklist_reset_notice": "🧹 Category <b>{category}</b>: All vehicles drawn – blacklist cleared.",
+    "category_repeated": "🔁 Category 3: <b>{category}</b> will be repeated.",
     "hotkey_help": "🎛️ Hotkeys<br>📋 Shift + L: show Log<br>🧹 Shift + R: reset (blacklist & counter)<br>🗑️ Shift + X: delete log<br>✏️ Shift + G: dev logging on/off<br>"
   }
 }
