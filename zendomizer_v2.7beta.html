@@ -1804,10 +1804,11 @@ select.filter-control {
         wheel.classList.add("spin");
     
         // Fülle Slotboxen parallel zur Drehung: 600ms, 1200ms, 1800ms
-        effectiveOrder.forEach((category, index) => {
+        effectiveOrder.forEach((category, index) => {Add commentMore actions
           setTimeout(() => {
-          fillSlotBox(index, category, true);
-        }, 600 * (index + 1));
+            fillSlotBox(index, category, true); // Jeder Slot einzeln, mit Flash
+          }, 600 * (index + 1));
+        });
 
     
         // Drehung nach 1800ms stoppen
