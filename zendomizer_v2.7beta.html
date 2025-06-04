@@ -1775,13 +1775,11 @@ select.filter-control {
     }
 
     function handleGo() {
-      if (selectedOrder.length < 2) return; // ❌ GO erst ab 2 Kategorien
+      if (selectedOrder.length < 2) return;
     
       const SPIN_DURATION = 1800;
       drawExecuted = true;
-      //resetSmart();  // ⬅️ Vor der neuen Ziehung: vorherige Ergebnisse löschen
     
-      // 🧠 Sonderfall: 2 Kategorien → erste Kategorie als dritte wiederholen
       const effectiveOrder = [...selectedOrder];
       if (effectiveOrder.length === 2) {
         effectiveOrder.push(effectiveOrder[0]);
@@ -1789,23 +1787,33 @@ select.filter-control {
     
       const wheel = document.getElementById("wheelOverlay");
       if (wheel) {
-        // Dynamische Dauer an CSS übergeben
         document.documentElement.style.setProperty('--spin-duration', `${SPIN_DURATION}ms`);
         wheel.classList.add("spin");
     
-        // ⏱ Ergebnisanzeige verzögert
+        // Fülle Slotboxen parallel zur Drehung: 600ms, 1200ms, 1800ms
+        effectiveOrder.forEach((category, index) => {
+          setTimeout(() => {
+            fillSlotBox(index, category);
+          }, 600 * (index + 1));
+        });
+    
+        // Drehung nach 1800ms stoppen
         setTimeout(() => {
           wheel.classList.remove("spin");
-          const interval = SPIN_DURATION / effectiveOrder.length;
-
-          effectiveOrder.forEach((category, index) => {
-            setTimeout(() => {
-              fillSlotBox(index, category);
-            }, interval * (index + 1));
-          });
-
         }, SPIN_DURATION);
       }
+    
+      updateResetButtonState();
+    
+      const btn = document.getElementById("goBtn");
+      btn.classList.add("active", "clicked");
+      setTimeout(() => btn.classList.remove("active", "clicked"), 750);
+    
+      if (selectedOrder.length === 2) {
+        showToast(`🔁 Kategorie 3: <b>${effectiveOrder[2]}</b> wurde wiederholt`, "#ffa500", 6000);
+      }
+    }
+
     
       updateResetButtonState();
     
