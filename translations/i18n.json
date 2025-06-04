@@ -1,7 +1,7 @@
 {
   "meta": {
     "de": { "label": "Deutsch", "flag": "🇩🇪" },
-    "en": { "label": "English", "flag": "🇬🇧" }
+    "en": { "label": "English", "flag": "🇺🇸" }
   },
   "de": {
     "filter_country": "Land wählen",
