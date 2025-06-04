@@ -421,7 +421,7 @@
   display: block;
   width: 960px; /* oder deine Wunschbreite */
   height: 700px;
-  background: url('https://raw.githubusercontent.com/shogun160/TCM-ZEN_DOMIZER/main/assets/pic/ZENDOMIZER_pic.jpeg') no-repeat center top;
+  background: url('https://raw.githubusercontent.com/shogun160/TCM-ZEN_DOMIZER/main/assets/pic/ZENDOMIZER_slotmachine.png') no-repeat center top;
   background-size: contain;
 }
 .button-top {
@@ -756,11 +756,36 @@ select.filter-control {
       0 0 30px #00E5FF;
   }
 }
+#wheelOverlay {
+  position: absolute;
+  top: 72px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+@keyframes spinWheel {
+  0%   { transform: translateX(-50%) rotate(0deg); }
+  10%  { transform: translateX(-50%) rotate(60deg); }
+  30%  { transform: translateX(-50%) rotate(540deg); }
+  70%  { transform: translateX(-50%) rotate(1440deg); }
+  90%  { transform: translateX(-50%) rotate(1740deg); }
+  100% { transform: translateX(-50%) rotate(1800deg); }
+}
+
+#wheelOverlay.spin {
+  animation: spinWheel 2.8s ease-in-out;
+}
+
     
 </style>
 </head>
 <body>
-<div class="machine-wrapper"></div>
+<div class="machine-wrapper">
+  <img id="wheelOverlay" src="https://raw.githubusercontent.com/shogun160/TCM-ZEN_DOMIZER/main/assets/pic/ZENDOMIZER_wheel.png" />
+</div>
 <div class="layout"><div class="left-panel">
     <div class="filter-wrapper">
         <div class="filter-grid">
@@ -1751,7 +1776,14 @@ select.filter-control {
       if (effectiveOrder.length === 2) {
         effectiveOrder.push(effectiveOrder[0]);
       }
-    
+      const wheel = document.getElementById("wheelOverlay");
+      if (wheel) {
+        wheel.classList.add("spin");
+        setTimeout(() => {
+          wheel.classList.remove("spin");
+        }, 2800);
+      }
+
       fillSlotBoxesWithResults(effectiveOrder); // ⬅️ Übergib effektive Reihenfolge
       updateResetButtonState();
     
