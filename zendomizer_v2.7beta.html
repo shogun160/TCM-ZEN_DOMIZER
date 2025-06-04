@@ -1796,7 +1796,14 @@ select.filter-control {
         // ⏱ Ergebnisanzeige verzögert
         setTimeout(() => {
           wheel.classList.remove("spin");
-          fillSlotBoxesWithResults(effectiveOrder); // ⬅️ Jetzt erst Ergebnisse anzeigen
+          const interval = SPIN_DURATION / effectiveOrder.length;
+
+          effectiveOrder.forEach((category, index) => {
+            setTimeout(() => {
+              fillSlotBox(index, category);
+            }, interval * (index + 1));
+          });
+
         }, SPIN_DURATION);
       }
     
@@ -1868,6 +1875,19 @@ select.filter-control {
         rerollSingleSlot(category);
       }
     });
+    
+    function fillSlotBox(index, category) {
+      const boxes = document.querySelectorAll(".slot-box");
+      if (!boxes[index]) return;
+    
+      const box = boxes[index];
+      // Beispiel: Kategorie und Fahrzeugname setzen – passe ggf. an
+      box.querySelector(".slot-category").textContent = category;
+      box.querySelector(".slot-name").textContent = "Fahrzeug XY"; // Hier dynamisch anpassen!
+    
+      box.classList.add("drawn");
+    }
+    
     function updateGoButtonState() {
       const btn = document.getElementById("goBtn");
       btn.classList.remove("inactive", "pulsing"); // 🔁 wichtig: beides entfernen
