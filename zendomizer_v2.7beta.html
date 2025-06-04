@@ -776,13 +776,13 @@ select.filter-control {
 }
 
 #wheelOverlay.spin {
-  animation: spinWheel 2.8s ease-in-out;
+  animation: spinWheel 2.8s;
 }
 
 @keyframes spinWheel {
-  0% { transform: translateX(-50%) rotate(0deg); }
-  10% { transform: translateX(-50%) rotate(60deg); }
-  90% { transform: translateX(-50%) rotate(660deg); }
+  0% { transform: rotate(0deg); }
+  10% { transform: rotate(60deg); }
+  90% { transform: rotate(660deg); }
   100% { transform: translateX(-50%) rotate(720deg); }
 }
 
