@@ -6181,5 +6181,14 @@
     "year": 2024,
     "country": "england",
     "era": "modern"
+  },
+  {
+    "category": "Street Tier 1",
+    "bike": false,
+    "brand": "Mini",
+    "model": "John Cooper Works GP",
+    "year": 2020,
+    "country": "england",
+    "era": "modern"
   }
 ]
