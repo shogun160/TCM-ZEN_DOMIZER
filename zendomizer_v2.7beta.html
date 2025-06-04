@@ -1809,6 +1809,7 @@ select.filter-control {
       }
       // Raddrehung
       const wheel = document.getElementById("wheelOverlay");
+      wheel.style.setProperty('--spin-duration', `${SPIN_DURATION}ms`);
       wheel.classList.add("spin");
       setTimeout(() => wheel.classList.remove("spin"), SPIN_DURATION);
 
