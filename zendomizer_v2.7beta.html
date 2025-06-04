@@ -1891,12 +1891,40 @@ select.filter-control {
       if (!boxes[index]) return;
     
       const box = boxes[index];
-      // Beispiel: Kategorie und Fahrzeugname setzen – passe ggf. an
-      box.querySelector(".slot-category").textContent = category;
-      box.querySelector(".slot-name").textContent = "Fahrzeug XY"; // Hier dynamisch anpassen!
+      const filters = getCurrentFilters();
+      const result = drawVehicleForCategory(category, filters, bikeFilterMode);
     
-      box.classList.add("drawn");
+      if (!result) {
+        box.querySelector(".slot-category").textContent = category;
+        box.querySelector(".slot-name").textContent = "⚠️ kein Fahrzeug";
+        box.querySelector(".slot-warning").textContent = t("not_enough_cars");
+        box.classList.add("drawn");
+        return;
+      }
+    
+      const { vehicle, ignoredFilters } = result;
+    
+      // Slot zurücksetzen
+      box.classList.remove("empty", "slot-yellow", "slot-blue", "slot-orange", "slot-magenta");
+    
+      // Farbe bestimmen
+      const colorClass =
+        ['Street Tier 1', 'Street Tier 2', 'Hypercar', 'Drift'].includes(category) ? 'slot-yellow' :
+        ['Racing', 'AGP'].includes(category) ? 'slot-blue' :
+        ['Rally', 'Rally Raid', 'Motocross'].includes(category) ? 'slot-orange' :
+        category === 'Monster Truck' ? 'slot-magenta' : '';
+      if (colorClass) box.classList.add(colorClass);
+    
+      // Inhalt setzen
+      box.querySelector(".slot-category").textContent = category;
+      box.querySelector(".slot-name").textContent = `${vehicle.brand} ${vehicle.model} (${vehicle.year})`;
+      box.querySelector(".slot-warning").textContent =
+        ignoredFilters.length ? `${t("ignored_filters")} ${ignoredFilters.join(", ")}` : "";
+    
+      box.classList.add("drawn", "flash");
+      setTimeout(() => box.classList.remove("flash"), 800);
     }
+
     
     function updateGoButtonState() {
       const btn = document.getElementById("goBtn");
