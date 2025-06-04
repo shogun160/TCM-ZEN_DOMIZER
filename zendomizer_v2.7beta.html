@@ -1787,26 +1787,6 @@ select.filter-control {
         effectiveOrder.push(effectiveOrder[0]);
       }
     
-      const wheel = document.getElementById("wheelOverlay");
-      if (wheel) {
-        // Dynamische Dauer an CSS übergeben
-        document.documentElement.style.setProperty('--spin-duration', `${SPIN_DURATION}ms`);
-        wheel.classList.add("spin");
-    
-        // ⏱ Ergebnisanzeige verzögert
-        setTimeout(() => {
-          wheel.classList.remove("spin");
-          const interval = SPIN_DURATION / effectiveOrder.length;
-
-          effectiveOrder.forEach((category, index) => {
-            setTimeout(() => {
-              fillSlotBox(index, category);
-            }, interval * (index + 1));
-          });
-
-        }, SPIN_DURATION);
-      }
-    
       updateResetButtonState();
     
       const btn = document.getElementById("goBtn");
