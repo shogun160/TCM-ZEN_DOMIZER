@@ -56,5 +56,5 @@ And of course a special thank also to the [motorfe.st project](https://github.co
 ### 📊 Log
 ![Zendomizer DevLog](assets/pic/ZENdomizer_DevCon_Log.png)
 
-### Multi language - choose betwwen german and english
+### Multi language - choose between german and english
 ![Zendomizer Multi language](assets/pic/ZENdomizer_multilanguage.png)
