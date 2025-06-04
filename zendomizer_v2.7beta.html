@@ -1787,6 +1787,26 @@ select.filter-control {
         effectiveOrder.push(effectiveOrder[0]);
       }
     
+      const wheel = document.getElementById("wheelOverlay");
+      if (wheel) {
+        // Dynamische Dauer an CSS übergeben
+        document.documentElement.style.setProperty('--spin-duration', `${SPIN_DURATION}ms`);
+        wheel.classList.add("spin");
+    
+        // ⏱ Ergebnisanzeige verzögert
+        setTimeout(() => {
+          wheel.classList.remove("spin");
+          const interval = SPIN_DURATION / effectiveOrder.length;
+
+          effectiveOrder.forEach((category, index) => {
+            setTimeout(() => {
+              fillSlotBox(index, category);
+            }, interval * (index + 1));
+          });
+
+        }, SPIN_DURATION);
+      }
+    
       updateResetButtonState();
     
       const btn = document.getElementById("goBtn");
@@ -1864,6 +1884,18 @@ select.filter-control {
         // Wenn du die Kategorie behalten willst, diese Zeile weglassen
         // box.querySelector(".slot-category").textContent = "";
       });
+    }
+    
+    function fillSlotBox(index, category) {
+      const boxes = document.querySelectorAll(".slot-box");
+      if (!boxes[index]) return;
+    
+      const box = boxes[index];
+      // Beispiel: Kategorie und Fahrzeugname setzen – passe ggf. an
+      box.querySelector(".slot-category").textContent = category;
+      box.querySelector(".slot-name").textContent = "Fahrzeug XY"; // Hier dynamisch anpassen!
+    
+      box.classList.add("drawn");
     }
     
     function updateGoButtonState() {
