@@ -1886,18 +1886,6 @@ select.filter-control {
       });
     }
     
-    function fillSlotBox(index, category) {
-      const boxes = document.querySelectorAll(".slot-box");
-      if (!boxes[index]) return;
-    
-      const box = boxes[index];
-      // Beispiel: Kategorie und Fahrzeugname setzen – passe ggf. an
-      box.querySelector(".slot-category").textContent = category;
-      box.querySelector(".slot-name").textContent = "Fahrzeug XY"; // Hier dynamisch anpassen!
-    
-      box.classList.add("drawn");
-    }
-    
     function updateGoButtonState() {
       const btn = document.getElementById("goBtn");
       btn.classList.remove("inactive", "pulsing"); // 🔁 wichtig: beides entfernen
