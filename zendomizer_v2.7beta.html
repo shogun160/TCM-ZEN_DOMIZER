@@ -753,31 +753,57 @@ select.filter-control {
       0 0 30px #00E5FF;
   }
 }
-#wheelOverlay {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
+
+#machineLayer {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 720px;
+  max-width: 90vw;
+  z-index: 0;
   pointer-events: none;
-  transform-origin: center center;
 }
 
-@keyframes spinWheel {
-  0%   { transform: rotate(0deg); }
-  100% { transform: rotate(720deg); }
+#machineBackground {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+#wheelOverlay {
+  position: absolute;
+  top: 150px;  /* Feinanpassung nach Bildgeometrie */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 420px;
+  height: 420px;
+  z-index: 1;
+  pointer-events: none;
+  transform-origin: center center;
 }
 
 #wheelOverlay.spin {
   animation: spinWheel 2.8s ease-in-out;
 }
+
+@keyframes spinWheel {
+  0% { transform: translateX(-50%) rotate(0deg); }
+  10% { transform: translateX(-50%) rotate(60deg); }
+  90% { transform: translateX(-50%) rotate(660deg); }
+  100% { transform: translateX(-50%) rotate(720deg); }
+}
+
     
 </style>
 </head>
 <body>
-<div class="machine-wrapper">
-  <img id="wheelOverlay" src="assets/pic/ZENDOMIZER_wheel.png" />
+<div id="machineLayer">
+  <img src="assets/pic/ZENDOMIZER_slotmachine.png" id="machineBackground" />
+  <img src="assets/pic/ZENDOMIZER_wheel.png" id="wheelOverlay" />
 </div>
+
+<div class="machine-wrapper"></div>
 <div class="layout"><div class="left-panel">
     <div class="filter-wrapper">
         <div class="filter-grid">
