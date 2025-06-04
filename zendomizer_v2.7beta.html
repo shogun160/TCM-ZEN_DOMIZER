@@ -765,8 +765,9 @@ select.filter-control {
 
 #wheelOverlay {
   position: absolute;
-  top: 120px;
+  top: 220px;
   left: 50%;
+  transform: translateX(-50%);
   width: 480px;
   height: 480px;
   z-index: 1;
@@ -775,13 +776,11 @@ select.filter-control {
 }
 
 #wheelOverlay.spin {
-  animation: spinWheel 2.8s;
+  animation: spinWheel 2.8s ease-in-out;
 }
 
 @keyframes spinWheel {
   0% { transform: rotate(0deg); }
-  10% { transform: rotate(60deg); }
-  90% { transform: rotate(660deg); }
   100% { transform: rotate(720deg); }
 }
 
