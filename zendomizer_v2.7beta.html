@@ -1816,19 +1816,6 @@ select.filter-control {
       }
     }
 
-    
-      updateResetButtonState();
-    
-      const btn = document.getElementById("goBtn");
-      btn.classList.add("active", "clicked");
-      setTimeout(() => btn.classList.remove("active", "clicked"), 750);
-    
-      // 🌀 Info bei Wiederholung
-      if (selectedOrder.length === 2) {
-        showToast(`🔁 Kategorie 3: <b>${effectiveOrder[2]}</b> wurde wiederholt`, "#ffa500", 6000);
-      }
-    }
-
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') drawRandomVehicles();
       if (e.key.toLowerCase() === 'c') copyToClipboard();
