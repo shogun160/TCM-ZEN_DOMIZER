@@ -719,7 +719,7 @@ select.filter-control {
 }
 
 .slot-box.flash {
-  animation: slotFlash 0.6s ease;
+  animation: slotFlash 0.4s ease;
 }
 
 .pulse-glow {
@@ -1804,12 +1804,14 @@ select.filter-control {
         wheel.classList.add("spin");
     
         // Fülle Slotboxen parallel zur Drehung: 600ms, 1200ms, 1800ms
-        effectiveOrder.forEach((category, index) => {Add commentMore actions
-          setTimeout(() => {
-            fillSlotBox(index, category, true); // Jeder Slot einzeln, mit Flash
-          }, 600 * (index + 1));
-        });
-
+        effectiveOrder.forEach((_, index) => {
+        setTimeout(() => {
+          for (let i = 0; i <= index; i++) {
+            const flash = i === index; // Nur der neue Slot blinkt
+            fillSlotBox(i, effectiveOrder[i], flash);
+          }
+        }, 600 * (index + 1));
+      });
     
         // Drehung nach 1800ms stoppen
         setTimeout(() => {
