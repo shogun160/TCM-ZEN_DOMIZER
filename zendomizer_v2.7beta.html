@@ -1511,8 +1511,9 @@ select.filter-control {
         selectedCategories.push(selectedCategories[0]);
       }
 
-      const shuffledCategories = selectedCategories.sort(() => 0.5 - Math.random()).slice(0, 3);
-      const chosen = [];
+      // Vermutlich Altlast 04.06.25
+      // const shuffledCategories = selectedCategories.sort(() => 0.5 - Math.random()).slice(0, 3);
+      // const chosen = [];
 
       for (let cat of shuffledCategories) {
         
@@ -1793,11 +1794,13 @@ select.filter-control {
         wheel.classList.add("spin");
     
         // Fülle Slotboxen parallel zur Drehung: 600ms, 1200ms, 1800ms
-        effectiveOrder.forEach((category, index) => {
-          setTimeout(() => {
-            fillSlotBox(index, category);
-          }, 600 * (index + 1));
-        });
+        effectiveOrder.forEach((_, index) => {
+        setTimeout(() => {
+          for (let i = 0; i <= index; i++) {
+            fillSlotBox(i, effectiveOrder[i]);
+          }
+        }, 600 * (index + 1));
+      });
     
         // Drehung nach 1800ms stoppen
         setTimeout(() => {
