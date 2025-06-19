@@ -887,7 +887,7 @@ select.filter-control {
   let currentLang = localStorage.getItem("zendomizerLang") || "de";
   let translations = {};
   let availableLanguages = [];
-  let bikeFilterMode = "no_bike";
+  let bikeFilterMode = "no_bike"; // → "top_tier" → "bike" → "all" → wieder "no_bike"
 
   function t(key, vars = {}) {
     let str = translations?.[currentLang]?.[key] || key;
@@ -1477,21 +1477,31 @@ select.filter-control {
 
     function toggleBikeFilter() {
       const btn = document.getElementById("bikeFilterBtn");
-      if (bikeFilterMode === 'no_bike') {
-        bikeFilterMode = 'bike';
-        btn.innerText = t("bike_yes");
-        btn.classList.add("bike-active");
-      } else if (bikeFilterMode === 'bike') {
-        bikeFilterMode = 'all';
-        btn.innerText = t("bike_all");
-        btn.classList.remove("bike-active");
-      } else {
-        bikeFilterMode = 'no_bike';
-        btn.innerText = t("bike_no");
-        btn.classList.add("bike-active");
+    
+      switch (bikeFilterMode) {
+        case "no_bike":
+          bikeFilterMode = "top_tier";
+          btn.innerText = t("top_tier");
+          break;
+        case "top_tier":
+          bikeFilterMode = "bike";
+          btn.innerText = t("bike_yes");
+          break;
+        case "bike":
+          bikeFilterMode = "all";
+          btn.innerText = t("bike_all");
+          break;
+        default:
+          bikeFilterMode = "no_bike";
+          btn.innerText = t("bike_no");
+          break;
       }
+      // Optionale visuelle Hervorhebung
+      // btn.classList.toggle("bike-active", bikeFilterMode !== "all");
+    
       if (!drawExecuted) updateResetButtonState();
     }
+    
     function updateBrandDropdown() {
       const brandSet = new Set(vehicles.map(v => v.brand));
       const dropdown = document.getElementById("brandSelect");
@@ -2048,7 +2058,7 @@ select.filter-control {
       // 🔎 1. Grundfilter
       let finalList = vehicles.filter(v =>
         v.category === category &&
-        (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
+        (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) && (bikeFilterMode !== 'top_tier' || v.top_tier === true) && // ⬅️ NEU
         (!filters.country || v.country === filters.country) &&
         (!filters.era || v.era === filters.era) &&
         (!filters.brand || v.brand === filters.brand)
