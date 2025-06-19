@@ -1815,7 +1815,35 @@ select.filter-control {
           wheel.classList.remove("spin");
         }, SPIN_DURATION);
       }
+
+      // 🟢 Slot-Inhalte auslesen und in lastSelection speichern
+      setTimeout(() => {
+        const boxes = document.querySelectorAll(".slot-box");
+        lastSelection = [];
     
+        boxes.forEach(box => {
+          const name = box.querySelector(".slot-name")?.textContent || "";
+          const category = box.querySelector(".slot-category")?.textContent || "";
+          const match = name.match(/^(.*?) \((\d{4})\)$/);
+          if (!match) return;
+    
+          const brandModel = match[1];
+          const year = match[2];
+          const [brand, ...modelParts] = brandModel.split(" ");
+          const model = modelParts.join(" ");
+    
+          lastSelection.push({
+            brand: brand,
+            model: model,
+            year: year,
+            category: category,
+            ignoredFilters: [] // aktuell leer, kann später ergänzt werden
+          });
+        });
+    
+        console.log("✅ lastSelection aktualisiert:", lastSelection);
+      }, SPIN_DURATION + 100); // → nach dem Drehen, wenn Slots sicher gefüllt sind
+
       updateResetButtonState();
     
       const btn = document.getElementById("goBtn");
