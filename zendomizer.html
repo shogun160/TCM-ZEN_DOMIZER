@@ -1826,6 +1826,7 @@ select.filter-control {
         //showToast(`🔁 Kategorie 3: <b>${effectiveOrder[2]}</b> wurde wiederholt`, "#ffa500", 6000);
         showToast(t("category_repeated", { category: effectiveOrder[2] }), "#ffa500", 6000);
       }
+      copyToClipboard();
     }
 
     document.addEventListener('keydown', (e) => {
