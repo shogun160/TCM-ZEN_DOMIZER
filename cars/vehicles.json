@@ -6199,5 +6199,14 @@
     "year": 2020,
     "country": "england",
     "era": "modern"
+  },
+  {
+    "category": "Racing",
+    "bike": false,
+    "brand": "Ivory-Tower",
+    "model": "Aezus GT",
+    "year": 2025,
+    "country": "france",
+    "era": "modern"
   }
 ]
