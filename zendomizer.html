@@ -1055,24 +1055,24 @@ select.filter-control {
     const ROTATION = [
         ["Kahakuloa", "ST1 > Rally > ST2"],
         ["Kalaeloa", "AGP > Hyper > ST1"],
-        ["Kenuku", "RR > Rally > RR"],
-        ["Manua Pele", "Racing > AGP > ST2", "Main Stage"],
+        ["Mauna Pele", "Racing > AGP > ST2"],
+        ["Wahiawa Fields", "AGP > Racing > Rally", "Main Stage"],
         ["Diamond Head", "AGP > Rally > Racing"],
         ["Kaena Point", "ST1 > Motocross > RR"],
         ["Diamond Head", "Racing > Hyper > ST2"],
-        ["Paia", "AGP > ST2 > Hyper", "Special Weather"],
+        ["Kaena Point", "AGP > ST2 > Hyper", "No Collision"],
         ["Kaneohe", "RR > ST1 > Racing"],
         ["Haleiwa", "Hyper > Racing > ST2"],
-        ["Kealaloloa", "Drift > Racing > ST2"],
-        ["Haleiwa", "Rally > ST2 > Racing", "No Colission"],
+        ["Ma'akua Black Beach", "ST2 > RR > Racing"],
+        ["Haleiwa", "Rally > AGP > Racing", "Main Stage"],
         ["Waikiki", "Racing > Hyper > ST2"],
         ["Wailea", "AGP > Hyper > Racing"],
         ["Kalaeloa", "Motocross > Rally/Plane > Drift"],
         ["Wahiawa Fields", "AGP > ST2 > Hyper", "No Collision"],
-        ["Kahuku", "Racing > Rally > ST2"],
+        ["Mauna Pele", "Rally > ST1 > Hyper"],
         ["Kealaloloa", "ST1 > RR > Hyper"],
         ["Nuuanu - Punchbowl", "Motocross > Monster > Rally"],
-        ["Mauna Pele", "Monster > ST1 > Hyper", "Main Stage"],
+        ["Kahuku", "Racing > Rally > AGP", "Main Stage"],
         ["Ma'akua Black Beach", "Hyper > ST2 > AGP"],
         ["Wailea", "ST2 > Hyper > Racing"],
         ["Kula", "Racing > AGP > ST2"],
@@ -1823,8 +1823,7 @@ select.filter-control {
       setTimeout(() => btn.classList.remove("active", "clicked"), 750);
     
       if (selectedOrder.length === 2) {
-        //showToast(`🔁 Kategorie 3: <b>${effectiveOrder[2]}</b> wurde wiederholt`, "#ffa500", 6000);
-        showToast(t("category_repeated", { category: effectiveOrder[2] }), "#ffa500", 6000);
+        showToast(`🔁 Kategorie 3: <b>${effectiveOrder[2]}</b> wurde wiederholt`, "#ffa500", 6000);
       }
     }
 
@@ -2123,8 +2122,7 @@ select.filter-control {
         localStorage.setItem("zendomizerRecentDraws", JSON.stringify(recentDraws));
       
         // 👉 2) Toast anzeigen
-        //showToast(`🧹 Kategorie <b>${category}</b>: Alle Fahrzeuge wurden gezogen – Blacklist wurde zurückgesetzt.`, "#ffa500", 7000);
-        showToast(t("blacklist_reset_notice", { category }), "#ffa500", 7000);
+        showToast(`🧹 Kategorie <b>${category}</b>: Alle Fahrzeuge wurden gezogen – Blacklist wurde zurückgesetzt.`, "#ffa500", 7000);
     
         // 👉 3) Vermerk im Ziehlog
         window.drawLog.push({
