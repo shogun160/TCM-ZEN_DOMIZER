@@ -4,8 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<link rel="icon" type="image/png" href="assets/ZENdomizer_favicon.png">
-<title>ZENDOMIZER v2.7 | Vehicle list 06/2024</title>
+<title>ZENDOMIZER v2.6 | Vehicle list 05/2024</title>
 <style>
     body {
       font-family: 'Orbitron', sans-serif;
@@ -406,13 +405,24 @@
   align-items: center;
 }
 .machine-wrapper {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  max-width: 720px;      /* oder 960px, wie du magst */
-  aspect-ratio: 1 / 1;   /* Quadrat */
-  margin: 0 auto;
+  height: 700px;
+  background-color: black;
+  z-index: 0;
+  display: flex;
+  justify-content: center;
 }
-
+.machine-wrapper::before {
+  content: "";
+  display: block;
+  width: 960px; /* oder deine Wunschbreite */
+  height: 700px;
+  background: url('https://raw.githubusercontent.com/shogun160/TCM-ZEN_DOMIZER/main/assets/pic/ZENDOMIZER_pic.jpeg') no-repeat center top;
+  background-size: contain;
+}
 .button-top {
   display: flex;
   justify-content: center;
@@ -498,7 +508,7 @@ select.filter-control {
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;   /* Buttons nach unten drücken */
-    min-height: 600px; ;         /* passend zur Automatenhöhe POLD:height: 600px;*/
+    height: 600px;               /* passend zur Automatenhöhe */
   }
 
   .button-top {
@@ -745,55 +755,11 @@ select.filter-control {
       0 0 30px #00E5FF;
   }
 }
-
-#machineLayer {
-  position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 720px;
-  max-width: 90vw;
-  z-index: 0;
-  pointer-events: none;
-}
-
-#machineBackground {
-  position: relative; /* wichtig, damit z-index greift */
-  width: 100%;
-  height: auto;
-  display: block;
-  z-index: 1;
-}
-
-#wheelOverlay {
-  position: absolute;
-  top: 89px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 427px;
-  height: 427px;
-  z-index: 0;
-  pointer-events: none;
-  transform-origin: center center;
-}
-
-#wheelOverlay.spin {
-  animation: spinWheel var(--spin-duration) ease-in-out;
-}
-
-@keyframes spinWheel {
-  0% { transform: translateX(-50%) rotate(0deg); }
-  100% { transform: translateX(-50%) rotate(1080deg); }
-}
     
 </style>
 </head>
 <body>
-<div id="machineLayer">
-  <img src="assets/pic/ZENDOMIZER_wheel.png" id="wheelOverlay" />
-  <img src="assets/pic/ZENDOMIZER_slotmachine.png" id="machineBackground" />
-</div>
-
+<div class="machine-wrapper"></div>
 <div class="layout"><div class="left-panel">
     <div class="filter-wrapper">
         <div class="filter-grid">
@@ -935,54 +901,44 @@ select.filter-control {
   });
 
   function createLanguageSwitcher() {
-      const container = document.createElement("div");
-      container.id = "langSwitcher";
-      container.style.position = "absolute";
-      container.style.top = "12px";
-      container.style.right = "12px";
-      container.style.zIndex = "500";
-      container.style.display = "flex";
-      container.style.gap = "12px";
-    
-      for (const lang of availableLanguages) {
-        const meta = translations.meta[lang];
-        const btn = document.createElement("button");
-    
-        // 🖼️ Flaggenbild einfügen
-        const img = document.createElement("img");
-        img.src = `translations/flags/${lang.toUpperCase()}.png`;
-        img.alt = meta.label || lang;
-        img.style.width = "36px";
-        img.style.height = "24px";
-        img.style.borderRadius = "4px";
-        img.style.objectFit = "cover";
-    
-        btn.appendChild(img);
-    
-        btn.title = meta.label || lang;
-        btn.classList.add("lang-button");
-        if (lang === currentLang) {
-          btn.classList.add("active");
-        }
-    
-        btn.style.fontSize = "0"; // Text unterdrücken
-        btn.style.cursor = "pointer";
-        btn.style.background = "transparent";
-        btn.style.border = "none";
-    
-        btn.onclick = () => {
-          currentLang = lang;
-          localStorage.setItem("zendomizerLang", lang);
-          applyTranslations();
-          document.querySelectorAll(".lang-button").forEach(b => b.classList.remove("active"));
-          btn.classList.add("active");
-        };
-    
-        container.appendChild(btn);
+    const container = document.createElement("div");
+    container.id = "langSwitcher";
+    container.style.position = "absolute";
+    container.style.top = "12px";
+    container.style.right = "12px";
+    container.style.zIndex = "500";
+    container.style.display = "flex";
+    container.style.gap = "12px";
+
+    for (const lang of availableLanguages) {
+      const meta = translations.meta[lang];
+      const btn = document.createElement("button");
+      btn.innerHTML = meta.flag || lang.toUpperCase();
+      btn.title = meta.label || lang;
+      btn.style.fontSize = "28px";
+      btn.style.cursor = "pointer";
+      btn.style.background = "transparent";
+      btn.style.border = "none";
+
+      btn.classList.add("lang-button");
+      if (lang === currentLang) {
+        btn.classList.add("active");
       }
-    
-      document.body.appendChild(container);
+
+
+      btn.onclick = () => {
+        currentLang = lang;
+        localStorage.setItem("zendomizerLang", lang);
+        applyTranslations();
+        document.querySelectorAll(".lang-button").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+      };
+
+      container.appendChild(btn);
     }
+
+    document.body.appendChild(container);
+  }
 
   function rebuildEraDropdown() {
     const eraSelect = document.getElementById("eraSelect");
@@ -1055,24 +1011,24 @@ select.filter-control {
     const ROTATION = [
         ["Kahakuloa", "ST1 > Rally > ST2"],
         ["Kalaeloa", "AGP > Hyper > ST1"],
-        ["Kenuku", "RR > Rally > RR"],
-        ["Manua Pele", "Racing > AGP > ST2", "Main Stage"],
+        ["Mauna Pele", "Racing > AGP > ST2"],
+        ["Wahiawa Fields", "AGP > Racing > Rally", "Main Stage"],
         ["Diamond Head", "AGP > Rally > Racing"],
         ["Kaena Point", "ST1 > Motocross > RR"],
         ["Diamond Head", "Racing > Hyper > ST2"],
-        ["Paia", "AGP > ST2 > Hyper", "Special Weather"],
+        ["Kaena Point", "AGP > ST2 > Hyper", "No Collision"],
         ["Kaneohe", "RR > ST1 > Racing"],
         ["Haleiwa", "Hyper > Racing > ST2"],
-        ["Kealaloloa", "Drift > Racing > ST2"],
-        ["Haleiwa", "Rally > ST2 > Racing", "No Colission"],
+        ["Ma'akua Black Beach", "ST2 > RR > Racing"],
+        ["Haleiwa", "Rally > AGP > Racing", "Main Stage"],
         ["Waikiki", "Racing > Hyper > ST2"],
         ["Wailea", "AGP > Hyper > Racing"],
         ["Kalaeloa", "Motocross > Rally/Plane > Drift"],
         ["Wahiawa Fields", "AGP > ST2 > Hyper", "No Collision"],
-        ["Kahuku", "Racing > Rally > ST2"],
+        ["Mauna Pele", "Rally > ST1 > Hyper"],
         ["Kealaloloa", "ST1 > RR > Hyper"],
         ["Nuuanu - Punchbowl", "Motocross > Monster > Rally"],
-        ["Mauna Pele", "Monster > ST1 > Hyper", "Main Stage"],
+        ["Kahuku", "Racing > Rally > AGP", "Main Stage"],
         ["Ma'akua Black Beach", "Hyper > ST2 > AGP"],
         ["Wailea", "ST2 > Hyper > Racing"],
         ["Kula", "Racing > AGP > ST2"],
@@ -1138,12 +1094,7 @@ select.filter-control {
 
     function updateGrandraceState(triggeredByClick = false) {
       const grandraceCheckbox = document.getElementById('catGR');
-      if (!grandraceCheckbox.checked) {
-        if (triggeredByClick && isMainStage) {
-        showToast(t("GRcat_mainstage_manual"), "#f44336", 7000);
-      }
-      return;
-    }
+      if (!grandraceCheckbox.checked) return; // Grandrace nicht aktiv
     
       const index = getCurrentEventIndex();
       const entry = ROTATION[index];
@@ -1521,9 +1472,8 @@ select.filter-control {
         selectedCategories.push(selectedCategories[0]);
       }
 
-      // Vermutlich Altlast 04.06.25
-      // const shuffledCategories = selectedCategories.sort(() => 0.5 - Math.random()).slice(0, 3);
-      // const chosen = [];
+      const shuffledCategories = selectedCategories.sort(() => 0.5 - Math.random()).slice(0, 3);
+      const chosen = [];
 
       for (let cat of shuffledCategories) {
         
@@ -1786,73 +1736,26 @@ select.filter-control {
     }
 
     function handleGo() {
-      if (selectedOrder.length < 2) return;
+      if (selectedOrder.length < 2) return; // ❌ GO erst ab 2 Kategorien
     
-      const SPIN_DURATION = 1800;
       drawExecuted = true;
-
-      updateSlotBoxes(); // 🟢 Slotboxen mit Fragezeichen vorbereiten
     
+      // 🧠 Sonderfall: 2 Kategorien → erste Kategorie als dritte wiederholen
       const effectiveOrder = [...selectedOrder];
       if (effectiveOrder.length === 2) {
         effectiveOrder.push(effectiveOrder[0]);
       }
     
-      const wheel = document.getElementById("wheelOverlay");
-      if (wheel) {
-        document.documentElement.style.setProperty('--spin-duration', `${SPIN_DURATION}ms`);
-        wheel.classList.add("spin");
-    
-        // Fülle Slotboxen parallel zur Drehung: 600ms, 1200ms, 1800ms
-        effectiveOrder.forEach((category, index) => {
-          setTimeout(() => {
-            fillSlotBox(index, category, true); // Jeder Slot einzeln, mit Flash
-          }, 600 * (index + 1));
-        });
-    
-        // Drehung nach 1800ms stoppen
-        setTimeout(() => {
-          wheel.classList.remove("spin");
-        }, SPIN_DURATION);
-      }
-
-      // 🟢 Slot-Inhalte auslesen und in lastSelection speichern
-      setTimeout(() => {
-        const boxes = document.querySelectorAll(".slot-box");
-        lastSelection = [];
-    
-        boxes.forEach(box => {
-          const name = box.querySelector(".slot-name")?.textContent || "";
-          const category = box.querySelector(".slot-category")?.textContent || "";
-          const match = name.match(/^(.*?) \((\d{4})\)$/);
-          if (!match) return;
-    
-          const brandModel = match[1];
-          const year = match[2];
-          const [brand, ...modelParts] = brandModel.split(" ");
-          const model = modelParts.join(" ");
-    
-          lastSelection.push({
-            brand: brand,
-            model: model,
-            year: year,
-            category: category,
-            ignoredFilters: [] // aktuell leer, kann später ergänzt werden
-          });
-        });
-    
-        console.log("✅ lastSelection aktualisiert:", lastSelection);
-      }, SPIN_DURATION + 100); // → nach dem Drehen, wenn Slots sicher gefüllt sind
-
+      fillSlotBoxesWithResults(effectiveOrder); // ⬅️ Übergib effektive Reihenfolge
       updateResetButtonState();
     
       const btn = document.getElementById("goBtn");
       btn.classList.add("active", "clicked");
       setTimeout(() => btn.classList.remove("active", "clicked"), 750);
     
+      // 🌀 Info bei Wiederholung
       if (selectedOrder.length === 2) {
-        //showToast(`🔁 Kategorie 3: <b>${effectiveOrder[2]}</b> wurde wiederholt`, "#ffa500", 6000);
-        showToast(t("category_repeated", { category: effectiveOrder[2] }), "#ffa500", 6000);
+        showToast(`🔁 Kategorie 3: <b>${effectiveOrder[2]}</b> wurde wiederholt`, "#ffa500", 6000);
       }
     }
 
@@ -1912,61 +1815,6 @@ select.filter-control {
         rerollSingleSlot(category);
       }
     });
-
-    function clearResults() {
-      const boxes = document.querySelectorAll(".slot-box");
-      boxes.forEach(box => {
-        box.classList.remove("drawn");
-        box.querySelector(".slot-name").textContent = "";
-        // Wenn du die Kategorie behalten willst, diese Zeile weglassen
-        // box.querySelector(".slot-category").textContent = "";
-      });
-    }
-    
-    function fillSlotBox(index, category, flash = true) {
-      const boxes = document.querySelectorAll(".slot-box");
-      if (!boxes[index]) return;
-    
-      const box = boxes[index];
-      const filters = getCurrentFilters();
-      const result = drawVehicleForCategory(category, filters, bikeFilterMode);
-    
-      if (!result) {
-        box.querySelector(".slot-category").textContent = category;
-        box.querySelector(".slot-name").textContent = "⚠️ kein Fahrzeug";
-        box.querySelector(".slot-warning").textContent = t("not_enough_cars");
-        box.classList.add("drawn");
-        return;
-      }
-    
-      const { vehicle, ignoredFilters } = result;
-    
-      // Slot zurücksetzen
-      box.classList.remove("empty", "slot-yellow", "slot-blue", "slot-orange", "slot-magenta");
-    
-      // Farbe bestimmen
-      const colorClass =
-        ['Street Tier 1', 'Street Tier 2', 'Hypercar', 'Drift'].includes(category) ? 'slot-yellow' :
-        ['Racing', 'AGP'].includes(category) ? 'slot-blue' :
-        ['Rally', 'Rally Raid', 'Motocross'].includes(category) ? 'slot-orange' :
-        category === 'Monster Truck' ? 'slot-magenta' : '';
-      if (colorClass) box.classList.add(colorClass);
-    
-      // Inhalt setzen
-      box.querySelector(".slot-category").textContent = category;
-      box.querySelector(".slot-name").textContent = `${vehicle.brand} ${vehicle.model} (${vehicle.year})`;
-      box.querySelector(".slot-warning").textContent =
-        ignoredFilters.length ? `${t("ignored_filters")} ${ignoredFilters.join(", ")}` : "";
-    
-      box.classList.add("drawn");
-    
-      if (flash) {
-        box.classList.add("flash");
-        setTimeout(() => box.classList.remove("flash"), 800);
-      }
-    }
-
-    
     function updateGoButtonState() {
       const btn = document.getElementById("goBtn");
       btn.classList.remove("inactive", "pulsing"); // 🔁 wichtig: beides entfernen
@@ -2151,8 +1999,7 @@ select.filter-control {
         localStorage.setItem("zendomizerRecentDraws", JSON.stringify(recentDraws));
       
         // 👉 2) Toast anzeigen
-        //showToast(`🧹 Kategorie <b>${category}</b>: Alle Fahrzeuge wurden gezogen – Blacklist wurde zurückgesetzt.`, "#ffa500", 7000);
-        showToast(t("blacklist_reset_notice", { category }), "#ffa500", 7000);
+        showToast(`🧹 Kategorie <b>${category}</b>: Alle Fahrzeuge wurden gezogen – Blacklist wurde zurückgesetzt.`, "#ffa500", 7000);
     
         // 👉 3) Vermerk im Ziehlog
         window.drawLog.push({
