@@ -1547,7 +1547,7 @@ select.filter-control {
           (
             (bikeFilterMode === "no_bike" && v.bike === false) ||
             (bikeFilterMode === "bike" && v.bike === true) ||
-            (bikeFilterMode === "top_tier" && v.top_tier === "yes") ||
+            (bikeFilterMode === "top_tier" && v.top_tier === true) ||
             (bikeFilterMode === "all")
           ) &&
           (!filters.country || v.country === filters.country) &&
@@ -1560,7 +1560,7 @@ select.filter-control {
           if (bikeFilterMode === "top_tier") {
             finalList = vehicles.filter(v =>
               v.category === cat &&
-              v.top_tier === "yes"
+              v.top_tier === true
             );
             if (finalList.length > 0) {
               ignored.push("alle Filter außer Top Tier");
@@ -2079,7 +2079,7 @@ select.filter-control {
       // 🔎 1. Grundfilter
       let finalList = vehicles.filter(v =>
         v.category === category &&
-        (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) && (bikeFilterMode !== 'top_tier' || v.top_tier === true) && // ⬅️ NEU
+        (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike) || (bikeFilterMode == 'top_tier' && v.top_tier) && // ⬅️ NEU
         (!filters.country || v.country === filters.country) &&
         (!filters.era || v.era === filters.era) &&
         (!filters.brand || v.brand === filters.brand)
