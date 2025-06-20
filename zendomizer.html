@@ -1538,17 +1538,13 @@ select.filter-control {
       for (let cat of shuffledCategories) {
         
         let ignored = [];
+
         let finalList = [];
 
         // Schritt 1: Alle aktiven Filter
         finalList = vehicles.filter(v =>
-          v.category === category &&
-          (
-            bikeFilterMode === 'all' ||
-            (bikeFilterMode === 'no_bike' && !v.bike) ||
-            (bikeFilterMode === 'bike' && v.bike) ||
-            (bikeFilterMode === 'top_tier' && v.top_tier)
-          ) &&
+          v.category === cat &&
+          (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && v.bike === false) || (bikeFilterMode === 'bike' && v.bike === true) || (bikeFilterMode == 'top_tier' && v.top_tier)) &&
           (!filters.country || v.country === filters.country) &&
           (!filters.era || v.era === filters.era) &&
           (!filters.brand || v.brand === filters.brand)
@@ -1559,20 +1555,14 @@ select.filter-control {
           if (bikeFilterMode === "top_tier") {
             finalList = vehicles.filter(v =>
               v.category === cat &&
-              v.top_tier === true
+              v.top_tier === "yes"
             );
             if (finalList.length > 0) {
               ignored.push("alle Filter außer Top Tier");
             }
-          }
         
-          // 🚧 Wichtig: Danach direkt raus, wenn Top Tier aktiv und keine Treffer
-          if (finalList.length === 0 && bikeFilterMode === "top_tier") {
-            continue;
-          }
-        
-          // Schritt 2b: Bike-Filter ignorieren (nur wenn aktiv)
-          else if (bikeFilterMode === 'no_bike' || bikeFilterMode === 'bike') {
+          } else if (bikeFilterMode === 'no_bike' || bikeFilterMode === 'bike') {
+            // Schritt 2b: Bike-Filter ignorieren (nur wenn aktiv)
             const fallback = vehicles.filter(v =>
               v.category === cat &&
               (!filters.country || v.country === filters.country) &&
@@ -1584,6 +1574,7 @@ select.filter-control {
               ignored.push(bikeFilterMode === 'no_bike' ? 'Nur Autos' : 'Nur Bikes');
             }
           }
+        
         }
 
         // Schritt 3–5: Einzelne Filter ignorieren (nur wenn aktiv)
@@ -2078,7 +2069,7 @@ select.filter-control {
       // 🔎 1. Grundfilter
       let finalList = vehicles.filter(v =>
         v.category === category &&
-        (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike) || (bikeFilterMode == 'top_tier' && v.top_tier) && // ⬅️ NEU
+        (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) && (bikeFilterMode !== 'top_tier' || v.top_tier === true) && // ⬅️ NEU
         (!filters.country || v.country === filters.country) &&
         (!filters.era || v.era === filters.era) &&
         (!filters.brand || v.brand === filters.brand)
@@ -2207,8 +2198,7 @@ select.filter-control {
       if (filters.brand) applied.push(`Marke (${filters.brand})`);
       if (filters.country) applied.push(`Land (${filters.country})`);
       if (filters.era) applied.push(`Zeitraum (${filters.era})`);
-      if (bikeFilterMode === "top_tier") applied.push("Top Tier");
-      else if (bikeFilterMode === "no_bike") applied.push("Nur Autos");
+      if (bikeFilterMode === "no_bike") applied.push("Nur Autos");
       else if (bikeFilterMode === "bike") applied.push("Nur Bikes");
       else applied.push("Alle Fahrzeuge");
     
