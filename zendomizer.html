@@ -1538,22 +1538,24 @@ select.filter-control {
       for (let cat of shuffledCategories) {
         
         let ignored = [];
-
-        //let finalList = [];
+        let finalList = [];
 
         // Schritt 1: Alle aktiven Filter
-        let finalList = vehicles.filter(v =>
-          v.category === cat &&
-          (
-            (bikeFilterMode === 'all') ||
-            (bikeFilterMode === 'no_bike' && !v.bike) ||
-            (bikeFilterMode === 'bike' && v.bike) ||
-            (bikeFilterMode === 'top_tier' && v.top_tier === true)
-          ) &&
-          (!filters.country || v.country === filters.country) &&
-          (!filters.era || v.era === filters.era) &&
-          (!filters.brand || v.brand === filters.brand)
-        );
+
+        if (bikeFilterMode === "top_tier") {
+          finalList = vehicles.filter(v =>
+            v.category === cat && v.top_tier === true
+          );
+          if (finalList.length > 0) ignored.push("alle Filter außer Top Tier");
+        } else {
+          finalList = vehicles.filter(v =>
+            v.category === cat &&
+            (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
+            (!filters.country || v.country === filters.country) &&
+            (!filters.era || v.era === filters.era) &&
+            (!filters.brand || v.brand === filters.brand)
+          );
+        }
 
         if (finalList.length === 0) {
           // Schritt 2a: Wenn Top Tier Filter aktiv → alle anderen Filter ignorieren
