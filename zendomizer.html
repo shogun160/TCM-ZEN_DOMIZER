@@ -1952,7 +1952,12 @@ select.filter-control {
       // 🔎 1. Grundfilter
       let finalList = vehicles.filter(v =>
         v.category === category &&
-        (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) && (bikeFilterMode !== 'top_tier' || v.top_tier === true) && // ⬅️ NEU
+        (
+          (bikeFilterMode === 'all') ||
+          (bikeFilterMode === 'no_bike' && !v.bike) ||
+          (bikeFilterMode === 'bike' && v.bike) ||
+          (bikeFilterMode === 'top_tier' && v.top_tier === true)
+        ) &&
         (!filters.country || v.country === filters.country) &&
         (!filters.era || v.era === filters.era) &&
         (!filters.brand || v.brand === filters.brand)
