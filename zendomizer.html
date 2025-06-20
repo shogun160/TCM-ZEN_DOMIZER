@@ -1517,165 +1517,35 @@ select.filter-control {
       const selectedCategories = Array.from(document.querySelectorAll('.catCheckbox'))
         .filter(cb => cb.checked)
         .map(cb => cb.value);
-
-      const selectedBrand = filters.brand;
-
+    
       const resultsDiv = document.getElementById('results');
       resultsDiv.innerHTML = '';
-
+    
       if (selectedCategories.length < 2) {
         resultsDiv.innerHTML = "<p>⚠️ Bitte mindestens 2 Kategorien auswählen.</p>";
         return;
       }
       if (selectedCategories.length === 2) {
-        selectedCategories.push(selectedCategories[0]);
+        selectedCategories.push(selectedCategories[0]); // Kategorie 1 duplizieren
       }
-
-      // Vermutlich Altlast 04.06.25
-      // const shuffledCategories = selectedCategories.sort(() => 0.5 - Math.random()).slice(0, 3);
-      // const chosen = [];
-
-      for (let cat of shuffledCategories) {
-        
-        let ignored = [];
-        let finalList = [];
-
-        // Schritt 1: Alle aktiven Filter
-
-        if (bikeFilterMode === "top_tier") {
-          finalList = vehicles.filter(v =>
-            v.category === cat && v.top_tier === true
-          );
-          if (finalList.length > 0) ignored.push("alle Filter außer Top Tier");
-        } else {
-          finalList = vehicles.filter(v =>
-            v.category === cat &&
-            (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && !v.bike) || (bikeFilterMode === 'bike' && v.bike)) &&
-            (!filters.country || v.country === filters.country) &&
-            (!filters.era || v.era === filters.era) &&
-            (!filters.brand || v.brand === filters.brand)
-          );
-        }
-
-        if (finalList.length === 0) {
-          // Schritt 2a: Wenn Top Tier Filter aktiv → alle anderen Filter ignorieren
-          if (bikeFilterMode === "top_tier") {
-            finalList = vehicles.filter(v =>
-              v.category === cat &&
-              v.top_tier === "yes"
-            );
-            if (finalList.length > 0) {
-              ignored.push("alle Filter außer Top Tier");
-            }
-        
-          } else if (bikeFilterMode === 'no_bike' || bikeFilterMode === 'bike') {
-            // Schritt 2b: Bike-Filter ignorieren (nur wenn aktiv)
-            const fallback = vehicles.filter(v =>
-              v.category === cat &&
-              (!filters.country || v.country === filters.country) &&
-              (!filters.era || v.era === filters.era) &&
-              (!filters.brand || v.brand === filters.brand)
-            );
-            if (fallback.length > 0) {
-              finalList = fallback;
-              ignored.push(bikeFilterMode === 'no_bike' ? 'Nur Autos' : 'Nur Bikes');
-            }
-          }
-        
-        }
-
-        // Schritt 3–5: Einzelne Filter ignorieren (nur wenn aktiv)
-        if (finalList.length === 0 && filters.era) {
-          const fallback = vehicles.filter(v =>
-            v.category === cat &&
-            (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && v.bike === false) || (bikeFilterMode === 'bike' && v.bike === true)) &&
-            (!filters.country || v.country === filters.country) &&
-            (!filters.brand || v.brand === filters.brand)
-          );
-          if (fallback.length > 0) {
-            finalList = fallback;
-            ignored.push(`${t("label_era")} (${translateEra(filters.era)})`);
-          }
-        }
-
-        if (finalList.length === 0 && filters.brand) {
-          const fallback = vehicles.filter(v =>
-            v.category === cat &&
-            (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && v.bike === false) || (bikeFilterMode === 'bike' && v.bike === true)) &&
-            (!filters.country || v.country === filters.country) &&
-            (!filters.era || v.era === filters.era)
-          );
-          if (fallback.length > 0) {
-            finalList = fallback;
-            ignored.push(`${t("label_brand")} (${filters.brand})`);
-          }
-        }
-
-        if (finalList.length === 0 && filters.country) {
-          const fallback = vehicles.filter(v =>
-            v.category === cat &&
-            (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && v.bike === false) || (bikeFilterMode === 'bike' && v.bike === true)) &&
-            (!filters.era || v.era === filters.era) &&
-            (!filters.brand || v.brand === filters.brand)
-          );
-          if (fallback.length > 0) {
-            finalList = fallback;
-            ignored.push(`${t("label_country")} (${translateCountry(filters.country)})`);
-          }
-        }
-
-        // Schritt 6: Alle außer Kategorie & Bike-Filter ignorieren
-        if (finalList.length === 0) {
-          const fallback = vehicles.filter(v =>
-            v.category === cat &&
-            (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && v.bike === false) || (bikeFilterMode === 'bike' && v.bike === true))
-          );
-          if (fallback.length > 0) {
-            finalList = fallback;
-            if (filters.era) ignored.push(`${t("label_era")} (${translateEra(filters.era)})`);
-            if (filters.brand) ignored.push(`${t("label_brand")} (${filters.brand})`);
-            if (filters.country) ignored.push(`${t("label_country")} (${translateCountry(filters.country)})`);
-          }
-        }
-
-        // Schritt 7: Alles ignorieren außer Kategorie
-        if (finalList.length === 0) {
-          const fallback = vehicles.filter(v => v.category === cat);
-          if (fallback.length > 0) {
-            finalList = fallback;
-            ignored.push('Alle');
-          }
-        }
-
-        if (finalList.length === 0) continue;
-
-        // Letztes Fahrzeug für die Kategorie aus lastSelection holen
-        const lastVehicle = lastSelection?.find(v => v?.category === category);
-        
-        // Bei mehreren Optionen das vorherige rausfiltern
-        if (finalList.length > 1 && lastVehicle) {
-          finalList = finalList.filter(v =>
-            !(v.brand === lastVehicle.brand &&
-              v.model === lastVehicle.model &&
-              v.year === lastVehicle.year)
-          );
-        }
-        
-        // Neu ziehen aus gefilterter Liste
-        const vehicle = finalList[Math.floor(Math.random() * finalList.length)];
-
-        chosen.push({...vehicle, ignoredFilters: ignored});
+    
+      const chosen = [];
+    
+      for (let cat of selectedCategories) {
+        const result = drawVehicleForCategory(cat, filters, bikeFilterMode);
+        if (!result) continue;
+        const { vehicle, ignoredFilters } = result;
+        chosen.push({ ...vehicle, ignoredFilters });
       }
-
+    
       if (chosen.length !== 3) {
         resultsDiv.innerHTML = "<p>⚠️ Nicht genügend Fahrzeuge gefunden.</p>";
         return;
       }
-
-      chosen.sort((a, b) => selectedOrder.indexOf(a.category) - selectedOrder.indexOf(b.category));
-
+    
       lastSelection = chosen;
-
+      chosen.sort((a, b) => selectedCategories.indexOf(a.category) - selectedCategories.indexOf(b.category));
+    
       resultsDiv.scrollIntoView({ behavior: 'smooth' });
       copyToClipboard();
     }
