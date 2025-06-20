@@ -1545,7 +1545,7 @@ select.filter-control {
         finalList = vehicles.filter(v =>
           v.category === cat &&
           (bikeFilterMode === 'all' || (bikeFilterMode === 'no_bike' && v.bike === false) || (bikeFilterMode === 'bike' && v.bike === true)) &&
-          (bikeFilterMode !== 'top_tier' || v.top_tier === "yes") &&
+          (bikeFilterMode == 'top_tier' || v.top_tier === "yes") &&
           (!filters.country || v.country === filters.country) &&
           (!filters.era || v.era === filters.era) &&
           (!filters.brand || v.brand === filters.brand)
