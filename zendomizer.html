@@ -1040,9 +1040,15 @@ select.filter-control {
 
     const bfb = document.getElementById("bikeFilterBtn");
     if (bfb) {
-      if (bikeFilterMode === "no_bike") bfb.innerText = t("bike_no");
-      else if (bikeFilterMode === "bike") bfb.innerText = t("bike_yes");
-      else bfb.innerText = t("bike_all");
+      if (bikeFilterMode === "no_bike") {
+        bfb.innerText = t("bike_no");
+      } else if (bikeFilterMode === "top_tier") {
+        bfb.innerText = t("top_tier");
+      } else if (bikeFilterMode === "bike") {
+        bfb.innerText = t("bike_yes");
+      } else {
+        bfb.innerText = t("bike_all");
+      }
     }
     rebuildEraDropdown();
     rebuildCountryDropdown();
