@@ -1542,12 +1542,12 @@ select.filter-control {
 
         // Schritt 1: Alle aktiven Filter
         finalList = vehicles.filter(v =>
-          v.category === cat &&
+          v.category === category &&
           (
-            (bikeFilterMode === "no_bike" && v.bike === false) ||
-            (bikeFilterMode === "bike" && v.bike === true) ||
-            (bikeFilterMode === "top_tier" && v.top_tier === true) ||
-            (bikeFilterMode === "all")
+            bikeFilterMode === 'all' ||
+            (bikeFilterMode === 'no_bike' && !v.bike) ||
+            (bikeFilterMode === 'bike' && v.bike) ||
+            (bikeFilterMode === 'top_tier' && v.top_tier)
           ) &&
           (!filters.country || v.country === filters.country) &&
           (!filters.era || v.era === filters.era) &&
