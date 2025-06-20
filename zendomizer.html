@@ -1552,14 +1552,18 @@ select.filter-control {
         );
 
         if (finalList.length === 0) {
-          // Schritt 2a: Wenn Top Tier Filter aktiv, alle anderen Filter ignorieren
+          // Schritt 2a: Wenn Top Tier Filter aktiv → alle anderen Filter ignorieren
           if (bikeFilterMode === "top_tier") {
             finalList = vehicles.filter(v =>
               v.category === cat &&
               v.top_tier === "yes"
-            );   
-          // Schritt 2b: Bike-Filter ignorieren (nur wenn aktiv)
-          if (bikeFilterMode === 'no_bike' || bikeFilterMode === 'bike') {
+            );
+            if (finalList.length > 0) {
+              ignored.push("alle Filter außer Top Tier");
+            }
+        
+          } else if (bikeFilterMode === 'no_bike' || bikeFilterMode === 'bike') {
+            // Schritt 2b: Bike-Filter ignorieren (nur wenn aktiv)
             const fallback = vehicles.filter(v =>
               v.category === cat &&
               (!filters.country || v.country === filters.country) &&
@@ -1571,6 +1575,7 @@ select.filter-control {
               ignored.push(bikeFilterMode === 'no_bike' ? 'Nur Autos' : 'Nur Bikes');
             }
           }
+        
         }
 
         // Schritt 3–5: Einzelne Filter ignorieren (nur wenn aktiv)
