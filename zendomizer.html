@@ -1967,6 +1967,7 @@ select.filter-control {
       if (finalList.length === 0 && bikeFilterMode !== 'all') {
         finalList = vehicles.filter(v =>
           v.category === category &&
+          (bikeFilterMode !== 'top_tier' || v.top_tier === true) && // ⬅️ wichtig!
           (!filters.country || v.country === filters.country) &&
           (!filters.era || v.era === filters.era) &&
           (!filters.brand || v.brand === filters.brand)
@@ -2086,9 +2087,10 @@ select.filter-control {
       if (filters.brand) applied.push(`Marke (${filters.brand})`);
       if (filters.country) applied.push(`Land (${filters.country})`);
       if (filters.era) applied.push(`Zeitraum (${filters.era})`);
-      if (bikeFilterMode === "no_bike") applied.push("Nur Autos");
-      else if (bikeFilterMode === "bike") applied.push("Nur Bikes");
-      else applied.push("Alle Fahrzeuge");
+      if (bikeFilterMode === "no_bike") applied.push("Cars only");
+      else if (bikeFilterMode === "top_tier") applied.push("Top Tier only");
+      else if (bikeFilterMode === "bike") applied.push("Bikes only");
+      else applied.push("All Vehicles");
     
       // 🧾 Ziehung loggen
      window.drawLog.push({
@@ -2096,7 +2098,7 @@ select.filter-control {
       category: category,
       selected: `${vehicle.brand} ${vehicle.model} (${vehicle.year})`,
       appliedFilters: applied.length ? applied.join(", ") : "-",
-      ignoredFilters: ignored.length ? "❗ " + ignored.join(" | ") : "✅ Keine",
+      ignoredFilters: ignored.length ? "❗ " + ignored.join(" | ") : "✅ none",
       blockedCount: blockedCount,
       availableCount: finalList.length,
       timestamp: new Date().toLocaleString("de-DE")
