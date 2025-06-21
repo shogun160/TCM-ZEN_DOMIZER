@@ -1754,18 +1754,14 @@ select.filter-control {
         bfb.innerText = t("bike_no");
         bfb.classList.add("bike-active"); // 💡 Button grün glühen lassen
       }
-    
-      if (localStorage.getItem('darkmode') === 'true') {
-        document.body.classList.add('dark');
-      }
 
       const savedRecentDraws = localStorage.getItem("zendomizerRecentDraws");
       if (savedRecentDraws) {
         try {
           recentDraws = JSON.parse(savedRecentDraws);
-          console.log("📦 Blacklist aus localStorage geladen.");
+          console.log("📦 Blacklist loaded from localStorage");
         } catch (e) {
-          console.warn("⚠️ Fehler beim Parsen von recentDraws:", e);
+          console.warn("⚠️ Error while rasing recentDraws:", e);
           recentDraws = {};
         }
       }
@@ -1779,9 +1775,9 @@ select.filter-control {
       if (savedDrawLog) {
         try {
           window.drawLog = JSON.parse(savedDrawLog);
-          console.log("🧾 Ziehlog aus localStorage geladen.");
+          console.log("🧾 drawlog loaded from localStorage .");
         } catch (e) {
-          console.warn("⚠️ Fehler beim Parsen von drawLog:", e);
+          console.warn("⚠️ Error whhile parsing drawLog:", e);
           window.drawLog = [];
         }
       }
