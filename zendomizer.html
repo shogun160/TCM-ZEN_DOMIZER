@@ -2224,14 +2224,19 @@ select.filter-control {
         localStorage.setItem("zendomizerDrawLog", JSON.stringify(window.drawLog));
       }
       // SHIFT + X → Ziehlog zurücksetzen
-      if ((e.shiftKey) && e.key.toLowerCase() === 'x') {
+      if (e.shiftKey && e.key.toLowerCase() === 'x') {
         window.drawLog = [];
+        window.drawRound = 1;
+        window.recentDraws = {};
+    
+        localStorage.setItem("zendomizerDrawRound", "1");
         localStorage.removeItem("zendomizerDrawLog");
         localStorage.removeItem("zendomizerRecentDraws");
-        localStorage.removeItem("zendomizerDrawRound");
+    
         showToast(t("drawlog_cleared"), "#f44336");
         console.log("🗑️ drawLog cleared via hotkey");
       }
+        
       // SHIFT + G → Logging aktivieren/deaktivieren
       if (e.shiftKey && e.key.toLowerCase() === 'g') {
         window.devLoggingEnabled = !window.devLoggingEnabled;
