@@ -2227,6 +2227,8 @@ select.filter-control {
       if ((e.shiftKey) && e.key.toLowerCase() === 'x') {
         window.drawLog = [];
         localStorage.removeItem("zendomizerDrawLog");
+        localStorage.removeItem("zendomizerRecentDraws");
+        localStorage.removeItem("zendomizerDrawRound");
         showToast(t("drawlog_cleared"), "#f44336");
         console.log("🗑️ drawLog cleared via hotkey");
       }
