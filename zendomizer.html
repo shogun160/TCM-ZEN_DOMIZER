@@ -1158,19 +1158,27 @@ select.filter-control {
       // 🟥 Wenn Main Stage neu erkannt → einmaliger Reset
       if (!previousMainStage && isMainStage && grandraceActive) {
         previousMainStage = true;
-    
-        for (let cb of document.querySelectorAll('.catCheckbox')) {
-          if (cb.id !== 'catGR') {
-            cb.checked = false;
-            cb.disabled = false;
-          }
-        }
-        selectedOrder = [];
-        grandraceCategories = [];
-        updateCheckboxBadges();
-        updateSlotBoxes();
-        updateResetButtonState();
-        updateGoButtonState();
+
+        ////Grandrace Kategorien zurücksetzten
+        //for (let cb of document.querySelectorAll('.catCheckbox')) {
+        //  if (cb.id !== 'catGR') {
+        //    cb.checked = false;
+        //    cb.disabled = false;
+        //  }
+        //}
+        //selectedOrder = [];
+        //grandraceCategories = [];
+        //updateCheckboxBadges();
+        //updateSlotBoxes();
+        //updateResetButtonState();
+        //updateGoButtonState();
+
+        ////Mainstage Modifikator übernehmen
+        // Setze Main Stage Modifikator / reset restl. Filter
+        document.getElementById("brandSelect").value = "Ivory-Tower";
+        document.getElementById("countrySelect").value = "";
+        document.getElementById("eraSelect").value = "";
+        updateFilterHighlighting();
     
         showToast(t("GRcat_mainstage_manual"), "#f44336", 7000);
         return;
