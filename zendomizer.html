@@ -1072,7 +1072,7 @@ select.filter-control {
         ["Kealaloloa", "Drift > Racing > ST2"],
         ["Haleiwa", "Rally > ST2 > Racing", "No Colission"],
         ["Waikiki", "Racing > Hyper > ST2"],
-        ["Wailea", "AGP > Hyper > Racing", "Main Stage"], //geändert TEST
+        ["Wailea", "AGP > Hyper > Racing"],
         ["Kalaeloa", "Motocross > Rally/Plane > Drift"],
         ["Wahiawa Fields", "AGP > ST2 > Hyper", "No Collision"],
         ["Kahuku", "Racing > Rally > ST2"],
@@ -1158,28 +1158,19 @@ select.filter-control {
       // 🟥 Wenn Main Stage neu erkannt → einmaliger Reset
       if (!previousMainStage && isMainStage && grandraceActive) {
         previousMainStage = true;
-        isMainStage = true; //TEST
-
-        ////Grandrace Kategorien zurücksetzten
-        //for (let cb of document.querySelectorAll('.catCheckbox')) {
-        //  if (cb.id !== 'catGR') {
-        //    cb.checked = false;
-        //    cb.disabled = false;
-        //  }
-        //}
-        //selectedOrder = [];
-        //grandraceCategories = [];
-        //updateCheckboxBadges();
-        //updateSlotBoxes();
-        //updateResetButtonState();
-        //updateGoButtonState();
-
-        ////Mainstage Modifikator übernehmen
-        // Setze Main Stage Modifikator / reset restl. Filter
-        document.getElementById("brandSelect").value = "Ivory-Tower";
-        document.getElementById("countrySelect").value = "";
-        document.getElementById("eraSelect").value = "";
-        updateFilterHighlighting();
+    
+        for (let cb of document.querySelectorAll('.catCheckbox')) {
+          if (cb.id !== 'catGR') {
+            cb.checked = false;
+            cb.disabled = false;
+          }
+        }
+        selectedOrder = [];
+        grandraceCategories = [];
+        updateCheckboxBadges();
+        updateSlotBoxes();
+        updateResetButtonState();
+        updateGoButtonState();
     
         showToast(t("GRcat_mainstage_manual"), "#f44336", 7000);
         return;
