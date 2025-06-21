@@ -2053,7 +2053,6 @@ select.filter-control {
 
       // 🧹 Wenn alle Fahrzeuge dieser Kategorie gezogen wurden → Blacklist zurücksetzen
       if (allBlocked && recent.length === finalList.length) {
-        console.log(`🧹 Category: ${category} – automatic blacklist reset (all ${recent.length} cars drwan)`);
         recentDraws[category] = [];
         localStorage.setItem("zendomizerRecentDraws", JSON.stringify(recentDraws));
       
@@ -2092,10 +2091,10 @@ select.filter-control {
           const effectiveChance = (1 / availableVehicles.length * 100).toFixed(2);
           console.log(`📦 Category: ${category} | 🚗 available: ${availableVehicles.length} | 🚫 blocked: ${blockedCount} | 🎯 propability: ${effectiveChance}%`);
         } else {
-          console.log(`⚠️ Category: ${category} | 🔁 all cars drawn`);
+          console.log(`⚠️ Category: ${category} | 🔁 automatic blacklist reset (all ${recent.length} cars drawn));
         }
       }
-
+        
       // Aktive Filter erfassen
       const applied = [];
       if (filters.brand) applied.push(`Marke (${filters.brand})`);
