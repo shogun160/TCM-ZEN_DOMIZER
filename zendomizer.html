@@ -2238,9 +2238,9 @@ select.filter-control {
       // SHIFT + G → Logging aktivieren/deaktivieren
       if (e.shiftKey && e.key.toLowerCase() === 'g') {
         window.devLoggingEnabled = !window.devLoggingEnabled;
-        const state = window.devLoggingEnabled ? "inactiv" : "active";
-        showToast(`🛠️ Dev-Logging ${state}`, window.devLoggingEnabled ? "#0af" : "#aaa");
         console.log(`🛠️ Dev-Logging ${state}`);
+        showToast(`🛠️ Dev-Logging ${state}`, window.devLoggingEnabled ? "#0af" : "#aaa");
+        const state = window.devLoggingEnabled ? "inactiv" : "active";
       }
     });
   </script>
