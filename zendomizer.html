@@ -1694,12 +1694,16 @@ select.filter-control {
     
       const SPIN_DURATION = 1800;
       drawExecuted = true;
-
+    
+      // ✅ Durchgang hochzählen
+      window.drawRound++;
+      localStorage.setItem("zendomizerDrawRound", window.drawRound);
+    
       updateSlotBoxes(); // 🟢 Slotboxen mit Fragezeichen vorbereiten
     
       const effectiveOrder = [...selectedOrder];
       if (effectiveOrder.length === 2) {
-        effectiveOrder.push(effectiveOrder[0]);
+        effectiveOrder.push(effectiveOrder[0]); // Kategorie duplizieren
       }
     
       const wheel = document.getElementById("wheelOverlay");
@@ -1707,14 +1711,12 @@ select.filter-control {
         document.documentElement.style.setProperty('--spin-duration', `${SPIN_DURATION}ms`);
         wheel.classList.add("spin");
     
-        // Fülle Slotboxen parallel zur Drehung: 600ms, 1200ms, 1800ms
         effectiveOrder.forEach((category, index) => {
           setTimeout(() => {
             fillSlotBox(index, category, true); // Jeder Slot einzeln, mit Flash
           }, 600 * (index + 1));
         });
     
-        // Drehung nach 1800ms stoppen
         setTimeout(() => {
           wheel.classList.remove("spin");
         }, SPIN_DURATION);
@@ -1727,12 +1729,12 @@ select.filter-control {
       setTimeout(() => btn.classList.remove("active", "clicked"), 750);
     
       if (selectedOrder.length === 2) {
-        //showToast(`🔁 Kategorie 3: <b>${effectiveOrder[2]}</b> wurde wiederholt`, "#ffa500", 6000);
         showToast(t("category_repeated", { category: effectiveOrder[2] }), "#ffa500", 6000);
       }
+    
       setTimeout(() => {
         copyToClipboard();
-      }, SPIN_DURATION + 100); // kleiner Sicherheitspuffer
+      }, SPIN_DURATION + 100); // Sicherheitspuffer
     }
 
     document.addEventListener('keydown', (e) => {
@@ -1874,6 +1876,7 @@ select.filter-control {
       }
     
       const { vehicle, ignoredFilters } = result;
+    
       // Manuell zur Blacklist hinzufügen, wenn noch nicht enthalten
       if (!recentDraws[category]) {
         recentDraws[category] = [];
@@ -1884,7 +1887,7 @@ select.filter-control {
         recentDraws[category].push(vehicle);
         localStorage.setItem("zendomizerRecentDraws", JSON.stringify(recentDraws));
       }
-        
+    
       const index = selectedOrder.indexOf(category);
       if (index === -1) return;
     
@@ -1893,12 +1896,24 @@ select.filter-control {
       }
     
       const oldVehicle = lastSelection[index];
-    
       lastSelection[index] = { ...vehicle, ignoredFilters };
-
-      window.drawRound++;
-      localStorage.setItem("zendomizerDrawRound", window.drawRound);
-
+    
+      // ✅ Log-Eintrag ohne drawRound++ → stattdessen mit "(manuell)"
+      const manualLabel = `${window.drawRound} (manuell)`;
+      window.drawLog.push({
+        durchgang: manualLabel,
+        category: category,
+        selected: `${vehicle.brand} ${vehicle.model} (${vehicle.year})`,
+        appliedFilters: "-", // Optional: echte Filter auslesen
+        ignoredFilters: ignoredFilters.length
+          ? "❗ " + ignoredFilters.join(', ')
+          : "✅ none",
+        blockedCount: recentDraws[category]?.length || 0,
+        availableCount: vehicles.filter(v => v.category === category).length,
+        timestamp: new Date().toLocaleString("de-DE")
+      });
+      localStorage.setItem("zendomizerDrawLog", JSON.stringify(window.drawLog));
+    
       const slot = document.querySelectorAll('.slot-box')[index];
       if (!slot) return;
     
@@ -2019,7 +2034,7 @@ select.filter-control {
     
       if (finalList.length === 0) {
         finalList = vehicles.filter(v => v.category === category);
-        if (finalList.length > 0) ignored.push("Alle Filter");
+        if (finalList.length > 0) ignored.push(t("all_filters"));
       }
     
       if (finalList.length === 0) return null; // ❌ gar kein Fahrzeug gefunden
