@@ -1158,6 +1158,7 @@ select.filter-control {
       // 🟥 Wenn Main Stage neu erkannt → einmaliger Reset
       if (!previousMainStage && isMainStage && grandraceActive) {
         previousMainStage = true;
+        isMainStage = true; //TEST
 
         ////Grandrace Kategorien zurücksetzten
         //for (let cb of document.querySelectorAll('.catCheckbox')) {
