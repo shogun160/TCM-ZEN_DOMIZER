@@ -13,7 +13,7 @@ And of course a special thank also to the [motorfe.st project](https://github.co
 **Version:** v2.7
 **Carlist:** Season 6 – 18.06.2025
 
-👉 Make sure to check out [Twitch](https://www.twitch.tv/xthepapapyr0) & [Discord](https://discord.gg/mJKXNPTG).
+👉 [Twitch](https://www.twitch.tv/xthepapapyr0) & [Discord](https://discord.gg/mJKXNPTG).
 
 ---
 
@@ -25,6 +25,11 @@ And of course a special thank also to the [motorfe.st project](https://github.co
 - 🏁 **Grandrace rotation** with automatic category selection (powered by motorfe.st) - can be de-/actived with the *Grandrace Catgerories* Button - Mainstage modifikator will be ignored ⚠️ *rotation on saturday is currently not working correctly because of changing modificators and routes* ⚠️ *routes may not always match correctly -in case please deactivate Grandrace Categories Button*
 - 🎯 **advanced draw logic** with fallback system – ensures a valid result even with tight filters
 - 🔁 **blacklist system** prevents repeats by writing a blacklit to browsers internal storage – with automatic reset when all options are drawn
+- ⚙️ **available filters:**
+  - 🚗 only cars / 🔝 top tier cars / 🏍️ only bikes / 🚙 all vehicles  
+  - 🌍 country  
+  - 🏷️ brand  
+  - ⏳ era (classic / modern)
 - 🧹 **hotkeys for power users**:
   - `Shift + ?` – show help
   - `Shift + R` – reset blacklist & counter  
@@ -32,7 +37,7 @@ And of course a special thank also to the [motorfe.st project](https://github.co
   - `Shift + L` – show draw log in console
   - `Cntrl + C` – copy draw to clipboard again
 - 📋 **copy to clipboard** - text output per category
-- 🇬🇧/🇩🇪 **multilanguage support**
+- 🇬🇧/🇩🇪 **multilanguage support** - german/english
 - 📲 **Work in Progress: support for mobile phones** ⚠️ *it's working but CSS is broken at the moment*
 
 ---
