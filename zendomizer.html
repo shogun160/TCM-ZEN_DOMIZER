@@ -1771,7 +1771,9 @@ select.filter-control {
       }
       const savedRound = localStorage.getItem("zendomizerDrawRound");
       if (savedRound) {
-        window.drawRound = parseInt(savedRound, 10) || 1;
+        window.drawRound = parseInt(savedRound, 10) || 0;
+      } else {
+        window.drawRound = 0;
       }
       const savedDrawLog = localStorage.getItem("zendomizerDrawLog");
       if (savedDrawLog) {
@@ -2207,8 +2209,8 @@ select.filter-control {
         recentDraws = {};
         localStorage.removeItem("zendomizerRecentDraws");
         // 🔄 Zähler zurücksetzen
-        window.drawRound = 1;
-        localStorage.setItem("zendomizerDrawRound", "1");
+        window.drawRound = 0;
+        localStorage.setItem("zendomizerDrawRound", "0");
         showToast(t("blacklist_cleared"), "#f44336");
         console.log("🧹 reset recentDraws via hotkey.");
         window.drawLog.push({
@@ -2225,11 +2227,11 @@ select.filter-control {
       }
       // SHIFT + X → Ziehlog zurücksetzen
       if (e.shiftKey && e.key.toLowerCase() === 'x') {
+        window.drawRound = 0;
         window.drawLog = [];
-        window.drawRound = 1;
         window.recentDraws = {};
     
-        localStorage.setItem("zendomizerDrawRound", "1");
+        localStorage.setItem("zendomizerDrawRound", "0");
         localStorage.removeItem("zendomizerDrawLog");
         localStorage.removeItem("zendomizerRecentDraws");
     
