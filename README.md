@@ -22,7 +22,7 @@ And of course a special thank also to the [motorfe.st project](https://github.co
 - 🎰 **random picker** for The Crew Motorfest – perfect for having fun , doing challenges or streams - **keep the experience fresh**
 - 🧠 **fully flexible** choose from several filters like country, brand or select just 2 categories to repeat the first selection (Rally --> Rally Raid --> Rally)
 - 🔒 **rocking solid** if no filter matches, the filters are ignored one after the other - ignored filters are displayed
-- 🏁 **Grandrace rotation** with automatic category selection (powered by motorfe.st) - can be de-/actived with the *Grandrace Catgerories* Button - Mainstage modifikator will be ignored ⚠️ *rotation on saturday is currently not working correctly because of changing modificators and routes* ⚠️ *routes may not always match correctly -in case please deactivate Grandrace Categories Button*
+- 🏁 **Grandrace rotation** automatic category selection (powered by motorfe.st) - can be de-/actived with the *Grandrace Catgerories* Button - Mainstage modifikator will be ignored ⚠️ *rotation on saturday is currently not working correctly because of changing modificators and routes* ⚠️ *routes may not always match correctly - in case please deactivate Grandrace Categories Button*
 - 🎯 **advanced draw logic** with fallback system – ensures a valid result even with tight filters
 - 🔁 **blacklist system** prevents repeats by writing a blacklit to browsers internal storage – with automatic reset when all options are drawn
 - ⚙️ **available filters:**
@@ -36,8 +36,8 @@ And of course a special thank also to the [motorfe.st project](https://github.co
   - `Shift + X` – clear draw log  
   - `Shift + L` – show draw log in console
   - `Cntrl + C` – copy draw to clipboard again
-- 📋 **copy to clipboard** - text output per category
-- 🇬🇧/🇩🇪 **multilanguage support** - german/english
+- 📋 **automatic copy to clipboard** - text output per category
+- 🇩🇪/🇬🇧 **multilanguage support** - german/english
 - 📲 **Work in Progress: support for mobile phones** ⚠️ *it's working but CSS is broken at the moment*
 
 ---
@@ -46,9 +46,6 @@ And of course a special thank also to the [motorfe.st project](https://github.co
 
 ### 🏁 Startpage
 ![Zendomizer Startpage](assets/pic/Zendomizer_startpage.png)
-
-### 🎯 Grandrace-Selection
-![Zendomizer Grandrace Selection](assets/pic/ZENdomizer_cat_selected.png)
 
 ### 🎰 ZENDomizer Selection "Your Pick"
 ![Zendomizer Clipboard Result](assets/pic/ZENdomizer_selection.png)
@@ -62,5 +59,5 @@ And of course a special thank also to the [motorfe.st project](https://github.co
 ### Multi language - choose between german and english
 ![Zendomizer Multi language](assets/pic/ZENdomizer_multilanguage.png)
 
-### 📊 Log
+### 📊 Log (`Shift + L`)
 ![Zendomizer DevLog](assets/pic/ZENdomizer_DevCon_Log.png)
