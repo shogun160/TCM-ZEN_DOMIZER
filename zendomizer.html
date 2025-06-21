@@ -1898,8 +1898,8 @@ select.filter-control {
       const oldVehicle = lastSelection[index];
       lastSelection[index] = { ...vehicle, ignoredFilters };
     
-      // ✅ Log-Eintrag ohne drawRound++ → stattdessen mit "(manuell)"
-      const manualLabel = `${window.drawRound} (manuell)`;
+      // ✅ Log-Eintrag ohne drawRound++ → stattdessen mit "(manual)"
+      const manualLabel = `${window.drawRound} (manual)`;
       window.drawLog.push({
         durchgang: manualLabel,
         category: category,
