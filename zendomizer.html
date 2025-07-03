@@ -2169,16 +2169,15 @@ select.filter-control {
     
     // Direkt beim Laden ausführen
     window.addEventListener('load', updateGrandraceTicker);
-    //window.addEventListener('load', () => {
-    //    const grandraceCheckbox = document.getElementById('catGR');
-    //    if (grandraceCheckbox) {
-    //        grandraceCheckbox.checked = true;
-    //        setTimeout(() => {
-    //          updateGrandraceState(true);
-    //        }, 300); // ✨ 300ms Verzögerung NUR beim Laden
-    //    }
-    //});
-
+    window.addEventListener('load', () => {
+        const grandraceCheckbox = document.getElementById('catGR');
+        if (grandraceCheckbox) {
+            grandraceCheckbox.checked = true;
+            setTimeout(() => {
+              updateGrandraceState(true);
+            }, 300); // ✨ 300ms Verzögerung NUR beim Laden
+        }
+    });
     
     // Optional: Alle 15 Sekunden neu prüfen
     setInterval(updateGrandraceTicker, 15000);
