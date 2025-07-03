@@ -6898,5 +6898,25 @@
     "country": "france",
     "era": "modern",
     "top_tier": false
+  },
+  {
+    "category": "Street Tier 2",
+    "bike": false,
+    "brand": "Ferrari",
+    "model": "F50",
+    "year": 1995,
+    "country": "italy",
+    "era": "classic",
+    "top_tier": true
+  },
+  {
+    "category": "Street Tier 2",
+    "bike": false,
+    "brand": "Ferrari",
+    "model": "GTO",
+    "year": 1984,
+    "country": "italy",
+    "era": "classic",
+    "top_tier": false
   }
 ]
