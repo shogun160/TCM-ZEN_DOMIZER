@@ -6917,6 +6917,16 @@
     "year": 1984,
     "country": "italy",
     "era": "classic",
+    "top_tier": true
+  },
+  {
+    "category": "Street Tier 2",
+    "bike": false,
+    "brand": "Mazda",
+    "model": "RX7 Red Fury Edition",
+    "year": 2002,
+    "country": "japan",
+    "era": "modern",
     "top_tier": false
   }
 ]
