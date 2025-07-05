@@ -1057,34 +1057,33 @@ select.filter-control {
     /*
      * BEGIN: Borrowed from https://github.com/calamity-inc/motorfe.st/
      */
-    const ROTATION_START = 1741258200;
+    const ROTATION_START = 1751580000;
     const ROTATION = [
-        ["Kahakuloa", "ST1 > Rally > ST2"],
-        ["Kalaeloa", "AGP > Hyper > ST1"],
-        ["Kenuku", "RR > Rally"], //Cat3 is also RR
-        ["Manua Pele", "Racing > AGP > ST2", "Main Stage"],
-        ["Diamond Head", "AGP > Rally > Racing"],
-        ["Kaena Point", "ST1 > Motocross > RR"],
-        ["Diamond Head", "Racing > Hyper > ST2"],
-        ["Paia", "AGP > ST2 > Hyper", "Special Weather"],
-        ["Kaneohe", "RR > ST1 > Racing"],
-        ["Haleiwa", "Hyper > Racing > ST2"],
-        ["Kealaloloa", "Drift > Racing > ST2"],
-        ["Haleiwa", "Rally > ST2 > Racing", "No Colission"],
-        ["Waikiki", "Racing > Hyper > ST2"],
-        ["Wailea", "AGP > Hyper > Racing"],
-        ["Kalaeloa", "Motocross > Rally/Plane > Drift"],
-        ["Wahiawa Fields", "AGP > ST2 > Hyper", "No Collision"],
-        ["Kahuku", "Racing > Rally > ST2"],
-        ["Kealaloloa", "ST1 > RR > Hyper"],
-        ["Nuuanu - Punchbowl", "Motocross > Monster > Rally"],
-        ["Mauna Pele", "Monster > ST1 > Hyper", "Main Stage"],
-        ["Ma'akua Black Beach", "Hyper > ST2 > AGP"],
-        ["Wailea", "ST2 > Hyper > Racing"],
-        ["Kula", "Racing > AGP > ST2"],
-        ["Lahaina", "Hyper > ST2 > Hyper", "Special Weather"],
+        [ "Ma'akua Black Beach", "Drift > Racing > ST2" ],
+        [ "Kahakuloa", "Hyper > AGP > RR", "No Collision" ],
+        [ "Haleiwa", "ST2 > Hyper > Racing" ],
+        [ "Kealaloloa", "ST1 > Motocross > Hyper" ],
+        [ "Kaena Point", "Racing > ST1 > Hyper", "Special Selection" ],
+        [ "Lahaina", "Hyper > Monster > Rally" ],
+        [ "Kaneohe", "ST2 > Racing > AGP" ],
+        [ "Kula", "ST1 > RR > Hyper", "No Collision" ],
+        [ "Waikiki", "Racing > AGP > ST2" ],
+        [ "Diamond Head", "Hyper > Rally > Drift" ],
+        [ "Manua Pele", "ST2 > Hyper > Racing", "Special Selection" ],
+        [ "Wailea", "Racing > RR > Hyper" ],
+        [ "Nuuahu - Punchbowl", "ST1 > Hyper > AGP" ],
+        [ "Hana", "ST2 > Racing > Motocross", "No Collision" ],
+        [ "Kalaeloa", "Hyper > AGP > Racing" ],
+        [ "Lanaina", "Monster > ST2 > Hyper" ],
+        [ "Peacock Flats", "ST1 > Hyper > Racing", "Special Selection" ],
+        [ "Halekala", "AGP > Hyper > Rally" ],
+        [ "The Barrens", "ST2 > Drift > AGP" ],
+        [ "Hana", "Rally Raid > Hyper > Rally", "No Collision" ],
+        [ "Pearl Harbor", "Racing > ST2" ],
+        [ "Wahiawa Fields", "Hyper > ST2 > Racing", "Special Selection" ],
+        [ "Kahakuloa", "AGP > Rally > Hyper" ]
     ];
-    const EVENT_DURATION = 20 * 60;
+    const EVENT_DURATION = 10 * 60;
     const ROTATION_DURATION = ROTATION.length * EVENT_DURATION;
 
     function getCurrentEventIndex()
@@ -1133,7 +1132,7 @@ select.filter-control {
 
     let selectedOrder = [];
     let drawExecuted = false;
-    let grandraceActive = false;
+    let grandraceActive = true;
     let grandraceCategories = [];
     let recentDraws = {}; // 🆕 Merkt sich die letzten Fahrzeuge pro Kategorie
     let toastTimer = null;
