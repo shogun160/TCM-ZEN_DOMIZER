@@ -6928,5 +6928,15 @@
     "country": "japan",
     "era": "modern",
     "top_tier": false
+  },
+  {
+    "category": "Hypercar",
+    "bike": false,
+    "brand": "Ferrari",
+    "model": "F80",
+    "year": 2025,
+    "country": "italy",
+    "era": "modern",
+    "top_tier": true
   }
 ]
