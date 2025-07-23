@@ -6938,5 +6938,25 @@
     "country": "italy",
     "era": "modern",
     "top_tier": true
+  },
+  {
+    "category": "Street Tier 2",
+    "bike": false,
+    "brand": "MV Agusta",
+    "model": "F4 RR",
+    "year": 2017,
+    "country": "italy",
+    "era": "modern",
+    "top_tier": false
+  },
+  {
+    "category": "Street Tier 2",
+    "bike": false,
+    "brand": "MV Agusta",
+    "model": "Brutale Dragster 800 RR",
+    "year": 2016,
+    "country": "italy",
+    "era": "modern",
+    "top_tier": false
   }
 ]
