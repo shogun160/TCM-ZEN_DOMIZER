@@ -6958,5 +6958,15 @@
     "country": "italy",
     "era": "modern",
     "top_tier": false
+  },
+  {
+    "category": "Hypercar",
+    "bike": false,
+    "brand": "Ferrari",
+    "model": "SF90 Stradale Assetto Fiorano",
+    "year": 2020,
+    "country": "italy",
+    "era": "modern",
+    "top_tier": false
   }
 ]
