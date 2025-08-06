@@ -6968,5 +6968,15 @@
     "country": "italy",
     "era": "modern",
     "top_tier": false
+  },
+  {
+    "category": "Hypercar",
+    "bike": false,
+    "brand": "Genty",
+    "model": "Akylone",
+    "year": 2024,
+    "country": "italy",
+    "era": "modern",
+    "top_tier": false
   }
 ]
