@@ -6978,5 +6978,35 @@
     "country": "italy",
     "era": "modern",
     "top_tier": false
+  },
+  {
+    "category": "Rally",
+    "bike": false,
+    "brand": "Ivory-Tower",
+    "model": "Ogmios Rally Spec",
+    "year": 2025,
+    "country": "france",
+    "era": "modern",
+    "top_tier": true
+  },
+  {
+    "category": "Hypercar",
+    "bike": false,
+    "brand": "Bugatti",
+    "model": "Vision GT",
+    "year": 2015,
+    "country": "france",
+    "era": "modern",
+    "top_tier": true
+  },
+  {
+    "category": "Hypercar",
+    "bike": false,
+    "brand": "Apollo",
+    "model": "Project EVO",
+    "year": 2021,
+    "country": "germany",
+    "era": "modern",
+    "top_tier": false
   }
 ]
