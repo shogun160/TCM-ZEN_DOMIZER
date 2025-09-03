@@ -7008,5 +7008,25 @@
     "country": "germany",
     "era": "modern",
     "top_tier": false
+  },
+  {
+    "category": "Hypercar",
+    "bike": false,
+    "brand": "Porsche",
+    "model": "Carrera GT AHEAD Edition",
+    "year": 2003,
+    "country": "germany",
+    "era": "modern",
+    "top_tier": false
+  },
+  {
+    "category": "Racing",
+    "bike": false,
+    "brand": "Audi",
+    "model": "R8 LMS GT2",
+    "year": 2020,
+    "country": "germany",
+    "era": "modern",
+    "top_tier": false
   }
 ]
