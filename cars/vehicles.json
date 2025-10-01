@@ -7038,5 +7038,25 @@
     "country": "germany",
     "era": "modern",
     "top_tier": false
+  },
+  {
+    "category": "Street Tier 2",
+    "bike": true,
+    "brand": "Triumph",
+    "model": "Rocket 3 R",
+    "year": 2021,
+    "country": "england",
+    "era": "modern",
+    "top_tier": false
+  },
+  {
+    "category": "Racing",
+    "bike": false,
+    "brand": "Porsche",
+    "model": "919 Clubsport",
+    "year": 2017,
+    "country": "germany",
+    "era": "modern",
+    "top_tier": false
   }
 ]
