@@ -7068,5 +7068,85 @@
     "country": "england",
     "era": "modern",
     "top_tier": false
+  },
+  {
+    "category": "Hypercar",
+    "bike": false,
+    "brand": "Cadillac",
+    "model": "Ciel Concept",
+    "year": 2011,
+    "country": "usa",
+    "era": "modern",
+    "top_tier": false
+  },
+  {
+    "category": "Hypercar",
+    "bike": false,
+    "brand": "Ferrari",
+    "model": "12Cilindri",
+    "year": 2000,
+    "country": "italy",
+    "era": "modern",
+    "top_tier": false
+  },
+  {
+    "category": "Hypercar",
+    "bike": false,
+    "brand": "Zenvo",
+    "model": "Aurora Agil",
+    "year": 2026,
+    "country": "denmark",
+    "era": "modern",
+    "top_tier": false
+  },
+  {
+    "category": "Hypercar",
+    "bike": false,
+    "brand": "Pagani",
+    "model": "Imola",
+    "year": 2021,
+    "country": "italy",
+    "era": "modern",
+    "top_tier": false
+  },
+  {
+    "category": "Street Tier 1",
+    "bike": false,
+    "brand": "BMW",
+    "model": "2000",
+    "year": 2000,
+    "country": "germany",
+    "era": "modern",
+    "top_tier": true
+  },
+  {
+    "category": "Street Tier 2",
+    "bike": false,
+    "brand": "BMW",
+    "model": "M2",
+    "year": 2023,
+    "country": "germany",
+    "era": "modern",
+    "top_tier": false
+  },
+  {
+    "category": "Street Tier 2",
+    "bike": false,
+    "brand": "Mercedes",
+    "model": "GT 63 4MATIC+ Coupé",
+    "year": 2000,
+    "country": "germany",
+    "era": "modern",
+    "top_tier": false
+  },
+  {
+    "category": "Street Tier 2",
+    "bike": false,
+    "brand": "BMW",
+    "model": "2000",
+    "year": 2000,
+    "country": "germany",
+    "era": "modern",
+    "top_tier": true
   }
 ]
