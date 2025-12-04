@@ -7148,5 +7148,25 @@
     "country": "germany",
     "era": "modern",
     "top_tier": true
+  },
+  {
+    "category": "Street Tier 2",
+    "bike": false,
+    "brand": "BMW",
+    "model": "M4 CSL",
+    "year": 2024,
+    "country": "germany",
+    "era": "modern",
+    "top_tier": true
+  },
+  {
+    "category": "Hypercar",
+    "bike": false,
+    "brand": "Pagani",
+    "model": "Imola",
+    "year": 2021,
+    "country": "italy",
+    "era": "modern",
+    "top_tier": false
   }
 ]
