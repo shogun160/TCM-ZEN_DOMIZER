@@ -7168,5 +7168,25 @@
     "country": "italy",
     "era": "modern",
     "top_tier": true
+  },
+  {
+    "category": "Hypercar",
+    "bike": false,
+    "brand": "Lamborghini",
+    "model": "Temerario",
+    "year": 2024,
+    "country": "italy",
+    "era": "modern",
+    "top_tier": false
+  },
+  {
+    "category": "Hypercar",
+    "bike": false,
+    "brand": "Lamborghini",
+    "model": "Centenario Roadster",
+    "year": 2016,
+    "country": "italy",
+    "era": "modern",
+    "top_tier": false
   }
 ]
