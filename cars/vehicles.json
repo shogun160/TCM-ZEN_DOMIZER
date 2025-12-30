@@ -697,7 +697,7 @@
     "year": 2019,
     "country": "germany",
     "era": "modern",
-    "top_tier": false
+    "top_tier": true
   },
   {
     "category": "Street Tier 2",
@@ -707,7 +707,7 @@
     "year": 2022,
     "country": "germany",
     "era": "modern",
-    "top_tier": true
+    "top_tier": false
   },
   {
     "category": "Street Tier 2",
@@ -717,7 +717,7 @@
     "year": 2022,
     "country": "germany",
     "era": "modern",
-    "top_tier": true
+    "top_tier": false
   },
   {
     "category": "Hypercar",
@@ -7155,6 +7155,16 @@
     "brand": "BMW",
     "model": "M4 CSL",
     "year": 2024,
+    "country": "germany",
+    "era": "modern",
+    "top_tier": true
+  },
+  {
+    "category": "Street Tier 2",
+    "bike": false,
+    "brand": "BMW",
+    "model": "M3 CS",
+    "year": 2023,
     "country": "germany",
     "era": "modern",
     "top_tier": true
