@@ -1582,7 +1582,7 @@
   {
     "category": "Hypercar",
     "bike": false,
-    "brand": "Citro\u00ebn",
+    "brand": "Citroen",
     "model": "GT",
     "year": 2008,
     "country": "france",
@@ -2267,7 +2267,7 @@
     "year": 2017,
     "country": "USA",
     "era": "modern",
-    "top_tier": false
+    "top_tier": true
   },
   {
     "category": "Hypercar",
@@ -2277,7 +2277,7 @@
     "year": 2017,
     "country": "USA",
     "era": "modern",
-    "top_tier": false
+    "top_tier": true
   },
   {
     "category": "Monster Truck",
@@ -6717,7 +6717,7 @@
     "year": 2017,
     "country": "UAE",
     "era": "modern",
-    "top_tier": false
+    "top_tier": true
   },
   {
     "category": "Hypercar",
@@ -7107,7 +7107,7 @@
     "year": 2021,
     "country": "italy",
     "era": "modern",
-    "top_tier": false
+    "top_tier": true
   },
   {
     "category": "Street Tier 1",
