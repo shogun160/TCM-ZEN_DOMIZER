@@ -2887,7 +2887,7 @@
     "year": 1998,
     "country": "japan",
     "era": "classic",
-    "top_tier": false
+    "top_tier": true
   },
   {
     "category": "Street Tier 2",
@@ -2917,7 +2917,7 @@
     "year": 1992,
     "country": "japan",
     "era": "classic",
-    "top_tier": false
+    "top_tier": true
   },
   {
     "category": "Street Tier 2",
