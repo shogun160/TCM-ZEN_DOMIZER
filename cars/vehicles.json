@@ -7198,5 +7198,55 @@
     "country": "italy",
     "era": "modern",
     "top_tier": false
+  },
+  {
+    "category": "Hypercar",
+    "bike": false,
+    "brand": "Mercedes-AMG",
+    "model": "One Motorsport Styling Package Star Pattern",
+    "year": 2022,
+    "country": "germany",
+    "era": "modern",
+    "top_tier": false
+  },
+  {
+    "category": "Street Tier 1",
+    "bike": false,
+    "brand": "Volkswagen",
+    "model": "Golf GTI 1800",
+    "year": 1982,
+    "country": "germany",
+    "era": "classic",
+    "top_tier": false
+  },
+  {
+    "category": "Racing",
+    "bike": false,
+    "brand": "BMW",
+    "model": "3.0 CSL",
+    "year": 1975,
+    "country": "germany",
+    "era": "classic",
+    "top_tier": false
+  },
+  {
+    "category": "Racing",
+    "bike": false,
+    "brand": "BMW",
+    "model": "M Hybrid V8 No.15",
+    "year": 2024,
+    "country": "germany",
+    "era": "modern",
+    "top_tier": true
+  },
+  {
+    "category": "Racing",
+    "bike": false,
+    "brand": "BMW",
+    "model": "M Hybrid V8 No.20",
+    "year": 2024,
+    "country": "germany",
+    "era": "modern",
+    "top_tier": true
   }
 ]
