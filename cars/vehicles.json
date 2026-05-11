@@ -7248,5 +7248,65 @@
     "country": "germany",
     "era": "modern",
     "top_tier": true
+  },
+  {
+    "category": "Street Tier 2",
+    "bike": false,
+    "brand": "Porsche",
+    "model": "911 GT3 RS Tribute to Carrera RS",
+    "year": 2023,
+    "country": "Germany",
+    "era": "modern",
+    "top_tier": true
+  },
+  {
+    "category": "Street Tier 1",
+    "bike": false,
+    "brand": "PHAR RC",
+    "model": "Comet",
+    "year": 2026,
+    "country": "France",
+    "era": "modern",
+    "top_tier": false
+  },
+  {
+    "category": "Street Tier 1",
+    "bike": false,
+    "brand": "PHAR RC",
+    "model": "Rust Bucket",
+    "year": 2026,
+    "country": "France",
+    "era": "modern",
+    "top_tier": false
+  },
+  {
+    "category": "Street Tier 1",
+    "bike": false,
+    "brand": "PHAR RC",
+    "model": "Trickshot",
+    "year": 2026,
+    "country": "France",
+    "era": "modern",
+    "top_tier": false
+  },
+  {
+    "category": "Rally Raid",
+    "bike": false,
+    "brand": "PHAR RC",
+    "model": "General",
+    "year": 2026,
+    "country": "France",
+    "era": "modern",
+    "top_tier": false
+  },
+  {
+    "category": "Rally Raid",
+    "bike": false,
+    "brand": "PHAR RC",
+    "model": "Coyote",
+    "year": 2026,
+    "country": "France",
+    "era": "modern",
+    "top_tier": false
   }
 ]
