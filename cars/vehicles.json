@@ -7308,5 +7308,15 @@
     "country": "France",
     "era": "modern",
     "top_tier": false
+  },
+  {
+    "category": "Hypercar",
+    "bike": false,
+    "brand": "Apollo",
+    "model": "Sport",
+    "year": 2008,
+    "country": "Germany",
+    "era": "modern",
+    "top_tier": false
   }
 ]
