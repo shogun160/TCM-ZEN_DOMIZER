@@ -1,0 +1,15 @@
+name = "zendomizer-twitch-bot"
+main = "worker.js"
+compatibility_date = "2026-08-01"
+
+# KV-Namespace fuer Bot-Access-/Refresh-Token (id nach `wrangler kv namespace create TWITCH_TOKENS` eintragen)
+kv_namespaces = [
+  { binding = "TWITCH_TOKENS", id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID" }
+]
+
+# Secrets NICHT hier eintragen - per `wrangler secret put <NAME>` setzen:
+#   TWITCH_CLIENT_ID
+#   TWITCH_CLIENT_SECRET
+#   TWITCH_BOT_USER_ID
+#   TWITCH_BOT_INITIAL_REFRESH_TOKEN   (nur fuer den allerersten Start, siehe README.md)
+#   ALLOWED_ORIGIN                     (optional, z.B. https://shogun160.github.io)

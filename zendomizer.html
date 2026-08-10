@@ -108,6 +108,59 @@
       max-width: 420px; /* 2 Spalten à 120px + 1x gap (18px) + 18(test)*/
       margin-bottom: 10px;
     }
+    .twitch-settings-wrapper {
+      width: 100%;
+      max-width: 420px;
+      margin-bottom: 10px;
+    }
+    .twitch-settings-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background-color: rgba(0, 0, 0, 0.6);
+      border: 2px solid #9146FF; /* Twitch-Lila zur Unterscheidung von den gruenen Filtern */
+      border-radius: 12px;
+      padding: 14px;
+      margin-top: 10px;
+      box-sizing: border-box;
+    }
+    .twitch-settings-panel label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #d9b3ff;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .twitch-settings-panel input[type="text"] {
+      background-color: rgba(0, 0, 0, 0.6);
+      color: #d9b3ff;
+      border: 2px solid #9146FF;
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-family: inherit;
+      font-size: 14px;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .twitch-settings-panel input[type="text"]::placeholder {
+      color: #9146FF;
+      opacity: 0.7;
+    }
+    #twitchSettingsToggle {
+      width: 100%;
+      max-width: 420px;
+      border-color: #9146FF;
+      color: #d9b3ff;
+    }
+    .twitch-status-msg {
+      font-size: 12px;
+      min-height: 16px;
+      color: #39ff14;
+    }
+    .twitch-status-msg.error {
+      color: #ff5555;
+    }
     .reset-row {
       display: flex;
       justify-content: flex-end;
@@ -837,6 +890,17 @@ select.filter-control {
             </select>
         </div>
     </div>
+    <div class="twitch-settings-wrapper">
+        <button id="twitchSettingsToggle" class="filter-control" onclick="toggleTwitchSettingsPanel()">📡 Twitch</button>
+        <div id="twitchSettingsPanel" class="twitch-settings-panel" style="display:none;">
+            <label><input type="checkbox" id="twitchEnabled" onchange="saveTwitchSettings()"><span id="twitchEnabledLabel">Twitch settings label</span></label>
+            <input type="text" id="twitchChannel" oninput="saveTwitchSettings()" />
+            <label><input type="checkbox" id="twitchPin" onchange="saveTwitchSettings()"><span id="twitchPinLabel">Twitch pin label</span></label>
+            <input type="text" id="twitchWorkerUrl" oninput="saveTwitchSettings()" />
+            <button id="twitchTestBtn" class="filter-control" onclick="testTwitchAnnounce()">Twitch test label</button>
+            <div id="twitchStatusMsg" class="twitch-status-msg"></div>
+        </div>
+    </div>
     <div class="category-grid">
       <!-- Reihe 1 -->
       <div class="catWrapper">
@@ -957,6 +1021,7 @@ select.filter-control {
     updateSlotBoxes();
     updateResetButtonState();
     updateGoButtonState();
+    loadTwitchSettings();
   })
   .catch(err => {
     console.error("❌ Fehler beim Laden der Daten:", err);
@@ -1082,6 +1147,20 @@ select.filter-control {
     }
     rebuildEraDropdown();
     rebuildCountryDropdown();
+    updateTwitchLabels();
+  }
+
+  function updateTwitchLabels() {
+    const enabledLabel = document.getElementById("twitchEnabledLabel");
+    const pinLabel = document.getElementById("twitchPinLabel");
+    const channelInput = document.getElementById("twitchChannel");
+    const workerInput = document.getElementById("twitchWorkerUrl");
+    const testBtn = document.getElementById("twitchTestBtn");
+    if (enabledLabel) enabledLabel.textContent = t("twitch_enable_label");
+    if (pinLabel) pinLabel.textContent = t("twitch_pin_label");
+    if (channelInput) channelInput.placeholder = t("twitch_channel_placeholder");
+    if (workerInput) workerInput.placeholder = t("twitch_worker_url_placeholder");
+    if (testBtn) testBtn.textContent = t("twitch_test_button");
   }
 
     /*
@@ -1584,6 +1663,125 @@ select.filter-control {
       }
     }
 
+    // ============================================================
+    // Twitch-Chat-Bot-Integration
+    // ------------------------------------------------------------
+    // Postet (und optional pinnt) das Ziehungsergebnis automatisch in den
+    // Twitch-Chat eines konfigurierten Kanals, ueber einen gemeinsam
+    // genutzten Cloudflare-Worker-Bot (kein eigener Twitch-Login noetig -
+    // der Bot muss nur einmalig per "/mod <botname>" im eigenen Kanal als
+    // Moderator gesetzt werden). Details: twitch-bot/README.md im Repo.
+    // ============================================================
+
+    // Vom Betreiber des gemeinsamen Bots einzutragen, sobald der Worker
+    // deployt ist (siehe twitch-bot/README.md). Nutzer koennen in den
+    // Einstellungen eine abweichende Worker-URL eintragen (z.B. fuer einen
+    // selbst gehosteten Worker).
+    const DEFAULT_TWITCH_WORKER_URL = "";
+
+    function loadTwitchSettings() {
+      const enabled = localStorage.getItem("zendomizerTwitchEnabled") === "true";
+      const pin = localStorage.getItem("zendomizerTwitchPin") === "true";
+      const channel = localStorage.getItem("zendomizerTwitchChannel") || "";
+      const workerUrl = localStorage.getItem("zendomizerTwitchWorkerUrl") || DEFAULT_TWITCH_WORKER_URL;
+
+      const enabledBox = document.getElementById("twitchEnabled");
+      const pinBox = document.getElementById("twitchPin");
+      const channelInput = document.getElementById("twitchChannel");
+      const workerInput = document.getElementById("twitchWorkerUrl");
+
+      if (enabledBox) enabledBox.checked = enabled;
+      if (pinBox) pinBox.checked = pin;
+      if (channelInput) channelInput.value = channel;
+      if (workerInput) workerInput.value = workerUrl;
+    }
+
+    function saveTwitchSettings() {
+      const enabled = document.getElementById("twitchEnabled")?.checked || false;
+      const pin = document.getElementById("twitchPin")?.checked || false;
+      const channel = (document.getElementById("twitchChannel")?.value || "").trim();
+      const workerUrl = (document.getElementById("twitchWorkerUrl")?.value || "").trim();
+
+      localStorage.setItem("zendomizerTwitchEnabled", String(enabled));
+      localStorage.setItem("zendomizerTwitchPin", String(pin));
+      localStorage.setItem("zendomizerTwitchChannel", channel);
+      localStorage.setItem("zendomizerTwitchWorkerUrl", workerUrl);
+
+      const statusEl = document.getElementById("twitchStatusMsg");
+      if (statusEl) {
+        statusEl.textContent = "";
+        statusEl.classList.remove("error");
+      }
+    }
+
+    function toggleTwitchSettingsPanel() {
+      const panel = document.getElementById("twitchSettingsPanel");
+      if (!panel) return;
+      panel.style.display = panel.style.display === "none" ? "flex" : "none";
+    }
+
+    // Kompakte Ein-Zeilen-Fassung des Ergebnisses fuer den Twitch-Chat
+    // (getrennt vom mehrzeiligen Zwischenablage-Text, da Twitch-Chat keine
+    // Zeilenumbrueche sinnvoll darstellt).
+    function formatTwitchMessage(selection) {
+      if (!selection || selection.length === 0) return "";
+      const parts = selection
+        .filter(v => v && v.category)
+        .map(v => `${v.category}: ${formatVehicleName(v)}`);
+      return `🎲 ZENdomizer: ${parts.join(" | ")}`;
+    }
+
+    async function sendTwitchAnnouncement(message) {
+      const enabled = localStorage.getItem("zendomizerTwitchEnabled") === "true";
+      if (!enabled) return;
+
+      const channel = (localStorage.getItem("zendomizerTwitchChannel") || "").trim();
+      const workerUrl = (localStorage.getItem("zendomizerTwitchWorkerUrl") || DEFAULT_TWITCH_WORKER_URL || "").trim();
+      const pin = localStorage.getItem("zendomizerTwitchPin") === "true";
+
+      const statusEl = document.getElementById("twitchStatusMsg");
+
+      if (!channel || !workerUrl) {
+        if (statusEl) {
+          statusEl.textContent = t("twitch_not_configured");
+          statusEl.classList.add("error");
+        }
+        return;
+      }
+
+      try {
+        const res = await fetch(workerUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ channel, message, pin }),
+        });
+        const data = await res.json().catch(() => ({}));
+
+        if (!res.ok || !data.success) {
+          throw new Error(data.error || `HTTP ${res.status}`);
+        }
+
+        if (statusEl) {
+          statusEl.textContent = data.pinned
+            ? t("twitch_sent_and_pinned")
+            : t("twitch_sent");
+          statusEl.classList.remove("error");
+        }
+      } catch (err) {
+        console.warn("⚠️ Twitch-Ankündigung fehlgeschlagen:", err);
+        if (statusEl) {
+          statusEl.textContent = `${t("twitch_send_error")}: ${err.message || err}`;
+          statusEl.classList.add("error");
+        }
+        // Bewusst kein showToast() hier - ein fehlgeschlagener Twitch-Post
+        // soll die normale Ziehung nicht stoeren oder unnoetig auffallen.
+      }
+    }
+
+    function testTwitchAnnounce() {
+      sendTwitchAnnouncement(`🧪 ZENdomizer Test-Nachricht (${new Date().toLocaleTimeString("de-DE")})`);
+    }
+
     function toggleBikeFilter() {
       const btn = document.getElementById("bikeFilterBtn");
     
@@ -1857,6 +2055,7 @@ select.filter-control {
     
       setTimeout(() => {
         copyToClipboard();
+        sendTwitchAnnouncement(formatTwitchMessage(lastSelection));
       }, SPIN_DURATION + 100); // Sicherheitspuffer
     }
 
