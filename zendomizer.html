@@ -1187,17 +1187,20 @@ select.filter-control {
 
     function updateGrandraceState(triggeredByClick = false) {
       const grandraceCheckbox = document.getElementById('catGR');
-      if (!grandraceCheckbox.checked) {
-        if (triggeredByClick && isMainStage) {
-        showToast(t("GRcat_mainstage_manual"), "#f44336", 7000);
-      }
-      showGrandraceJetNote(false);
-      return;
-    }
-    
       const index = getCurrentEventIndex();
       const entry = ROTATION[index];
       const isMainStage = entry[2] === "Main Stage";
+    
+      if (!grandraceCheckbox.checked) {
+        grandraceActive = false; // 🛠️ Bugfix: wurde vorher nie gesetzt, dadurch griff die Auto-Auswahl nie
+        if (triggeredByClick && isMainStage) {
+          showToast(t("GRcat_mainstage_manual"), "#f44336", 7000);
+        }
+        showGrandraceJetNote(false);
+        return;
+      }
+    
+      grandraceActive = true; // 🛠️ Bugfix: Checkbox-Status muss den Aktivstatus tatsächlich setzen
     
       // 🟥 Wenn Main Stage neu erkannt → einmaliger Reset
       if (!previousMainStage && isMainStage && grandraceActive) {
