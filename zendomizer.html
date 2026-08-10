@@ -915,7 +915,7 @@ select.filter-control {
   let currentLang = localStorage.getItem("zendomizerLang") || "de";
   let translations = {};
   let availableLanguages = [];
-  let bikeFilterMode = "no_bike"; // → "top_tier" → "bike" → "all" → wieder "no_bike"
+  let bikeFilterMode = "no_bike"; // → "top_tier" → "rc_cars" → "bike" → "all" → wieder "no_bike"
 
   function t(key, vars = {}) {
     let str = translations?.[currentLang]?.[key] || key;
@@ -1072,6 +1072,8 @@ select.filter-control {
         bfb.innerText = t("bike_no");
       } else if (bikeFilterMode === "top_tier") {
         bfb.innerText = t("top_tier");
+      } else if (bikeFilterMode === "rc_cars") {
+        bfb.innerText = t("rc_cars");
       } else if (bikeFilterMode === "bike") {
         bfb.innerText = t("bike_yes");
       } else {
@@ -1588,6 +1590,10 @@ select.filter-control {
           btn.innerText = t("top_tier");
           break;
         case "top_tier":
+          bikeFilterMode = "rc_cars";
+          btn.innerText = t("rc_cars");
+          break;
+        case "rc_cars":
           bikeFilterMode = "bike";
           btn.innerText = t("bike_yes");
           break;
@@ -2081,7 +2087,8 @@ select.filter-control {
           (bikeFilterMode === 'all') ||
           (bikeFilterMode === 'no_bike' && !v.bike) ||
           (bikeFilterMode === 'bike' && v.bike) ||
-          (bikeFilterMode === 'top_tier' && v.top_tier === true)
+          (bikeFilterMode === 'top_tier' && v.top_tier === true) ||
+          (bikeFilterMode === 'rc_cars' && v.brand === 'PHAZR RC')
         ) &&
         (!filters.country || v.country === filters.country) &&
         (!filters.era || v.era === filters.era) &&
@@ -2093,6 +2100,7 @@ select.filter-control {
         finalList = vehicles.filter(v =>
           v.category === category &&
           (bikeFilterMode !== 'top_tier' || v.top_tier === true) && // ⬅️ wichtig!
+          (bikeFilterMode !== 'rc_cars' || v.brand === 'PHAZR RC') && // ⬅️ wichtig!
           (!filters.country || v.country === filters.country) &&
           (!filters.era || v.era === filters.era) &&
           (!filters.brand || v.brand === filters.brand)
@@ -2213,6 +2221,7 @@ select.filter-control {
       if (filters.era) applied.push(`Zeitraum (${filters.era})`);
       if (bikeFilterMode === "no_bike") applied.push("Cars only");
       else if (bikeFilterMode === "top_tier") applied.push("Top Tier only");
+      else if (bikeFilterMode === "rc_cars") applied.push("RC Cars only");
       else if (bikeFilterMode === "bike") applied.push("Bikes only");
       else applied.push("All Vehicles");
     
