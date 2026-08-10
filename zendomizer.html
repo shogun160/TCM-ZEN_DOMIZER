@@ -579,7 +579,13 @@ select.filter-control {
 
   .button-top {
     margin-top: auto;
-    margin-bottom: -80px;         /* Button Abstand vom unteren Rand statt 42*/
+    transform: translateY(80px);  /* Button Abstand vom unteren Rand statt 42 - als transform statt
+                                      margin-bottom, damit es NICHT auch die nachfolgenden Geschwister
+                                      (z.B. .twitch-settings-wrapper) nach oben in den GO-Button zieht */
+  }
+
+  .twitch-settings-wrapper {
+    margin-top: 24px; /* etwas Abstand zum (per transform verschobenen) GO-Button */
   }
 }
 /* --- SLOTBOXEN (rechter Bereich) --- */
