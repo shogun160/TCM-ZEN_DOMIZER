@@ -1447,7 +1447,7 @@
     "year": 2009,
     "country": "USA",
     "era": "modern",
-    "top_tier": false
+    "top_tier": true
   },
   {
     "category": "Street Tier 2",
@@ -2187,7 +2187,7 @@
     "year": 1989,
     "country": "italy",
     "era": "classic",
-    "top_tier": false
+    "top_tier": true
   },
   {
     "category": "Racing",
@@ -3467,7 +3467,7 @@
     "year": 2015,
     "country": "japan",
     "era": "modern",
-    "top_tier": false
+    "top_tier": true
   },
   {
     "category": "Racing",
@@ -3687,7 +3687,7 @@
     "year": 2015,
     "country": "Austria",
     "era": "modern",
-    "top_tier": false
+    "top_tier": true
   },
   {
     "category": "Motocross",
@@ -3697,7 +3697,7 @@
     "year": 2015,
     "country": "Austria",
     "era": "modern",
-    "top_tier": true
+    "top_tier": false
   },
   {
     "category": "Motocross",
@@ -6257,7 +6257,7 @@
     "year": 1985,
     "country": "france",
     "era": "classic",
-    "top_tier": false
+    "top_tier": true
   },
   {
     "category": "Street Tier 1",
@@ -6737,7 +6737,7 @@
     "year": 2018,
     "country": "japan",
     "era": "modern",
-    "top_tier": false
+    "top_tier": true
   },
   {
     "category": "Racing",
@@ -6877,7 +6877,7 @@
     "year": 2017,
     "country": "USA",
     "era": "modern",
-    "top_tier": false
+    "top_tier": true
   },
   {
     "category": "Street Tier 1",
@@ -6990,7 +6990,7 @@
     "top_tier": true
   },
   {
-    "category": "Hypercar",
+    "category": "Racing",
     "bike": false,
     "brand": "Bugatti",
     "model": "Vision GT",
@@ -7027,7 +7027,7 @@
     "year": 2020,
     "country": "germany",
     "era": "modern",
-    "top_tier": false
+    "top_tier": true
   },
   {
     "category": "Street Tier 2",
@@ -7197,7 +7197,7 @@
     "year": 2022,
     "country": "germany",
     "era": "modern",
-    "top_tier": false
+    "top_tier": true
   },
   {
     "category": "Street Tier 1",
@@ -7207,7 +7207,7 @@
     "year": 1982,
     "country": "germany",
     "era": "classic",
-    "top_tier": false
+    "top_tier": true
   },
   {
     "category": "Racing",
@@ -7287,7 +7287,7 @@
     "year": 2026,
     "country": "France",
     "era": "modern",
-    "top_tier": false
+    "top_tier": true
   },
   {
     "category": "Rally Raid",
@@ -7307,7 +7307,7 @@
     "year": 2026,
     "country": "France",
     "era": "modern",
-    "top_tier": false
+    "top_tier": true
   },
   {
     "category": "Hypercar",
@@ -7317,7 +7317,7 @@
     "year": 2008,
     "country": "Germany",
     "era": "modern",
-    "top_tier": false
+    "top_tier": true
   },
   {
     "category": "Street Tier 1",
@@ -7427,6 +7427,36 @@
     "year": 1987,
     "country": "germany",
     "era": "classic",
+    "top_tier": true
+  },
+  {
+    "category": "Hypercar",
+    "bike": false,
+    "brand": "Aston Martin",
+    "model": "Valhalla",
+    "year": 2023,
+    "country": "england",
+    "era": "modern",
+    "top_tier": true
+  },
+  {
+    "category": "Hypercar",
+    "bike": false,
+    "brand": "Hennessey",
+    "model": "Venom F5",
+    "year": 2020,
+    "country": "USA",
+    "era": "modern",
+    "top_tier": true
+  },
+  {
+    "category": "Hypercar",
+    "bike": false,
+    "brand": "Touring Superleggera",
+    "model": "Arese RH95",
+    "year": 2025,
+    "country": "italy",
+    "era": "modern",
     "top_tier": true
   }
 ]
