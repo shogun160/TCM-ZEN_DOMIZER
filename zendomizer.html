@@ -129,7 +129,7 @@
       right: 20px; /* statt right: 4 */
       height: 100%;
       width: 32px; /* etwas breiter statt 24 */
-      font-size: 120px;
+      font-size: min(120px, 30vw); /* skaliert mit, wenn .catWrapper auf schmalen Screens schrumpft */
       font-weight: 900;
       display: flex;
       align-items: center;
@@ -178,8 +178,8 @@
     .catWrapper {
       position: relative;
       display: block;      /* oder flex */
-      width: 120px;
-      height: 120px;
+      width: 100%;         /* vorher: 120px fest - jetzt vom Grid-Track (1fr) bestimmt, siehe .category-grid */
+      aspect-ratio: 1 / 1;  /* ersetzt die feste height: 120px, bleibt quadratisch beim Schrumpfen */
     }    
     .catCheckbox {
       display: none;
@@ -191,8 +191,8 @@
       background-color: rgba(0, 0, 0, 0.6);
       border: 2px solid transparent;
       border-radius: 12px;
-      width: 120px;
-      height: 120px;
+      width: 100%;
+      height: 100%;
       color: #fff;
       font-weight: bold;
       font-size: 18px;
@@ -321,7 +321,8 @@
       align-items: center; /* ← zentriert den inneren #results Block */
     } 
     #results {
-      width: 396px;             /* exakt wie eine Slotbox */
+      width: 100%;
+      max-width: 396px;         /* vorher: 396px fest - jetzt schrumpfbar auf schmalen Screens */
       display: flex;            /* statt grid */
       flex-direction: column;
       gap: 24px;
@@ -347,7 +348,14 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      width: 180px; /* Größe wie Reset-Kachel */
+      width: 180px;      /* fest wie vorher: bei width:100% wuerde der Button in seinem
+                             flex-Container (.button-top, sizing:auto) auf 0/min-content
+                             kollabieren, sobald der Container selbst nicht "stretch" ist -
+                             genau das Problem, das auf Mobile zu einem sehr schmalen
+                             GO-Button gefuehrt hat. max-width:90vw ist nur ein Schutz
+                             gegen extrem schmale Screens (<200px), aendert an normalen
+                             Groessen nichts. */
+      max-width: 90vw;
       height: 80px;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       box-sizing: border-box;
@@ -478,7 +486,16 @@ select.filter-control {
 @media (max-width: 1068px) {
   .layout {
     flex-direction: column;
-    align-items: stretch;
+    align-items: center; /* vorher: stretch - zentriert jetzt auch .category-grid & .center-panel sauber, */
+                          /* .filter-wrapper/.results-panel/#grandraceTicker haben ohnehin eigenes width:100% */
+  }
+
+  /* Zielvision Mobile: Filter -> Ergebnisse -> Route/Modifier -> Kategorien.
+     .left-panel/.right-panel sind nur noch Markup-Wrapper (kein eigenes Box-Layout mehr),
+     ihre Kinder werden per "order" direkt in .layout einsortiert. */
+  .left-panel,
+  .right-panel {
+    display: contents;
   }
 
   .left-panel,
@@ -487,6 +504,12 @@ select.filter-control {
     max-width: 100%;
     flex: none;
   }
+
+  .filter-wrapper  { order: 1; }
+  .center-panel     { order: 2; } /* GO-Button */
+  .results-panel    { order: 3; }
+  #grandraceTicker   { order: 4; }
+  .category-grid      { order: 5; }
 
   .button-top {
     justify-content: center;
@@ -508,7 +531,8 @@ select.filter-control {
 }
 /* --- SLOTBOXEN (rechter Bereich) --- */
 .slot-box {
-  width: 372px; /* width + 2* padding (12) + 2* boarder (8) = Geasmtbreite || statt 396px*/
+  width: 100%;
+  max-width: 372px; /* vorher: 372px fest - jetzt schrumpfbar; width + 2* padding (12) + 2* boarder (8) = Geasmtbreite || statt 396px*/
   height: 120px;
   padding: 12px;
   border: 3px solid currentColor;
@@ -767,11 +791,15 @@ select.filter-control {
 
 #wheelOverlay {
   position: absolute;
-  top: 89px;
+  top: 0;
+  margin-top: 12.36%; /* vorher: 89px fest (89/720). WICHTIG: margin-top-% bezieht sich (anders als top-%) laut
+                          CSS-Spec immer auf die BREITE des containing blocks (#machineLayer), nicht auf dessen
+                          Hoehe. Damit skaliert der Versatz garantiert korrekt mit der Breite - unabhaengig vom
+                          Seitenverhaeltnis des Hintergrundbilds. */
   left: 50%;
   transform: translateX(-50%);
-  width: 432px;
-  height: 432px;
+  width: 60%;          /* vorher: 432px fest (432/720 = 60%), % bezieht sich immer auf die Breite - unkritisch */
+  aspect-ratio: 1 / 1; /* Rad ist quadratisch, ersetzt die feste height: 432px */
   z-index: 0;
   pointer-events: none;
   transform-origin: center center;
