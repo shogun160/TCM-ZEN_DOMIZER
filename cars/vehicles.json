@@ -7318,5 +7318,115 @@
     "country": "Germany",
     "era": "modern",
     "top_tier": false
+  },
+  {
+    "category": "Street Tier 1",
+    "bike": false,
+    "brand": "Ferrari",
+    "model": "250 GTO",
+    "year": 1962,
+    "country": "italy",
+    "era": "classic",
+    "top_tier": true
+  },
+  {
+    "category": "Street Tier 1",
+    "bike": false,
+    "brand": "Honda",
+    "model": "Civic Type R Red Panther Ed.",
+    "year": 2021,
+    "country": "japan",
+    "era": "modern",
+    "top_tier": true
+  },
+  {
+    "category": "Street Tier 1",
+    "bike": false,
+    "brand": "Lancia",
+    "model": "Delta HF Integrale",
+    "year": 1993,
+    "country": "italy",
+    "era": "classic",
+    "top_tier": true
+  },
+  {
+    "category": "Street Tier 2",
+    "bike": false,
+    "brand": "Alpine",
+    "model": "A110 R Ultime",
+    "year": 2025,
+    "country": "france",
+    "era": "modern",
+    "top_tier": true
+  },
+  {
+    "category": "Street Tier 2",
+    "bike": true,
+    "brand": "Suzuki",
+    "model": "Hayabusa",
+    "year": 2023,
+    "country": "japan",
+    "era": "modern",
+    "top_tier": false
+  },
+  {
+    "category": "Racing",
+    "bike": false,
+    "brand": "Alpine",
+    "model": "Alpenglow Hy6 Concept",
+    "year": 2024,
+    "country": "france",
+    "era": "modern",
+    "top_tier": true
+  },
+  {
+    "category": "Hypercar",
+    "bike": false,
+    "brand": "Delage",
+    "model": "D12",
+    "year": 2025,
+    "country": "france",
+    "era": "modern",
+    "top_tier": true
+  },
+  {
+    "category": "Hypercar",
+    "bike": false,
+    "brand": "W Motors",
+    "model": "Fenyr Supersport",
+    "year": 2021,
+    "country": "UAE",
+    "era": "modern",
+    "top_tier": true
+  },
+  {
+    "category": "Hypercar",
+    "bike": false,
+    "brand": "W Motors",
+    "model": "Fenyr Supersport Radiant Ed.",
+    "year": 2021,
+    "country": "UAE",
+    "era": "modern",
+    "top_tier": true
+  },
+  {
+    "category": "Street Tier 1",
+    "bike": false,
+    "brand": "Fiat",
+    "model": "500 F",
+    "year": 1968,
+    "country": "italy",
+    "era": "classic",
+    "top_tier": true
+  },
+  {
+    "category": "Rally",
+    "bike": false,
+    "brand": "Audi",
+    "model": "Sport quattro S1 Pikes Peak",
+    "year": 1987,
+    "country": "germany",
+    "era": "classic",
+    "top_tier": true
   }
 ]
