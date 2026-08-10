@@ -1184,6 +1184,9 @@ select.filter-control {
 
     let selectedOrder = [];
     let drawExecuted = false;
+    let isDrawing = false; // verhindert überlappende handleGo()-Aufrufe (z.B. Doppelklick auf GO),
+                            // die sonst zu Race-Conditions bei der Blacklist fuehren koennen -
+                            // besonders sichtbar bei kleinen Fahrzeug-Pools (z.B. RC-Cars-Filter)
     let grandraceActive = false;
     let grandraceCategories = [];
     // JET_VEHICLE: festes Bonusfahrzeug fuer die Jet-Kategorie in der Grandrace-Rotation
@@ -1311,7 +1314,7 @@ select.filter-control {
     
         const currentEventName = entry[0];
         const currentCategories = entry[1].replace(/>/g, "→");
-        const modifierSuffix = entry[2] ? ` ⚠️ ${entry[2]}` : "";
+        const modifierSuffix = entry[2] ? ` ⚠️ ${entry[2]} ⚠️` : "";
         const jetSuffix = hasJet ? ` 🛩️ ${t("grandrace_jet_hint")}` : "";
         showToast(`${t(triggeredByClick ? "rotation_applied_manual" : "rotation_applied_auto")}: ${currentEventName} | ${currentCategories}${modifierSuffix}${jetSuffix}`, "#39ff14", 10000);
       }
@@ -1799,6 +1802,8 @@ select.filter-control {
 
     function handleGo() {
       if (selectedOrder.length < 1) return;
+      if (isDrawing) return; // Ziehung laeuft bereits - Doppelklick/Re-Entry ignorieren
+      isDrawing = true;
     
       const SPIN_DURATION = 1800;
       drawExecuted = true;
@@ -1832,6 +1837,11 @@ select.filter-control {
           wheel.classList.remove("spin");
         }, SPIN_DURATION);
       }
+    
+      // 🔓 Sperre wieder aufheben, sobald alle Slots gefuellt sind (unabhaengig vom wheel-Element)
+      setTimeout(() => {
+        isDrawing = false;
+      }, SPIN_DURATION);
     
       updateResetButtonState();
     
@@ -2249,7 +2259,7 @@ select.filter-control {
       const currentModifier = entry[2] || null;
       
       const spacer = '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;';
-      const modifierPart = currentModifier ? ` &nbsp;⚠️ <strong>${currentModifier}</strong>` : "";
+      const modifierPart = currentModifier ? ` &nbsp;⚠️ <strong>${currentModifier}</strong> ⚠️` : "";
       const message = `🏁 Ready for <strong class="pulse-glow">${currentEvent}</strong>? Let's race! 🏁${modifierPart}` + (isGrandRaceDay() ? " It's modificator day 🏁" :
           "");
       
