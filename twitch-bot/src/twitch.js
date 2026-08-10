@@ -4,7 +4,6 @@
  */
 
 const TOKEN_KV_KEY = "bot_token";
-const PIN_DURATION_SECONDS = 1200; // 20 Minuten - Twitch-Maximum fuer Pin Chat Message
 
 /**
  * Liefert ein gueltiges Access-Token fuer den Bot-Account. Nutzt den in KV
@@ -64,20 +63,6 @@ export async function getValidAccessToken(env) {
   return data.access_token;
 }
 
-export async function resolveUserId(login, clientId, accessToken) {
-  const res = await fetch(`https://api.twitch.tv/helix/users?login=${encodeURIComponent(login)}`, {
-    headers: {
-      "Client-Id": clientId,
-      "Authorization": `Bearer ${accessToken}`,
-    },
-  });
-  if (!res.ok) {
-    throw new Error(`Twitch Users-API Fehler (${res.status}).`);
-  }
-  const data = await res.json();
-  return data.data?.[0]?.id || null;
-}
-
 export async function sendChatMessage({ broadcasterId, senderId, message, clientId, accessToken }) {
   const res = await fetch("https://api.twitch.tv/helix/chat/messages", {
     method: "POST",
@@ -109,12 +94,12 @@ export async function sendChatMessage({ broadcasterId, senderId, message, client
  * Fehler wirft, wird das Senden der Nachricht selbst NICHT beeintraechtigt
  * (siehe Aufrufer), nur `pinned:false` + `pinError` im Response.
  */
-export async function pinChatMessage({ broadcasterId, moderatorId, messageId, clientId, accessToken }) {
+export async function pinChatMessage({ broadcasterId, moderatorId, messageId, clientId, accessToken, durationSeconds }) {
   const params = new URLSearchParams({
     broadcaster_id: broadcasterId,
     moderator_id: moderatorId,
     message_id: messageId,
-    duration_seconds: String(PIN_DURATION_SECONDS),
+    duration_seconds: String(durationSeconds),
   });
   const res = await fetch(`https://api.twitch.tv/helix/chat/pins?${params.toString()}`, {
     method: "PUT",

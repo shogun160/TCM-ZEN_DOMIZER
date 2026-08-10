@@ -2,113 +2,162 @@
  * ZENdomizer Twitch-Bot Worker
  * -----------------------------
  * Nimmt Ziehungsergebnisse von zendomizer.html entgegen und postet sie als
- * Chat-Bot-Account in den Twitch-Chat des angegebenen Kanals - optional
- * zusaetzlich angepinnt (Twitch "Pin Chat Message", max. 20 Minuten,
- * feste Twitch-Vorgabe, nicht konfigurierbar).
+ * Chat-Bot-Account in den Twitch-Chat - optional zusaetzlich angepinnt
+ * (Twitch "Pin Chat Message", max. 20 Minuten, feste Twitch-Vorgabe).
  *
- * Der Bot muss in jedem Zielkanal Moderator sein (einfach `/mod <botname>`
- * im eigenen Chat eintippen) - dann braucht der jeweilige Streamer keine
- * eigene Twitch-App/OAuth-Einrichtung. Siehe README.md in diesem Ordner.
+ * Der Zielkanal ergibt sich AUSSCHLIESSLICH aus dem mitgeschickten
+ * Kanal-Token. Ein Kanalname im Request wird ignoriert - damit kann niemand
+ * in fremde Kanaele posten, auch nicht mit Kenntnis der Worker-URL.
+ *
+ * Routen:
+ *   GET  /auth/start     - leitet den Streamer zum Twitch-Login weiter
+ *   GET  /auth/callback  - stellt nach erfolgreichem Login den Token aus
+ *   POST /announce       - postet ein Ziehungsergebnis
+ * Alle anderen Pfad/Methoden-Kombinationen werden explizit abgelehnt (siehe
+ * routeAnnounce weiter unten) statt implizit auf /announce durchzufallen.
  *
  * Benoetigte Secrets (per `wrangler secret put <NAME>` setzen):
- *   TWITCH_CLIENT_ID       - Client-ID der (Confidential-)Twitch-App
- *   TWITCH_CLIENT_SECRET   - Client-Secret der Twitch-App
- *   TWITCH_BOT_USER_ID     - Twitch User-ID des Bot-Accounts
- * Benoetigte KV-Namespace-Bindung (siehe wrangler.toml):
- *   TWITCH_TOKENS          - haelt {access_token, refresh_token, expires_at}
- *                             des Bot-Accounts. Initial befuellt via
- *                             scripts/seed-token.md (einmaliger OAuth-Schritt).
+ *   TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET, TWITCH_BOT_USER_ID,
+ *   TWITCH_BOT_INITIAL_REFRESH_TOKEN, ALLOWED_ORIGIN (optional)
+ * Benoetigte KV-Bindung (siehe wrangler.toml): TWITCH_TOKENS
  */
 
-import {
-  getValidAccessToken,
-  resolveUserId,
-  sendChatMessage,
-  pinChatMessage,
-} from "./src/twitch.js";
+import { getValidAccessToken, sendChatMessage, pinChatMessage } from "./src/twitch.js";
+import { handleAuthStart, handleAuthCallback } from "./src/auth.js";
+import { resolveChannelByToken } from "./src/tokens.js";
+import { validateDraw, buildMessage } from "./src/draw.js";
 
-const TWITCH_MAX_MESSAGE_LENGTH = 500; // von Twitch vorgegebenes Limit fuer Chat-Nachrichten
+const PIN_DURATION_SECONDS = 1200; // 20 Minuten - Twitch-Maximum
 
 export default {
   async fetch(request, env) {
+    const pfad = new URL(request.url).pathname;
+
+    // Die Auth-Routen liefern HTML fuer eine normale Browser-Navigation
+    // (der Streamer klickt/wird umgeleitet) - keine Cross-Origin-Fetch-
+    // Anfrage einer Webseite. CORS-Header steuern nur Cross-Origin
+    // fetch()/XHR-Zugriffe, nicht Top-Level-Navigation, daher brauchen
+    // diese Routen bewusst keine CORS-Header.
+    if (request.method === "GET" && pfad === "/auth/start") {
+      return handleAuthStart(request, env);
+    }
+    if (request.method === "GET" && pfad === "/auth/callback") {
+      return handleAuthCallback(request, env);
+    }
+
     const corsHeaders = buildCorsHeaders(env);
 
     if (request.method === "OPTIONS") {
       return new Response(null, { headers: corsHeaders });
     }
 
+    // Nur /announce ist eine bekannte POST-Route. Ohne diese Pruefung wuerde
+    // z.B. ein POST auf /auth/start oder auf einen Tippfehler-Pfad still in
+    // handleAnnounce() landen, weil der alte Router den Pfad fuer POST nie
+    // gegengeprueft hat - das war unbeabsichtigt und wird hier bewusst
+    // geschlossen.
+    if (pfad !== "/announce") {
+      return json({ success: false, error: "Nicht gefunden." }, 404, corsHeaders);
+    }
+
     if (request.method !== "POST") {
       return json({ success: false, error: "Nur POST erlaubt." }, 405, corsHeaders);
     }
 
-    let body;
-    try {
-      body = await request.json();
-    } catch (e) {
-      return json({ success: false, error: "Ungueltiger JSON-Body." }, 400, corsHeaders);
-    }
-
-    const channel = typeof body.channel === "string" ? body.channel.trim().toLowerCase() : "";
-    const message = typeof body.message === "string" ? body.message : "";
-    const shouldPin = body.pin === true;
-
-    if (!channel) {
-      return json({ success: false, error: "Feld 'channel' fehlt oder ist leer." }, 400, corsHeaders);
-    }
-    if (!message) {
-      return json({ success: false, error: "Feld 'message' fehlt oder ist leer." }, 400, corsHeaders);
-    }
-
-    const safeMessage = message.length > TWITCH_MAX_MESSAGE_LENGTH
-      ? message.slice(0, TWITCH_MAX_MESSAGE_LENGTH - 1) + "…"
-      : message;
-
-    try {
-      const accessToken = await getValidAccessToken(env);
-
-      const broadcasterId = await resolveUserId(channel, env.TWITCH_CLIENT_ID, accessToken);
-      if (!broadcasterId) {
-        return json({ success: false, error: `Twitch-Kanal "${channel}" wurde nicht gefunden.` }, 404, corsHeaders);
-      }
-
-      const sendResult = await sendChatMessage({
-        broadcasterId,
-        senderId: env.TWITCH_BOT_USER_ID,
-        message: safeMessage,
-        clientId: env.TWITCH_CLIENT_ID,
-        accessToken,
-      });
-
-      if (!sendResult.is_sent) {
-        const reason = sendResult.drop_reason?.message || "Unbekannter Grund (evtl. Bot nicht Moderator im Kanal?).";
-        return json({ success: false, error: `Nachricht wurde von Twitch nicht gesendet: ${reason}` }, 200, corsHeaders);
-      }
-
-      let pinned = false;
-      let pinError = null;
-      if (shouldPin) {
-        try {
-          await pinChatMessage({
-            broadcasterId,
-            moderatorId: env.TWITCH_BOT_USER_ID,
-            messageId: sendResult.message_id,
-            clientId: env.TWITCH_CLIENT_ID,
-            accessToken,
-          });
-          pinned = true;
-        } catch (e) {
-          // Nachricht wurde bereits erfolgreich gesendet - Pin-Fehler soll das
-          // Gesamtergebnis nicht als kompletten Fehlschlag markieren.
-          pinError = e.message || String(e);
-        }
-      }
-
-      return json({ success: true, message_id: sendResult.message_id, pinned, pinError }, 200, corsHeaders);
-    } catch (err) {
-      return json({ success: false, error: err.message || String(err) }, 500, corsHeaders);
-    }
+    return handleAnnounce(request, env, corsHeaders);
   },
 };
+
+async function handleAnnounce(request, env, corsHeaders) {
+  let body;
+  try {
+    body = await request.json();
+  } catch (e) {
+    return json({ success: false, error: "Ungueltiger JSON-Body." }, 400, corsHeaders);
+  }
+
+  // Der Kanal kommt aus dem Token, niemals aus dem Request. Diese Pruefung
+  // steht bewusst vor jeder anderen Verarbeitung (auch vor der draw-
+  // Validierung): ohne gueltigen Token gibt es nichts zu tun.
+  const kanal = await resolveChannelByToken(env, body.token);
+  if (!kanal) {
+    return json({
+      success: false,
+      error: "Kanal nicht verbunden. Bitte den Kanal in den Twitch-Einstellungen neu verbinden.",
+      code: "token_invalid",
+    }, 401, corsHeaders);
+  }
+
+  const geprueft = validateDraw(body.draw);
+  if (!geprueft.ok) {
+    return json({ success: false, error: geprueft.error }, 400, corsHeaders);
+  }
+
+  const nachricht = buildMessage(geprueft.items);
+  const shouldPin = body.pin === true;
+
+  try {
+    const accessToken = await getValidAccessToken(env);
+
+    const sendResult = await sendChatMessage({
+      broadcasterId: kanal.channel_id,
+      senderId: env.TWITCH_BOT_USER_ID,
+      message: nachricht,
+      clientId: env.TWITCH_CLIENT_ID,
+      accessToken,
+    });
+
+    if (!sendResult.is_sent) {
+      const grund = sendResult.drop_reason?.message
+        || "Unbekannter Grund (evtl. Bot nicht Moderator im Kanal?).";
+      return json({
+        success: false,
+        error: `Nachricht wurde von Twitch nicht gesendet: ${grund}`,
+      }, 200, corsHeaders);
+    }
+
+    let pinned = false;
+    let pinError = null;
+    if (shouldPin) {
+      try {
+        await pinChatMessage({
+          broadcasterId: kanal.channel_id,
+          moderatorId: env.TWITCH_BOT_USER_ID,
+          messageId: sendResult.message_id,
+          clientId: env.TWITCH_CLIENT_ID,
+          accessToken,
+          durationSeconds: PIN_DURATION_SECONDS,
+        });
+        pinned = true;
+      } catch (e) {
+        // Nachricht ist bereits gesendet - ein Pin-Fehler soll das Ergebnis
+        // nicht als kompletten Fehlschlag markieren. Die Detailmeldung
+        // enthaelt aber `res.text()` der Twitch-API (siehe pinChatMessage in
+        // src/twitch.js) und damit potenziell von Twitch gespiegelte
+        // Anfrageteile - dieselbe Ueberlegung wie beim Auth-Callback
+        // (src/auth.js). Deshalb landet nur eine generische Meldung beim
+        // Aufrufer, die Details gehen ins Server-Log.
+        console.error("Pin fehlgeschlagen:", e);
+        pinError = "Anpinnen fehlgeschlagen.";
+      }
+    }
+
+    return json({
+      success: true,
+      channel: kanal.channel_login,
+      message_id: sendResult.message_id,
+      pinned,
+      pinError,
+    }, 200, corsHeaders);
+  } catch (err) {
+    // Wie im Auth-Callback (src/auth.js): Fehler aus getValidAccessToken()
+    // und sendChatMessage() koennen `res.text()` einer Twitch-Fehlerantwort
+    // enthalten (siehe src/twitch.js) - die kann Teile der eigenen Anfrage
+    // spiegeln. Details deshalb nur ins Server-Log, nicht an den Aufrufer.
+    console.error("Announce fehlgeschlagen:", err);
+    return json({ success: false, error: "Nachricht konnte nicht gesendet werden." }, 500, corsHeaders);
+  }
+}
 
 function buildCorsHeaders(env) {
   // ALLOWED_ORIGIN optional als Secret/Var setzbar, um den Worker auf eine
