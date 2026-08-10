@@ -890,17 +890,6 @@ select.filter-control {
             </select>
         </div>
     </div>
-    <div class="twitch-settings-wrapper">
-        <button id="twitchSettingsToggle" class="filter-control" onclick="toggleTwitchSettingsPanel()">📡 Twitch</button>
-        <div id="twitchSettingsPanel" class="twitch-settings-panel" style="display:none;">
-            <label><input type="checkbox" id="twitchEnabled" onchange="saveTwitchSettings()"><span id="twitchEnabledLabel">Twitch settings label</span></label>
-            <input type="text" id="twitchChannel" oninput="saveTwitchSettings()" />
-            <label><input type="checkbox" id="twitchPin" onchange="saveTwitchSettings()"><span id="twitchPinLabel">Twitch pin label</span></label>
-            <input type="text" id="twitchWorkerUrl" oninput="saveTwitchSettings()" />
-            <button id="twitchTestBtn" class="filter-control" onclick="testTwitchAnnounce()">Twitch test label</button>
-            <div id="twitchStatusMsg" class="twitch-status-msg"></div>
-        </div>
-    </div>
     <div class="category-grid">
       <!-- Reihe 1 -->
       <div class="catWrapper">
@@ -961,6 +950,17 @@ select.filter-control {
     <div class="center-panel">
         <div class="button-top">
             <button id="goBtn" class="start-btn" onclick="handleGo()">GO</button>
+        </div>
+        <div class="twitch-settings-wrapper">
+            <button id="twitchSettingsToggle" class="filter-control" onclick="toggleTwitchSettingsPanel()">Twitch</button>
+            <div id="twitchSettingsPanel" class="twitch-settings-panel" style="display:none;">
+                <label><input type="checkbox" id="twitchEnabled" onchange="saveTwitchSettings()"><span id="twitchEnabledLabel">Twitch settings label</span></label>
+                <input type="text" id="twitchChannel" oninput="saveTwitchSettings()" />
+                <label><input type="checkbox" id="twitchPin" onchange="saveTwitchSettings()"><span id="twitchPinLabel">Twitch pin label</span></label>
+                <input type="text" id="twitchWorkerUrl" oninput="saveTwitchSettings()" />
+                <button id="twitchTestBtn" class="filter-control" onclick="testTwitchAnnounce()">Twitch test label</button>
+                <div id="twitchStatusMsg" class="twitch-status-msg"></div>
+            </div>
         </div>
     </div>
     <div class="right-panel">
