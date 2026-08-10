@@ -4,7 +4,7 @@ compatibility_date = "2026-08-01"
 
 # KV-Namespace fuer Bot-Access-/Refresh-Token (id nach `wrangler kv namespace create TWITCH_TOKENS` eintragen)
 kv_namespaces = [
-  { binding = "TWITCH_TOKENS", id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID" }
+  { binding = "TWITCH_TOKENS", id = "28c29b8f7bd642b3a68dbd21d0ad1095" }
 ]
 
 # Secrets NICHT hier eintragen - per `wrangler secret put <NAME>` setzen:
