@@ -75,3 +75,30 @@ export function validateDraw(draw) {
 
   return { ok: true, items };
 }
+
+const TWITCH_MAX_MESSAGE_LENGTH = 500;
+const ELLIPSIS = "\u2026";
+
+function formatVehicleName(v) {
+  return v.year ? `${v.brand} ${v.model} (${v.year})` : `${v.brand} ${v.model}`;
+}
+
+export function buildMessage(items) {
+  if (!Array.isArray(items) || items.length === 0) return "";
+
+  const teile = items.map(v => `${v.category}: ${formatVehicleName(v)}`);
+  const nachricht = `\u{1F3B2} ZENdomizer: ${teile.join(" | ")}`;
+
+  if (nachricht.length <= TWITCH_MAX_MESSAGE_LENGTH) return nachricht;
+
+  // slice() arbeitet auf UTF-16-Code-Units. Liegt der Schnitt mitten in
+  // einem Surrogatpaar (z.B. bei Emoji ausserhalb der BMP), entsteht sonst
+  // eine verwaiste (lone) Surrogat-Codeeinheit im Ergebnis. Deshalb wird
+  // die Schnittstelle um eine Position nach vorne verschoben, wenn das
+  // letzte eingeschlossene Zeichen ein High-Surrogate ist.
+  let cutIndex = TWITCH_MAX_MESSAGE_LENGTH - 1;
+  const letzteCodeUnit = nachricht.charCodeAt(cutIndex - 1);
+  if (letzteCodeUnit >= 0xD800 && letzteCodeUnit <= 0xDBFF) cutIndex -= 1;
+
+  return nachricht.slice(0, cutIndex) + ELLIPSIS;
+}
