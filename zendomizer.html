@@ -1433,7 +1433,9 @@ select.filter-control {
       title.classList.add(selectedOrder.length === 0 ? 'standby' : 'active');
     
       const categoriesToRender = [...selectedOrder.slice(0, 3)];
-        if (categoriesToRender.length === 2) {
+        if (categoriesToRender.length === 1) {
+          categoriesToRender.push(categoriesToRender[0], categoriesToRender[0]); // 🧠 Dupliziere Kategorie 2x -> Slot 2 & 3
+        } else if (categoriesToRender.length === 2) {
           categoriesToRender.push(categoriesToRender[0]); // 🧠 Dupliziere erste Kategorie als dritte
         } else {
           while (categoriesToRender.length < 3) {
@@ -1623,11 +1625,13 @@ select.filter-control {
       const resultsDiv = document.getElementById('results');
       resultsDiv.innerHTML = '';
     
-      if (selectedCategories.length < 2) {
+      if (selectedCategories.length < 1) {
         resultsDiv.innerHTML = `<p>${t("min_two_categories")}</p>`;
         return;
       }
-      if (selectedCategories.length === 2) {
+      if (selectedCategories.length === 1) {
+        selectedCategories.push(selectedCategories[0], selectedCategories[0]); // Kategorie 2x duplizieren
+      } else if (selectedCategories.length === 2) {
         selectedCategories.push(selectedCategories[0]); // Kategorie 1 duplizieren
       }
     
@@ -1731,11 +1735,13 @@ select.filter-control {
       const filters = getCurrentFilters();
       const categories = orderOverride || selectedOrder.slice(0, 3);
     
-      if (categories.length < 2) {
+      if (categories.length < 1) {
         showToast(t("min_two_categories"), "#f33");
         return;
       }
-      if (categories.length === 2) {
+      if (categories.length === 1) {
+        categories.push(categories[0], categories[0]); // Dupliziere Kategorie 2x
+      } else if (categories.length === 2) {
         categories.push(categories[0]); // Dupliziere erste Kategorie
       }
     
@@ -1786,7 +1792,7 @@ select.filter-control {
     }
 
     function handleGo() {
-      if (selectedOrder.length < 2) return;
+      if (selectedOrder.length < 1) return;
     
       const SPIN_DURATION = 1800;
       drawExecuted = true;
@@ -1799,7 +1805,9 @@ select.filter-control {
       updateSlotBoxes(); // 🟢 Slotboxen mit Fragezeichen vorbereiten
     
       const effectiveOrder = [...selectedOrder];
-      if (effectiveOrder.length === 2) {
+      if (effectiveOrder.length === 1) {
+        effectiveOrder.push(effectiveOrder[0], effectiveOrder[0]); // Kategorie 2x duplizieren -> 3x dieselbe Kat
+      } else if (effectiveOrder.length === 2) {
         effectiveOrder.push(effectiveOrder[0]); // Kategorie duplizieren
       }
     
@@ -1827,6 +1835,8 @@ select.filter-control {
     
       if (selectedOrder.length === 2) {
         showToast(t("category_repeated", { category: effectiveOrder[2] }), "#ffa500", 6000);
+      } else if (selectedOrder.length === 1) {
+        showToast(t("category_repeated_all", { category: effectiveOrder[0] }), "#ffa500", 6000);
       }
     
       setTimeout(() => {
@@ -1955,10 +1965,10 @@ select.filter-control {
       const btn = document.getElementById("goBtn");
       btn.classList.remove("inactive", "pulsing"); // 🔁 wichtig: beides entfernen
     
-      if (selectedOrder.length < 2) {
+      if (selectedOrder.length < 1) {
         btn.classList.add("inactive");
       } else {
-        btn.classList.add("pulsing"); // 🟢 aktiv, wenn 3 Kategorien gewählt
+        btn.classList.add("pulsing"); // 🟢 aktiv, wenn mind. 1 Kategorie gewählt (Rest wird ggf. dupliziert)
       }
     }
     
