@@ -591,13 +591,6 @@ select.filter-control {
   align-items: center;
   justify-content: center;
 }
-.grandrace-jet-note {
-  margin-top: 8px;
-  font-size: 13px;
-  text-align: center;
-  color: #39ff14;
-  opacity: 0.85;
-}
 .slot-warning:empty::before {
   content: none;
 }
@@ -703,7 +696,7 @@ select.filter-control {
 .slot-yellow { color: #FFD700; } /* Gelb für Street/Drift/Hypercar */
 .slot-blue   { color: #00E5FF; } /* Blau für Racing/AGP */
 .slot-orange { color: #FF9900; } /* Orange für Rally-Gruppen */
-.slot-magenta { color: #FF3377; } /* Rötliches Magenta für Monster Truck */
+.slot-magenta { color: #FF3377; } /* Rötliches Magenta für Monster Truck & Jet */
 
 .start-btn.inactive {
   color: #144914;
@@ -882,7 +875,6 @@ select.filter-control {
       <div class="results-panel">
         <h2 id="yourPickTitle" class="your-pick-title standby">Your Pick</h2>
         <div id="results"></div>
-        <div id="grandraceJetNote" class="grandrace-jet-note" style="display:none;"></div>
       </div>
       <!-- Grandrace Ticker kommt JETZT hier in die rechte Spalte -->
       <div id="grandraceTicker" class="marquee">
@@ -1164,19 +1156,13 @@ select.filter-control {
     let drawExecuted = false;
     let grandraceActive = false;
     let grandraceCategories = [];
-    let grandraceJetActive = false; // true, wenn der aktuelle Rotationsslot eine Jet-Kategorie enthaelt (kein eigener Filter, nur Hinweis)
+    // JET_VEHICLE: festes Bonusfahrzeug fuer die Jet-Kategorie in der Grandrace-Rotation
+    // (kein Eintrag in vehicles.json, kein Filter-Checkbox - siehe drawVehicleForCategory)
+    const JET_VEHICLE = { category: 'Jet', brand: 'Dassault Aviation', model: 'Alpha Jet – Red Bull Edition', year: null, country: null, era: null, bike: false, top_tier: false };
 
-    function showGrandraceJetNote(active) {
-      grandraceJetActive = active;
-      const noteEl = document.getElementById('grandraceJetNote');
-      if (!noteEl) return;
-      if (active) {
-        noteEl.innerHTML = `🛩️ ${t("grandrace_jet_hint")}`;
-        noteEl.style.display = 'flex';
-      } else {
-        noteEl.innerHTML = '';
-        noteEl.style.display = 'none';
-      }
+    function formatVehicleName(v) {
+      if (!v) return '';
+      return v.year ? `${v.brand} ${v.model} (${v.year})` : `${v.brand} ${v.model}`;
     }
     let recentDraws = {}; // 🆕 Merkt sich die letzten Fahrzeuge pro Kategorie
     let toastTimer = null;
@@ -1196,7 +1182,6 @@ select.filter-control {
         if (triggeredByClick && isMainStage) {
           showToast(t("GRcat_mainstage_manual"), "#f44336", 7000);
         }
-        showGrandraceJetNote(false);
         return;
       }
     
@@ -1218,7 +1203,6 @@ select.filter-control {
         updateSlotBoxes();
         updateResetButtonState();
         updateGoButtonState();
-        showGrandraceJetNote(false);
     
         showToast(t("GRcat_mainstage_manual"), "#f44336", 7000);
         return;
@@ -1232,7 +1216,7 @@ select.filter-control {
     
       if (!grandraceActive || isMainStage) return;
     
-      const expectedCategories = entry[1].split(" > ");
+      const expectedCategories = entry[1].split(" > "); // z.B. ["Hyper","Jet","AGP"] - Jet bleibt als Literal erhalten
       const expectedIds = expectedCategories.map(cat => ROTATION_MAP.get(cat)).filter(Boolean); // Jet hat keine Checkbox und wird hier ausgefiltert
     
       const selectedIds = Array.from(document.querySelectorAll('.catCheckbox:checked'))
@@ -1242,8 +1226,13 @@ select.filter-control {
       expectedIds.sort();
       selectedIds.sort();
     
-      if (!arraysEqual(expectedIds, selectedIds) || triggeredByClick) {
-        selectedOrder = [];
+      const hasJet = expectedCategories.includes("Jet");
+      // Bei Jet-Slots weichen expectedIds/selectedIds (nur 2 echte Checkboxen) von selectedOrder (3 inkl. Jet) ab -
+      // deshalb zusaetzlich pruefen, ob "Jet" schon korrekt in selectedOrder an seiner Position steht.
+      const jetAlreadyApplied = hasJet && selectedOrder.length === expectedCategories.length &&
+        expectedCategories.every((cat, i) => (cat === "Jet" ? selectedOrder[i] === "Jet" : true));
+    
+      if (!arraysEqual(expectedIds, selectedIds) || (hasJet && !jetAlreadyApplied) || triggeredByClick) {
         for (let cb of document.querySelectorAll('.catCheckbox')) {
           if (cb.id !== 'catGR') {
             cb.checked = false;
@@ -1252,23 +1241,49 @@ select.filter-control {
         }
     
         grandraceCategories = [];
+        const newSelectedOrder = [];
     
+        // Reihenfolge der Rotation 1:1 uebernehmen, inkl. "Jet" an seiner tatsaechlichen Position
         expectedCategories.forEach((cat) => {
+          if (cat === "Jet") {
+            newSelectedOrder.push("Jet"); // kein Checkbox-Pendant - nur virtueller Slot
+            return;
+          }
           const catBoxId = ROTATION_MAP.get(cat);
           const catCheckBox = document.getElementById(catBoxId);
           if (catCheckBox) {
             catCheckBox.checked = true;
-            handleCategoryClick(catCheckBox);
+            if (!newSelectedOrder.includes(catCheckBox.value)) newSelectedOrder.push(catCheckBox.value);
             grandraceCategories.push(catCheckBox);
           }
         });
     
+        selectedOrder = newSelectedOrder;
+        updateCheckboxBadges();
+    
+        // Alle 3 Slots sind durch Grandrace belegt (auch bei Jet) → restliche Checkboxen sperren, wie bei manueller 3er-Auswahl
+        const grid = document.querySelector('.category-grid');
+        if (grid) grid.classList.add('limit-reached');
+        document.querySelectorAll('.catCheckbox:not(:checked)').forEach(cb => {
+          if (cb.id !== 'catGR') cb.disabled = true;
+        });
+    
+        updateSlotBoxes();
+    
+        const title = document.getElementById('yourPickTitle');
+        if (selectedOrder.length > 0) {
+          title.classList.remove('standby');
+          title.classList.add('active');
+        }
+    
+        updateResetButtonState();
+        updateGoButtonState();
+    
         const currentEventName = entry[0];
         const currentCategories = entry[1].replace(/>/g, "→");
         const modifierSuffix = entry[2] ? ` ⚠️ ${entry[2]}` : "";
-        const jetSuffix = expectedCategories.includes("Jet") ? ` 🛩️ ${t("grandrace_jet_hint")}` : "";
+        const jetSuffix = hasJet ? ` 🛩️ ${t("grandrace_jet_hint")}` : "";
         showToast(`${t(triggeredByClick ? "rotation_applied_manual" : "rotation_applied_auto")}: ${currentEventName} | ${currentCategories}${modifierSuffix}${jetSuffix}`, "#39ff14", 10000);
-        showGrandraceJetNote(expectedCategories.includes("Jet"));
       }
     }
 
@@ -1280,7 +1295,8 @@ select.filter-control {
           handleCategoryClick(cb);
         }
         grandraceCategories = [];
-        showGrandraceJetNote(false);
+        selectedOrder = selectedOrder.filter(v => v !== "Jet"); // Jet hat keine Checkbox, muss hier separat entfernt werden
+        updateSlotBoxes();
     
         document.getElementById("brandSelect").value = "";
         document.getElementById("countrySelect").value = "";
@@ -1407,7 +1423,7 @@ select.filter-control {
             ['Street Tier 1', 'Street Tier 2', 'Hypercar', 'Drift'].includes(cat) ? 'slot-yellow' :
             ['Racing', 'AGP'].includes(cat) ? 'slot-blue' :
             ['Rally', 'Rally Raid', 'Motocross'].includes(cat) ? 'slot-orange' :
-            cat === 'Monster Truck' ? 'slot-magenta' :
+            ['Monster Truck', 'Jet'].includes(cat) ? 'slot-magenta' :
             '';
         }
     
@@ -1572,9 +1588,9 @@ select.filter-control {
     }
     function drawRandomVehicles() {
       const filters = getCurrentFilters();
-      const selectedCategories = Array.from(document.querySelectorAll('.catCheckbox'))
-        .filter(cb => cb.checked)
-        .map(cb => cb.value);
+      // 🛠️ Konsistenz-Fix: selectedOrder statt live Checkbox-Status verwenden -
+      // sonst fehlt hier z.B. "Jet" (hat keine Checkbox) und die Reihenfolge kann von der Klick-Reihenfolge abweichen.
+      const selectedCategories = selectedOrder.slice(0, 3);
     
       const resultsDiv = document.getElementById('results');
       resultsDiv.innerHTML = '';
@@ -1625,16 +1641,16 @@ select.filter-control {
         slot.classList.remove('slot-yellow', 'slot-blue', 'slot-orange', 'slot-magenta');
     
         const colorClass =
-          ['Street Tier 1', 'Street Tier 2', 'Hypercar', 'Drift'].includes(category) ? 'slot-yellow' :
-          ['Racing', 'AGP'].includes(category) ? 'slot-blue' :
-          ['Rally', 'Rally Raid', 'Motocross'].includes(category) ? 'slot-orange' :
-          category === 'Monster Truck' ? 'slot-magenta' :
+          ['Street Tier 1', 'Street Tier 2', 'Hypercar', 'Drift'].includes(v.category) ? 'slot-yellow' :
+          ['Racing', 'AGP'].includes(v.category) ? 'slot-blue' :
+          ['Rally', 'Rally Raid', 'Motocross'].includes(v.category) ? 'slot-orange' :
+          ['Monster Truck', 'Jet'].includes(v.category) ? 'slot-magenta' :
           '';
     
         // .slot-name gezielt füllen
         const nameDiv = slot.querySelector('.slot-name');
         if (nameDiv) {
-          nameDiv.textContent = `${v.brand} ${v.model} (${v.year})`;
+          nameDiv.textContent = formatVehicleName(v);
         }
     
         // .slot-warning nur füllen, wenn Filter ignoriert wurden
@@ -1659,12 +1675,8 @@ select.filter-control {
       let result = t("clipboard_heading");
     
       lastSelection.forEach(vehicle => {
-        result += `|| ${vehicle.category}:\n  ${vehicle.brand} ${vehicle.model} (${vehicle.year})\n\n`;
+        result += `|| ${vehicle.category}:\n  ${formatVehicleName(vehicle)}\n\n`;
       });
-    
-      if (grandraceJetActive) {
-        result += `|| Jet:\n  ${t("grandrace_jet_hint")}\n\n`;
-      }
     
       navigator.clipboard.writeText(result.trim()).then(() => {
         if (!silent) {
@@ -1724,7 +1736,7 @@ select.filter-control {
         const nameDiv = slot.querySelector('.slot-name');
         const warnDiv = slot.querySelector('.slot-warning');
     
-        nameDiv.textContent = `${v.brand} ${v.model} (${v.year})`;
+        nameDiv.textContent = formatVehicleName(v);
         warnDiv.innerHTML = v.ignoredFilters.length
           ? `${t("ignored_filters")} ${v.ignoredFilters.join(', ')}`
           : '';
@@ -1735,7 +1747,7 @@ select.filter-control {
           ['Street Tier 1', 'Street Tier 2', 'Hypercar', 'Drift'].includes(v.category) ? 'slot-yellow' :
           ['Racing', 'AGP'].includes(v.category) ? 'slot-blue' :
           ['Rally', 'Rally Raid', 'Motocross'].includes(v.category) ? 'slot-orange' :
-          v.category === 'Monster Truck' ? 'slot-magenta' : '';
+          ['Monster Truck', 'Jet'].includes(v.category) ? 'slot-magenta' : '';
     
         slot.classList.add(colorClass);
         slot.classList.add("flash");
@@ -1893,12 +1905,12 @@ select.filter-control {
         ['Street Tier 1', 'Street Tier 2', 'Hypercar', 'Drift'].includes(category) ? 'slot-yellow' :
         ['Racing', 'AGP'].includes(category) ? 'slot-blue' :
         ['Rally', 'Rally Raid', 'Motocross'].includes(category) ? 'slot-orange' :
-        category === 'Monster Truck' ? 'slot-magenta' : '';
+        ['Monster Truck', 'Jet'].includes(category) ? 'slot-magenta' : '';
       if (colorClass) box.classList.add(colorClass);
     
       // Inhalt setzen
       box.querySelector(".slot-category").textContent = category;
-      box.querySelector(".slot-name").textContent = `${vehicle.brand} ${vehicle.model} (${vehicle.year})`;
+      box.querySelector(".slot-name").textContent = formatVehicleName(vehicle);
       box.querySelector(".slot-warning").textContent =
         ignoredFilters.length ? `${t("ignored_filters")} ${ignoredFilters.join(", ")}` : "";
     
@@ -1958,7 +1970,7 @@ select.filter-control {
       window.drawLog.push({
         durchgang: manualLabel,
         category: category,
-        selected: `${vehicle.brand} ${vehicle.model} (${vehicle.year})`,
+        selected: formatVehicleName(vehicle),
         appliedFilters: "-", // Optional: echte Filter auslesen
         ignoredFilters: ignoredFilters.length
           ? "❗ " + ignoredFilters.join(', ')
@@ -1975,7 +1987,7 @@ select.filter-control {
       const nameDiv = slot.querySelector('.slot-name');
       const warnDiv = slot.querySelector('.slot-warning');
     
-      nameDiv.textContent = `${vehicle.brand} ${vehicle.model} (${vehicle.year})`;
+      nameDiv.textContent = formatVehicleName(vehicle);
       warnDiv.innerHTML = ignoredFilters.length
         ? `${t("ignored_filters")} ${ignoredFilters.join(', ')}`
         : '';
@@ -1986,7 +1998,7 @@ select.filter-control {
         ['Street Tier 1', 'Street Tier 2', 'Hypercar', 'Drift'].includes(category) ? 'slot-yellow' :
         ['Racing', 'AGP'].includes(category) ? 'slot-blue' :
         ['Rally', 'Rally Raid', 'Motocross'].includes(category) ? 'slot-orange' :
-        category === 'Monster Truck' ? 'slot-magenta' :
+        ['Monster Truck', 'Jet'].includes(category) ? 'slot-magenta' :
         '';
       if (colorClass) {
         slot.classList.add(colorClass);
@@ -2017,6 +2029,11 @@ select.filter-control {
     }
 
     function drawVehicleForCategory(category, filters, bikeFilterMode) {
+      // 🛩️ Jet ist ein festes Bonusfahrzeug (Grandrace) ohne Eintrag in vehicles.json und ohne Filter-Checkbox
+      if (category === "Jet") {
+        return { vehicle: { ...JET_VEHICLE }, ignoredFilters: [] };
+      }
+    
       let ignored = [];
     
       // 🔎 1. Grundfilter
@@ -2165,7 +2182,7 @@ select.filter-control {
      window.drawLog.push({
       durchgang: window.drawRound,
       category: category,
-      selected: `${vehicle.brand} ${vehicle.model} (${vehicle.year})`,
+      selected: formatVehicleName(vehicle),
       appliedFilters: applied.length ? applied.join(", ") : "-",
       ignoredFilters: ignored.length ? "❗ " + ignored.join(" | ") : "✅ none",
       blockedCount: blockedCount,
