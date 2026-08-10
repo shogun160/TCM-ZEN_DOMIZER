@@ -1347,7 +1347,15 @@ select.filter-control {
       if (!grandraceActive || isMainStage) return;
     
       const expectedCategories = entry[1].split(" > "); // z.B. ["Hyper","Jet","AGP"] - Jet bleibt als Literal erhalten
-      const expectedIds = expectedCategories.map(cat => ROTATION_MAP.get(cat)).filter(Boolean); // Jet hat keine Checkbox und wird hier ausgefiltert
+      // 🛠️ Bugfix: einige Rotationen haben doppelte/identische Kategorien in allen 3 Slots
+      // (z.B. "ST1 > ST1 > ST1") - die bilden alle auf DIESELBE Checkbox ab. Ohne Dedup hatte
+      // expectedIds hier immer 3 Eintraege, waehrend selectedIds (echte angehakte Checkboxen)
+      // nur 1 hat - die Laengen stimmten nie ueberein, wodurch der alle-1000ms laufende
+      // Grandrace-Check (siehe setInterval unten) den "Mismatch"-Zweig IMMER ausgeloest und
+      // via updateSlotBoxes() die gerade gezogenen Ergebnisboxen fortlaufend wieder geleert hat -
+      // sichtbar als "Fahrzeuge kurz angezeigt, dann leer" (lastSelection blieb dabei korrekt,
+      // daher stimmte die Zwischenablage trotzdem).
+      const expectedIds = [...new Set(expectedCategories.map(cat => ROTATION_MAP.get(cat)).filter(Boolean))]; // Jet hat keine Checkbox und wird hier ausgefiltert
     
       const selectedIds = Array.from(document.querySelectorAll('.catCheckbox:checked'))
         .map(cb => cb.id)
