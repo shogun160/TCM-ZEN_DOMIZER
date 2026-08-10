@@ -38,7 +38,7 @@ And of course a special thank also to the [motorfe.st project](https://github.co
   - `Cntrl + C` – copy draw to clipboard again
 - 📋 **automatic copy to clipboard** - text output per category
 - 🇩🇪/🇬🇧 **multilanguage support** - german/english
-- 📲 **Work in Progress: support for mobile phones** ⚠️ *it's working but CSS is broken at the moment*
+- 📲 **support for mobile phones**
 
 ---
 
