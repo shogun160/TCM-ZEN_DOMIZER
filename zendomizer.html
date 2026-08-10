@@ -348,8 +348,14 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      width: 100%;
-      max-width: 180px; /* vorher: 180px fest - jetzt schrumpfbar; Größe wie Reset-Kachel */
+      width: 180px;      /* fest wie vorher: bei width:100% wuerde der Button in seinem
+                             flex-Container (.button-top, sizing:auto) auf 0/min-content
+                             kollabieren, sobald der Container selbst nicht "stretch" ist -
+                             genau das Problem, das auf Mobile zu einem sehr schmalen
+                             GO-Button gefuehrt hat. max-width:90vw ist nur ein Schutz
+                             gegen extrem schmale Screens (<200px), aendert an normalen
+                             Groessen nichts. */
+      max-width: 90vw;
       height: 80px;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       box-sizing: border-box;
