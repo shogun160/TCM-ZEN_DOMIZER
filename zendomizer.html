@@ -591,6 +591,13 @@ select.filter-control {
   align-items: center;
   justify-content: center;
 }
+.grandrace-jet-note {
+  margin-top: 8px;
+  font-size: 13px;
+  text-align: center;
+  color: #39ff14;
+  opacity: 0.85;
+}
 .slot-warning:empty::before {
   content: none;
 }
@@ -875,6 +882,7 @@ select.filter-control {
       <div class="results-panel">
         <h2 id="yourPickTitle" class="your-pick-title standby">Your Pick</h2>
         <div id="results"></div>
+        <div id="grandraceJetNote" class="grandrace-jet-note" style="display:none;"></div>
       </div>
       <!-- Grandrace Ticker kommt JETZT hier in die rechte Spalte -->
       <div id="grandraceTicker" class="marquee">
@@ -1057,31 +1065,53 @@ select.filter-control {
     /*
      * BEGIN: Borrowed from https://github.com/calamity-inc/motorfe.st/
      */
-    const ROTATION_START = 1751580000;
+    const ROTATION_START = 1786353600; // synced from tunerfest.app/grand-race, 2026-08-10
     const ROTATION = [
-        [ "Ma'akua Black Beach", "Drift > Racing > ST2" ],
-        [ "Kahakuloa", "Hyper > AGP > RR", "No Collision" ],
-        [ "Haleiwa", "ST2 > Hyper > Racing" ],
-        [ "Kealaloloa", "ST1 > Motocross > Hyper" ],
-        [ "Kaena Point", "Racing > ST1 > Hyper", "Special Selection" ],
-        [ "Lahaina", "Hyper > Monster > Rally" ],
-        [ "Kaneohe", "ST2 > Racing > AGP" ],
-        [ "Kula", "ST1 > RR > Hyper", "No Collision" ],
-        [ "Waikiki", "Racing > AGP > ST2" ],
-        [ "Diamond Head", "Hyper > Rally > Drift" ],
-        [ "Manua Pele", "ST2 > Hyper > Racing", "Special Selection" ],
-        [ "Wailea", "Racing > RR > Hyper" ],
-        [ "Nuuahu - Punchbowl", "ST1 > Hyper > AGP" ],
-        [ "Hana", "ST2 > Racing > Motocross", "No Collision" ],
-        [ "Kalaeloa", "Hyper > AGP > Racing" ],
-        [ "Lanaina", "Monster > ST2 > Hyper" ],
-        [ "Peacock Flats", "ST1 > Hyper > Racing", "Special Selection" ],
-        [ "Halekala", "AGP > Hyper > Rally" ],
-        [ "The Barrens", "ST2 > Drift > AGP" ],
-        [ "Hana", "Rally Raid > Hyper > Rally", "No Collision" ],
-        [ "Pearl Harbor", "Racing > ST2" ],
-        [ "Wahiawa Fields", "Hyper > ST2 > Racing", "Special Selection" ],
-        [ "Kahakuloa", "AGP > Rally > Hyper" ]
+        [ 'Mauna Pele', "ST2 > AGP > Racing", "No Collision" ],
+        [ 'Wailea', "Racing > RR > Hyper" ],
+        [ 'Nuuanu - Punchbowl', "ST1 > Hyper > AGP", "Special Selection" ],
+        [ 'Hana', "ST2 > Racing > Motocross" ],
+        [ 'Kalaeloa', "Hyper > AGP > Racing", "Special Weather" ],
+        [ 'Lahaina', "Monster > ST2 > Hyper" ],
+        [ 'Peacock Flats', "ST1 > AGP > Racing", "No Collision" ],
+        [ 'Haleakala', "AGP > Drift > Rally" ],
+        [ 'The Barrens', "ST2 > Racing > Hyper", "Special Selection" ],
+        [ 'Hana', "RR > Hyper > Rally" ],
+        [ 'Pearl Harbor', "Racing > ST2 > Racing", "Pro Racing" ],
+        [ 'Wahiawa Fields', "ST1 > ST2 > RR" ],
+        [ 'Kahakuloa', "Racing > AGP > Hyper", "No Collision" ],
+        [ 'Kaho\'olawe', "Hyper > Hyper > Hyper" ],
+        [ 'Lahaina', "ST1 > ST2 > Racing", "Special Selection" ],
+        [ 'Ma\'akua Black Beach', "AGP > RR > Hyper" ],
+        [ 'Kula', "Hyper > Jet > AGP", "Air Only" ],
+        [ 'Kahuku', "ST2 > Monster > Hyper" ],
+        [ 'Kaneohe', "ST1 > Hyper > Racing", "No Collision" ],
+        [ 'Kaena Point', "ST2 > RR > Motocross" ],
+        [ 'Paia', "ST1 > Drift > Hyper", "Special Selection" ],
+        [ 'Waikiki', "AGP > Racing > Rally" ],
+        [ 'Diamond Head', "Hyper > ST2 > Racing", "Special Selection" ],
+        [ 'Mauna Pele', "Motocross > Hyper > AGP" ],
+        [ 'Haleakala', "ST1 > Racing > Hyper", "No Collision" ],
+        [ 'Nuuanu - Punchbowl', "RR > RR > RR", "Special Selection" ],
+        [ 'Wailea', "Hyper > ST2 > Racing", "Special Weather" ],
+        [ 'Kalaeloa', "RR > Rally > ST2" ],
+        [ 'Hana', "AGP > Racing > Hyper", "Pro Racing" ],
+        [ 'Peacock Flats', "ST2 > RR > Racing" ],
+        [ 'Kaneohe', "RR > Hyper > Drift", "No Collision" ],
+        [ 'Kula', "ST2 > Racing > Hyper" ],
+        [ 'Nuuanu - Punchbowl', "Racing > Jet > ST2", "Air Only" ],
+        [ 'Wahiawa Fields', "ST1 > ST1 > ST1", "Special Selection" ],
+        [ 'Kahakuloa', "AGP > Rally > Hyper" ],
+        [ 'Ma\'akua Black Beach', "Hyper > Racing > ST2", "Special Selection" ],
+        [ 'Kahakuloa', "Drift > AGP > RR" ],
+        [ 'Haleiwa', "ST2 > Hyper > Racing", "Pro Racing" ],
+        [ 'Kealaloloa', "ST1 > Motocross > Hyper" ],
+        [ 'Kaena Point', "Racing > ST2 > AGP", "No Collision" ],
+        [ 'Lahaina', "Hyper > Monster > Rally" ],
+        [ 'Kaneohe', "ST1 > Hyper > ST2", "Special Selection" ],
+        [ 'Kula', "ST1 > RR > Hyper" ],
+        [ 'Nuuanu - Punchbowl', "Racing > Jet > ST2", "Air Only" ],
+        [ 'Diamond Head', "Hyper > Rally > Drift" ]
     ];
     const EVENT_DURATION = 10 * 60;
     const ROTATION_DURATION = ROTATION.length * EVENT_DURATION;
@@ -1134,6 +1164,20 @@ select.filter-control {
     let drawExecuted = false;
     let grandraceActive = false;
     let grandraceCategories = [];
+    let grandraceJetActive = false; // true, wenn der aktuelle Rotationsslot eine Jet-Kategorie enthaelt (kein eigener Filter, nur Hinweis)
+
+    function showGrandraceJetNote(active) {
+      grandraceJetActive = active;
+      const noteEl = document.getElementById('grandraceJetNote');
+      if (!noteEl) return;
+      if (active) {
+        noteEl.innerHTML = `🛩️ ${t("grandrace_jet_hint")}`;
+        noteEl.style.display = 'flex';
+      } else {
+        noteEl.innerHTML = '';
+        noteEl.style.display = 'none';
+      }
+    }
     let recentDraws = {}; // 🆕 Merkt sich die letzten Fahrzeuge pro Kategorie
     let toastTimer = null;
     let previousMainStage = false;
@@ -1147,6 +1191,7 @@ select.filter-control {
         if (triggeredByClick && isMainStage) {
         showToast(t("GRcat_mainstage_manual"), "#f44336", 7000);
       }
+      showGrandraceJetNote(false);
       return;
     }
     
@@ -1170,6 +1215,7 @@ select.filter-control {
         updateSlotBoxes();
         updateResetButtonState();
         updateGoButtonState();
+        showGrandraceJetNote(false);
     
         showToast(t("GRcat_mainstage_manual"), "#f44336", 7000);
         return;
@@ -1184,7 +1230,7 @@ select.filter-control {
       if (!grandraceActive || isMainStage) return;
     
       const expectedCategories = entry[1].split(" > ");
-      const expectedIds = expectedCategories.map(cat => ROTATION_MAP.get(cat));
+      const expectedIds = expectedCategories.map(cat => ROTATION_MAP.get(cat)).filter(Boolean); // Jet hat keine Checkbox und wird hier ausgefiltert
     
       const selectedIds = Array.from(document.querySelectorAll('.catCheckbox:checked'))
         .map(cb => cb.id)
@@ -1216,7 +1262,10 @@ select.filter-control {
     
         const currentEventName = entry[0];
         const currentCategories = entry[1].replace(/>/g, "→");
-        showToast(`${t(triggeredByClick ? "rotation_applied_manual" : "rotation_applied_auto")}: ${currentEventName} | ${currentCategories}`, "#39ff14", 10000);
+        const modifierSuffix = entry[2] ? ` ⚠️ ${entry[2]}` : "";
+        const jetSuffix = expectedCategories.includes("Jet") ? ` 🛩️ ${t("grandrace_jet_hint")}` : "";
+        showToast(`${t(triggeredByClick ? "rotation_applied_manual" : "rotation_applied_auto")}: ${currentEventName} | ${currentCategories}${modifierSuffix}${jetSuffix}`, "#39ff14", 10000);
+        showGrandraceJetNote(expectedCategories.includes("Jet"));
       }
     }
 
@@ -1228,6 +1277,7 @@ select.filter-control {
           handleCategoryClick(cb);
         }
         grandraceCategories = [];
+        showGrandraceJetNote(false);
     
         document.getElementById("brandSelect").value = "";
         document.getElementById("countrySelect").value = "";
@@ -1608,6 +1658,10 @@ select.filter-control {
       lastSelection.forEach(vehicle => {
         result += `|| ${vehicle.category}:\n  ${vehicle.brand} ${vehicle.model} (${vehicle.year})\n\n`;
       });
+    
+      if (grandraceJetActive) {
+        result += `|| Jet:\n  ${t("grandrace_jet_hint")}\n\n`;
+      }
     
       navigator.clipboard.writeText(result.trim()).then(() => {
         if (!silent) {
@@ -2123,10 +2177,13 @@ select.filter-control {
       const tickerContent = document.getElementById('grandraceContent');
       if (!tickerContent) return;
       
-      const currentEvent = ROTATION[getCurrentEventIndex()][0];
+      const entry = ROTATION[getCurrentEventIndex()];
+      const currentEvent = entry[0];
+      const currentModifier = entry[2] || null;
       
       const spacer = '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;';
-      const message = `🏁 Ready for <strong class="pulse-glow">${currentEvent}</strong>? Let's race! 🏁` + (isGrandRaceDay() ? " It's modificator day 🏁" :
+      const modifierPart = currentModifier ? ` &nbsp;⚠️ <strong>${currentModifier}</strong>` : "";
+      const message = `🏁 Ready for <strong class="pulse-glow">${currentEvent}</strong>? Let's race! 🏁${modifierPart}` + (isGrandRaceDay() ? " It's modificator day 🏁" :
           "");
       
       // Mehrfach Wiederholen, damit der Lauftext lang genug wird
