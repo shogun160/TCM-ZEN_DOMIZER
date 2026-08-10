@@ -136,6 +136,32 @@ CORS-Header.
 ausschließlich beim Streamer. Wer später KV-Inhalte einsehen kann, kann daraus
 keine gültigen Tokens rekonstruieren.
 
+**`channel:<login>` ist die alleinige Wahrheitsquelle.** Ein
+`token:<hash>`-Eintrag gilt nur, wenn der aktuelle Kanal-Zeiger auch wirklich
+auf ihn zeigt — `resolveChannelByToken()` prüft das bei jedem Lookup gegen.
+Grund: Cloudflare KV ist eventual consistent, auch beim Löschen. Hinge die
+Gültigkeit allein daran, dass der alte Eintrag gelöscht wurde, könnte ein
+überholter Token die Erneuerung überleben und mangels Zeiger dauerhaft
+unwiderrufbar bleiben. Mit der Gegenprüfung ist ein verwaister Eintrag
+wirkungslos, und `wrangler kv key delete channel:<login>` entzieht einem
+Kanal vollständig die Berechtigung.
+
+Beim Ausstellen gilt deshalb diese Reihenfolge: erst `token:<hash>` schreiben,
+dann `channel:<login>` umbiegen (der Commit-Punkt), erst danach den alten
+Eintrag löschen. Bricht der Vorgang vorher ab, bleibt der alte Token gültig —
+besser, als den Kanal ohne funktionierenden Token zurückzulassen.
+
+`saveChannelToken()` validiert den Login gegen `/^[A-Za-z0-9_]{1,25}$/` **vor**
+dem Kleinschreiben. Umgekehrt wäre die Prüfung wirkungslos: `"K"`
+(U+212A KELVIN SIGN) wird von `toLowerCase()` zu ASCII `"k"` und wäre danach
+vom echten Kanal `k` nicht mehr zu unterscheiden — er könnte dessen
+Kanal-Zeiger kapern.
+
+`consumeState()` kann Einmaligkeit aus demselben Konsistenzgrund nicht
+garantieren: Ein Replay innerhalb des Propagationsfensters kann durchgehen.
+Der State-Parameter ist eine Abschwächung gegen versehentliche
+Doppelverwendung, keine harte Zusage — dafür bräuchte es ein Durable Object.
+
 Token-Erzeugung: 32 Byte aus `crypto.getRandomValues()`, base64url-kodiert
 (43 Zeichen). Beides ist in der Workers-Runtime nativ verfügbar.
 
