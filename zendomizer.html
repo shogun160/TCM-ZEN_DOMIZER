@@ -2259,9 +2259,14 @@ select.filter-control {
       const currentModifier = entry[2] || null;
       
       const spacer = '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;';
-      const modifierPart = currentModifier ? ` &nbsp;⚠️ <strong>${currentModifier}</strong> ⚠️` : "";
-      const message = `🏁 Ready for <strong class="pulse-glow">${currentEvent}</strong>? Let's race! 🏁${modifierPart}` + (isGrandRaceDay() ? " It's modificator day 🏁" :
-          "");
+
+      // Route und Modifier als getrennte Segmente, ueber denselben spacer verbunden
+      // -> gleichmaessiger Abstand Route<->Modifier<->Route (vorher: kleiner " &nbsp;"
+      // Abstand vor dem Modifier, aber grosser spacer danach - ungleichmaessig)
+      const routePart = `🏁 Ready for <strong class="pulse-glow">${currentEvent}</strong>? Let's race! 🏁` + (isGrandRaceDay() ? " It's modificator day 🏁" : "");
+      const modifierPart = currentModifier ? `⚠️ <strong>${currentModifier}</strong> ⚠️` : "";
+      const segments = modifierPart ? [routePart, modifierPart] : [routePart];
+      const message = segments.join(spacer);
       
       // Mehrfach Wiederholen, damit der Lauftext lang genug wird
       tickerContent.innerHTML = (message + spacer).repeat(8);
