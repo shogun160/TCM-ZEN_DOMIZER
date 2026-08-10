@@ -3143,7 +3143,17 @@
     "category": "AGP",
     "bike": false,
     "brand": "Ivory-Tower",
-    "model": " IVT AGP R-07",
+    "model": "IVT AGP R-07",
+    "year": 2023,
+    "country": "france",
+    "era": "modern",
+    "top_tier": true
+  },
+  {
+    "category": "AGP",
+    "bike": false,
+    "brand": "Ivory-Tower",
+    "model": "IVT AGP R-07 Explorer Ed.",
     "year": 2023,
     "country": "france",
     "era": "modern",
