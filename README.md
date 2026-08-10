@@ -11,7 +11,7 @@ Thanks to [@wbcolon](https://github.com/wbcolon) for integrating the Grandrace r
 And of course a special thank also to the [motorfe.st project](https://github.com/calamity-inc/motorfe.st/) for the rotation logic itself.
 
 **Version:** v2.7
-**Carlist:** Season 8 – 07.01.2026
+**Carlist:** Season 10 – 05.10.2026
 
 👉 [Twitch](https://www.twitch.tv/xthepapapyr0) & [Discord](https://discord.gg/mJKXNPTG).
 
