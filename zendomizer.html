@@ -785,10 +785,14 @@ select.filter-control {
 
 #wheelOverlay {
   position: absolute;
-  top: 12.36%;       /* vorher: 89px fest - jetzt relativ zu #machineLayer (89/720), skaliert mit max-width: 90vw mit */
+  top: 0;
+  margin-top: 12.36%; /* vorher: 89px fest (89/720). WICHTIG: margin-top-% bezieht sich (anders als top-%) laut
+                          CSS-Spec immer auf die BREITE des containing blocks (#machineLayer), nicht auf dessen
+                          Hoehe. Damit skaliert der Versatz garantiert korrekt mit der Breite - unabhaengig vom
+                          Seitenverhaeltnis des Hintergrundbilds. */
   left: 50%;
   transform: translateX(-50%);
-  width: 60%;         /* vorher: 432px fest (432/720 = 60%) */
+  width: 60%;          /* vorher: 432px fest (432/720 = 60%), % bezieht sich immer auf die Breite - unkritisch */
   aspect-ratio: 1 / 1; /* Rad ist quadratisch, ersetzt die feste height: 432px */
   z-index: 0;
   pointer-events: none;
