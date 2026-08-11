@@ -1767,13 +1767,22 @@ select.filter-control {
         .map(v => ({ category: v.category, brand: v.brand, model: v.model, year: v.year }));
     }
 
-    async function sendTwitchAnnouncement(draw) {
+    // `options.type === "connected"` fordert beim Worker die feste
+    // Bestaetigungsnachricht an (siehe worker.js, buildConnectedMessage() in
+    // src/draw.js) - der Text selbst wird NICHT mitgeschickt, nur die
+    // Anforderung. `draw` wird in diesem Fall ignoriert. Eine Testnachricht
+    // wird außerdem nie angepinnt, auch wenn die Pin-Checkbox aktiv ist -
+    // ein 20-minuetig angepinnter Test waere im Chat nur stoerend.
+    async function sendTwitchAnnouncement(draw, options = {}) {
+      const type = options.type || null;
+      const isConnectedCheck = type === "connected";
+
       const enabled = localStorage.getItem("zendomizerTwitchEnabled") === "true";
       if (!enabled) return;
 
       const token = (localStorage.getItem("zendomizerTwitchToken") || "").trim();
       const workerUrl = (localStorage.getItem("zendomizerTwitchWorkerUrl") || DEFAULT_TWITCH_WORKER_URL || "").trim();
-      const pin = localStorage.getItem("zendomizerTwitchPin") === "true";
+      const pin = isConnectedCheck ? false : localStorage.getItem("zendomizerTwitchPin") === "true";
 
       const statusEl = document.getElementById("twitchStatusMsg");
 
@@ -1784,13 +1793,15 @@ select.filter-control {
         }
         return;
       }
-      if (!draw || draw.length === 0) return;
+      if (!isConnectedCheck && (!draw || draw.length === 0)) return;
+
+      const body = isConnectedCheck ? { token, type, pin } : { token, draw, pin };
 
       try {
         const res = await fetch(workerUrl.replace(/\/+$/, "") + "/announce", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ token, draw, pin }),
+          body: JSON.stringify(body),
         });
         const data = await res.json().catch(() => ({}));
 
@@ -1819,9 +1830,10 @@ select.filter-control {
     }
 
     function testTwitchAnnounce() {
-      sendTwitchAnnouncement([
-        { category: "Test", brand: "ZENdomizer", model: "Testfahrzeug", year: new Date().getFullYear() },
-      ]);
+      // Kein erfundenes Test-Fahrzeug mehr: der Worker postet stattdessen
+      // seine feste Bestaetigungsnachricht ("ZENdomizer connected. Let's
+      // race."). `draw` wird dafuer nicht benoetigt.
+      sendTwitchAnnouncement(null, { type: "connected" });
     }
 
     function toggleBikeFilter() {

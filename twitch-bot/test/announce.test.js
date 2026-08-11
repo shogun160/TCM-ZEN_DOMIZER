@@ -200,3 +200,67 @@ describe("POST /announce", () => {
     expect(payload.pinError).not.toMatch(/interner Pin-Fehlertext/);
   });
 });
+
+describe("POST /announce mit type=connected", () => {
+  // Der Bestaetigungstext ist im Worker fest verdrahtet (siehe src/draw.js,
+  // buildConnectedMessage()). Das Frontend darf ihn nicht mitschicken, sonst
+  // waere die Freitext-Sperre wieder offen - genau das prueft dieser Block.
+  it("postet die feste Bestaetigungsnachricht mit gueltigem Token", async () => {
+    const e = testEnv();
+    await botTokenSetzen(e);
+    const token = await saveChannelToken(e, { channelLogin: "kanal_fuenf", channelId: "555" });
+
+    let gesendetesBody = null;
+    fetchMock.get("https://api.twitch.tv")
+      .intercept({ path: "/helix/chat/messages", method: "POST" })
+      .reply(200, (opts) => {
+        gesendetesBody = JSON.parse(opts.body);
+        return { data: [{ is_sent: true, message_id: "msg-connected" }] };
+      });
+
+    const antwort = await worker.fetch(anfrage({ token, type: "connected" }), e);
+
+    expect(antwort.status).toBe(200);
+    expect((await antwort.json()).success).toBe(true);
+    expect(gesendetesBody.broadcaster_id).toBe("555");
+    expect(gesendetesBody.message).toBe("ZENdomizer connected. Let's race.");
+  });
+
+  it("lehnt type=connected ohne Token mit 401 ab - die Token-Pruefung kommt vor allem anderen", async () => {
+    const antwort = await worker.fetch(anfrage({ type: "connected" }), testEnv());
+    expect(antwort.status).toBe(401);
+  });
+
+  it("ignoriert ein mitgeschicktes draw- und message-Feld bei type=connected", async () => {
+    const e = testEnv();
+    await botTokenSetzen(e);
+    const token = await saveChannelToken(e, { channelLogin: "kanal_sechs", channelId: "666" });
+
+    let gesendetesBody = null;
+    fetchMock.get("https://api.twitch.tv")
+      .intercept({ path: "/helix/chat/messages", method: "POST" })
+      .reply(200, (opts) => {
+        gesendetesBody = JSON.parse(opts.body);
+        return { data: [{ is_sent: true, message_id: "msg-connected-2" }] };
+      });
+
+    await worker.fetch(anfrage({
+      token,
+      type: "connected",
+      draw: DRAW,
+      message: "eingeschleuster Freitext mit http://boese-seite.example",
+    }), e);
+
+    expect(gesendetesBody.message).toBe("ZENdomizer connected. Let's race.");
+  });
+
+  it("lehnt einen unbekannten type-Wert mit 400 ab, statt still auf den Ziehungspfad durchzufallen", async () => {
+    const e = testEnv();
+    const token = await saveChannelToken(e, { channelLogin: "kanal_sieben", channelId: "777" });
+
+    const antwort = await worker.fetch(anfrage({ token, type: "irgendwas", draw: DRAW }), e);
+
+    expect(antwort.status).toBe(400);
+    expect((await antwort.json()).success).toBe(false);
+  });
+});

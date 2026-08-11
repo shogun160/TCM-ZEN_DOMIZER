@@ -25,7 +25,7 @@
 import { getValidAccessToken, sendChatMessage, pinChatMessage } from "./src/twitch.js";
 import { handleAuthStart, handleAuthCallback } from "./src/auth.js";
 import { resolveChannelByToken } from "./src/tokens.js";
-import { validateDraw, buildMessage } from "./src/draw.js";
+import { validateDraw, buildMessage, buildConnectedMessage } from "./src/draw.js";
 
 const PIN_DURATION_SECONDS = 1200; // 20 Minuten - Twitch-Maximum
 
@@ -101,12 +101,28 @@ async function handleAnnounce(request, env, corsHeaders) {
     }, 401, corsHeaders);
   }
 
-  const geprueft = validateDraw(body.draw);
-  if (!geprueft.ok) {
-    return json({ success: false, error: geprueft.error }, 400, corsHeaders);
+  // Der "connected"-Pfad postet ausschliesslich die feste, im Worker
+  // verdrahtete Bestaetigungsnachricht (buildConnectedMessage() in
+  // src/draw.js) - ein mitgeschicktes draw oder message wird nicht
+  // ausgewertet. Ein unbekannter type-Wert wird bewusst mit 400
+  // abgelehnt statt still auf den Ziehungspfad durchzufallen: das haelt
+  // den Vertrag der API eindeutig (jeder Aufrufer weiss sofort, ob sein
+  // type unterstuetzt wird) und verhindert, dass ein Tippfehler im
+  // Frontend unbemerkt eine Ziehungsnachricht statt der erwarteten
+  // Bestaetigung postet.
+  let nachricht;
+  if (body.type === "connected") {
+    nachricht = buildConnectedMessage();
+  } else if (body.type !== undefined) {
+    return json({ success: false, error: `Unbekannter Wert fuer 'type': ${JSON.stringify(body.type)}.` }, 400, corsHeaders);
+  } else {
+    const geprueft = validateDraw(body.draw);
+    if (!geprueft.ok) {
+      return json({ success: false, error: geprueft.error }, 400, corsHeaders);
+    }
+    nachricht = buildMessage(geprueft.items);
   }
 
-  const nachricht = buildMessage(geprueft.items);
   const shouldPin = body.pin === true;
 
   try {

@@ -79,8 +79,32 @@ export function validateDraw(draw) {
 const TWITCH_MAX_MESSAGE_LENGTH = 500;
 const ELLIPSIS = "\u2026";
 
+// Feste Bestaetigungsnachricht fuer den "Verbindung testen"-Knopf im
+// Frontend (type: "connected" in /announce). Sie lebt bewusst hier, direkt
+// neben dem Ziehungs-Nachrichtentext von buildMessage() - beides sind feste,
+// vom Worker kontrollierte Chat-Texte, ueber die kein Freitext eingeschleust
+// werden kann. Der Apostroph ist absichtlich ein normales ASCII-Apostroph.
+const CONNECTED_MESSAGE = "ZENdomizer connected. Let's race.";
+
 function formatVehicleName(v) {
   return v.year ? `${v.brand} ${v.model} (${v.year})` : `${v.brand} ${v.model}`;
+}
+
+// slice() arbeitet auf UTF-16-Code-Units. Liegt der Schnitt mitten in einem
+// Surrogatpaar (z.B. bei Emoji ausserhalb der BMP), entsteht sonst eine
+// verwaiste (lone) Surrogat-Codeeinheit im Ergebnis. Deshalb wird die
+// Schnittstelle um eine Position nach vorne verschoben, wenn das letzte
+// eingeschlossene Zeichen ein High-Surrogate ist. Gilt fuer jede an Twitch
+// gesendete Nachricht einheitlich - auch fuer die kurze Bestaetigungs-
+// nachricht, auch wenn sie das Limit in der Praxis nie erreicht.
+function truncateForTwitch(nachricht) {
+  if (nachricht.length <= TWITCH_MAX_MESSAGE_LENGTH) return nachricht;
+
+  let cutIndex = TWITCH_MAX_MESSAGE_LENGTH - 1;
+  const letzteCodeUnit = nachricht.charCodeAt(cutIndex - 1);
+  if (letzteCodeUnit >= 0xD800 && letzteCodeUnit <= 0xDBFF) cutIndex -= 1;
+
+  return nachricht.slice(0, cutIndex) + ELLIPSIS;
 }
 
 export function buildMessage(items) {
@@ -89,16 +113,9 @@ export function buildMessage(items) {
   const teile = items.map(v => `${v.category}: ${formatVehicleName(v)}`);
   const nachricht = `\u{1F3B2} ZENdomizer: ${teile.join(" | ")}`;
 
-  if (nachricht.length <= TWITCH_MAX_MESSAGE_LENGTH) return nachricht;
+  return truncateForTwitch(nachricht);
+}
 
-  // slice() arbeitet auf UTF-16-Code-Units. Liegt der Schnitt mitten in
-  // einem Surrogatpaar (z.B. bei Emoji ausserhalb der BMP), entsteht sonst
-  // eine verwaiste (lone) Surrogat-Codeeinheit im Ergebnis. Deshalb wird
-  // die Schnittstelle um eine Position nach vorne verschoben, wenn das
-  // letzte eingeschlossene Zeichen ein High-Surrogate ist.
-  let cutIndex = TWITCH_MAX_MESSAGE_LENGTH - 1;
-  const letzteCodeUnit = nachricht.charCodeAt(cutIndex - 1);
-  if (letzteCodeUnit >= 0xD800 && letzteCodeUnit <= 0xDBFF) cutIndex -= 1;
-
-  return nachricht.slice(0, cutIndex) + ELLIPSIS;
+export function buildConnectedMessage() {
+  return truncateForTwitch(CONNECTED_MESSAGE);
 }
