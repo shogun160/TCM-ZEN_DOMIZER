@@ -120,7 +120,9 @@ async function handleAnnounce(request, env, corsHeaders) {
     if (!geprueft.ok) {
       return json({ success: false, error: geprueft.error }, 400, corsHeaders);
     }
-    nachricht = buildMessage(geprueft.items);
+    // body.modifier ist ein Schluessel aus einer festen Liste, kein Text - ein
+    // unbekannter Wert wird in buildMessage() still ignoriert (siehe MODIFIERS).
+    nachricht = buildMessage(geprueft.items, body.modifier);
   }
 
   const shouldPin = body.pin === true;

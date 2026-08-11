@@ -249,3 +249,59 @@ describe("buildMessage", () => {
     expect(nachricht).not.toMatch(/(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/);
   });
 });
+
+// ---------------------------------------------------------------------------
+// Grand-Race-Modifikator. Der Client schickt nur einen Schluessel, Text und Icon
+// setzt der Worker - ueber die Twitch-Schnittstelle laeuft weiterhin kein Freitext.
+// ---------------------------------------------------------------------------
+describe("buildMessage: Grand-Race-Modifikator", () => {
+  const ziehung = [{ category: "AGP", brand: "Ivory-Tower", model: "IVT AGP R-07", year: 2023 }];
+
+  it("stellt den Modifikator mit Icon vor die Fahrzeuge", () => {
+    const nachricht = buildMessage(ziehung, "no_collision");
+    expect(nachricht).toBe("\u{1F3B2} ZENdomizer - No Collision \u{1F47B}: ➊ AGP: Ivory-Tower IVT AGP R-07 (2023)");
+  });
+
+  it("kennt alle fuenf Modifikatoren der Rotation", () => {
+    const erwartet = {
+      no_collision: "No Collision \u{1F47B}",
+      special_selection: "Special Selection ⭐",
+      pro_racing: "Pro Racing \u{1F3CE}️",
+      air_only: "Air Only \u{1F6E9}️",
+      special_weather: "Special Weather \u{1F327}️",
+    };
+    for (const [key, text] of Object.entries(erwartet)) {
+      expect(buildMessage(ziehung, key)).toContain(` - ${text}: `);
+    }
+  });
+
+  it("baut die Nachricht ohne Modifikator unveraendert", () => {
+    expect(buildMessage(ziehung)).toBe("\u{1F3B2} ZENdomizer: ➊ AGP: Ivory-Tower IVT AGP R-07 (2023)");
+    expect(buildMessage(ziehung, null)).toBe(buildMessage(ziehung));
+  });
+
+  it("ignoriert unbekannte Schluessel still, statt die Ziehung zu verlieren", () => {
+    // Bringt eine neue Season einen neuen Modifikator, soll die Ziehung trotzdem
+    // im Chat landen - nur eben ohne Zusatz.
+    expect(buildMessage(ziehung, "hovercraft_only")).toBe(buildMessage(ziehung));
+  });
+
+  it("nimmt keinen Freitext als Modifikator an", () => {
+    expect(buildMessage(ziehung, "Besucht meinen Kanal!")).toBe(buildMessage(ziehung));
+    expect(buildMessage(ziehung, { label: "boese" })).toBe(buildMessage(ziehung));
+    expect(buildMessage(ziehung, 42)).toBe(buildMessage(ziehung));
+  });
+
+  it("behaelt den Modifikator auch bei einer Ziehung an der 500-Zeichen-Grenze", () => {
+    // Genau deshalb steht er vorne: gekuerzt wird am Ende.
+    const viele = Array.from({ length: 10 }, (_, i) => ({
+      category: "Street Tier 2",
+      brand: "Sehr Langer Herstellername",
+      model: `Modell mit reichlich Text Nummer ${i}`,
+      year: 2020 + i,
+    }));
+    const nachricht = buildMessage(viele, "special_weather");
+    expect(nachricht.length).toBeLessThanOrEqual(500);
+    expect(nachricht.startsWith("\u{1F3B2} ZENdomizer - Special Weather \u{1F327}️: ")).toBe(true);
+  });
+});

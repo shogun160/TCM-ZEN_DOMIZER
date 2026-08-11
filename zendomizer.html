@@ -1712,6 +1712,30 @@ select.filter-control {
         .map(v => ({ category: v.category, brand: v.brand, model: v.model, year: v.year }));
     }
 
+    // Uebersetzt den Modifikator der laufenden Rotation in den Schluessel, den der
+    // Worker kennt. Uebertragen wird NUR dieser Schluessel - Text und Icon setzt der
+    // Worker selbst zusammen (MODIFIERS in twitch-bot/src/draw.js), damit ueber die
+    // Twitch-Schnittstelle kein Freitext laeuft. Neue Modifikatoren gehoeren in beide
+    // Listen; tests/twitch-modifier.test.mjs prueft, dass sie zueinander passen.
+    const TWITCH_MODIFIER_KEYS = {
+      "No Collision": "no_collision",
+      "Special Selection": "special_selection",
+      "Pro Racing": "pro_racing",
+      "Air Only": "air_only",
+      "Special Weather": "special_weather",
+    };
+
+    function currentTwitchModifier() {
+      // Nur bei aktiver Grandrace-Auswahl: hat jemand die Kategorien von Hand
+      // gewaehlt, gehoert der Modifikator der laufenden Rotation nicht zu dieser
+      // Ziehung und wuerde im Chat in die Irre fuehren.
+      const grandraceCheckbox = document.getElementById('catGR');
+      if (!grandraceCheckbox || !grandraceCheckbox.checked) return null;
+
+      const entry = ROTATION[getCurrentEventIndex()];
+      return TWITCH_MODIFIER_KEYS[entry && entry[2]] || null;
+    }
+
     // `options.type === "connected"` fordert beim Worker die feste
     // Bestaetigungsnachricht an (siehe worker.js, buildConnectedMessage() in
     // src/draw.js) - der Text selbst wird NICHT mitgeschickt, nur die
@@ -1741,6 +1765,10 @@ select.filter-control {
       if (!isConnectedCheck && (!draw || draw.length === 0)) return;
 
       const body = isConnectedCheck ? { token, type, pin } : { token, draw, pin };
+      if (!isConnectedCheck) {
+        const modifier = currentTwitchModifier();
+        if (modifier) body.modifier = modifier;
+      }
 
       try {
         const res = await fetch(DEFAULT_TWITCH_WORKER_URL.replace(/\/+$/, "") + "/announce", {
