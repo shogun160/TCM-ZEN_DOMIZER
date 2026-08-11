@@ -1,14 +1,22 @@
 # ZENdomizer Twitch-Bot
 
-Postet gezogene Fahrzeuge automatisch in den Twitch-Chat eines Kanals - optional
-zusätzlich angepinnt (Twitch pinnt maximal 20 Minuten, das ist eine feste
-Twitch-Vorgabe, nicht änderbar).
+Postet gezogene Fahrzeuge automatisch in den Twitch-Chat eines Kanals - und
+pinnt das Ergebnis dabei immer zusätzlich an (Twitch pinnt maximal 20
+Minuten, das ist eine feste Twitch-Vorgabe, nicht änderbar). Die
+Verbindungsbestätigung (`🎲 ZENdomizer connected. Let's race. 🏁`) wird
+dagegen nie angepinnt.
 
 **Wichtig:** Dies ist bewusst *ein* gemeinsam nutzbarer Bot für alle
 ZENdomizer-Nutzer. Ein Streamer, der die Funktion nutzen will, muss **nicht**
-selbst eine Twitch-App registrieren oder sich einloggen - er tippt nur einmal
-`/mod <BotName>` in seinem eigenen Chat ein. Der Client-Secret des Bots liegt
+selbst eine Twitch-App registrieren - er tippt einmal `/mod <BotName>` in
+seinem eigenen Chat ein und verbindet seinen Kanal danach über den
+Twitch-Login des Worker (siehe unten). Der Client-Secret des Bots liegt
 ausschließlich sicher im Cloudflare Worker, niemals im Frontend/Quellcode.
+
+Der Zielkanal einer Nachricht ergibt sich ausschließlich aus dem
+Kanal-Token, das der Worker beim Verbinden ausstellt - ein `channel`-Feld im
+Request wird ignoriert. Damit kann niemand in einen fremden Kanal posten,
+auch nicht mit Kenntnis der Worker-URL.
 
 ## Einmalige Einrichtung (nur für den, der den Bot betreibt)
 
@@ -19,9 +27,14 @@ Auf twitch.tv einen normalen Account für den Bot erstellen (z.B.
 ### 2. Twitch-App registrieren
 Auf https://dev.twitch.tv/console/apps mit dem Bot-Account registrieren:
 - **Name:** frei wählbar (z.B. "ZENdomizer Bot")
-- **OAuth Redirect URLs:** `http://localhost:3000` (wird nur für den
-  einmaligen Autorisierungsschritt unten gebraucht, muss nicht wirklich
-  erreichbar sein)
+- **OAuth Redirect URLs:** **beide** eintragen:
+  - `http://localhost:3000` (wird nur für den einmaligen
+    Autorisierungsschritt in Schritt 3 unten gebraucht, muss nicht wirklich
+    erreichbar sein)
+  - `https://<worker>.workers.dev/auth/callback` (die tatsächliche Worker-URL
+    aus Schritt 5 unten, sobald bekannt) - das ist die Redirect-URL, die
+    `GET /auth/start` beim Twitch-Login jedes Streamers verwendet. Fehlt sie,
+    scheitert `/auth/start` direkt bei Twitch mit `redirect_mismatch`.
 - **Client Type:** **Confidential** (wichtig - nur dann läuft der
   refresh_token nicht nach 30 Tagen ab, siehe Twitch-Doku zu Refresh Tokens)
 
@@ -83,34 +96,108 @@ wrangler deploy
 
 Die von `wrangler deploy` ausgegebene URL (z.B.
 `https://zendomizer-twitch-bot.DEINSUBDOMAIN.workers.dev`) ist die
-Worker-URL, die in Zendomizer unter den Twitch-Einstellungen eingetragen
-wird (als Standard-URL im Code hinterlegbar, siehe Haupt-README).
+Worker-URL. Sie muss:
+- als `https://<diese-url>/auth/callback` in den OAuth Redirect URLs der
+  Twitch-App stehen (siehe Schritt 2 oben), und
+- als `DEFAULT_TWITCH_WORKER_URL` in `zendomizer.html` fest eingetragen sein
+  (dort steht sie im Code, es gibt kein Eingabefeld dafür im Frontend).
 
 `TWITCH_BOT_INITIAL_REFRESH_TOKEN` wird nur beim allerersten Aufruf benutzt -
 danach verwaltet der Worker Token-Rotation selbständig über den
 KV-Namespace (Twitch tauscht den refresh_token bei jeder Nutzung aus, der
 Worker schreibt den neuen Wert automatisch zurück in KV).
 
-## Nutzung durch einzelne Streamer (kein Setup nötig)
+## Nutzung durch einzelne Streamer (kein eigenes Twitch-App-Setup nötig)
 
 1. Im eigenen Twitch-Chat einmalig eintippen: `/mod ZENdomizerBot` (oder wie
    der Bot-Account heißt).
-2. In Zendomizer unter Einstellungen den eigenen Twitch-Kanalnamen eintragen
-   und die Twitch-Integration aktivieren.
+2. Im ZENdomizer-Panel auf den "Twitch"-Knopf klicken, dann auf
+   "Kanal verbinden" ("Connect channel"). Das öffnet in einem neuen Tab den
+   Twitch-Login des Worker (`GET /auth/start`). Der angeforderte Scope ist
+   leer - Twitch zeigt entsprechend "keine besonderen Berechtigungen" an.
+3. Nach der Bestätigung zeigt die Twitch-Seite den verbundenen Kanalnamen
+   und einen Kanal-Token an. Diesen Token kopieren und in das Token-Feld im
+   ZENdomizer-Panel einfügen.
+4. Erneut auf "Kanal verbinden" klicken. Da jetzt ein Token hinterlegt ist,
+   sendet das den festen Bestätigungstext
+   `🎲 ZENdomizer connected. Let's race. 🏁` in den eigenen Chat (nicht
+   angepinnt).
 
-Das war's - keine eigene Twitch-App, kein eigener OAuth-Login nötig.
+Ab jetzt postet jede Ziehung automatisch (und angepinnt) ins Chat - es gibt
+keinen separaten Ein/Aus-Schalter mehr, das Vorhandensein eines gültigen
+Token im Panel genügt. Der Token wird nur lokal im Browser gespeichert
+(`localStorage`).
+
+Ein Kanal-Token bleibt gültig, bis er durch einen erneuten Durchlauf des
+Verbindungsschritts ersetzt wird oder der Betreiber ihn im KV löscht (siehe
+unten).
+
+## Tests
+
+```bash
+cd twitch-bot
+npm install
+npm test
+```
+
+Läuft über Vitest mit `@cloudflare/vitest-pool-workers` (74 Tests, Stand
+dieser Doku) gegen einen lokalen, isolierten KV-Store innerhalb der
+Test-Runtime - weder der echte Cloudflare-Namespace noch die echte
+Twitch-API werden dabei angefasst.
+
+## KV-Inhalte (Namespace `TWITCH_TOKENS`)
+
+- `bot_token` - Access- und Refresh-Token des Bot-Accounts selbst (siehe
+  `src/twitch.js`).
+- `token:<sha256hex>` - Zuordnung eines ausgestellten Kanal-Token zu seinem
+  Kanal (`channel_login`, `channel_id`). Im Klartext existiert der Token nur
+  beim Streamer, im KV liegt nur sein SHA-256-Hash.
+- `channel:<login>` - Zeiger vom Kanal-Login auf den Hash seines aktuell
+  gültigen Token. Das ist die alleinige Wahrheitsquelle: Ein
+  `token:<hash>`-Eintrag zählt nur, wenn `channel:<login>` auch wirklich auf
+  ihn zeigt (siehe `resolveChannelByToken` in `src/tokens.js`).
+
+**Einem Kanal die Berechtigung entziehen:** den Schlüssel `channel:<login>`
+löschen. Der zugehörige `token:<hash>`-Eintrag bleibt zwar zunächst
+bestehen, zeigt danach aber ins Leere und wird von `resolveChannelByToken`
+abgelehnt.
+
+```bash
+wrangler kv key list --namespace-id=<id-aus-wrangler.toml> --remote
+wrangler kv key delete --namespace-id=<id-aus-wrangler.toml> --remote "channel:<login>"
+```
+
+**Achtung:** `wrangler kv key list` ohne `--remote` liest den leeren
+lokalen Dev-Store und suggeriert fälschlich, es sei nichts gespeichert -
+für den echten Inhalt des produktiven Namespace ist `--remote` nötig.
 
 ## Bekannte Einschränkungen / offene Punkte
 
-- Der Pin-Endpunkt (`PUT /helix/chat/pins`) basiert auf der aktuellen
-  Twitch-API-Referenz, konnte aber mangels Testaccount nicht live
-  gegengeprüft werden. Falls das Pinnen nach dem Deployment fehlschlägt,
-  wird trotzdem die normale Chat-Nachricht gesendet (Pin-Fehler blockiert
-  das Senden nicht) - bitte den `pinError` im Worker-Response bzw. die
-  Cloudflare-Logs (`wrangler tail`) prüfen und ggf. hier melden.
 - Twitch AutoMod kann einzelne Nachrichten zurückhalten
   (`drop_reason: automod_held`) - bei Fahrzeugnamen unwahrscheinlich, aber
   möglich.
-- Kein eingebauter Schutz gegen Missbrauch über die Worker-URL hinaus -
-  Twitch selbst verhindert das Senden aber automatisch, wenn der Bot in
-  einem Kanal nicht Moderator ist.
+- **Keine Zeichen-Whitelist für die Fahrzeugfelder.** `category`, `brand`
+  und `model` sind je bis zu 100 Zeichen frei wählbar (siehe
+  `MAX_FIELD_LENGTH` in `src/draw.js`); Steuerzeichen, Zeilenumbrüche und
+  unsichtbare/Bidi-Zeichen werden entfernt bzw. ersetzt, der restliche
+  Zeicheninhalt aber nicht eingeschränkt. Wer einen gültigen Kanal-Token
+  hat, kann damit in seinem *eigenen* Kanal Werbetext oder Links platzieren
+  - bei voller Ausnutzung von bis zu 10 Ziehungs-Einträgen sind rund 485 der
+  500 Twitch-Zeichen frei bestimmbar. Die Autorisierungsgrenze bleibt intakt
+  (nur der eigene Kanal ist betroffen), aber der Bot-Account ist eine
+  geteilte Ressource: Missbrauch kann zur Sperre des Bots durch Twitch
+  führen und damit alle Nutzer treffen. Bewusst offen gelassen (Entscheidung
+  des Betreibers vom 2026-08-11, nach Meldung durch ein Sicherheitsreview).
+- **Keine Fehlerbehandlung der Bot-Token-Rotation.** Laufen zwei
+  `getValidAccessToken`-Refreshes gleichzeitig, nutzen beide denselben
+  Refresh-Token; da Twitch den alten dabei entwertet, kann ein toter Token
+  im KV (`bot_token`) landen. Der Bot fällt dann für alle Nutzer aus, bis
+  `TWITCH_BOT_INITIAL_REFRESH_TOKEN` manuell neu gesetzt und erneut per
+  `wrangler secret put` hinterlegt wird. Ebenfalls bewusst offen gelassen.
+- **Mehrzeilige Chat-Nachrichten sind nicht möglich.** Am 2026-08-11 live
+  geprüft: Die Twitch-Chat-API nimmt `\n` innerhalb einer Nachricht nicht an
+  (der Chat ist historisch IRC-basiert, dort trennt `\n` Nachrichten
+  voneinander). Mehrere Ziehungs-Einträge werden deshalb einzeilig mit
+  ` | ` getrennt (siehe `ITEM_SEPARATOR` in `src/draw.js`).
+- Senden und Pinnen wurden am 2026-08-11 live gegen einen echten Kanal
+  verifiziert.
