@@ -37,6 +37,7 @@ And of course a special thank also to the [motorfe.st project](https://github.co
   - `Shift + L` – show draw log in console
   - `Cntrl + C` – copy draw to clipboard again
 - 📋 **automatic copy to clipboard** - text output per category
+- **Twitch INtegration** - connect the ZENdomizer directly with you Twitch account / chatbox
 - 🇩🇪/🇬🇧 **multilanguage support** - german/english
 - 📲 **support for mobile phones**
 
