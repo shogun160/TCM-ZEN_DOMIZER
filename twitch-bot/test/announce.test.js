@@ -86,6 +86,44 @@ describe("POST /announce", () => {
     expect(gesendetesBody.message).toBe("🎲 ZENdomizer: ➊ Hypercar: Pfister Comet (2021)");
   });
 
+  it("stellt einen mitgeschickten Modifikator der Nachricht voran", async () => {
+    const e = testEnv();
+    await botTokenSetzen(e);
+    const token = await saveChannelToken(e, { channelLogin: "kanal_eins", channelId: "111" });
+
+    let gesendetesBody = null;
+    fetchMock.get("https://api.twitch.tv")
+      .intercept({ path: "/helix/chat/messages", method: "POST" })
+      .reply(200, (opts) => {
+        gesendetesBody = JSON.parse(opts.body);
+        return { data: [{ is_sent: true, message_id: "msg-mod" }] };
+      });
+
+    await worker.fetch(anfrage({ token, draw: DRAW, modifier: "no_collision" }), e);
+
+    expect(gesendetesBody.message).toBe("🎲 ZENdomizer - No Collision 👻: ➊ Hypercar: Pfister Comet (2021)");
+  });
+
+  it("laesst die Ziehung durch, wenn der Modifikator unbekannt ist", async () => {
+    const e = testEnv();
+    await botTokenSetzen(e);
+    const token = await saveChannelToken(e, { channelLogin: "kanal_eins", channelId: "111" });
+
+    let gesendetesBody = null;
+    fetchMock.get("https://api.twitch.tv")
+      .intercept({ path: "/helix/chat/messages", method: "POST" })
+      .reply(200, (opts) => {
+        gesendetesBody = JSON.parse(opts.body);
+        return { data: [{ is_sent: true, message_id: "msg-mod2" }] };
+      });
+
+    // Freitext im modifier-Feld darf weder im Chat landen noch die Ziehung kippen
+    const antwort = await worker.fetch(anfrage({ token, draw: DRAW, modifier: "BESUCHT MEINEN KANAL" }), e);
+
+    expect(antwort.status).toBe(200);
+    expect(gesendetesBody.message).toBe("🎲 ZENdomizer: ➊ Hypercar: Pfister Comet (2021)");
+  });
+
   it("ignoriert ein mitgeschicktes fremdes channel-Feld", async () => {
     const e = testEnv();
     await botTokenSetzen(e);

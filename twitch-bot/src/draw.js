@@ -189,7 +189,29 @@ function itemNumber(index) {
   return String.fromCodePoint(FIRST_ITEM_NUMBER_CODEPOINT + index);
 }
 
-export function buildMessage(items) {
+// Grand-Race-Modifikatoren. Der Client schickt ausschliesslich den Schluessel,
+// Text und Icon bestimmt der Worker - Freitext wird hier grundsaetzlich nicht
+// angenommen (dieselbe Linie wie bei buildConnectedMessage).
+//
+// Ein unbekannter Schluessel wird still ignoriert statt mit 400 abgelehnt: bringt
+// eine neue Season einen neuen Modifikator, soll die Ziehung trotzdem im Chat
+// landen - nur eben ohne Zusatz. Neue Modifikatoren gehoeren hier UND in
+// TWITCH_MODIFIER_KEYS in zendomizer.html ergaenzt; tests/twitch-modifier.test.mjs
+// im Hauptprojekt prueft, dass beide Listen zueinander passen.
+const MODIFIERS = new Map([
+  ["no_collision", { label: "No Collision", icon: "\u{1F47B}" }],
+  ["special_selection", { label: "Special Selection", icon: "⭐" }],
+  ["pro_racing", { label: "Pro Racing", icon: "\u{1F3CE}️" }],
+  ["air_only", { label: "Air Only", icon: "\u{1F6E9}️" }],
+  ["special_weather", { label: "Special Weather", icon: "\u{1F327}️" }],
+]);
+
+export function resolveModifier(key) {
+  if (typeof key !== "string") return null;
+  return MODIFIERS.get(key) || null;
+}
+
+export function buildMessage(items, modifierKey = null) {
   if (!Array.isArray(items) || items.length === 0) return "";
 
   const teile = items.map((v, i) => {
@@ -197,7 +219,12 @@ export function buildMessage(items) {
     const prefix = nummer ? `${nummer} ` : "";
     return `${prefix}${v.category}: ${formatVehicleName(v)}`;
   });
-  const nachricht = `\u{1F3B2} ZENdomizer: ${teile.join(ITEM_SEPARATOR)}`;
+
+  // Der Modifikator steht VOR den Fahrzeugen: die Kuerzung auf 500 Zeichen greift
+  // am Ende, hinten haette ihn eine lange Ziehung verschluckt.
+  const modifier = resolveModifier(modifierKey);
+  const modifierTeil = modifier ? ` - ${modifier.label} ${modifier.icon}` : "";
+  const nachricht = `\u{1F3B2} ZENdomizer${modifierTeil}: ${teile.join(ITEM_SEPARATOR)}`;
 
   return truncateForTwitch(nachricht);
 }
