@@ -124,15 +124,7 @@
       margin-top: 10px;
       box-sizing: border-box;
     }
-    .twitch-settings-panel label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #d9b3ff;
-      font-size: 14px;
-      cursor: pointer;
-    }
-    .twitch-settings-panel input[type="text"] {
+    .twitch-settings-panel input[type="password"] {
       background-color: rgba(0, 0, 0, 0.6);
       color: #d9b3ff;
       border: 2px solid #9146FF;
@@ -143,7 +135,7 @@
       box-sizing: border-box;
       width: 100%;
     }
-    .twitch-settings-panel input[type="text"]::placeholder {
+    .twitch-settings-panel input[type="password"]::placeholder {
       color: #9146FF;
       opacity: 0.7;
     }
@@ -972,12 +964,8 @@ select.filter-control {
         <div class="twitch-settings-wrapper">
             <button id="twitchSettingsToggle" class="filter-control" onclick="toggleTwitchSettingsPanel()">Twitch</button>
             <div id="twitchSettingsPanel" class="twitch-settings-panel" style="display:none;">
-                <label><input type="checkbox" id="twitchEnabled" onchange="saveTwitchSettings()"><span id="twitchEnabledLabel">Twitch settings label</span></label>
                 <button id="twitchConnectBtn" class="filter-control" onclick="openTwitchConnect()">Connect channel</button>
                 <input type="password" id="twitchToken" oninput="saveTwitchSettings()" />
-                <label><input type="checkbox" id="twitchPin" onchange="saveTwitchSettings()"><span id="twitchPinLabel">Twitch pin label</span></label>
-                <input type="text" id="twitchWorkerUrl" oninput="saveTwitchSettings()" />
-                <button id="twitchTestBtn" class="filter-control" onclick="testTwitchAnnounce()">Twitch test label</button>
                 <div id="twitchStatusMsg" class="twitch-status-msg"></div>
             </div>
         </div>
@@ -1170,16 +1158,8 @@ select.filter-control {
   }
 
   function updateTwitchLabels() {
-    const enabledLabel = document.getElementById("twitchEnabledLabel");
-    const pinLabel = document.getElementById("twitchPinLabel");
-    const workerInput = document.getElementById("twitchWorkerUrl");
-    const testBtn = document.getElementById("twitchTestBtn");
     const connectBtn = document.getElementById("twitchConnectBtn");
     const tokenInput = document.getElementById("twitchToken");
-    if (enabledLabel) enabledLabel.textContent = t("twitch_enable_label");
-    if (pinLabel) pinLabel.textContent = t("twitch_pin_label");
-    if (workerInput) workerInput.placeholder = t("twitch_worker_url_placeholder");
-    if (testBtn) testBtn.textContent = t("twitch_test_button");
     if (connectBtn) connectBtn.textContent = t("twitch_connect");
     if (tokenInput) tokenInput.placeholder = t("twitch_token_label");
   }
@@ -1694,39 +1674,20 @@ select.filter-control {
     // Moderator gesetzt werden). Details: twitch-bot/README.md im Repo.
     // ============================================================
 
-    // Vom Betreiber des gemeinsamen Bots einzutragen, sobald der Worker
-    // deployt ist (siehe twitch-bot/README.md). Nutzer koennen in den
-    // Einstellungen eine abweichende Worker-URL eintragen (z.B. fuer einen
-    // selbst gehosteten Worker).
-    const DEFAULT_TWITCH_WORKER_URL = "";
+    // Fest hinterlegte Worker-URL des vom Betreiber gehosteten Bots (siehe
+    // twitch-bot/README.md). Keine Eingabemoeglichkeit mehr im Frontend -
+    // ein selbst gehosteter Worker erfordert eine eigene Kopie dieser Datei.
+    const DEFAULT_TWITCH_WORKER_URL = "https://zendomizer-twitch-bot.shogun160.workers.dev";
 
     function loadTwitchSettings() {
-      const enabled = localStorage.getItem("zendomizerTwitchEnabled") === "true";
-      const pin = localStorage.getItem("zendomizerTwitchPin") === "true";
       const token = localStorage.getItem("zendomizerTwitchToken") || "";
-      const workerUrl = localStorage.getItem("zendomizerTwitchWorkerUrl") || DEFAULT_TWITCH_WORKER_URL;
-
-      const enabledBox = document.getElementById("twitchEnabled");
-      const pinBox = document.getElementById("twitchPin");
       const tokenInput = document.getElementById("twitchToken");
-      const workerInput = document.getElementById("twitchWorkerUrl");
-
-      if (enabledBox) enabledBox.checked = enabled;
-      if (pinBox) pinBox.checked = pin;
       if (tokenInput) tokenInput.value = token;
-      if (workerInput) workerInput.value = workerUrl;
     }
 
     function saveTwitchSettings() {
-      const enabled = document.getElementById("twitchEnabled")?.checked || false;
-      const pin = document.getElementById("twitchPin")?.checked || false;
       const token = (document.getElementById("twitchToken")?.value || "").trim();
-      const workerUrl = (document.getElementById("twitchWorkerUrl")?.value || "").trim();
-
-      localStorage.setItem("zendomizerTwitchEnabled", String(enabled));
-      localStorage.setItem("zendomizerTwitchPin", String(pin));
       localStorage.setItem("zendomizerTwitchToken", token);
-      localStorage.setItem("zendomizerTwitchWorkerUrl", workerUrl);
 
       const statusEl = document.getElementById("twitchStatusMsg");
       if (statusEl) {
@@ -1741,20 +1702,30 @@ select.filter-control {
       panel.style.display = panel.style.display === "none" ? "flex" : "none";
     }
 
-    // Oeffnet den Twitch-Login des Workers in einem neuen Tab, damit der
-    // Streamer seinen Kanal verbindet und danach einen Token zum Einfuegen
-    // in das Token-Feld angezeigt bekommt.
+    // "Kanal verbinden" hat zwei Aufgaben, je nachdem ob schon ein Token
+    // eingetragen ist:
+    //   - Kein Token: Fehlermeldung ("bitte Token eintragen") UND den
+    //     Twitch-Login des Workers in einem neuen Tab oeffnen, damit der
+    //     Streamer sich dort einen Token holen und danach hier eintragen
+    //     kann.
+    //   - Token vorhanden: die feste Bestaetigungsnachricht senden (postet
+    //     "ZENdomizer connected. Let's race." in den Chat) - das ersetzt
+    //     den frueheren separaten "Testnachricht senden"-Knopf.
     function openTwitchConnect() {
-      const workerUrl = (document.getElementById("twitchWorkerUrl")?.value || "").trim();
+      saveTwitchSettings();
+      const token = localStorage.getItem("zendomizerTwitchToken") || "";
       const statusEl = document.getElementById("twitchStatusMsg");
-      if (!workerUrl) {
+
+      if (!token) {
         if (statusEl) {
-          statusEl.textContent = t("twitch_worker_url_missing");
+          statusEl.textContent = t("twitch_token_missing");
           statusEl.classList.add("error");
         }
+        window.open(DEFAULT_TWITCH_WORKER_URL.replace(/\/+$/, "") + "/auth/start", "_blank", "noopener");
         return;
       }
-      window.open(workerUrl.replace(/\/+$/, "") + "/auth/start", "_blank", "noopener");
+
+      sendTwitchAnnouncement(null, { type: "connected" });
     }
 
     // Strukturierte Ziehungsdaten fuer den Worker. Die Chat-Zeile baut der
@@ -1771,34 +1742,34 @@ select.filter-control {
     // Bestaetigungsnachricht an (siehe worker.js, buildConnectedMessage() in
     // src/draw.js) - der Text selbst wird NICHT mitgeschickt, nur die
     // Anforderung. `draw` wird in diesem Fall ignoriert. Eine Testnachricht
-    // wird außerdem nie angepinnt, auch wenn die Pin-Checkbox aktiv ist -
-    // ein 20-minuetig angepinnter Test waere im Chat nur stoerend.
+    // wird außerdem nie angepinnt, auch wenn Ziehungsergebnisse immer
+    // angepinnt werden - ein 20-minuetig angepinnter Test waere im Chat nur
+    // stoerend.
+    //
+    // "Aktiv" ist Twitch-Posten jetzt allein dadurch, dass ein Token
+    // hinterlegt ist - kein separater "enabled"-Schalter mehr. Fehlt der
+    // Token, wird hier bewusst still abgebrochen (kein Fehlertext): das ist
+    // der Normalfall fuer alle, die Twitch gar nicht eingerichtet haben und
+    // wird nach jeder Ziehung automatisch aufgerufen (siehe drawRandomVehicles()).
+    // Der explizite "Kanal verbinden"-Knopf (openTwitchConnect()) deckt den
+    // Fall "Token fehlt" mit einer eigenen, sichtbaren Fehlermeldung ab.
     async function sendTwitchAnnouncement(draw, options = {}) {
       const type = options.type || null;
       const isConnectedCheck = type === "connected";
 
-      const enabled = localStorage.getItem("zendomizerTwitchEnabled") === "true";
-      if (!enabled) return;
-
       const token = (localStorage.getItem("zendomizerTwitchToken") || "").trim();
-      const workerUrl = (localStorage.getItem("zendomizerTwitchWorkerUrl") || DEFAULT_TWITCH_WORKER_URL || "").trim();
-      const pin = isConnectedCheck ? false : localStorage.getItem("zendomizerTwitchPin") === "true";
+      if (!token) return;
+
+      const pin = !isConnectedCheck;
 
       const statusEl = document.getElementById("twitchStatusMsg");
 
-      if (!token || !workerUrl) {
-        if (statusEl) {
-          statusEl.textContent = t("twitch_not_configured");
-          statusEl.classList.add("error");
-        }
-        return;
-      }
       if (!isConnectedCheck && (!draw || draw.length === 0)) return;
 
       const body = isConnectedCheck ? { token, type, pin } : { token, draw, pin };
 
       try {
-        const res = await fetch(workerUrl.replace(/\/+$/, "") + "/announce", {
+        const res = await fetch(DEFAULT_TWITCH_WORKER_URL.replace(/\/+$/, "") + "/announce", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body),
@@ -1827,13 +1798,6 @@ select.filter-control {
         // Bewusst kein showToast() hier - ein fehlgeschlagener Twitch-Post
         // soll die normale Ziehung nicht stoeren oder unnoetig auffallen.
       }
-    }
-
-    function testTwitchAnnounce() {
-      // Kein erfundenes Test-Fahrzeug mehr: der Worker postet stattdessen
-      // seine feste Bestaetigungsnachricht ("ZENdomizer connected. Let's
-      // race."). `draw` wird dafuer nicht benoetigt.
-      sendTwitchAnnouncement(null, { type: "connected" });
     }
 
     function toggleBikeFilter() {
