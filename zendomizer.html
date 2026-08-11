@@ -1369,8 +1369,10 @@ select.filter-control {
         const currentEventName = entry[0];
         const currentCategories = entry[1].replace(/>/g, "→");
         const modifierSuffix = entry[2] ? ` ⚠️ ${entry[2]} ⚠️` : "";
-        const jetSuffix = hasJet ? ` 🛩️ ${t("grandrace_jet_hint")}` : "";
-        showToast(`${t(triggeredByClick ? "rotation_applied_manual" : "rotation_applied_auto")}: ${currentEventName} | ${currentCategories}${modifierSuffix}${jetSuffix}`, "#39ff14", 10000);
+        // Jet-Rotationen bekommen bewusst KEINEN Zusatz mehr: der Toast nannte hier
+        // frueher das feste Bonusfahrzeug namentlich, was bei keiner anderen Kategorie
+        // passiert - der Name steht ohnehin gleich in der Slotbox.
+        showToast(`${t(triggeredByClick ? "rotation_applied_manual" : "rotation_applied_auto")}: ${currentEventName} | ${currentCategories}${modifierSuffix}`, "#39ff14", 10000);
       }
     }
 
