@@ -62,3 +62,25 @@ And of course a special thank also to the [motorfe.st project](https://github.co
 
 ### 📊 Log (`Shift + L`)
 ![Zendomizer DevLog](assets/pic/ZENdomizer_DevCon_Log.png)
+
+---
+
+## 🧪 Tests
+
+Draw logic regression tests — plain Node, no dependencies:
+
+```bash
+node tests/run.mjs
+```
+
+They cut the real functions out of `zendomizer.html` and run them against
+`cars/vehicles.json`, so they test the shipped code rather than a copy. Set
+`ZENDOMIZER_HTML` to check a different revision, e.g. to confirm a test
+actually catches the bug it covers:
+
+```bash
+git show HEAD~1:zendomizer.html > /tmp/before.html
+ZENDOMIZER_HTML=/tmp/before.html node tests/run.mjs
+```
+
+The Twitch worker has its own suite: `cd twitch-bot && npm test`.

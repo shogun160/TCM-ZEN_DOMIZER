@@ -1278,6 +1278,10 @@ select.filter-control {
       if (!v) return '';
       return v.year ? `${v.brand} ${v.model} (${v.year})` : `${v.brand} ${v.model}`;
     }
+    // Fahrzeuge haben keine ID - Marke/Modell/Baujahr identifizieren sie eindeutig.
+    function isSameVehicle(a, b) {
+      return !!a && !!b && a.brand === b.brand && a.model === b.model && a.year === b.year;
+    }
     let recentDraws = {}; // 🆕 Merkt sich die letzten Fahrzeuge pro Kategorie
     let toastTimer = null;
     let previousMainStage = false;
@@ -2136,9 +2140,10 @@ select.filter-control {
       if (!box || !drawExecuted) return;
     
       const category = box.querySelector('.slot-category')?.textContent;
-      if (category) {
-        rerollSingleSlot(category);
-      }
+      if (!category) return;
+      // Slot-Index aus dem DOM statt aus selectedOrder - siehe rerollSingleSlot()
+      const slotIndex = Array.from(document.querySelectorAll('.slot-box')).indexOf(box);
+      rerollSingleSlot(category, slotIndex);
     });
 
     function clearResults() {
@@ -2214,7 +2219,15 @@ select.filter-control {
       }
     }
     
-    function rerollSingleSlot(category) {
+    // 🛠️ Bugfix: der Slot-Index kam frueher aus selectedOrder.indexOf(category). selectedOrder ist
+    // aber dedupliziert - bei Rotationen mit mehrfach belegter Kategorie ("Hyper > Hyper > Hyper",
+    // "Racing > ST2 > Racing") und bei 1-2 manuell gewaehlten Kategorien zeigte er immer auf Slot 1,
+    // ein Klick auf Slot 2 oder 3 rollte also sichtbar den falschen Slot. Der Aufrufer kennt den
+    // echten Index und reicht ihn durch; der Default deckt Aufrufe ohne DOM-Bezug ab.
+    function rerollSingleSlot(category, slotIndex = selectedOrder.indexOf(category)) {
+      const index = slotIndex;
+      if (index < 0 || index > 2) return; // vor der Ziehung pruefen, sonst verbraucht der Klick eine Ziehung
+
       const filters = getCurrentFilters();
       const result = drawVehicleForCategory(category, filters, bikeFilterMode);
       if (!result) {
@@ -2228,16 +2241,11 @@ select.filter-control {
       if (!recentDraws[category]) {
         recentDraws[category] = [];
       }
-      if (!recentDraws[category].some(r =>
-        r.brand === vehicle.brand && r.model === vehicle.model && r.year === vehicle.year
-      )) {
+      if (!recentDraws[category].some(r => isSameVehicle(r, vehicle))) {
         recentDraws[category].push(vehicle);
         localStorage.setItem("zendomizerRecentDraws", JSON.stringify(recentDraws));
       }
-    
-      const index = selectedOrder.indexOf(category);
-      if (index === -1) return;
-    
+
       while (lastSelection.length < 3) {
         lastSelection.push(null);
       }
@@ -2288,10 +2296,7 @@ select.filter-control {
       slot.classList.add("flash");
       setTimeout(() => slot.classList.remove("flash"), 800);
     
-      const isSame = oldVehicle &&
-        oldVehicle.brand === vehicle.brand &&
-        oldVehicle.model === vehicle.model &&
-        oldVehicle.year === vehicle.year;
+      const isSame = isSameVehicle(oldVehicle, vehicle);
     
       if (isSame) {
         showToast(t("no_alternative_available"), "#999");
@@ -2399,16 +2404,23 @@ select.filter-control {
       }
       const recent = recentDraws[category];
     
-      const availableVehicles = finalList.filter(v =>
-        !recent.some(r => r.brand === v.brand && r.model === v.model && r.year === v.year)
-      );
-    
+      const availableVehicles = finalList.filter(v => !recent.some(r => isSameVehicle(r, v)));
+
       const blockedCount = finalList.length - availableVehicles.length;
       const allBlocked = availableVehicles.length === 0;
 
-      // 🧹 Wenn alle Fahrzeuge dieser Kategorie gezogen wurden → Blacklist zurücksetzen
-      if (allBlocked && recent.length === finalList.length) {
-        recentDraws[category] = [];
+      // 🧹 Wenn alle Fahrzeuge des aktuellen Pools gezogen wurden → Blacklist zurücksetzen
+      // 🛠️ Bugfix: hier stand zusaetzlich "&& recent.length === finalList.length". Die Blacklist
+      // sammelt aber ueber ALLE Filterzustaende hinweg, waehrend finalList gefiltert ist - nach der
+      // ersten Ziehung mit abweichendem Filter war diese Gleichheit unerreichbar. Der Reset griff
+      // dann nie mehr, und der Fallback "pool = finalList" zog dauerhaft mit Wiederholungen.
+      let carryOver = null;
+      if (allBlocked) {
+        // 🛠️ Bugfix: vorher "recentDraws[category] = []" - danach zeigte die weiter unten benutzte
+        // Konstante "recent" auf das weggeworfene Array, der push() landete im Nirwana und das
+        // erste Fahrzeug der neuen Runde blieb ungesperrt. In-place leeren behaelt die Referenz.
+        carryOver = recent[recent.length - 1] || null; // zuletzt gezogen - eroeffnet die neue Runde nicht
+        recent.length = 0;
         localStorage.setItem("zendomizerRecentDraws", JSON.stringify(recentDraws));
       
         // 👉 2) Toast anzeigen
@@ -2429,13 +2441,18 @@ select.filter-control {
         localStorage.setItem("zendomizerDrawLog", JSON.stringify(window.drawLog));
       }
     
-      const pool = allBlocked ? finalList : availableVehicles;
+      // Nach einem Reset steht wieder der volle Pool bereit - nur das zuletzt gezogene Fahrzeug
+      // bleibt aussen vor, damit es nicht ueber den Rundenwechsel hinweg direkt doppelt kommt.
+      let pool = allBlocked ? finalList : availableVehicles;
+      if (carryOver && pool.length > 1) {
+        pool = pool.filter(v => !isSameVehicle(v, carryOver));
+      }
       shuffle(pool);
     
       const vehicle = pool[0];
     
       // 🔒 In Blacklist eintragen (nur wenn noch nicht drin)
-      if (!recent.some(r => r.brand === vehicle.brand && r.model === vehicle.model && r.year === vehicle.year)) {
+      if (!recent.some(r => isSameVehicle(r, vehicle))) {
         recent.push(vehicle);
         localStorage.setItem("zendomizerRecentDraws", JSON.stringify(recentDraws));
       }
