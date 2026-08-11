@@ -20,8 +20,6 @@ export async function hashToken(token) {
   return [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, "0")).join("");
 }
 
-const STATE_TTL_SECONDS = 600;
-
 // Login-Validierung laeuft bewusst auf dem ROHEN (noch nicht kleingeschriebenen)
 // Input: Twitch-Logins sind reines ASCII ([A-Za-z0-9_]). Wuerde man erst
 // String(...).toLowerCase() aufrufen und danach gegen /^[a-z0-9_]+$/ pruefen,
@@ -84,28 +82,4 @@ export async function resolveChannelByToken(env, token) {
   const aktuellerHash = await env.TWITCH_TOKENS.get(`channel:${eintrag.channel_login}`);
   if (aktuellerHash !== hash) return null;
   return eintrag;
-}
-
-export async function createState(env) {
-  const state = generateToken();
-  await env.TWITCH_TOKENS.put(`state:${state}`, "1", { expirationTtl: STATE_TTL_SECONDS });
-  return state;
-}
-
-/**
- * Prueft den State und verbraucht ihn dabei (einmalige Verwendung).
- *
- * Achtung: Cloudflare KV ist eventual consistent, auch fuer delete(). Ein
- * Replay innerhalb des Propagationsfensters (bis zu ~60s pro PoP) kann daher
- * durchgehen. Strikte Einmaligkeit ist mit KV allein nicht erreichbar - dafuer
- * braeuchte es ein Durable Object. Diese Funktion ist eine Abschwaechung
- * gegen versehentliche Doppelverwendung, keine harte Sicherheitszusage.
- */
-export async function consumeState(env, state) {
-  if (typeof state !== "string" || state.length === 0) return false;
-  const key = `state:${state}`;
-  const vorhanden = await env.TWITCH_TOKENS.get(key);
-  if (vorhanden === null) return false;
-  await env.TWITCH_TOKENS.delete(key);
-  return true;
 }

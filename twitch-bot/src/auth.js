@@ -6,11 +6,30 @@
  * Twitch-Seite entsprechend "keine besonderen Berechtigungen".
  */
 
-import { createState, consumeState, saveChannelToken } from "./tokens.js";
+import { generateToken, saveChannelToken } from "./tokens.js";
+
+// Befund 1+2 (Sicherheitsreview): der State wurde frueher im KV abgelegt
+// (createState/consumeState) - das band ihn an nichts weiter als "existiert
+// im KV", nicht an den Browser, der /auth/start aufgerufen hatte. Ein State
+// aus einer FREMDEN /auth/start-Anfrage liess sich daher in einer voellig
+// unabhaengigen Callback-Anfrage einloesen (State-Fixation). Ausserdem war
+// jeder GET auf /auth/start ein unauthentifizierter KV-Write - ein einzelnes
+// <img src="/auth/start"> auf einer fremden Seite haette das KV-Freetier-
+// Tageskontingent erschoepfen und den Bot komplett lahmlegen koennen.
+//
+// Der Ersatz ist ein zustandsloses Double-Submit-Cookie: /auth/start setzt
+// den State sowohl in die Redirect-URL als auch als HttpOnly-Cookie fuer die
+// Worker-Origin. /auth/callback verlangt, dass Query-State und Cookie-Wert
+// uebereinstimmen. Ein Angreifer kann im Browser des Opfers weder das Cookie
+// setzen (SameSite=Lax, HttpOnly, __Host-Praefix schliesst Domain/Subdomain-
+// Tricks aus) noch den Wert erraten (43 Zeichen aus crypto.getRandomValues).
+// Kein KV-Write mehr auf /auth/start - Befund 2 damit ebenfalls behoben.
+const STATE_COOKIE_NAME = "__Host-zd_state";
+const STATE_COOKIE_TTL_SECONDS = 600;
 
 export async function handleAuthStart(request, env) {
   const origin = new URL(request.url).origin;
-  const state = await createState(env);
+  const state = generateToken();
 
   const params = new URLSearchParams({
     client_id: env.TWITCH_CLIENT_ID,
@@ -22,7 +41,10 @@ export async function handleAuthStart(request, env) {
 
   return new Response(null, {
     status: 302,
-    headers: { Location: `https://id.twitch.tv/oauth2/authorize?${params.toString()}` },
+    headers: {
+      Location: `https://id.twitch.tv/oauth2/authorize?${params.toString()}`,
+      "Set-Cookie": `${STATE_COOKIE_NAME}=${state}; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=${STATE_COOKIE_TTL_SECONDS}`,
+    },
   });
 }
 
@@ -30,21 +52,27 @@ export async function handleAuthCallback(request, env) {
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
   const state = url.searchParams.get("state");
+  const cookieState = readStateCookie(request);
 
-  // Der State wird IMMER zuerst geprueft und verbraucht - unabhaengig davon,
-  // ob der Rest der Anfrage gueltig ist. Wuerde man erst den `code` pruefen
-  // und bei dessen Fehlen fruehzeitig zurueckkehren, bliebe ein gueltiger
-  // State liegen und waere spaeter erneut nutzbar. Twitch leitet z.B. auch
-  // bei abgelehnter Autorisierung auf /auth/callback zurueck
-  // (?error=access_denied&state=...) - ganz ohne "code".
-  if (!(await consumeState(env, state))) {
-    return htmlSeite(400, "Sitzung abgelaufen",
-      "Dieser Autorisierungsversuch ist abgelaufen oder wurde bereits verwendet. Bitte erneut starten.");
+  // Der State-Vergleich steht IMMER zuerst - unabhaengig davon, ob der Rest
+  // der Anfrage gueltig ist. Ein simpler ===-Vergleich (statt zeitkonstant)
+  // reicht hier aus: es gibt kein serverseitig gehaltenes Geheimnis, gegen
+  // das ein Angreifer byteweise per Timing raten koennte - beide Werte
+  // (Cookie UND Query-State) stammen aus DERSELBEN Anfrage, die der
+  // Angreifer selbst formuliert. Er kennt also in jeder eigenen Anfrage
+  // ohnehin beide Seiten des Vergleichs; ein Timing-Seitenkanal wuerde ihm
+  // nichts verraten, das er nicht schon weiss. Das eigentliche Geheimnis ist
+  // der Cookie-Wert im Browser DES OPFERS - den bekommt der Angreifer weder
+  // durch Raten noch durch Timing zu fassen, weil er ihn dem Server niemals
+  // vorlegen kann (HttpOnly + SameSite=Lax + __Host-Praefix).
+  if (!state || !cookieState || cookieState !== state) {
+    return mitGeloeschtemStateCookie(htmlSeite(400, "Sitzung abgelaufen",
+      "Dieser Autorisierungsversuch ist abgelaufen oder wurde bereits verwendet. Bitte erneut starten."));
   }
 
   if (!code) {
-    return htmlSeite(400, "Autorisierung unvollstaendig",
-      "Twitch hat keinen Autorisierungscode zurueckgegeben. Bitte den Vorgang erneut starten.");
+    return mitGeloeschtemStateCookie(htmlSeite(400, "Autorisierung unvollstaendig",
+      "Twitch hat keinen Autorisierungscode zurueckgegeben. Bitte den Vorgang erneut starten."));
   }
 
   let token, login;
@@ -67,12 +95,52 @@ export async function handleAuthCallback(request, env) {
     // Twitch gelieferten, also aussenstehend beeinflussbaren) Rohwerte.
     // Details landen stattdessen im Server-Log.
     console.error("auth callback fehlgeschlagen:", err);
-    return htmlSeite(502, "Verbindung fehlgeschlagen",
+    return mitGeloeschtemStateCookie(htmlSeite(502, "Verbindung fehlgeschlagen",
       "Die Anmeldung konnte nicht abgeschlossen werden. Bitte versuche es in ein paar Minuten erneut. " +
-      "Falls das Problem bestehen bleibt, kontaktiere den Botbetreiber.");
+      "Falls das Problem bestehen bleibt, kontaktiere den Botbetreiber."));
   }
 
-  return htmlSeite(200, "Kanal verbunden", null, { login, token });
+  return mitGeloeschtemStateCookie(htmlSeite(200, "Kanal verbunden", null, { login, token }));
+}
+
+/**
+ * Liest den State-Cookie robust aus dem Cookie-Header.
+ *
+ * Der Header kann mehrere durch ";" getrennte Cookies enthalten, mit
+ * uneinheitlichen Leerzeichen ("a=1;b=2" ebenso wie "a=1;  b=2"), oder ganz
+ * fehlen (kein Cookie-Header gesetzt). Alle drei Faelle werden hier
+ * abgedeckt und in test/auth.test.js direkt getestet.
+ */
+export function readStateCookie(request) {
+  const header = request.headers.get("Cookie");
+  if (!header) return null;
+
+  for (const teil of header.split(";")) {
+    const trennstelle = teil.indexOf("=");
+    if (trennstelle === -1) continue;
+    const name = teil.slice(0, trennstelle).trim();
+    if (name === STATE_COOKIE_NAME) return teil.slice(trennstelle + 1).trim();
+  }
+  return null;
+}
+
+/**
+ * Haengt an JEDE Antwort von handleAuthCallback (Erfolg wie Fehlerfall) ein
+ * Set-Cookie an, das das State-Cookie sofort ablaufen laesst - der State ist
+ * ohnehin nur fuer genau diesen einen Versuch gedacht. Baut dafuer bewusst
+ * eine NEUE Response mit einem aus response.headers kopierten Headers-
+ * Objekt, statt htmlSeite() direkt zusaetzliche Header uebergeben zu lassen:
+ * htmlSeite() setzt seinen "headers"-Objektliteral selbst und wuerde ein
+ * zusaetzlich hineingereichtes Set-Cookie sonst leicht wieder verlieren,
+ * wenn die Objekte an der falschen Stelle gemergt werden.
+ */
+function mitGeloeschtemStateCookie(response) {
+  const headers = new Headers(response.headers);
+  headers.append(
+    "Set-Cookie",
+    `${STATE_COOKIE_NAME}=; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=0`
+  );
+  return new Response(response.body, { status: response.status, headers });
 }
 
 async function tauscheCodeGegenToken(code, redirectUri, env) {

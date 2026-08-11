@@ -34,6 +34,26 @@ async function botTokenSetzen(e) {
 }
 
 describe("POST /announce", () => {
+  // REGRESSION (Befund 4): request.json() liefert bei einem Body, der aus
+  // dem Wort "null" besteht, den Wert `null` zurueck (gueltiges JSON!) -
+  // kein Parse-Fehler, also nicht vom try/catch um request.json() erfasst.
+  // Der direkt folgende Zugriff body.token wuerde ausserhalb jedes
+  // try-Blocks werfen (TypeError) und als nackter Cloudflare-500 ohne
+  // CORS-Header enden.
+  it("lehnt einen null-JSON-Body mit 400 ab, statt abzustuerzen", async () => {
+    const antwort = await worker.fetch(
+      new Request("https://bot.example.dev/announce", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: "null",
+      }),
+      testEnv()
+    );
+    expect(antwort.status).toBe(400);
+    const payload = await antwort.json();
+    expect(payload.success).toBe(false);
+  });
+
   it("lehnt Anfragen ohne Token mit 401 ab", async () => {
     const antwort = await worker.fetch(anfrage({ draw: DRAW }), testEnv());
     expect(antwort.status).toBe(401);

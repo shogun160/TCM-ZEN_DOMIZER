@@ -76,6 +76,19 @@ async function handleAnnounce(request, env, corsHeaders) {
     return json({ success: false, error: "Ungueltiger JSON-Body." }, 400, corsHeaders);
   }
 
+  // REGRESSION (Befund 4): request.json() liefert bei einem Body, der
+  // woertlich aus "null" besteht, den Wert `null` zurueck - das ist
+  // gueltiges JSON und wirft daher NICHT im try/catch oben. Ohne diese
+  // Pruefung wuerde der folgende body.token-Zugriff eine unbehandelte
+  // TypeError werfen (ausserhalb jedes try-Blocks) und als nackter
+  // Cloudflare-500 ohne CORS-Header beim Aufrufer landen. Andere Nicht-
+  // Objekte (Zahl, String, Array, Boolean) werfen bereits korrekt 401, weil
+  // z.B. (123).token einfach undefined ist statt zu werfen - nur `null` und
+  // `undefined` brauchen diese explizite Absicherung.
+  if (!body || typeof body !== "object") {
+    return json({ success: false, error: "Ungueltiger JSON-Body." }, 400, corsHeaders);
+  }
+
   // Der Kanal kommt aus dem Token, niemals aus dem Request. Diese Pruefung
   // steht bewusst vor jeder anderen Verarbeitung (auch vor der draw-
   // Validierung): ohne gueltigen Token gibt es nichts zu tun.

@@ -4,8 +4,6 @@ import { env } from "cloudflare:test";
 import {
   saveChannelToken,
   resolveChannelByToken,
-  createState,
-  consumeState,
 } from "../src/tokens.js";
 
 describe("generateToken", () => {
@@ -143,33 +141,5 @@ describe("saveChannelToken Validierung (Befund 5)", () => {
 
   it("lehnt eine nicht-numerische channelId ab", async () => {
     await expect(saveChannelToken(env, { channelLogin: "kanal_f", channelId: "abc" })).rejects.toThrow();
-  });
-});
-
-describe("createState / consumeState", () => {
-  it("akzeptiert einen frisch erzeugten State genau einmal", async () => {
-    const state = await createState(env);
-    expect(await consumeState(env, state)).toBe(true);
-    expect(await consumeState(env, state)).toBe(false);
-  });
-
-  it("lehnt unbekannte und leere States ab", async () => {
-    expect(await consumeState(env, "nie-erzeugt")).toBe(false);
-    expect(await consumeState(env, "")).toBe(false);
-  });
-
-  it("unterscheidet 'fehlender Schluessel' von 'Wert ist Leerstring' (Befund 4)", async () => {
-    await env.TWITCH_TOKENS.put("state:leerer-wert", "");
-    expect(await consumeState(env, "leerer-wert")).toBe(true);
-  });
-
-  it("legt state:-Eintraege mit einer TTL von 600 Sekunden an", async () => {
-    const vorher = Math.floor(Date.now() / 1000);
-    const state = await createState(env);
-    const { keys } = await env.TWITCH_TOKENS.list({ prefix: "state:" });
-    const eintrag = keys.find(k => k.name === `state:${state}`);
-    expect(eintrag).toBeDefined();
-    expect(eintrag.expiration).toBeGreaterThanOrEqual(vorher + 600 - 5);
-    expect(eintrag.expiration).toBeLessThanOrEqual(vorher + 600 + 5);
   });
 });
