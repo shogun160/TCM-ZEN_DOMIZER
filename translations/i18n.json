@@ -57,15 +57,13 @@
     "category_repeated": "🔁 Kategorie 3: <b>{category}</b> wird wiederholt.",
     "category_repeated_all": "🔁 Kategorie 2 & 3: <b>{category}</b> werden wiederholt.",
     "hotkey_help": "🎛️ Hotkeys<br>📋 Shift + L: Log anzeigen<br>🧹 Shift + R: zurücksetzen (Blacklist & Zähler)<br>🗑️ Shift + X: Log löschen<br>✏️ Shift + G: Dev-Logging an/aus<br>",
-    "twitch_enable_label": "Ergebnisse in Twitch-Chat posten",
-    "twitch_pin_label": "Nachricht anpinnen (20 Min.)",
-    "twitch_channel_placeholder": "dein-twitch-kanalname",
-    "twitch_worker_url_placeholder": "Bot-Worker-URL (https://...)",
-    "twitch_test_button": "Testnachricht senden",
-    "twitch_not_configured": "⚠️ Kanalname oder Worker-URL fehlt.",
+    "twitch_connect": "Kanal verbinden",
+    "twitch_token_label": "Kanal-Token",
     "twitch_sent": "✅ In Twitch-Chat gepostet.",
     "twitch_sent_and_pinned": "✅ Gepostet und angepinnt.",
-    "twitch_send_error": "⚠️ Fehler beim Senden"
+    "twitch_send_error": "⚠️ Fehler beim Senden",
+    "twitch_channel_not_connected": "Kanal nicht verbunden - bitte über \"Kanal verbinden\" neu autorisieren.",
+    "twitch_token_missing": "Bitte zuerst den Kanal-Token eintragen. Es öffnet sich jetzt ein neuer Tab, um dich bei Twitch anzumelden und den Token zu holen."
 
   },
   "en": {
@@ -122,14 +120,12 @@
     "category_repeated": "🔁 Category 3: <b>{category}</b> will be repeated.",
     "category_repeated_all": "🔁 Category 2 & 3: <b>{category}</b> will be repeated.",
     "hotkey_help": "🎛️ Hotkeys<br>📋 Shift + L: show Log<br>🧹 Shift + R: reset (blacklist & counter)<br>🗑️ Shift + X: delete log<br>✏️ Shift + G: dev logging on/off<br>",
-    "twitch_enable_label": "Post results to Twitch chat",
-    "twitch_pin_label": "Pin message (20 min.)",
-    "twitch_channel_placeholder": "your-twitch-channel-name",
-    "twitch_worker_url_placeholder": "Bot worker URL (https://...)",
-    "twitch_test_button": "Send test message",
-    "twitch_not_configured": "⚠️ Channel name or worker URL missing.",
+    "twitch_connect": "Connect channel",
+    "twitch_token_label": "Channel token",
     "twitch_sent": "✅ Posted to Twitch chat.",
     "twitch_sent_and_pinned": "✅ Posted and pinned.",
-    "twitch_send_error": "⚠️ Error sending"
+    "twitch_send_error": "⚠️ Error sending",
+    "twitch_channel_not_connected": "Channel not connected - please authorize again via \"Connect channel\".",
+    "twitch_token_missing": "Please enter the channel token first. A new tab is opening now so you can sign in with Twitch and get the token."
   }
 }
