@@ -7,7 +7,15 @@
  */
 
 const MAX_DRAW_ITEMS = 10;
-const MAX_FIELD_LENGTH = 100;
+
+// Gesenkt von vormals 100 (alle drei Felder) auf die gemessenen Maxima in
+// cars/vehicles.json plus Puffer: category 13, brand 24, model 46 Zeichen
+// (Stand Sicherheitsreview 2026-08-11). Das begrenzt, wie viel
+// angreifergesteuerten Text ein Nutzer pro Feld ueberhaupt unterbringen
+// kann - unabhaengig von der Zeichen-Whitelist unten.
+const MAX_CATEGORY_LENGTH = 24;
+const MAX_BRAND_LENGTH = 40;
+const MAX_MODEL_LENGTH = 64;
 
 // ASCII-Steuerzeichen (inkl. Zeilenumbrueche, \x00-\x1F) und die
 // C1-Steuerzeichen (\x7F-\x9F) sowie die Unicode-"Zeilentrenner"
@@ -18,26 +26,67 @@ const MAX_FIELD_LENGTH = 100;
 // Leerzeichen ersetzt.
 const LINE_BREAK_CHARS = /[\x00-\x1F\x7F-\x9F\u2028\u2029]/g;
 
-// Unsichtbare/formatierende Zeichen, die keinen sichtbaren Zeilenumbruch
-// erzeugen, aber zur Verschleierung genutzt werden koennen: Zero-Width
-// Space/Joiner/Non-Joiner (U+200B-U+200D), LTR-/RTL-Marker (U+200E/U+200F),
-// Bidi-Embedding/-Override (U+202A-U+202E), Word Joiner (U+2060),
-// Bidi-Isolates (U+2066-U+2069) sowie das Zero-Width No-Break Space / BOM
-// (U+FEFF). Ein RTL-Override kann z.B. einen Markennamen spiegeln oder
-// einen boesartigen Linkteil unsichtbar machen. Diese Zeichen werden
-// vollstaendig entfernt statt durch ein Leerzeichen ersetzt, da sie fuer
-// sich genommen keine Wortgrenze darstellen.
-const INVISIBLE_CHARS = /[\u200B-\u200F\u202A-\u202E\u2060\u2066-\u2069\uFEFF]/g;
+// Unsichtbare/formatierende Zeichen wie Zero-Width Space/Joiner/Non-Joiner
+// (U+200B-U+200D), LTR-/RTL-Marker (U+200E/U+200F), Bidi-Embedding/-Override
+// (U+202A-U+202E), Word Joiner (U+2060), Bidi-Isolates (U+2066-U+2069) sowie
+// das Zero-Width No-Break Space / BOM (U+FEFF) brauchen HIER keine eigene
+// Regel mehr: keines davon ist ein Unicode-Buchstabe (\p{L}), eine Ziffer
+// (\p{N}) oder eines der unten erlaubten Satzzeichen - DISALLOWED_CHARS
+// entfernt sie also automatisch mit. Ein frueherer eigener INVISIBLE_CHARS-
+// Schritt wurde deshalb entfernt (reine Code-Duplikation zur Whitelist).
+// LINE_BREAK_CHARS bleibt dagegen bestehen: Zeilenumbrueche muessen durch
+// ein Leerzeichen ERSETZT werden (Wortgrenze erhalten), waehrend die
+// Whitelist unten nur entfernt, nie ersetzt - "Pfister\nComet" wuerde ohne
+// diesen Schritt zu "PfisterComet" statt "Pfister Comet" verschmelzen.
 
-function cleanField(value) {
+// Zeichen-Whitelist (Befund A, Sicherheitsreview 2026-08-11): erlaubt sind
+// Unicode-Buchstaben (\p{L}, deckt automatisch z.B. \u00E9/\u00EB/\u00F6/\u03B2 ab) und
+// -Ziffern (\p{N}) per Property-Escape, dazu genau die Satzzeichen, die in
+// den 748 echten Eintraegen aus cars/vehicles.json tatsaechlich vorkommen:
+// Leerzeichen, NBSP (U+00A0), Bindestrich, Punkt, runde Klammern, \u00AE (U+00AE),
+// Schraegstrich, Plus, gerades und typografisches Apostroph ('/U+2019),
+// Anfuehrungszeichen, Gedankenstrich (U+2013) und Doppelpunkt. Alles andere
+// wird entfernt (nicht abgelehnt) - siehe Begruendung "Entfernen statt
+// Ablehnen" im Sicherheitsreview: kommt kuenftig durch Datenpflege ein neues
+// Sonderzeichen in vehicles.json hinzu, degradiert das nur den einen
+// betroffenen Namen minimal, statt jede Ziehung mit diesem Fahrzeug per
+// harter Ablehnung komplett lahmzulegen.
+//
+// Wichtig: ":" "/" und "." sind einzeln erlaubt (sie kommen legitim vor,
+// z.B. in "917K" nicht, aber als Trenner in anderen Datensaetzen) - erst
+// die KOMBINATION zu einem URL-Muster wird unten separat per
+// looksLikeUrlPattern() abgelehnt, nicht schon hier durch die Whitelist.
+const DISALLOWED_CHARS = /[^\p{L}\p{N} \u00A0\-.()\u00AE/+'\u2019"\u2013:]/gu;
+
+// URL-Erkennung (Befund A): anders als bei der Zeichen-Whitelist ist
+// Ablehnen hier bewusst richtig - ein Linkversuch ist kein
+// Datenpflege-Unfall, sondern ein klarer Missbrauchsversuch. Deckt ab:
+// "://" (Schema-Trenner, z.B. "https://"), "www." sowie eine Punkt-TLD-
+// Kombination aus einer kleinen, haendisch gepflegten Liste. Alles
+// case-insensitiv, da Twitch-Chat-Clients Links unabhaengig von
+// Gross-/Kleinschreibung erkennen. Bewusst NICHT verfolgt (siehe
+// Sicherheitsreview): Tricks wie eingestreute Leerzeichen ("https : //"),
+// Vollbreiten-Punkt U+FF0E oder Umlaut-Domains via Punycode - die
+// Zeichen-Whitelist oben entfernt U+FF0E ohnehin schon (kein \p{L}/\p{N}
+// und nicht in der erlaubten Satzzeichenliste), und die verbleibenden
+// Luecken waeren nur mit einem vollstaendigen URL-Parser zuverlaessig zu
+// schliessen - das steht ausser Verhaeltnis zum Rest dieser Haertung.
+const URL_TLD_PATTERN = /\.(?:com|net|org|tv|gg|io|de|shop|link|xyz)(?![\p{L}\p{N}])/u;
+
+function looksLikeUrlPattern(text) {
+  const lower = text.toLowerCase();
+  return lower.includes("://") || lower.includes("www.") || URL_TLD_PATTERN.test(lower);
+}
+
+function cleanField(value, maxLength) {
   if (typeof value === "number") value = String(value);
   if (typeof value !== "string") return "";
   return value
     .replace(LINE_BREAK_CHARS, " ")
-    .replace(INVISIBLE_CHARS, "")
+    .replace(DISALLOWED_CHARS, "")
     .replace(/\s+/g, " ")
     .trim()
-    .slice(0, MAX_FIELD_LENGTH);
+    .slice(0, maxLength);
 }
 
 export function validateDraw(draw) {
@@ -54,11 +103,25 @@ export function validateDraw(draw) {
       return { ok: false, error: "Ungueltiger Eintrag in 'draw'." };
     }
 
-    const category = cleanField(roh.category);
-    const brand = cleanField(roh.brand);
-    const model = cleanField(roh.model);
+    // Feldgrenzen (24/40/64) werden NACH dem Bereinigen angewandt, nicht
+    // vorher: cleanField() entfernt Steuerzeichen/unsichtbare Zeichen/
+    // Whitelist-Verstoesse zuerst und kuerzt erst danach. So begrenzt das
+    // Limit tatsaechlich sichtbaren Inhalt, statt Zeichen zu "verschwenden",
+    // die ohnehin gleich wieder entfernt wuerden (ein Angreifer koennte
+    // sonst durch Vorschalten von 24+ Muell-Zeichen den halben Feldinhalt
+    // vor dem Schnitt "verstecken").
+    const category = cleanField(roh.category, MAX_CATEGORY_LENGTH);
+    const brand = cleanField(roh.brand, MAX_BRAND_LENGTH);
+    const model = cleanField(roh.model, MAX_MODEL_LENGTH);
     if (!category || !brand || !model) {
+      // Deckt auch den Fall ab, dass ein Feld ausschliesslich aus Zeichen
+      // besteht, die die Whitelist entfernt (z.B. "###$$$%%%") - cleanField()
+      // liefert dann "", und genau diese bereits bestehende Nicht-leer-
+      // Pruefung greift unveraendert.
       return { ok: false, error: "'category', 'brand' und 'model' muessen nicht-leer sein." };
+    }
+    if (looksLikeUrlPattern(category) || looksLikeUrlPattern(brand) || looksLikeUrlPattern(model)) {
+      return { ok: false, error: "'category', 'brand' und 'model' duerfen kein Link-Muster enthalten." };
     }
 
     let year = null;

@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { validateDraw, buildMessage } from "../src/draw.js";
+import echteFahrzeuge from "../../cars/vehicles.json";
 
 describe("validateDraw", () => {
   const gueltig = [{ category: "Hypercar", brand: "Pfister", model: "Comet", year: 2021 }];
@@ -40,19 +41,26 @@ describe("validateDraw", () => {
   });
 
   it("entfernt Zeilenumbrueche und Steuerzeichen", () => {
+    // Bewusst kein "example.com" mehr im Testwert (frueher hier verwendet):
+    // Domain-artige Substrings werden jetzt ueber die URL-Erkennung
+    // abgelehnt (siehe describe("URL-Erkennung") unten) - dieser Test soll
+    // ausschliesslich das Entfernen von Zeilenumbruechen pruefen.
     const ergebnis = validateDraw([
-      { category: "Hypercar", brand: "Pfister\nBesuch example.com", model: "Comet" },
+      { category: "Hypercar", brand: "Pfister\nSonderedition", model: "Comet" },
     ]);
     expect(ergebnis.ok).toBe(true);
     expect(ergebnis.items[0].brand).not.toMatch(/[\n\r]/);
     expect(ergebnis.items[0].model).toBe("Comet");
   });
 
-  it("kuerzt ueberlange Felder auf 100 Zeichen", () => {
+  it("kuerzt ueberlange Felder auf die neuen, gesenkten Feldgrenzen (24/40/64)", () => {
     const ergebnis = validateDraw([
-      { category: "Hypercar", brand: "A".repeat(500), model: "Comet" },
+      { category: "K".repeat(500), brand: "B".repeat(500), model: "M".repeat(500) },
     ]);
-    expect(ergebnis.items[0].brand).toHaveLength(100);
+    expect(ergebnis.ok).toBe(true);
+    expect(ergebnis.items[0].category).toHaveLength(24);
+    expect(ergebnis.items[0].brand).toHaveLength(40);
+    expect(ergebnis.items[0].model).toHaveLength(64);
   });
 
   it("lehnt unsinnige Jahreszahlen ab", () => {
@@ -80,6 +88,115 @@ describe("validateDraw", () => {
     expect(ergebnis.ok).toBe(true);
     expect(ergebnis.items[0].brand).not.toMatch(/[\u200B\u202E\u2066\u2069]/);
     expect(ergebnis.items[0].model).not.toMatch(/[\u2028\u2029]/);
+  });
+});
+
+// --- Befund A (Sicherheitsreview): Zeichen-Whitelist + URL-Ablehnung ---
+describe("validateDraw: Zeichen-Whitelist", () => {
+  it("entfernt Zeichen ausserhalb der Whitelist (statt das Feld abzulehnen)", () => {
+    const ergebnis = validateDraw([
+      { category: "Hypercar", brand: "Pfi$ster!!", model: "Com<et>#tag" },
+    ]);
+    expect(ergebnis.ok).toBe(true);
+    expect(ergebnis.items[0].brand).toBe("Pfister");
+    expect(ergebnis.items[0].model).toBe("Comettag");
+  });
+
+  it("behaelt Unicode-Buchstaben ausserhalb ASCII (e.g. é, ë, ö, β)", () => {
+    const ergebnis = validateDraw([
+      { category: "Hypercar", brand: "Bugéëötti β", model: "Comet" },
+    ]);
+    expect(ergebnis.ok).toBe(true);
+    expect(ergebnis.items[0].brand).toBe("Bugéëötti β");
+  });
+
+  it("behaelt die real in vehicles.json vorkommenden Sonderzeichen (- . ( ) ® / + ' \u2019 \" \u2013 :)", () => {
+    // Auf mehrere Felder verteilt, damit jedes Feld innerhalb seiner neuen,
+    // gesenkten Laengengrenze (24/40/64) bleibt und die Kuerzung diese
+    // Whitelist-Erhaltungs-Assertion nicht verfaelscht.
+    const ergebnis = validateDraw([
+      {
+        category: "A-B.C(D)E®",
+        brand: "O'Brien's \u2019Cars\"\u2013:",
+        model: "X/Y+Z\u00A0Model",
+      },
+    ]);
+    expect(ergebnis.ok).toBe(true);
+    expect(ergebnis.items[0].category).toBe("A-B.C(D)E®");
+    expect(ergebnis.items[0].brand).toBe("O'Brien's \u2019Cars\"\u2013:");
+    // NBSP (U+00A0, 2x in vehicles.json gemessen) ist Teil der Whitelist
+    // (siehe DISALLOWED_CHARS in src/draw.js), UEBERLEBT als Zeichen aber
+    // nicht bis zum Ergebnis: der bereits bestehende, unveraenderte
+    // Kollaps-Schritt .replace(/\s+/g, " ") normalisiert NBSP (das in JS zu
+    // \s zaehlt) auf ein gewoehnliches Leerzeichen. Das ist keine Regression
+    // dieser Haertung, sondern vorbestehendes Verhalten - hier bewusst
+    // mitgeprueft, damit es nicht spaeter als Bug missverstanden wird.
+    expect(ergebnis.items[0].model).toBe("X/Y+Z Model");
+  });
+
+  it("lehnt ein Feld ab, das nach dem Entfernen unerlaubter Zeichen leer ist", () => {
+    const ergebnis = validateDraw([
+      { category: "Hypercar", brand: "###$$$%%%", model: "Comet" },
+    ]);
+    expect(ergebnis.ok).toBe(false);
+  });
+});
+
+describe("validateDraw: URL-Muster werden abgelehnt (Befund A)", () => {
+  it("lehnt '://' in beliebiger Gross-/Kleinschreibung ab", () => {
+    expect(validateDraw([{ category: "X", brand: "Y", model: "https://boese-seite.example" }]).ok).toBe(false);
+    expect(validateDraw([{ category: "X", brand: "Y", model: "HTTP://BOESE-SEITE.EXAMPLE" }]).ok).toBe(false);
+    expect(validateDraw([{ category: "X", brand: "Y://evil", model: "Z" }]).ok).toBe(false);
+  });
+
+  it("lehnt 'www.' ab", () => {
+    expect(validateDraw([{ category: "X", brand: "www.boese-seite.example", model: "Z" }]).ok).toBe(false);
+    expect(validateDraw([{ category: "X", brand: "WWW.BOESE-SEITE.EXAMPLE", model: "Z" }]).ok).toBe(false);
+  });
+
+  it("lehnt eine Punkt-TLD-Kombination ab (.com .net .org .tv .gg .io .de .shop .link .xyz)", () => {
+    for (const tld of ["com", "net", "org", "tv", "gg", "io", "de", "shop", "link", "xyz"]) {
+      const ergebnis = validateDraw([{ category: "X", brand: "Y", model: `boeseseite.${tld}` }]);
+      expect(ergebnis.ok, `TLD .${tld} haette abgelehnt werden muessen`).toBe(false);
+    }
+  });
+
+  it("lehnt eine TLD-Kombination unabhaengig von Gross-/Kleinschreibung ab", () => {
+    expect(validateDraw([{ category: "X", brand: "Y", model: "boeseseite.COM" }]).ok).toBe(false);
+  });
+
+  it("erkennt eine TLD-Kombination auch mitten im Feld, nicht nur am Ende", () => {
+    expect(validateDraw([{ category: "X", brand: "Y", model: "besucht boeseseite.com jetzt" }]).ok).toBe(false);
+  });
+});
+
+// Wichtigster Test dieses Tasks: verhindert, dass die Haertung echte
+// Fahrzeugdaten trifft. Prueft ALLE 748 Eintraege aus cars/vehicles.json
+// plus das in zendomizer.html fest codierte Jet-Bonusfahrzeug.
+describe("validateDraw: alle echten Fahrzeuge aus cars/vehicles.json bleiben gueltig", () => {
+  const JET_BONUS_VEHICLE = {
+    category: "Jet",
+    brand: "Dassault Aviation",
+    model: "Alpha Jet \u2013 Red Bull Edition",
+  };
+  const alleFahrzeuge = [...echteFahrzeuge, JET_BONUS_VEHICLE];
+
+  it(`akzeptiert alle ${alleFahrzeuge.length} echten Fahrzeuge (${echteFahrzeuge.length} aus vehicles.json + Jet-Bonusfahrzeug)`, () => {
+    // Bewusst nur ok:true geprueft, kein Byte-fuer-Byte-Vergleich: einzelne
+    // Eintraege in vehicles.json haben schon vor dieser Haertung fuehrende/
+    // folgende Leerzeichen (Datenpflege-Artefakt, z.B. "Cooper S "), die das
+    // bereits bestehende .trim() in cleanField() entfernt - das ist
+    // unveraendertes Altverhalten und nicht Gegenstand dieses Befunds.
+    const fehlgeschlagen = [];
+    for (const fahrzeug of alleFahrzeuge) {
+      const ergebnis = validateDraw([
+        { category: fahrzeug.category, brand: fahrzeug.brand, model: fahrzeug.model, year: fahrzeug.year },
+      ]);
+      if (!ergebnis.ok) {
+        fehlgeschlagen.push({ fahrzeug, error: ergebnis.error });
+      }
+    }
+    expect(fehlgeschlagen, JSON.stringify(fehlgeschlagen, null, 2)).toEqual([]);
   });
 });
 
