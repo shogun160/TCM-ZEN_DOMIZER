@@ -2,7 +2,7 @@
 // - Enter loest eine Ziehung aus (dieselbe wie der GO-Knopf)
 // - kein Hotkey feuert, waehrend jemand in ein Textfeld tippt (z.B. Twitch-Token)
 // - Checkboxen und Dropdowns bleiben durchlaessig, sonst waere "Filter setzen, Enter" kaputt
-import { extract, extractAt, HTML } from './harness.mjs';
+import { extract, extractAt, extractBlock, HTML } from './harness.mjs';
 
 const results = [];
 const check = (name, ok, detail = '') => {
@@ -27,7 +27,7 @@ function sandbox() {
     copyToClipboard: () => aufrufe.copyToClipboard++,
     showToast: (m) => aufrufe.toasts.push(m),
     t: (k) => k,
-    console: { log() {}, table() {} },
+    console: { log() {}, table() {}, warn() {} },
     localStorage: { setItem() {}, removeItem() {}, getItem: () => null },
   };
 
@@ -35,6 +35,9 @@ function sandbox() {
   const fn = new Function(...keys, `
     let recentDraws = { Drift: [{ brand: 'x' }] };
     const window = { drawLog: [], drawRound: 5, devLoggingEnabled: false, recentDraws: null };
+    ${extractBlock('const MAX_DRAW_LOG', ';')}
+    ${extract('persist')}
+    ${extract('appendDrawLog')}
     ${extract('isTypingTarget', { optional: true })}
     ${extractAt(HTML.indexOf("document.addEventListener('keydown', (e) => {"), 'Listener 1')});
     ${extractAt(HTML.indexOf('document.addEventListener("keydown", function (e) {'), 'Listener 2')});
