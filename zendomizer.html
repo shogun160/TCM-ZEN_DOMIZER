@@ -973,7 +973,8 @@ select.filter-control {
             <button id="twitchSettingsToggle" class="filter-control" onclick="toggleTwitchSettingsPanel()">Twitch</button>
             <div id="twitchSettingsPanel" class="twitch-settings-panel" style="display:none;">
                 <label><input type="checkbox" id="twitchEnabled" onchange="saveTwitchSettings()"><span id="twitchEnabledLabel">Twitch settings label</span></label>
-                <input type="text" id="twitchChannel" oninput="saveTwitchSettings()" />
+                <button id="twitchConnectBtn" class="filter-control" onclick="openTwitchConnect()">Kanal verbinden</button>
+                <input type="password" id="twitchToken" oninput="saveTwitchSettings()" />
                 <label><input type="checkbox" id="twitchPin" onchange="saveTwitchSettings()"><span id="twitchPinLabel">Twitch pin label</span></label>
                 <input type="text" id="twitchWorkerUrl" oninput="saveTwitchSettings()" />
                 <button id="twitchTestBtn" class="filter-control" onclick="testTwitchAnnounce()">Twitch test label</button>
@@ -1171,12 +1172,10 @@ select.filter-control {
   function updateTwitchLabels() {
     const enabledLabel = document.getElementById("twitchEnabledLabel");
     const pinLabel = document.getElementById("twitchPinLabel");
-    const channelInput = document.getElementById("twitchChannel");
     const workerInput = document.getElementById("twitchWorkerUrl");
     const testBtn = document.getElementById("twitchTestBtn");
     if (enabledLabel) enabledLabel.textContent = t("twitch_enable_label");
     if (pinLabel) pinLabel.textContent = t("twitch_pin_label");
-    if (channelInput) channelInput.placeholder = t("twitch_channel_placeholder");
     if (workerInput) workerInput.placeholder = t("twitch_worker_url_placeholder");
     if (testBtn) testBtn.textContent = t("twitch_test_button");
   }
@@ -1700,29 +1699,29 @@ select.filter-control {
     function loadTwitchSettings() {
       const enabled = localStorage.getItem("zendomizerTwitchEnabled") === "true";
       const pin = localStorage.getItem("zendomizerTwitchPin") === "true";
-      const channel = localStorage.getItem("zendomizerTwitchChannel") || "";
+      const token = localStorage.getItem("zendomizerTwitchToken") || "";
       const workerUrl = localStorage.getItem("zendomizerTwitchWorkerUrl") || DEFAULT_TWITCH_WORKER_URL;
 
       const enabledBox = document.getElementById("twitchEnabled");
       const pinBox = document.getElementById("twitchPin");
-      const channelInput = document.getElementById("twitchChannel");
+      const tokenInput = document.getElementById("twitchToken");
       const workerInput = document.getElementById("twitchWorkerUrl");
 
       if (enabledBox) enabledBox.checked = enabled;
       if (pinBox) pinBox.checked = pin;
-      if (channelInput) channelInput.value = channel;
+      if (tokenInput) tokenInput.value = token;
       if (workerInput) workerInput.value = workerUrl;
     }
 
     function saveTwitchSettings() {
       const enabled = document.getElementById("twitchEnabled")?.checked || false;
       const pin = document.getElementById("twitchPin")?.checked || false;
-      const channel = (document.getElementById("twitchChannel")?.value || "").trim();
+      const token = (document.getElementById("twitchToken")?.value || "").trim();
       const workerUrl = (document.getElementById("twitchWorkerUrl")?.value || "").trim();
 
       localStorage.setItem("zendomizerTwitchEnabled", String(enabled));
       localStorage.setItem("zendomizerTwitchPin", String(pin));
-      localStorage.setItem("zendomizerTwitchChannel", channel);
+      localStorage.setItem("zendomizerTwitchToken", token);
       localStorage.setItem("zendomizerTwitchWorkerUrl", workerUrl);
 
       const statusEl = document.getElementById("twitchStatusMsg");
@@ -1738,43 +1737,62 @@ select.filter-control {
       panel.style.display = panel.style.display === "none" ? "flex" : "none";
     }
 
-    // Kompakte Ein-Zeilen-Fassung des Ergebnisses fuer den Twitch-Chat
-    // (getrennt vom mehrzeiligen Zwischenablage-Text, da Twitch-Chat keine
-    // Zeilenumbrueche sinnvoll darstellt).
-    function formatTwitchMessage(selection) {
-      if (!selection || selection.length === 0) return "";
-      const parts = selection
-        .filter(v => v && v.category)
-        .map(v => `${v.category}: ${formatVehicleName(v)}`);
-      return `🎲 ZENdomizer: ${parts.join(" | ")}`;
+    // Oeffnet den Twitch-Login des Workers in einem neuen Tab, damit der
+    // Streamer seinen Kanal verbindet und danach einen Token zum Einfuegen
+    // in das Token-Feld angezeigt bekommt.
+    function openTwitchConnect() {
+      const workerUrl = (document.getElementById("twitchWorkerUrl")?.value || "").trim();
+      const statusEl = document.getElementById("twitchStatusMsg");
+      if (!workerUrl) {
+        if (statusEl) {
+          statusEl.textContent = t("twitch_worker_url_missing");
+          statusEl.classList.add("error");
+        }
+        return;
+      }
+      window.open(workerUrl.replace(/\/+$/, "") + "/auth/start", "_blank", "noopener");
     }
 
-    async function sendTwitchAnnouncement(message) {
+    // Strukturierte Ziehungsdaten fuer den Worker. Die Chat-Zeile baut der
+    // Worker daraus selbst - so kann ueber diese Schnittstelle kein Freitext
+    // in den Chat gelangen.
+    function buildTwitchDraw(selection) {
+      if (!selection || selection.length === 0) return [];
+      return selection
+        .filter(v => v && v.category)
+        .map(v => ({ category: v.category, brand: v.brand, model: v.model, year: v.year }));
+    }
+
+    async function sendTwitchAnnouncement(draw) {
       const enabled = localStorage.getItem("zendomizerTwitchEnabled") === "true";
       if (!enabled) return;
 
-      const channel = (localStorage.getItem("zendomizerTwitchChannel") || "").trim();
+      const token = (localStorage.getItem("zendomizerTwitchToken") || "").trim();
       const workerUrl = (localStorage.getItem("zendomizerTwitchWorkerUrl") || DEFAULT_TWITCH_WORKER_URL || "").trim();
       const pin = localStorage.getItem("zendomizerTwitchPin") === "true";
 
       const statusEl = document.getElementById("twitchStatusMsg");
 
-      if (!channel || !workerUrl) {
+      if (!token || !workerUrl) {
         if (statusEl) {
           statusEl.textContent = t("twitch_not_configured");
           statusEl.classList.add("error");
         }
         return;
       }
+      if (!draw || draw.length === 0) return;
 
       try {
-        const res = await fetch(workerUrl, {
+        const res = await fetch(workerUrl.replace(/\/+$/, "") + "/announce", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ channel, message, pin }),
+          body: JSON.stringify({ token, draw, pin }),
         });
         const data = await res.json().catch(() => ({}));
 
+        if (res.status === 401) {
+          throw new Error(t("twitch_channel_not_connected"));
+        }
         if (!res.ok || !data.success) {
           throw new Error(data.error || `HTTP ${res.status}`);
         }
@@ -1797,7 +1815,9 @@ select.filter-control {
     }
 
     function testTwitchAnnounce() {
-      sendTwitchAnnouncement(`🧪 ZENdomizer Test-Nachricht (${new Date().toLocaleTimeString("de-DE")})`);
+      sendTwitchAnnouncement([
+        { category: "Test", brand: "ZENdomizer", model: "Testfahrzeug", year: new Date().getFullYear() },
+      ]);
     }
 
     function toggleBikeFilter() {
@@ -2073,7 +2093,7 @@ select.filter-control {
     
       setTimeout(() => {
         copyToClipboard();
-        sendTwitchAnnouncement(formatTwitchMessage(lastSelection));
+        sendTwitchAnnouncement(buildTwitchDraw(lastSelection));
       }, SPIN_DURATION + 100); // Sicherheitspuffer
     }
 
