@@ -1226,27 +1226,13 @@ select.filter-control {
     /*
      * END: Borrowed from https://github.com/calamity-inc/motorfe.st/
      */
-    function getCurrentUTC()
-    {
-        let currentDate = new Date();
-        let currentDay = currentDate.getDay()
-        let currentMinutes = currentDate.getHours()*60 + currentDate.getMinutes();
-
-        return [currentDay, currentMinutes]
-    }
-
-        // Format ist [ <Tag>,  <Minuten> ], Tage werden von 1 (Montag) bis 7 (Sonntag) durchnumeriert.
-    // Die Zeiten unten müssen angepasst werden.
-    const GRDAY_START = [ 6, 9*60 ];  // Samstag, 9:00 Uhr UTC
-    const GRDAY_STOP = [ 8, 9*60 ];   // Sonntag, 9:00 Uhr UTC
-
-    function isGrandRaceDay() {
-        let currentUtc = getCurrentUTC();
-
-        return (GRDAY_START[0] < currentUtc[0] && currentUtc[0] < GRDAY_STOP[0]) ||     // Day in between, always the proper time
-            (currentUtc[0] === GRDAY_START[0] && currentUtc[1] >= GRDAY_START[1]) ||    // Proper time of START day
-            (currentUtc[0] === GRDAY_STOP[0] && currentUtc[1] <= GRDAY_STOP[1])         // Proper time on STOP day
-    }
+    // Hier standen getCurrentUTC(), GRDAY_START/GRDAY_STOP und isGrandRaceDay(). Sie bildeten
+    // die alte Regel "Modifikatoren nur Samstag 9:00 bis Sonntag 9:00 UTC" ab und steuerten den
+    // Ticker-Zusatz "It's modificator day". Die Regel gilt nicht mehr - die Modifikatoren kommen
+    // heute ueber die Rotation selbst (siehe ROTATION, dritte Spalte) und gelten an allen Tagen.
+    // Die Funktion war ohnehin defekt: getDay() liefert 0=Sonntag..6=Samstag, der Code nahm
+    // 1=Montag..7=Sonntag an, wodurch GRDAY_STOP=[8,..] nie erreichbar war; zudem las sie
+    // Ortszeit statt UTC.
 
     /* Map rotation types to checkbox Ids */
     const ROTATION_MAP = new Map([
@@ -1268,7 +1254,6 @@ select.filter-control {
     let isDrawing = false; // verhindert überlappende handleGo()-Aufrufe (z.B. Doppelklick auf GO),
                             // die sonst zu Race-Conditions bei der Blacklist fuehren koennen -
                             // besonders sichtbar bei kleinen Fahrzeug-Pools (z.B. RC-Cars-Filter)
-    let grandraceActive = false;
     let grandraceCategories = [];
     // JET_VEHICLE: festes Bonusfahrzeug fuer die Jet-Kategorie in der Grandrace-Rotation
     // (kein Eintrag in vehicles.json, kein Filter-Checkbox - siehe drawVehicleForCategory)
@@ -1284,56 +1269,20 @@ select.filter-control {
     }
     let recentDraws = {}; // 🆕 Merkt sich die letzten Fahrzeuge pro Kategorie
     let toastTimer = null;
-    let previousMainStage = false;
     window.drawLog = [];
     window.drawRound = 0;
     window.devLoggingEnabled = false;
 
+    // "Main Stage" war ein Alt-Modifikator und kommt in der aktuellen Rotation nicht mehr vor.
+    // Die Sonderbehandlung dafuer (Kategorien abwaehlen, manuelle Auswahl erzwingen) ist deshalb
+    // entfallen - samt previousMainStage und grandraceActive, die nur noch dafuer gelesen wurden.
     function updateGrandraceState(triggeredByClick = false) {
       const grandraceCheckbox = document.getElementById('catGR');
       const index = getCurrentEventIndex();
       const entry = ROTATION[index];
-      const isMainStage = entry[2] === "Main Stage";
-    
-      if (!grandraceCheckbox.checked) {
-        grandraceActive = false; // 🛠️ Bugfix: wurde vorher nie gesetzt, dadurch griff die Auto-Auswahl nie
-        if (triggeredByClick && isMainStage) {
-          showToast(t("GRcat_mainstage_manual"), "#f44336", 7000);
-        }
-        return;
-      }
-    
-      grandraceActive = true; // 🛠️ Bugfix: Checkbox-Status muss den Aktivstatus tatsächlich setzen
-    
-      // 🟥 Wenn Main Stage neu erkannt → einmaliger Reset
-      if (!previousMainStage && isMainStage && grandraceActive) {
-        previousMainStage = true;
-    
-        for (let cb of document.querySelectorAll('.catCheckbox')) {
-          if (cb.id !== 'catGR') {
-            cb.checked = false;
-            cb.disabled = false;
-          }
-        }
-        selectedOrder = [];
-        grandraceCategories = [];
-        updateCheckboxBadges();
-        updateSlotBoxes();
-        updateResetButtonState();
-        updateGoButtonState();
-    
-        showToast(t("GRcat_mainstage_manual"), "#f44336", 7000);
-        return;
-      }
-    
-      // ✅ Wenn Main Stage vorbei ist
-      if (previousMainStage && !isMainStage) {
-        previousMainStage = false;
-        showToast(t("GRcat_autoselect_back"), "#0af", 5000);
-      }
-    
-      if (!grandraceActive || isMainStage) return;
-    
+
+      if (!grandraceCheckbox.checked) return;
+
       const expectedCategories = entry[1].split(" > "); // z.B. ["Hyper","Jet","AGP"] - Jet bleibt als Literal erhalten
       // 🛠️ Bugfix: einige Rotationen haben doppelte/identische Kategorien in allen 3 Slots
       // (z.B. "ST1 > ST1 > ST1") - die bilden alle auf DIESELBE Checkbox ab. Ohne Dedup hatte
@@ -2097,9 +2046,6 @@ select.filter-control {
 
     window.onload = () => {
       bikeFilterMode = "no_bike";
-      const initialIndex = getCurrentEventIndex();
-      const initialEntry = ROTATION[initialIndex];
-      previousMainStage = initialEntry[2] === "Main Stage";
 
       const bfb = document.getElementById("bikeFilterBtn");
       if (bfb) {
@@ -2506,7 +2452,7 @@ select.filter-control {
       // Route und Modifier als getrennte Segmente, ueber denselben spacer verbunden
       // -> gleichmaessiger Abstand Route<->Modifier<->Route (vorher: kleiner " &nbsp;"
       // Abstand vor dem Modifier, aber grosser spacer danach - ungleichmaessig)
-      const routePart = `🏁 Ready for <strong class="pulse-glow">${currentEvent}</strong>? Let's race! 🏁` + (isGrandRaceDay() ? " It's modificator day 🏁" : "");
+      const routePart = `🏁 Ready for <strong class="pulse-glow">${currentEvent}</strong>? Let's race! 🏁`;
       const modifierPart = currentModifier ? `⚠️ <strong>${currentModifier}</strong> ⚠️` : "";
       const segments = modifierPart ? [routePart, modifierPart] : [routePart];
       const message = segments.join(spacer);
