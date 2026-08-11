@@ -84,14 +84,25 @@ describe("validateDraw", () => {
 });
 
 describe("buildMessage", () => {
-  it("baut eine mehrzeilige Nachricht - Praefix-Zeile, dann eine Zeile je Eintrag", () => {
+  it("baut eine einzeilige Nachricht mit ' | ' als Trenner", () => {
     const nachricht = buildMessage([
       { category: "Hypercar", brand: "Pfister", model: "Comet", year: 2021 },
       { category: "Drift", brand: "Nissan", model: "Silvia", year: null },
     ]);
     expect(nachricht).toBe(
-      "\uD83C\uDFB2 ZENdomizer:\nHypercar: Pfister Comet (2021)\nDrift: Nissan Silvia"
+      "\uD83C\uDFB2 ZENdomizer: Hypercar: Pfister Comet (2021) | Drift: Nissan Silvia"
     );
+  });
+
+  // Twitch nimmt mehrzeilige Chat-Nachrichten nicht an (am 2026-08-11 live
+  // geprueft). Dieser Test haelt das fest, damit die Nachricht nicht erneut
+  // auf Zeilenumbrueche umgestellt wird.
+  it("enthaelt keine Zeilenumbrueche", () => {
+    const nachricht = buildMessage([
+      { category: "Hypercar", brand: "Pfister", model: "Comet", year: 2021 },
+      { category: "Drift", brand: "Nissan", model: "Silvia", year: null },
+    ]);
+    expect(nachricht).not.toMatch(/[\r\n]/);
   });
 
   it("kuerzt auf das Twitch-Limit von 500 Zeichen", () => {

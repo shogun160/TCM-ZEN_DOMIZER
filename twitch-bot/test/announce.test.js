@@ -83,7 +83,7 @@ describe("POST /announce", () => {
     expect(antwort.status).toBe(200);
     expect((await antwort.json()).success).toBe(true);
     expect(gesendetesBody.broadcaster_id).toBe("111");
-    expect(gesendetesBody.message).toBe("🎲 ZENdomizer:\nHypercar: Pfister Comet (2021)");
+    expect(gesendetesBody.message).toBe("🎲 ZENdomizer: Hypercar: Pfister Comet (2021)");
   });
 
   it("ignoriert ein mitgeschicktes fremdes channel-Feld", async () => {
@@ -223,7 +223,7 @@ describe("POST /announce mit type=connected", () => {
     expect(antwort.status).toBe(200);
     expect((await antwort.json()).success).toBe(true);
     expect(gesendetesBody.broadcaster_id).toBe("555");
-    expect(gesendetesBody.message).toBe("ZENdomizer connected. Let's race.");
+    expect(gesendetesBody.message).toBe("🎲 ZENdomizer connected. Let's race. 🏁");
   });
 
   it("lehnt type=connected ohne Token mit 401 ab - die Token-Pruefung kommt vor allem anderen", async () => {
@@ -251,7 +251,7 @@ describe("POST /announce mit type=connected", () => {
       message: "eingeschleuster Freitext mit http://boese-seite.example",
     }), e);
 
-    expect(gesendetesBody.message).toBe("ZENdomizer connected. Let's race.");
+    expect(gesendetesBody.message).toBe("🎲 ZENdomizer connected. Let's race. 🏁");
   });
 
   it("lehnt einen unbekannten type-Wert mit 400 ab, statt still auf den Ziehungspfad durchzufallen", async () => {
