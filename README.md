@@ -35,7 +35,7 @@ And of course a special thank also to the [motorfe.st project](https://github.co
   - `Shift + ?` – show help
   - `Shift + R` – reset blacklist & counter  
   - `Shift + X` – clear draw log  
-  - `Shift + L` – show draw log in console
+  - `Shift + L` – show draw log in console (keeps the last 500 entries)
   - `Shift + G` – toggle dev logging
   - `C` – copy draw to clipboard again
 - 📋 **automatic copy to clipboard** - text output per category
