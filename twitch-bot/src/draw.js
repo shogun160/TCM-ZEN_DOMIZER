@@ -107,11 +107,21 @@ function truncateForTwitch(nachricht) {
   return nachricht.slice(0, cutIndex) + ELLIPSIS;
 }
 
+// EXPERIMENT (siehe Auftrag): Twitch-Chat ist historisch IRC-basiert, wo
+// "\n" Nachrichten voneinander trennt statt Zeilen innerhalb einer
+// Nachricht umzubrechen. Ob die Twitch-Chat-API "\n" innerhalb einer
+// einzelnen Nachricht zulaesst (statt sie zu entfernen, abzulehnen oder in
+// mehrere Nachrichten zu zerlegen), wird erst nach dem Deploy live
+// sichtbar. Faellt das Experiment negativ aus, reicht es, ITEM_SEPARATOR
+// wieder auf " | " zu setzen, um zum bisherigen Einzeiler zurueckzukehren -
+// alles andere (Praefix, cleanField()-Bereinigung) bleibt unveraendert.
+const ITEM_SEPARATOR = "\n";
+
 export function buildMessage(items) {
   if (!Array.isArray(items) || items.length === 0) return "";
 
   const teile = items.map(v => `${v.category}: ${formatVehicleName(v)}`);
-  const nachricht = `\u{1F3B2} ZENdomizer: ${teile.join(" | ")}`;
+  const nachricht = `\u{1F3B2} ZENdomizer:${ITEM_SEPARATOR}${teile.join(ITEM_SEPARATOR)}`;
 
   return truncateForTwitch(nachricht);
 }

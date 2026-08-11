@@ -83,7 +83,7 @@ describe("POST /announce", () => {
     expect(antwort.status).toBe(200);
     expect((await antwort.json()).success).toBe(true);
     expect(gesendetesBody.broadcaster_id).toBe("111");
-    expect(gesendetesBody.message).toBe("🎲 ZENdomizer: Hypercar: Pfister Comet (2021)");
+    expect(gesendetesBody.message).toBe("🎲 ZENdomizer:\nHypercar: Pfister Comet (2021)");
   });
 
   it("ignoriert ein mitgeschicktes fremdes channel-Feld", async () => {

@@ -84,12 +84,14 @@ describe("validateDraw", () => {
 });
 
 describe("buildMessage", () => {
-  it("baut das bisherige Frontend-Format nach", () => {
+  it("baut eine mehrzeilige Nachricht - Praefix-Zeile, dann eine Zeile je Eintrag", () => {
     const nachricht = buildMessage([
       { category: "Hypercar", brand: "Pfister", model: "Comet", year: 2021 },
       { category: "Drift", brand: "Nissan", model: "Silvia", year: null },
     ]);
-    expect(nachricht).toBe("\uD83C\uDFB2 ZENdomizer: Hypercar: Pfister Comet (2021) | Drift: Nissan Silvia");
+    expect(nachricht).toBe(
+      "\uD83C\uDFB2 ZENdomizer:\nHypercar: Pfister Comet (2021)\nDrift: Nissan Silvia"
+    );
   });
 
   it("kuerzt auf das Twitch-Limit von 500 Zeichen", () => {
