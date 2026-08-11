@@ -65,6 +65,33 @@ And of course a special thank also to the [motorfe.st project](https://github.co
 
 ---
 
+## 🔄 Updating the Grand Race rotation
+
+The rotation lives **only** in `zendomizer.html` — two constants near the top of the
+script block:
+
+- `ROTATION_START` — unix timestamp of the moment the first entry of the list starts
+- `ROTATION` — one entry per slot: `[ track, "Cat > Cat > Cat", modifier? ]`
+- `EVENT_DURATION` — currently 10 minutes per slot
+
+A season sync means replacing both `ROTATION_START` and the whole `ROTATION` array
+(source so far: tunerfest.app/grand-race). Categories are mapped to the checkboxes via
+`ROTATION_MAP`; `Jet` has no checkbox and stays a virtual slot filled with `JET_VEHICLE`.
+Modifiers come with the rotation and apply on every day of the week.
+
+After a sync, run the tests — they walk every entry and will flag an unknown category
+key or a broken slot order:
+
+```bash
+node tests/grandrace-rotation.test.mjs
+```
+
+Note: the rotation *logic* is borrowed from [motorfe.st](https://github.com/calamity-inc/motorfe.st),
+but that project stopped updating its schedule after Season 6 (March 2025) — its data
+(24 slots à 20 minutes) does not match the current game any more.
+
+---
+
 ## 🧪 Tests
 
 Draw logic regression tests — plain Node, no dependencies:

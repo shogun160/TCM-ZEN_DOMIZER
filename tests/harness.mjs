@@ -58,6 +58,16 @@ export function extractAt(start, label = 'Block') {
   throw new Error(`${label} nicht sauber abgegrenzt`);
 }
 
+// Schneidet ein Literal (Array, Map, ...) zwischen zwei Markern heraus - fuer
+// Konstanten wie ROTATION, die keine Funktion sind.
+export function extractBlock(startMarker, endMarker) {
+  const start = HTML.indexOf(startMarker);
+  if (start === -1) throw new Error(`Marker "${startMarker}" nicht gefunden`);
+  const end = HTML.indexOf(endMarker, start + startMarker.length);
+  if (end === -1) throw new Error(`Endmarker "${endMarker}" nach "${startMarker}" nicht gefunden`);
+  return HTML.slice(start, end + endMarker.length);
+}
+
 const JET_VEHICLE = { category: 'Jet', brand: 'Dassault Aviation', model: 'Alpha Jet – Red Bull Edition', year: null, country: null, era: null, bike: false, top_tier: false };
 
 export function createDrawer() {
