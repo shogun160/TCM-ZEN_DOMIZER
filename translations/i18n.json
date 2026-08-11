@@ -68,7 +68,9 @@
     "twitch_err_automod": "⚠️ Twitch: Nachricht wurde von AutoMod zurückgehalten",
     "twitch_err_dropped": "⚠️ Twitch hat die Nachricht abgelehnt – Details im Twitch-Menü",
     "twitch_err_generic": "⚠️ Twitch nicht erreichbar – Ziehung wurde nicht gepostet",
-    "twitch_err_pin_failed": "📌 Twitch: Anpinnen hat nicht geklappt – gepostet wurde trotzdem"
+    "twitch_err_pin_failed": "📌 Twitch: Anpinnen hat nicht geklappt – gepostet wurde trotzdem",
+    "twitch_connect_ok": "✅ Twitch-Kanal verbunden – Bestätigung ist im Chat",
+    "twitch_close": "Schließen"
   },
   "en": {
     "filter_country": "Select country",
@@ -135,6 +137,8 @@
     "twitch_err_automod": "⚠️ Twitch: message was held back by AutoMod",
     "twitch_err_dropped": "⚠️ Twitch rejected the message – details in the Twitch menu",
     "twitch_err_generic": "⚠️ Twitch unreachable – the draw was not posted",
-    "twitch_err_pin_failed": "📌 Twitch: pinning failed – the message was posted anyway"
+    "twitch_err_pin_failed": "📌 Twitch: pinning failed – the message was posted anyway",
+    "twitch_connect_ok": "✅ Twitch channel connected – confirmation is in chat",
+    "twitch_close": "Close"
   }
 }

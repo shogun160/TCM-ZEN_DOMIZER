@@ -12,16 +12,21 @@ const VEHICLES = JSON.parse(fs.readFileSync(new URL('../cars/vehicles.json', imp
 // Schneidet eine Funktion per Klammer-Balance heraus. Strings, Template-Literale
 // und Kommentare werden übersprungen, sonst zählen Klammern aus Textbausteinen mit.
 function extract(name, { optional = false } = {}) {
-  const start = HTML.indexOf(`function ${name}(`);
+  let start = HTML.indexOf(`function ${name}(`);
   if (start === -1) {
     if (optional) return '';
     throw new Error(`Funktion ${name} nicht gefunden`);
   }
 
+  // "async" gehoert dazu - ohne es wuerde die herausgeschnittene Funktion beim
+  // ersten await als Syntaxfehler auffliegen.
+  const davor = HTML.slice(Math.max(0, start - 6), start);
+  if (davor.endsWith('async ')) start -= 6;
+
   // Erst die Parameterliste ueberspringen: bei "function f(draw, options = {})"
   // wuerde die Klammer-Balance sonst am Default-Wert "{}" starten und die
   // Funktion nach zwei Zeichen fuer beendet halten.
-  let i = start + `function ${name}`.length;
+  let i = HTML.indexOf(`function ${name}(`, start) + `function ${name}`.length;
   let runde = 0;
   for (; i < HTML.length; i++) {
     if (HTML[i] === '(') runde++;

@@ -315,10 +315,25 @@ describe("validateFilters", () => {
   it("uebersetzt Fahrzeugtyp und Aera aus festen Schluesseln", () => {
     expect(validateFilters({ vehicleType: "top_tier" }).teile).toEqual(["Top Tier"]);
     expect(validateFilters({ vehicleType: "bike" }).teile).toEqual(["Bikes only"]);
-    expect(validateFilters({ vehicleType: "rc_cars" }).teile).toEqual(["RC Cars"]);
+    expect(validateFilters({ vehicleType: "rc_cars" }).teile).toEqual(["RC Cars only"]);
     expect(validateFilters({ vehicleType: "all" }).teile).toEqual(["All vehicles"]);
     expect(validateFilters({ era: "classic" }).teile).toEqual(["Classic"]);
     expect(validateFilters({ era: "modern" }).teile).toEqual(["Modern"]);
+  });
+
+  it("folgt der eingestellten Sprache", () => {
+    expect(validateFilters({ vehicleType: "bike" }, "de").teile).toEqual(["Nur Bikes"]);
+    expect(validateFilters({ vehicleType: "all" }, "de").teile).toEqual(["Alle Fahrzeuge"]);
+    expect(validateFilters({ vehicleType: "rc_cars" }, "de").teile).toEqual(["Nur RC-Cars"]);
+    expect(validateFilters({ era: "classic" }, "de").teile).toEqual(["Klassisch"]);
+    expect(validateFilters({ era: "classic" }, "en").teile).toEqual(["Classic"]);
+  });
+
+  it("faellt bei unbekannter Sprache auf Englisch zurueck", () => {
+    // Englisch ist die Sprache der uebrigen Bausteine (Kategorien, Modifikatoren)
+    for (const lang of [undefined, null, "", "klingon", 42, {}]) {
+      expect(validateFilters({ era: "classic" }, lang).teile, `bei ${JSON.stringify(lang)}`).toEqual(["Classic"]);
+    }
   });
 
   it("haelt die Reihenfolge Typ, Marke, Land, Aera ein", () => {

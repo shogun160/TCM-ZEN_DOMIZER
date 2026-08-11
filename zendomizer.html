@@ -118,6 +118,10 @@
       line-height: 0;
       border-radius: 12px;
       transition: transform 0.15s ease, filter 0.15s ease;
+      /* Nur dieser Knopf steht mittig zum GO-Knopf. Die Zeile bleibt insgesamt
+         auf flex-end (siehe .button-top), damit sich am uebrigen Layout nichts
+         aendert - align-self gilt allein hier. */
+      align-self: center;
     }
     .twitch-icon-btn img {
       width: 56px;
@@ -1233,6 +1237,8 @@ select.filter-control {
     if (tokenInput) tokenInput.placeholder = t("twitch_token_label");
     if (tokenLabel) tokenLabel.textContent = t("twitch_token_label");
     if (dialogTitle) dialogTitle.textContent = t("twitch_dialog_title");
+    const closeBtn = document.getElementById("twitchCloseBtn");
+    if (closeBtn) closeBtn.title = t("twitch_close");
   }
 
     /*
@@ -1868,7 +1874,11 @@ select.filter-control {
 
       if (!hatTwitchToken()) {
         setTwitchStatus(t("twitch_token_missing"), true);
-        window.open(DEFAULT_TWITCH_WORKER_URL.replace(/\/+$/, "") + "/auth/start", "_blank", "noopener");
+        // Die Sprache wandert mit: der Worker liefert seine Seiten sonst immer
+        // auf Deutsch, egal was im ZENdomizer eingestellt ist.
+        window.open(
+          `${DEFAULT_TWITCH_WORKER_URL.replace(/\/+$/, "")}/auth/start?lang=${encodeURIComponent(currentLang)}`,
+          "_blank", "noopener");
         return;
       }
 
@@ -1909,7 +1919,10 @@ select.filter-control {
 
       if (bikeFilterMode && bikeFilterMode !== "no_bike") daten.vehicleType = bikeFilterMode;
       if (filters.brand) daten.brand = filters.brand;
-      if (filters.country) daten.country = filters.country;
+      // Land wird hier schon uebersetzt mitgegeben: die Laendernamen stehen in
+      // translations/i18n.json, nicht im Worker - der kennt nur die festen
+      // Schluessel fuer Fahrzeugtyp und Zeitraum.
+      if (filters.country) daten.country = translateCountry(filters.country);
       if (filters.era) daten.era = filters.era;
 
       return Object.keys(daten).length ? daten : null;
@@ -1957,7 +1970,12 @@ select.filter-control {
         const modifier = currentTwitchModifier();
         if (modifier) body.modifier = modifier;
         const filters = currentTwitchFilters();
-        if (filters) body.filters = filters;
+        if (filters) {
+          body.filters = filters;
+          // Der Worker setzt die Bezeichnungen fuer Fahrzeugtyp und Zeitraum
+          // selbst - dafuer braucht er die eingestellte Sprache.
+          body.lang = currentLang;
+        }
       }
 
       try {
@@ -1975,6 +1993,16 @@ select.filter-control {
         }
 
         setTwitchStatus(data.pinned ? t("twitch_sent_and_pinned") : t("twitch_sent"), false);
+
+        // Die Verbindungspruefung hat ihr Ziel erreicht, sobald der Chat die
+        // Bestaetigung bekommen hat - der Dialog kann zu. Die Rueckmeldung
+        // uebernimmt dann der Toast, sonst waere sie mit dem Dialog verschwunden.
+        if (isConnectedCheck) {
+          updateTwitchDialogState();
+          showToast(t("twitch_connect_ok"), "#9146FF", 5000);
+          closeTwitchDialog();
+          return;
+        }
         // Anpinnen ist Beiwerk - schlaegt nur das fehl, ist die Ziehung trotzdem
         // im Chat. Ein Toast weist trotzdem darauf hin, weil sonst niemand merkt,
         // dass die Nachricht nach kurzer Zeit im Verlauf verschwindet.
@@ -2654,7 +2682,7 @@ select.filter-control {
      allem schwebt und von keinem overflow abgeschnitten wird. -->
 <div id="twitchDialogBackdrop" class="twitch-dialog-backdrop" style="display:none;" onclick="handleTwitchBackdropClick(event)">
   <div class="twitch-dialog" role="dialog" aria-modal="true" aria-labelledby="twitchDialogTitle">
-    <button class="twitch-dialog-close" onclick="closeTwitchDialog()" title="Schließen">&times;</button>
+    <button id="twitchCloseBtn" class="twitch-dialog-close" onclick="closeTwitchDialog()">&times;</button>
     <h3 id="twitchDialogTitle">Twitch</h3>
 
     <label for="twitchToken" id="twitchTokenLabel">Kanal-Token</label>

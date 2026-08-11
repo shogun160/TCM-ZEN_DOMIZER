@@ -135,7 +135,9 @@ async function handleAnnounce(request, env, corsHeaders) {
     // body.filters wird nur mitgeschickt, wenn die Einstellungen vom Standard
     // abweichen. Unbekannte Schluessel ignoriert validateFilters still, ein
     // Link-Muster in Marke/Land lehnt es dagegen ab - wie bei den Fahrzeugfeldern.
-    const filter = validateFilters(body.filters);
+    // body.lang traegt die im ZENdomizer eingestellte Sprache - die Filter
+    // erscheinen dadurch im Chat so, wie sie in der Oberflaeche heissen.
+    const filter = validateFilters(body.filters, body.lang);
     if (!filter.ok) {
       return json({ success: false, error: filter.error }, 400, corsHeaders);
     }
