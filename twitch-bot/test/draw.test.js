@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { validateDraw, buildMessage } from "../src/draw.js";
+import { validateDraw, buildMessage, validateFilters } from "../src/draw.js";
 import echteFahrzeuge from "../../cars/vehicles.json";
 
 describe("validateDraw", () => {
@@ -303,5 +303,85 @@ describe("buildMessage: Grand-Race-Modifikator", () => {
     const nachricht = buildMessage(viele, "special_weather");
     expect(nachricht.length).toBeLessThanOrEqual(500);
     expect(nachricht.startsWith("\u{1F3B2} ZENdomizer - Special Weather \u{1F327}️: ")).toBe(true);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Aktive Filter. Fahrzeugtyp und Aera haben feste Wertebereiche und kommen als
+// Schluessel; Marke und Land sind Freitext-nah und laufen deshalb durch dieselbe
+// Bereinigung wie die Fahrzeugfelder.
+// ---------------------------------------------------------------------------
+describe("validateFilters", () => {
+  it("uebersetzt Fahrzeugtyp und Aera aus festen Schluesseln", () => {
+    expect(validateFilters({ vehicleType: "top_tier" }).teile).toEqual(["Top Tier"]);
+    expect(validateFilters({ vehicleType: "bike" }).teile).toEqual(["Bikes only"]);
+    expect(validateFilters({ vehicleType: "rc_cars" }).teile).toEqual(["RC Cars"]);
+    expect(validateFilters({ vehicleType: "all" }).teile).toEqual(["All vehicles"]);
+    expect(validateFilters({ era: "classic" }).teile).toEqual(["Classic"]);
+    expect(validateFilters({ era: "modern" }).teile).toEqual(["Modern"]);
+  });
+
+  it("haelt die Reihenfolge Typ, Marke, Land, Aera ein", () => {
+    const { teile } = validateFilters({ vehicleType: "top_tier", brand: "Ferrari", country: "italy", era: "modern" });
+    expect(teile).toEqual(["Top Tier", "Ferrari", "Italy", "Modern"]);
+  });
+
+  it("vereinheitlicht die Schreibweise der Laender", () => {
+    expect(validateFilters({ country: "germany" }).teile).toEqual(["Germany"]);
+    expect(validateFilters({ country: "Germany" }).teile).toEqual(["Germany"]);
+  });
+
+  it("schreibt Laender-Akronyme gross", () => {
+    // In cars/vehicles.json stehen die Werte klein - ohne Sonderbehandlung
+    // wuerde daraus "Usa" bzw. "Uae".
+    expect(validateFilters({ country: "usa" }).teile).toEqual(["USA"]);
+    expect(validateFilters({ country: "uae" }).teile).toEqual(["UAE"]);
+    expect(validateFilters({ country: "USA" }).teile).toEqual(["USA"]);
+  });
+
+  it("ignoriert unbekannte Schluessel still", () => {
+    expect(validateFilters({ vehicleType: "hovercraft", era: "steampunk" }).teile).toEqual([]);
+  });
+
+  it("liefert nichts, wenn keine Filter gesetzt sind", () => {
+    expect(validateFilters(null).teile).toEqual([]);
+    expect(validateFilters({}).teile).toEqual([]);
+    expect(validateFilters("kein Objekt").teile).toEqual([]);
+    expect(validateFilters([]).teile).toEqual([]);
+  });
+
+  it("bereinigt Marke und Land wie die Fahrzeugfelder", () => {
+    expect(validateFilters({ brand: "Fer rari " }).teile).toEqual(["Fer rari"]);
+    expect(validateFilters({ brand: "###" }).teile).toEqual([]);
+  });
+
+  it("begrenzt die Laenge von Marke und Land", () => {
+    const lang = "A".repeat(200);
+    expect(validateFilters({ brand: lang }).teile[0].length).toBeLessThanOrEqual(40);
+  });
+
+  it("lehnt Link-Muster ab, wie bei den Fahrzeugfeldern", () => {
+    expect(validateFilters({ brand: "besucht meinkanal.tv" }).ok).toBe(false);
+    expect(validateFilters({ country: "https://boese" }).ok).toBe(false);
+    expect(validateFilters({ brand: "www.spam" }).ok).toBe(false);
+  });
+});
+
+describe("buildMessage: aktive Filter", () => {
+  const ziehung = [{ category: "Racing", brand: "Ferrari", model: "F40 LM", year: 1989 }];
+
+  it("haengt die Filter hinter den Modifikator", () => {
+    const nachricht = buildMessage(ziehung, "pro_racing", ["Top Tier", "Ferrari", "Italy"]);
+    expect(nachricht).toBe("\u{1F3B2} ZENdomizer - Pro Racing \u{1F3CE}️ [Top Tier · Ferrari · Italy]: ➊ Racing: Ferrari F40 LM (1989)");
+  });
+
+  it("kommt auch ohne Modifikator aus", () => {
+    const nachricht = buildMessage(ziehung, null, ["Japan", "Classic"]);
+    expect(nachricht).toBe("\u{1F3B2} ZENdomizer [Japan · Classic]: ➊ Racing: Ferrari F40 LM (1989)");
+  });
+
+  it("laesst die Klammer bei Standardeinstellungen ganz weg", () => {
+    expect(buildMessage(ziehung, null, [])).toBe("\u{1F3B2} ZENdomizer: ➊ Racing: Ferrari F40 LM (1989)");
+    expect(buildMessage(ziehung, null, null)).toBe(buildMessage(ziehung));
   });
 });

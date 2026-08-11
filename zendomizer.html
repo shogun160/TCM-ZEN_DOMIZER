@@ -1767,6 +1767,23 @@ select.filter-control {
       "Special Weather": "special_weather",
     };
 
+    // Aktive Filter fuer die Chat-Nachricht - aber nur, was vom Standard abweicht
+    // (Nur Autos, kein Land, keine Marke, kein Zeitraum). Fahrzeugtyp und Zeitraum
+    // gehen als Schluessel raus, den Text setzt der Worker; Marke und Land lassen
+    // sich nicht als Schluessel abbilden und laufen dort durch dieselbe
+    // Zeichen-Bereinigung wie die Fahrzeugfelder (validateFilters in src/draw.js).
+    function currentTwitchFilters() {
+      const filters = getCurrentFilters();
+      const daten = {};
+
+      if (bikeFilterMode && bikeFilterMode !== "no_bike") daten.vehicleType = bikeFilterMode;
+      if (filters.brand) daten.brand = filters.brand;
+      if (filters.country) daten.country = filters.country;
+      if (filters.era) daten.era = filters.era;
+
+      return Object.keys(daten).length ? daten : null;
+    }
+
     function currentTwitchModifier() {
       // Nur bei aktiver Grandrace-Auswahl: hat jemand die Kategorien von Hand
       // gewaehlt, gehoert der Modifikator der laufenden Rotation nicht zu dieser
@@ -1810,6 +1827,8 @@ select.filter-control {
       if (!isConnectedCheck) {
         const modifier = currentTwitchModifier();
         if (modifier) body.modifier = modifier;
+        const filters = currentTwitchFilters();
+        if (filters) body.filters = filters;
       }
 
       try {

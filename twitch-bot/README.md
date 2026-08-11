@@ -132,6 +132,37 @@ Ein Kanal-Token bleibt gültig, bis er durch einen erneuten Durchlauf des
 Verbindungsschritts ersetzt wird oder der Betreiber ihn im KV löscht (siehe
 unten).
 
+## Aufbau der Chat-Nachricht
+
+```
+🎲 ZENdomizer - Pro Racing 🏎️ [Top Tier · Porsche · Germany · Classic]: ➊ Street Tier 2: … | ➋ AGP: … | ➌ Racing: …
+                └── Modifikator ──┘└──────── aktive Filter ────────┘
+```
+
+Beides ist optional und steht bewusst **vor** den Fahrzeugen: Gekürzt wird am
+Ende (500 Zeichen, Twitch-Limit), hinten würde es eine lange Ziehung
+verschlucken. Zur Größenordnung: Eine Ziehung mit drei Fahrzeugen liegt
+typisch bei 140-200 Zeichen, der ungünstigste Fall bei rund 270.
+
+Der Client schickt **nie fertigen Text**, sondern:
+
+| Feld | Form | Behandlung im Worker |
+|---|---|---|
+| `modifier` | Schlüssel (`no_collision`, …) | Text und Icon aus `MODIFIERS`; unbekannt → still ignoriert |
+| `filters.vehicleType` | Schlüssel (`top_tier`, `bike`, …) | Text aus `FILTER_VEHICLE_TYPES`; unbekannt → still ignoriert |
+| `filters.era` | Schlüssel (`classic`, `modern`) | Text aus `FILTER_ERAS`; unbekannt → still ignoriert |
+| `filters.brand`, `filters.country` | Text | Zeichen-Whitelist wie bei den Fahrzeugfeldern, max. 40 Zeichen, Link-Muster → **400** |
+
+`filters` wird nur mitgeschickt, wenn die Einstellungen vom Standard abweichen
+(Nur Autos, kein Land, keine Marke, kein Zeitraum). Marke und Land sind die
+einzigen Textfelder - sie lassen sich nicht als Schlüssel abbilden, weil sie
+aus `cars/vehicles.json` stammen und sich mit der Datenpflege ändern.
+
+Neue Modifikatoren oder Filtertypen gehören in **beide** Listen, im Worker und
+in `zendomizer.html`. `tests/twitch-modifier.test.mjs` und
+`tests/twitch-filter.test.mjs` im Hauptprojekt prüfen, dass sie zueinander
+passen - sonst verschwände der Zusatz still aus der Nachricht.
+
 ## Tests
 
 ```bash
@@ -140,7 +171,7 @@ npm install
 npm test
 ```
 
-Läuft über Vitest mit `@cloudflare/vitest-pool-workers` (85 Tests, Stand
+Läuft über Vitest mit `@cloudflare/vitest-pool-workers` (115 Tests, Stand
 dieser Doku) gegen einen lokalen, isolierten KV-Store innerhalb der
 Test-Runtime - weder der echte Cloudflare-Namespace noch die echte
 Twitch-API werden dabei angefasst.
