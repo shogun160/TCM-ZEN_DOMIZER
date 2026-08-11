@@ -25,7 +25,7 @@
 import { getValidAccessToken, sendChatMessage, pinChatMessage } from "./src/twitch.js";
 import { handleAuthStart, handleAuthCallback } from "./src/auth.js";
 import { resolveChannelByToken } from "./src/tokens.js";
-import { validateDraw, buildMessage, buildConnectedMessage } from "./src/draw.js";
+import { validateDraw, buildMessage, buildConnectedMessage, validateFilters } from "./src/draw.js";
 
 const PIN_DURATION_SECONDS = 1200; // 20 Minuten - Twitch-Maximum
 
@@ -120,9 +120,17 @@ async function handleAnnounce(request, env, corsHeaders) {
     if (!geprueft.ok) {
       return json({ success: false, error: geprueft.error }, 400, corsHeaders);
     }
+    // body.filters wird nur mitgeschickt, wenn die Einstellungen vom Standard
+    // abweichen. Unbekannte Schluessel ignoriert validateFilters still, ein
+    // Link-Muster in Marke/Land lehnt es dagegen ab - wie bei den Fahrzeugfeldern.
+    const filter = validateFilters(body.filters);
+    if (!filter.ok) {
+      return json({ success: false, error: filter.error }, 400, corsHeaders);
+    }
+
     // body.modifier ist ein Schluessel aus einer festen Liste, kein Text - ein
     // unbekannter Wert wird in buildMessage() still ignoriert (siehe MODIFIERS).
-    nachricht = buildMessage(geprueft.items, body.modifier);
+    nachricht = buildMessage(geprueft.items, body.modifier, filter.teile);
   }
 
   const shouldPin = body.pin === true;

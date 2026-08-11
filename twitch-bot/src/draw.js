@@ -211,7 +211,62 @@ export function resolveModifier(key) {
   return MODIFIERS.get(key) || null;
 }
 
-export function buildMessage(items, modifierKey = null) {
+// Aktive Filter, sofern sie vom Standard abweichen. Fahrzeugtyp und Aera haben
+// feste Wertebereiche und kommen deshalb als Schluessel - wie der Modifikator.
+const FILTER_VEHICLE_TYPES = new Map([
+  ["bike", "Bikes only"],
+  ["all", "All vehicles"],
+  ["top_tier", "Top Tier"],
+  ["rc_cars", "RC Cars"],
+]);
+const FILTER_ERAS = new Map([
+  ["classic", "Classic"],
+  ["modern", "Modern"],
+]);
+
+// Marke und Land lassen sich nicht als Schluessel abbilden - sie stammen aus
+// cars/vehicles.json und aendern sich mit der Datenpflege. Sie laufen deshalb
+// durch dieselbe Bereinigung wie die Fahrzeugfelder, mit eigenem Laengenlimit.
+const MAX_FILTER_LENGTH = 40;
+
+// cars/vehicles.json fuehrt dieselben Laender in zwei Schreibweisen ("germany"
+// und "Germany"). Damit im Chat nicht mal so und mal so steht, wird der erste
+// Buchstabe grossgezogen - Akronyme wie USA/UAE bleiben unangetastet.
+function normalizeCountry(text) {
+  if (text === text.toUpperCase()) return text;
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+export function validateFilters(filters) {
+  if (!filters || typeof filters !== "object" || Array.isArray(filters)) {
+    return { ok: true, teile: [] };
+  }
+
+  const teile = [];
+
+  const typ = FILTER_VEHICLE_TYPES.get(filters.vehicleType);
+  if (typ) teile.push(typ);
+
+  for (const feld of ["brand", "country"]) {
+    const wert = cleanField(filters[feld], MAX_FILTER_LENGTH);
+    if (!wert) continue;
+    // Ablehnen statt entfernen, genau wie bei den Fahrzeugfeldern: ein
+    // Linkversuch im Filterfeld ist kein Datenpflege-Unfall.
+    if (looksLikeUrlPattern(wert)) {
+      return { ok: false, error: `Filter '${feld}' darf kein Link-Muster enthalten.` };
+    }
+    teile.push(feld === "country" ? normalizeCountry(wert) : wert);
+  }
+
+  const era = FILTER_ERAS.get(filters.era);
+  if (era) teile.push(era);
+
+  return { ok: true, teile };
+}
+
+const FILTER_SEPARATOR = " · ";
+
+export function buildMessage(items, modifierKey = null, filterTeile = null) {
   if (!Array.isArray(items) || items.length === 0) return "";
 
   const teile = items.map((v, i) => {
@@ -220,11 +275,14 @@ export function buildMessage(items, modifierKey = null) {
     return `${prefix}${v.category}: ${formatVehicleName(v)}`;
   });
 
-  // Der Modifikator steht VOR den Fahrzeugen: die Kuerzung auf 500 Zeichen greift
-  // am Ende, hinten haette ihn eine lange Ziehung verschluckt.
+  // Modifikator und Filter stehen VOR den Fahrzeugen: die Kuerzung auf 500 Zeichen
+  // greift am Ende, hinten haette sie eine lange Ziehung verschluckt.
   const modifier = resolveModifier(modifierKey);
   const modifierTeil = modifier ? ` - ${modifier.label} ${modifier.icon}` : "";
-  const nachricht = `\u{1F3B2} ZENdomizer${modifierTeil}: ${teile.join(ITEM_SEPARATOR)}`;
+  const filterTeil = Array.isArray(filterTeile) && filterTeile.length
+    ? ` [${filterTeile.join(FILTER_SEPARATOR)}]`
+    : "";
+  const nachricht = `\u{1F3B2} ZENdomizer${modifierTeil}${filterTeil}: ${teile.join(ITEM_SEPARATOR)}`;
 
   return truncateForTwitch(nachricht);
 }

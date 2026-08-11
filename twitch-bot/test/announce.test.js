@@ -124,6 +124,46 @@ describe("POST /announce", () => {
     expect(gesendetesBody.message).toBe("🎲 ZENdomizer: ➊ Hypercar: Pfister Comet (2021)");
   });
 
+  it("stellt aktive Filter der Nachricht voran", async () => {
+    const e = testEnv();
+    await botTokenSetzen(e);
+    const token = await saveChannelToken(e, { channelLogin: "kanal_eins", channelId: "111" });
+
+    let gesendetesBody = null;
+    fetchMock.get("https://api.twitch.tv")
+      .intercept({ path: "/helix/chat/messages", method: "POST" })
+      .reply(200, (opts) => {
+        gesendetesBody = JSON.parse(opts.body);
+        return { data: [{ is_sent: true, message_id: "msg-f1" }] };
+      });
+
+    await worker.fetch(anfrage({
+      token,
+      draw: DRAW,
+      modifier: "pro_racing",
+      filters: { vehicleType: "top_tier", brand: "Pfister", country: "germany", era: "modern" },
+    }), e);
+
+    expect(gesendetesBody.message).toBe(
+      "\u{1F3B2} ZENdomizer - Pro Racing \u{1F3CE}\uFE0F [Top Tier \u00B7 Pfister \u00B7 Germany \u00B7 Modern]: \u278A Hypercar: Pfister Comet (2021)"
+    );
+  });
+
+  it("lehnt ein Link-Muster im Filterfeld mit 400 ab", async () => {
+    const e = testEnv();
+    await botTokenSetzen(e);
+    const token = await saveChannelToken(e, { channelLogin: "kanal_eins", channelId: "111" });
+
+    const antwort = await worker.fetch(anfrage({
+      token,
+      draw: DRAW,
+      filters: { brand: "besucht meinkanal.tv" },
+    }), e);
+
+    expect(antwort.status).toBe(400);
+    expect((await antwort.json()).error).toMatch(/Link-Muster/);
+  });
+
   it("ignoriert ein mitgeschicktes fremdes channel-Feld", async () => {
     const e = testEnv();
     await botTokenSetzen(e);
