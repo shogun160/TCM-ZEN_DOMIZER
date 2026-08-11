@@ -140,7 +140,7 @@ npm install
 npm test
 ```
 
-Läuft über Vitest mit `@cloudflare/vitest-pool-workers` (74 Tests, Stand
+Läuft über Vitest mit `@cloudflare/vitest-pool-workers` (85 Tests, Stand
 dieser Doku) gegen einen lokalen, isolierten KV-Store innerhalb der
 Test-Runtime - weder der echte Cloudflare-Namespace noch die echte
 Twitch-API werden dabei angefasst.
@@ -176,24 +176,39 @@ für den echten Inhalt des produktiven Namespace ist `--remote` nötig.
 - Twitch AutoMod kann einzelne Nachrichten zurückhalten
   (`drop_reason: automod_held`) - bei Fahrzeugnamen unwahrscheinlich, aber
   möglich.
-- **Keine Zeichen-Whitelist für die Fahrzeugfelder.** `category`, `brand`
-  und `model` sind je bis zu 100 Zeichen frei wählbar (siehe
-  `MAX_FIELD_LENGTH` in `src/draw.js`); Steuerzeichen, Zeilenumbrüche und
-  unsichtbare/Bidi-Zeichen werden entfernt bzw. ersetzt, der restliche
-  Zeicheninhalt aber nicht eingeschränkt. Wer einen gültigen Kanal-Token
-  hat, kann damit in seinem *eigenen* Kanal Werbetext oder Links platzieren
-  - bei voller Ausnutzung von bis zu 10 Ziehungs-Einträgen sind rund 485 der
-  500 Twitch-Zeichen frei bestimmbar. Die Autorisierungsgrenze bleibt intakt
-  (nur der eigene Kanal ist betroffen), aber der Bot-Account ist eine
-  geteilte Ressource: Missbrauch kann zur Sperre des Bots durch Twitch
-  führen und damit alle Nutzer treffen. Bewusst offen gelassen (Entscheidung
-  des Betreibers vom 2026-08-11, nach Meldung durch ein Sicherheitsreview).
-- **Keine Fehlerbehandlung der Bot-Token-Rotation.** Laufen zwei
-  `getValidAccessToken`-Refreshes gleichzeitig, nutzen beide denselben
-  Refresh-Token; da Twitch den alten dabei entwertet, kann ein toter Token
-  im KV (`bot_token`) landen. Der Bot fällt dann für alle Nutzer aus, bis
+- **Zeichen-Whitelist für die Fahrzeugfelder (seit 2026-08-11).**
+  `category` (max. 24 Zeichen), `brand` (max. 40) und `model` (max. 64)
+  erlauben nur noch Unicode-Buchstaben, -Ziffern und die Satzzeichen, die in
+  `cars/vehicles.json` tatsächlich vorkommen (`- . ( ) ® / + ' ' " – :`,
+  siehe `DISALLOWED_CHARS` in `src/draw.js`); alles andere wird entfernt,
+  nicht abgelehnt, damit künftige Datenpflege in `vehicles.json` nicht
+  versehentlich die gesamte Twitch-Funktion für betroffene Ziehungen
+  lahmlegt. Zusätzlich werden URL-Muster (`://`, `www.`, Punkt-TLD-
+  Kombinationen wie `.com`/`.tv`/`.io`/…) mit 400 abgelehnt. **Das
+  verhindert klickbare Links, aber keinen reinen Klartext-Werbetext** -
+  wer einen gültigen Kanal-Token hat, kann Buchstaben, Ziffern und die
+  erlaubten Satzzeichen weiterhin frei zu Werbebotschaften kombinieren
+  (z.B. "BESUCHT MEINEN KANAL"), solange kein URL-Muster erkannt wird und
+  die gesenkten Feldgrenzen eingehalten werden. Die Autorisierungsgrenze
+  bleibt intakt (nur der eigene Kanal ist betroffen), der Bot-Account ist
+  aber weiterhin eine geteilte Ressource - Klartext-Missbrauch bleibt
+  möglich und könnte im Extremfall trotzdem zur Sperre durch Twitch führen.
+- **Fehlerbehandlung der Bot-Token-Rotation (seit 2026-08-11).** Wirft
+  `env.TWITCH_TOKENS.put()` nach einem erfolgreichen Refresh (z.B. KV-
+  Ausfall), liefert `getValidAccessToken()` trotzdem das frische
+  Access-Token für die laufende Anfrage zurück und protokolliert den
+  Schreibfehler laut per `console.error` - vorher ging der frisch rotierte
+  Refresh-Token in diesem Fall spurlos verloren, obwohl Twitch den alten
+  bereits entwertet hatte, und der Bot fiel für alle Nutzer aus.
+  **Weiterhin nicht abgesichert:** laufen zwei `getValidAccessToken`-
+  Refreshes gleichzeitig, nutzen beide denselben Refresh-Token; da Twitch
+  den alten dabei entwertet, kann ein toter Token im KV (`bot_token`)
+  landen. Eine saubere Lösung bräuchte ein Durable Object als
+  Serialisierungspunkt - das steht außer Verhältnis zum Rest dieses Bots
+  und wurde bewusst nicht umgesetzt (siehe Kommentar an
+  `getValidAccessToken` in `src/twitch.js`). Tritt der Fall ein, muss
   `TWITCH_BOT_INITIAL_REFRESH_TOKEN` manuell neu gesetzt und erneut per
-  `wrangler secret put` hinterlegt wird. Ebenfalls bewusst offen gelassen.
+  `wrangler secret put` hinterlegt werden.
 - **Mehrzeilige Chat-Nachrichten sind nicht möglich.** Am 2026-08-11 live
   geprüft: Die Twitch-Chat-API nimmt `\n` innerhalb einer Nachricht nicht an
   (der Chat ist historisch IRC-basiert, dort trennt `\n` Nachrichten
