@@ -229,11 +229,15 @@ const FILTER_ERAS = new Map([
 // durch dieselbe Bereinigung wie die Fahrzeugfelder, mit eigenem Laengenlimit.
 const MAX_FILTER_LENGTH = 40;
 
-// cars/vehicles.json fuehrt dieselben Laender in zwei Schreibweisen ("germany"
-// und "Germany"). Damit im Chat nicht mal so und mal so steht, wird der erste
-// Buchstabe grossgezogen - Akronyme wie USA/UAE bleiben unangetastet.
+// Laender kommen als Rohwert aus cars/vehicles.json und werden dort klein
+// geschrieben. Fuer den Chat wird der erste Buchstabe grossgezogen - ausser bei
+// Akronymen, aus denen sonst "Usa" oder "Uae" wuerde.
+const COUNTRY_ACRONYMS = new Set(["usa", "uae"]);
+
 function normalizeCountry(text) {
-  if (text === text.toUpperCase()) return text;
+  const klein = text.toLowerCase();
+  if (COUNTRY_ACRONYMS.has(klein)) return klein.toUpperCase();
+  if (text === text.toUpperCase()) return text; // schon ein Akronym, das wir nicht kennen
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 

@@ -327,10 +327,16 @@ describe("validateFilters", () => {
   });
 
   it("vereinheitlicht die Schreibweise der Laender", () => {
-    // cars/vehicles.json enthaelt "germany" und "Germany" nebeneinander
     expect(validateFilters({ country: "germany" }).teile).toEqual(["Germany"]);
     expect(validateFilters({ country: "Germany" }).teile).toEqual(["Germany"]);
-    expect(validateFilters({ country: "USA" }).teile).toEqual(["USA"]); // Akronym bleibt
+  });
+
+  it("schreibt Laender-Akronyme gross", () => {
+    // In cars/vehicles.json stehen die Werte klein - ohne Sonderbehandlung
+    // wuerde daraus "Usa" bzw. "Uae".
+    expect(validateFilters({ country: "usa" }).teile).toEqual(["USA"]);
+    expect(validateFilters({ country: "uae" }).teile).toEqual(["UAE"]);
+    expect(validateFilters({ country: "USA" }).teile).toEqual(["USA"]);
   });
 
   it("ignoriert unbekannte Schluessel still", () => {
