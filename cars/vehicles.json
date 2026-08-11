@@ -45,7 +45,7 @@
     "brand": "Acura",
     "model": "NSX GT3 ",
     "year": 2017,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -55,7 +55,7 @@
     "brand": "Acura",
     "model": "NSX ",
     "year": 2017,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -925,7 +925,7 @@
     "brand": "Buick",
     "model": "GNX",
     "year": 1987,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -935,7 +935,7 @@
     "brand": "Buick",
     "model": "GNX El Sereno Lowrider Ed.",
     "year": 1987,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -945,7 +945,7 @@
     "brand": "Buick",
     "model": "GNX West Side Lowrider Ed.",
     "year": 1987,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -955,7 +955,7 @@
     "brand": "Cadillac",
     "model": "Escalade",
     "year": 2012,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -965,7 +965,7 @@
     "brand": "Cadillac",
     "model": "Escalade Enforcer Edition",
     "year": 2012,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -975,7 +975,7 @@
     "brand": "Cadillac",
     "model": "Escalade",
     "year": 2012,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -985,7 +985,7 @@
     "brand": "Cadillac",
     "model": "Eldorado Brougham",
     "year": 1957,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -995,7 +995,7 @@
     "brand": "Cadillac",
     "model": "Escalade",
     "year": 2012,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1005,7 +1005,7 @@
     "brand": "Cadillac",
     "model": "Cyclone XP-74 Concept",
     "year": 1959,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1015,7 +1015,7 @@
     "brand": "Cadillac",
     "model": "Coupe Deville",
     "year": 1949,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1025,7 +1025,7 @@
     "brand": "Cadillac",
     "model": "Coupe Deville Marco's Cab",
     "year": 1949,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1035,7 +1035,7 @@
     "brand": "Chevrolet",
     "model": "Corvette C7 ZR1",
     "year": 2019,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1045,7 +1045,7 @@
     "brand": "Chevrolet",
     "model": "Corvette C7 ZR1 Convertible",
     "year": 2019,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1055,7 +1055,7 @@
     "brand": "Chevrolet",
     "model": "Corvette C7 ZR1 Convertible Long Range Edition",
     "year": 2019,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1065,7 +1065,7 @@
     "brand": "Chevrolet",
     "model": "Corvette C7 ZR1 Gold Nugget Edition",
     "year": 2019,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1075,7 +1075,7 @@
     "brand": "Chevrolet",
     "model": "Corvette Z06 Convertible",
     "year": 2023,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1085,7 +1085,7 @@
     "brand": "Chevrolet",
     "model": "Camaro SS",
     "year": 2010,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1095,7 +1095,7 @@
     "brand": "Chevrolet",
     "model": "Silverado 1500",
     "year": 2010,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": true
   },
@@ -1105,7 +1105,7 @@
     "brand": "Chevrolet",
     "model": "Camaro RS",
     "year": 1969,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1115,7 +1115,7 @@
     "brand": "Chevrolet",
     "model": "Camaro SS",
     "year": 2010,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": true
   },
@@ -1125,7 +1125,7 @@
     "brand": "Chevrolet",
     "model": "Silverado 1500",
     "year": 2009,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1135,7 +1135,7 @@
     "brand": "Chevrolet",
     "model": "Corvette C3",
     "year": 1968,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1145,7 +1145,7 @@
     "brand": "Chevrolet",
     "model": "Corvette C3 F1R3 Ed.",
     "year": 1968,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1155,7 +1155,7 @@
     "brand": "Chevrolet",
     "model": "Corvette C6R",
     "year": 2005,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1165,7 +1165,7 @@
     "brand": "Chevrolet",
     "model": "Corvette C8.R",
     "year": 2020,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1175,7 +1175,7 @@
     "brand": "Chevrolet",
     "model": "Impala Sport Sedan",
     "year": 1967,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1185,7 +1185,7 @@
     "brand": "Chevrolet",
     "model": "Camaro RS",
     "year": 1969,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1195,7 +1195,7 @@
     "brand": "Chevrolet",
     "model": "Camaro SS",
     "year": 2010,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1205,7 +1205,7 @@
     "brand": "Chevrolet",
     "model": "Camaro Z28  Enforcer Unit",
     "year": 1971,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1215,7 +1215,7 @@
     "brand": "Chevrolet",
     "model": "Camaro RS",
     "year": 1969,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1225,7 +1225,7 @@
     "brand": "Chevrolet",
     "model": "Camaro SS",
     "year": 2010,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1235,7 +1235,7 @@
     "brand": "Chevrolet",
     "model": "Silverado 1500 Evo1",
     "year": 2010,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1245,7 +1245,7 @@
     "brand": "Chevrolet",
     "model": "Silverado 1500 Evo2",
     "year": 2010,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1255,7 +1255,7 @@
     "brand": "Chevrolet",
     "model": "Silverado 1500 Intrepid Outdoors",
     "year": 2010,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1265,7 +1265,7 @@
     "brand": "Chevrolet",
     "model": 3100,
     "year": 1951,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1275,7 +1275,7 @@
     "brand": "Chevrolet",
     "model": "3100 The Rocket Co.",
     "year": 1951,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1285,7 +1285,7 @@
     "brand": "Chevrolet",
     "model": "Corvette C2",
     "year": 1963,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1295,7 +1295,7 @@
     "brand": "Chevrolet",
     "model": "Corvette C2 2.0 Edition",
     "year": 1963,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1305,7 +1305,7 @@
     "brand": "Chevrolet",
     "model": "Corvette Grand Sport",
     "year": 1963,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1315,7 +1315,7 @@
     "brand": "Chevrolet",
     "model": "Corvette Grand Sport Armored Edition",
     "year": 1963,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1325,7 +1325,7 @@
     "brand": "Chevrolet",
     "model": "Impala Sport Sedan",
     "year": 1967,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1335,7 +1335,7 @@
     "brand": "Chevrolet",
     "model": "Camaro RS",
     "year": 1969,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1345,7 +1345,7 @@
     "brand": "Chevrolet",
     "model": "Camaro RS Ghost Edition",
     "year": 1969,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1355,7 +1355,7 @@
     "brand": "Chevrolet",
     "model": "Chevelle SS",
     "year": 1970,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1365,7 +1365,7 @@
     "brand": "Chevrolet",
     "model": "Silverado 1500",
     "year": 2010,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1375,7 +1375,7 @@
     "brand": "Chevrolet",
     "model": "Camaro Z28 ",
     "year": 1971,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1385,7 +1385,7 @@
     "brand": "Chevrolet",
     "model": "Corvette C3",
     "year": 1968,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1395,7 +1395,7 @@
     "brand": "Chevrolet",
     "model": "Impala LowRider Naranja Edicion",
     "year": 1967,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1405,7 +1405,7 @@
     "brand": "Chevrolet",
     "model": "Impala LowRider Red Duchess Edition",
     "year": 1967,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1415,7 +1415,7 @@
     "brand": "Chevrolet",
     "model": "Caprice",
     "year": 1971,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1425,7 +1425,7 @@
     "brand": "Chevrolet",
     "model": "Caprice Weasel D. Customs Donk Ed.",
     "year": 1971,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1435,7 +1435,7 @@
     "brand": "Chevrolet",
     "model": "3100 Big-Block Edition",
     "year": 1951,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1445,7 +1445,7 @@
     "brand": "Chevrolet",
     "model": "Corvette ZR1",
     "year": 2009,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": true
   },
@@ -1455,7 +1455,7 @@
     "brand": "Chevrolet",
     "model": "Camaro SS",
     "year": 2010,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1465,7 +1465,7 @@
     "brand": "Chevrolet",
     "model": "Camaro SS Bend Edition",
     "year": 2010,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1475,7 +1475,7 @@
     "brand": "Chevrolet",
     "model": "Corvette C7 Stingray",
     "year": 2014,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1485,7 +1485,7 @@
     "brand": "Chevrolet",
     "model": "Camaro ZL1",
     "year": 2017,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1495,7 +1495,7 @@
     "brand": "Chevrolet",
     "model": "Camaro ZL1 Rift Edition",
     "year": 2017,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1505,7 +1505,7 @@
     "brand": "Chevrolet",
     "model": "Corvette C8 Stingray",
     "year": 2020,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1515,7 +1515,7 @@
     "brand": "Chevrolet",
     "model": "Corvette C8 Stingray Donut Media Ed.",
     "year": 2020,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1525,7 +1525,7 @@
     "brand": "Chevrolet",
     "model": "Corvette C8 Stingray Interception Unit",
     "year": 2020,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1535,7 +1535,7 @@
     "brand": "Chevrolet",
     "model": "CAMARO Z28 Hoonigan Ed",
     "year": 1971,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1545,7 +1545,7 @@
     "brand": "Chevrolet",
     "model": "Impala American Custo Ed.",
     "year": 1967,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1555,7 +1555,7 @@
     "brand": "Chrysler",
     "model": "300C SRT8 Limousine",
     "year": 2013,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1565,7 +1565,7 @@
     "brand": "Chrysler",
     "model": "300C SRT8",
     "year": 2013,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1575,7 +1575,7 @@
     "brand": "Chrysler",
     "model": "300 SRT8 Crown Edition",
     "year": 2013,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1605,7 +1605,7 @@
     "brand": "Creators",
     "model": "Concept Spruemeister SM71",
     "year": 2023,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1675,7 +1675,7 @@
     "brand": "Creators",
     "model": "Hunter 51",
     "year": 2021,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1685,7 +1685,7 @@
     "brand": "DeLorean",
     "model": "DMC-12 Monster Truck Edition",
     "year": 1981,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1695,7 +1695,7 @@
     "brand": "DeLorean",
     "model": "DMC-12",
     "year": 1981,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1705,17 +1705,17 @@
     "brand": "DeLorean",
     "model": "DMC-12 RAD Edition",
     "year": 1981,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
   {
     "category": "Street Tier 2",
     "bike": false,
-    "brand": "Delorean",
+    "brand": "DeLorean",
     "model": "DMC-12 Rival Ed.",
     "year": 1981,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1725,7 +1725,7 @@
     "brand": "Dodge",
     "model": "Challenger SRT-8 392",
     "year": 2012,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1735,7 +1735,7 @@
     "brand": "Dodge",
     "model": "Challenger SRT-8 392",
     "year": 2012,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1745,7 +1745,7 @@
     "brand": "Dodge",
     "model": "Charger R/T Hemi",
     "year": 1969,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1755,7 +1755,7 @@
     "brand": "Dodge",
     "model": "Charger SRT-8\u00a0",
     "year": 2012,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1765,7 +1765,7 @@
     "brand": "Dodge",
     "model": "Viper Competition Coupe",
     "year": 2003,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1775,7 +1775,7 @@
     "brand": "Dodge",
     "model": "Challenger SRT-8 392",
     "year": 2012,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1785,7 +1785,7 @@
     "brand": "Dodge",
     "model": "Charger R/T Hemi",
     "year": 1969,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1795,7 +1795,7 @@
     "brand": "Dodge",
     "model": "Charger SRT-8\u00a0",
     "year": 2012,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1805,7 +1805,7 @@
     "brand": "Dodge",
     "model": "Challenger SRT-8 392",
     "year": 2012,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1815,7 +1815,7 @@
     "brand": "Dodge",
     "model": "Charger R/T\u00ae Hemi Mad Ed.",
     "year": 1969,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1825,7 +1825,7 @@
     "brand": "Dodge",
     "model": "Challenger R/T",
     "year": 1970,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1835,7 +1835,7 @@
     "brand": "Dodge",
     "model": "Challenger R/T Riff Edition",
     "year": 1970,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1845,7 +1845,7 @@
     "brand": "Dodge",
     "model": "Charger R/T Hemi\u00ae",
     "year": 1969,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1855,7 +1855,7 @@
     "brand": "Dodge",
     "model": "Charger R/T Hemi\u00ae Masked Edition",
     "year": 1969,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -1865,7 +1865,7 @@
     "brand": "Dodge",
     "model": "Viper SRT-10 Coupe",
     "year": 2010,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1875,7 +1875,7 @@
     "brand": "Dodge",
     "model": "Challenger SRT-8 392",
     "year": 2012,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1885,7 +1885,7 @@
     "brand": "Dodge",
     "model": "Charger SRT-8",
     "year": 2012,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1895,7 +1895,7 @@
     "brand": "Dodge",
     "model": "Charger SRT-8 Lab Edition",
     "year": 2012,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1905,7 +1905,7 @@
     "brand": "Dodge",
     "model": "SRT Viper GTS Lightning Edition",
     "year": 2013,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1915,7 +1915,7 @@
     "brand": "Dodge",
     "model": "Challenger SRT Demon",
     "year": 2018,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1925,7 +1925,7 @@
     "brand": "Dodge",
     "model": "Challenger SRT Demon Interception Unit",
     "year": 2018,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1935,7 +1935,7 @@
     "brand": "Dodge",
     "model": "Challenger SRT Demon Awaken Edition",
     "year": 2018,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1945,7 +1945,7 @@
     "brand": "Dodge",
     "model": "Challenger SRT Hellcat",
     "year": 2017,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1955,7 +1955,7 @@
     "brand": "Dodge",
     "model": "Charger SRT Hellcat Redeye Widebody",
     "year": 2023,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1965,7 +1965,7 @@
     "brand": "Dodge",
     "model": "Viper SRT-10 GTS",
     "year": 2013,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -1975,7 +1975,7 @@
     "brand": "Dodge",
     "model": "Viper SRT-10 Coupe Mad Edition",
     "year": 2010,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2265,7 +2265,7 @@
     "brand": "Ford",
     "model": "GT",
     "year": 2017,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": true
   },
@@ -2275,7 +2275,7 @@
     "brand": "Ford",
     "model": "GT Interception Unit",
     "year": 2017,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": true
   },
@@ -2285,7 +2285,7 @@
     "brand": "Ford",
     "model": "F-150 SVT Raptor",
     "year": 2010,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2295,7 +2295,7 @@
     "brand": "Ford",
     "model": "Mustang GT",
     "year": 2011,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2305,7 +2305,7 @@
     "brand": "Ford",
     "model": "F-150 SVT Raptor",
     "year": 2010,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2315,7 +2315,7 @@
     "brand": "Ford",
     "model": "Focus RS",
     "year": 2010,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2325,7 +2325,7 @@
     "brand": "Ford",
     "model": "GT",
     "year": 2005,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2335,7 +2335,7 @@
     "brand": "Ford",
     "model": "GT Le Mans Race Car",
     "year": 2016,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2345,7 +2345,7 @@
     "brand": "Ford",
     "model": "GT Airfoil Edition",
     "year": 2016,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2355,7 +2355,7 @@
     "brand": "Ford",
     "model": "Mustang GT",
     "year": 2011,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2365,7 +2365,7 @@
     "brand": "Ford",
     "model": "FIESTA ",
     "year": 2017,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2375,7 +2375,7 @@
     "brand": "Ford",
     "model": "Focus RS",
     "year": 2010,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2385,7 +2385,7 @@
     "brand": "Ford",
     "model": "Focus RS RX",
     "year": 2016,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2395,7 +2395,7 @@
     "brand": "Ford",
     "model": "Focus RS RX Glow Motorsport Ed.",
     "year": 2016,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2405,7 +2405,7 @@
     "brand": "Ford",
     "model": "Mustang GT",
     "year": 2011,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2415,7 +2415,7 @@
     "brand": "Ford",
     "model": "Puma Hybrid Rally1",
     "year": 2022,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": true
   },
@@ -2425,7 +2425,7 @@
     "brand": "Ford",
     "model": "Fiesta Red Bull Ed.",
     "year": 2017,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": true
   },
@@ -2435,7 +2435,7 @@
     "brand": "Ford",
     "model": "Bronco",
     "year": 2021,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2445,7 +2445,7 @@
     "brand": "Ford",
     "model": "Bronco Hawaii Scenic Tour Ed.",
     "year": 2021,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2455,7 +2455,7 @@
     "brand": "Ford",
     "model": "F-150 Raptor Race Truck ",
     "year": 2017,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2465,7 +2465,7 @@
     "brand": "Ford",
     "model": "F-150 Raptor Race Truck Ghost Recon Edition",
     "year": 2017,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2475,7 +2475,7 @@
     "brand": "Ford",
     "model": "F-150 SVT Raptor EVO2",
     "year": 2010,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2485,7 +2485,7 @@
     "brand": "Ford",
     "model": "F-150 SVT Raptor EVO1 Enforcer Edition",
     "year": 2010,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2495,7 +2495,7 @@
     "brand": "Ford",
     "model": "F-150 SVT Raptor from Outer Space",
     "year": 2010,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2505,7 +2505,7 @@
     "brand": "Ford",
     "model": "Focus RS",
     "year": 2010,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2515,7 +2515,7 @@
     "brand": "Ford",
     "model": "Mustang GT",
     "year": 2011,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2525,7 +2525,7 @@
     "brand": "Ford",
     "model": "Mustang Boss 429",
     "year": 1969,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -2535,7 +2535,7 @@
     "brand": "Ford",
     "model": "MUSTANG BOSS 429 Lime Edition",
     "year": 1969,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": true
   },
@@ -2545,7 +2545,7 @@
     "brand": "Ford",
     "model": "Crown Victoria",
     "year": 2008,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2555,7 +2555,7 @@
     "brand": "Ford",
     "model": "Crown Victoria Interception Unit",
     "year": 2008,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2565,7 +2565,7 @@
     "brand": "Ford",
     "model": "Crown Victoria Limousine",
     "year": 2008,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2575,7 +2575,7 @@
     "brand": "Ford",
     "model": "F-150 SVT Raptor",
     "year": 2010,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2585,7 +2585,7 @@
     "brand": "Ford",
     "model": "Crown Victoria Marco's Cab",
     "year": 2008,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2595,7 +2595,7 @@
     "brand": "Ford",
     "model": "Focus RS",
     "year": 2010,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2605,7 +2605,7 @@
     "brand": "Ford",
     "model": "Focus RS",
     "year": 2016,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": true
   },
@@ -2615,7 +2615,7 @@
     "brand": "Ford",
     "model": "Mustang Mach-E GT",
     "year": 2021,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": true
   },
@@ -2625,7 +2625,7 @@
     "brand": "Ford",
     "model": "GT",
     "year": 2005,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": true
   },
@@ -2635,7 +2635,7 @@
     "brand": "Ford",
     "model": "GT Ruby Edition",
     "year": 2005,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": true
   },
@@ -2645,7 +2645,7 @@
     "brand": "Ford",
     "model": "Mustang GT",
     "year": 2011,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2655,7 +2655,7 @@
     "brand": "Ford",
     "model": "Shelby GT500",
     "year": 2013,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2665,7 +2665,7 @@
     "brand": "Ford",
     "model": "Mustang GT Fastback",
     "year": 2015,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2675,7 +2675,7 @@
     "brand": "Ford",
     "model": "Mustang GT Fastback Stunt Edition",
     "year": 2015,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2685,7 +2685,7 @@
     "brand": "Ford",
     "model": "Mustang GT Convertible",
     "year": 2024,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2695,7 +2695,7 @@
     "brand": "Ford",
     "model": "Mustang GT Convertible Motorfest Edition",
     "year": 2024,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2705,7 +2705,7 @@
     "brand": "Ford",
     "model": "Mustang Shelby GT500",
     "year": 2020,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2715,7 +2715,7 @@
     "brand": "Ford",
     "model": "Mustang Shelby GT500 Interception Unit",
     "year": 2020,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2725,7 +2725,7 @@
     "brand": "Ford",
     "model": "Mustang Shelby GT500 Road Force One",
     "year": 2020,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2735,7 +2735,7 @@
     "brand": "Ford",
     "model": "Mustang Shelby GT500 Tribute Edition",
     "year": 2020,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2745,7 +2745,7 @@
     "brand": "Ford",
     "model": "Mustang Dark Horse",
     "year": 2024,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2755,7 +2755,7 @@
     "brand": "Ford",
     "model": "Mustang Dark Horse Chase Squad Ed.",
     "year": 2024,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2805,7 +2805,7 @@
     "brand": "GMC",
     "model": "Hummer EV",
     "year": 2022,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2835,7 +2835,7 @@
     "brand": "Harley Davidson",
     "model": "Street Glide ",
     "year": 2017,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2845,7 +2845,7 @@
     "brand": "Harley Davidson",
     "model": "Iron 883",
     "year": 2017,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -2975,7 +2975,7 @@
     "brand": "Hoonigan",
     "model": "Chevrolet Caprice Donk",
     "year": 1971,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -2985,7 +2985,7 @@
     "brand": "Hoonigan",
     "model": "CHEVROLET Big Block 632 Camaro",
     "year": 1988,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -2995,7 +2995,7 @@
     "brand": "Hoonigan",
     "model": "PORSCHE Scotto\u2019s 911 Turbo RWB",
     "year": 1993,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -3015,7 +3015,7 @@
     "brand": "Hummer",
     "model": "H1 Alpha",
     "year": 2006,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -3025,7 +3025,7 @@
     "brand": "Hummer",
     "model": "H1 Alpha Evo1",
     "year": 2006,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": true
   },
@@ -3035,7 +3035,7 @@
     "brand": "Hummer",
     "model": "H1 Alpha Evo2",
     "year": 2006,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -3045,7 +3045,7 @@
     "brand": "Hummer",
     "model": "H1 Alpha US Wildlife Watchers",
     "year": 2006,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -3055,7 +3055,7 @@
     "brand": "Hummer",
     "model": "HX Concept",
     "year": 2008,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": true
   },
@@ -3065,7 +3065,7 @@
     "brand": "Hummer",
     "model": "HX Concept Enforcer Edition",
     "year": 2008,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": true
   },
@@ -3075,7 +3075,7 @@
     "brand": "Hummer",
     "model": "H1 Alpha",
     "year": 2006,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -3085,7 +3085,7 @@
     "brand": "Hyperion",
     "model": "XP-1 Warp Drive",
     "year": 2022,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -3095,7 +3095,7 @@
     "brand": "Indian\u00ae",
     "model": "Chief Dark Horse",
     "year": 2015,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -3105,7 +3105,7 @@
     "brand": "Indian\u00ae",
     "model": "Scout 2015",
     "year": 2015,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -3115,7 +3115,7 @@
     "brand": "Indian\u00ae",
     "model": "Scout The Cruiser Edition",
     "year": 2015,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -3125,7 +3125,7 @@
     "brand": "Indian\u00ae",
     "model": "FTR 1200 S",
     "year": 2019,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -3365,7 +3365,7 @@
     "brand": "Jeep\u00ae",
     "model": "Grand Cherokee SRT8\u00ae 2012",
     "year": 2012,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -3375,7 +3375,7 @@
     "brand": "Jeep\u00ae",
     "model": "Grand Cherokee SRT8\u00ae ",
     "year": 2012,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -3385,7 +3385,7 @@
     "brand": "Jeep\u00ae",
     "model": "MOAB Quicksand Concept",
     "year": 2017,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -3395,7 +3395,7 @@
     "brand": "Jeep\u00ae",
     "model": "Wrangler Evo1",
     "year": 2012,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -3405,7 +3405,7 @@
     "brand": "Jeep\u00ae",
     "model": "Wrangler Evo2",
     "year": 2012,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": true
   },
@@ -3415,27 +3415,27 @@
     "brand": "Jeep\u00ae",
     "model": "Wrangler Unlimited Rubicon 392",
     "year": 2021,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
   {
     "category": "Rally Raid",
     "bike": false,
-    "brand": "JEEP\u00ae",
+    "brand": "Jeep\u00ae",
     "model": "Gladiator",
     "year": 2021,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
   {
     "category": "Rally Raid",
     "bike": false,
-    "brand": "JEEP\u00ae",
+    "brand": "Jeep\u00ae",
     "model": "Wrangler 392 Adventure Ed.",
     "year": 2021,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -3445,7 +3445,7 @@
     "brand": "Jeep\u00ae",
     "model": "Wrangler",
     "year": 2012,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -3455,7 +3455,7 @@
     "brand": "Jeep\u00ae",
     "model": "Grand Cherokee SRT8\u00ae",
     "year": 2012,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -3465,7 +3465,7 @@
     "brand": "Jeep\u00ae",
     "model": "Wrangler - Pioneer Edition",
     "year": 2012,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -3665,7 +3665,7 @@
     "brand": "KTM",
     "model": "X-Bow R ",
     "year": 2016,
-    "country": "Austria",
+    "country": "austria",
     "era": "modern",
     "top_tier": false
   },
@@ -3675,7 +3675,7 @@
     "brand": "KTM",
     "model": "X-Bow R Spear Racing Ed.",
     "year": 2016,
-    "country": "Austria",
+    "country": "austria",
     "era": "modern",
     "top_tier": false
   },
@@ -3685,7 +3685,7 @@
     "brand": "KTM",
     "model": "X-Bow GTX",
     "year": 2020,
-    "country": "Austria",
+    "country": "austria",
     "era": "modern",
     "top_tier": false
   },
@@ -3695,7 +3695,7 @@
     "brand": "KTM",
     "model": "450 EXC",
     "year": 2015,
-    "country": "Austria",
+    "country": "austria",
     "era": "modern",
     "top_tier": true
   },
@@ -3705,7 +3705,7 @@
     "brand": "KTM",
     "model": "450 EXC Nighthawk Edition",
     "year": 2015,
-    "country": "Austria",
+    "country": "austria",
     "era": "modern",
     "top_tier": false
   },
@@ -3715,7 +3715,7 @@
     "brand": "KTM",
     "model": "450 EXC Redbull",
     "year": 2015,
-    "country": "Austria",
+    "country": "austria",
     "era": "modern",
     "top_tier": true
   },
@@ -3725,7 +3725,7 @@
     "brand": "KTM",
     "model": "1190 RC8 R Track",
     "year": 2015,
-    "country": "Austria",
+    "country": "austria",
     "era": "modern",
     "top_tier": false
   },
@@ -3735,7 +3735,7 @@
     "brand": "KTM",
     "model": "1190 RC8 R Track Power Track Edition",
     "year": 2015,
-    "country": "Austria",
+    "country": "austria",
     "era": "modern",
     "top_tier": false
   },
@@ -3745,7 +3745,7 @@
     "brand": "KTM",
     "model": "RC16 - Red Bull Team",
     "year": 2022,
-    "country": "Austria",
+    "country": "austria",
     "era": "modern",
     "top_tier": false
   },
@@ -3755,7 +3755,7 @@
     "brand": "KTM",
     "model": "RC16 - Tech 3 Team",
     "year": 2022,
-    "country": "Austria",
+    "country": "austria",
     "era": "modern",
     "top_tier": false
   },
@@ -3765,7 +3765,7 @@
     "brand": "KTM",
     "model": "X-Bow GT2",
     "year": 2020,
-    "country": "Austria",
+    "country": "austria",
     "era": "modern",
     "top_tier": true
   },
@@ -3775,7 +3775,7 @@
     "brand": "KTM",
     "model": "X-Bow GT4",
     "year": 2016,
-    "country": "Austria",
+    "country": "austria",
     "era": "modern",
     "top_tier": false
   },
@@ -3785,7 +3785,7 @@
     "brand": "KTM",
     "model": "X-Bow GT4 Raw Edition",
     "year": 2016,
-    "country": "Austria",
+    "country": "austria",
     "era": "modern",
     "top_tier": false
   },
@@ -3795,7 +3795,7 @@
     "brand": "KTM",
     "model": "X-BOW R Experience Red Bull Ring",
     "year": 2016,
-    "country": "Austria",
+    "country": "austria",
     "era": "modern",
     "top_tier": false
   },
@@ -3805,7 +3805,7 @@
     "brand": "KTM",
     "model": "450 Rally",
     "year": 2015,
-    "country": "Austria",
+    "country": "austria",
     "era": "modern",
     "top_tier": false
   },
@@ -3815,7 +3815,7 @@
     "brand": "KTM",
     "model": "525 XC (Race Spec)",
     "year": 2011,
-    "country": "Austria",
+    "country": "austria",
     "era": "modern",
     "top_tier": false
   },
@@ -3825,7 +3825,7 @@
     "brand": "KTM",
     "model": "450 EXC",
     "year": 2015,
-    "country": "Austria",
+    "country": "austria",
     "era": "modern",
     "top_tier": false
   },
@@ -3835,7 +3835,7 @@
     "brand": "KTM",
     "model": "1190 RC8 R",
     "year": 2015,
-    "country": "Austria",
+    "country": "austria",
     "era": "modern",
     "top_tier": false
   },
@@ -3845,7 +3845,7 @@
     "brand": "KTM",
     "model": "1290 SUPER DUKE R ABS",
     "year": 2015,
-    "country": "Austria",
+    "country": "austria",
     "era": "modern",
     "top_tier": false
   },
@@ -3855,7 +3855,7 @@
     "brand": "KTM",
     "model": "X-Bow R",
     "year": 2016,
-    "country": "Austria",
+    "country": "austria",
     "era": "modern",
     "top_tier": false
   },
@@ -5495,7 +5495,7 @@
     "brand": "Plymouth",
     "model": "Road Runner",
     "year": 1970,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -5505,7 +5505,7 @@
     "brand": "Plymouth",
     "model": "Road Runner Freedom Edition",
     "year": 1970,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -5515,7 +5515,7 @@
     "brand": "Plymouth",
     "model": "Road Runner La Verrde Edition",
     "year": 1970,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -5525,7 +5525,7 @@
     "brand": "Pontiac",
     "model": "GTO The Judge",
     "year": 1969,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -5535,7 +5535,7 @@
     "brand": "Pontiac",
     "model": "GTO The Judge Sparrow Competition Ed.",
     "year": 1969,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -5545,7 +5545,7 @@
     "brand": "Pontiac",
     "model": "GTO",
     "year": 1966,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -5555,7 +5555,7 @@
     "brand": "Pontiac",
     "model": "GTO The Judge",
     "year": 1969,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -5565,7 +5565,7 @@
     "brand": "Pontiac",
     "model": "Firebird",
     "year": 1977,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -5575,7 +5575,7 @@
     "brand": "Pontiac",
     "model": "Firebird Golden Wing Edition",
     "year": 1977,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -5585,7 +5585,7 @@
     "brand": "Pontiac",
     "model": "Firebird",
     "year": 1982,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -5595,7 +5595,7 @@
     "brand": "Pontiac",
     "model": "GTO Rival Ed.",
     "year": 1966,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -6065,7 +6065,7 @@
     "brand": "PROTO",
     "model": "Mark II",
     "year": 2018,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -6105,7 +6105,7 @@
     "brand": "PROTO",
     "model": "HuP ONE",
     "year": 1930,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -6115,7 +6115,7 @@
     "brand": "PROTO",
     "model": "HuP ONE Racing Ed.",
     "year": 1930,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -6125,7 +6125,7 @@
     "brand": "PROTO",
     "model": "Buggy",
     "year": 2017,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -6135,7 +6135,7 @@
     "brand": "PROTO",
     "model": "HuP One",
     "year": 1930,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -6145,7 +6145,7 @@
     "brand": "PROTO",
     "model": "HuP One Burning Wheels Edition",
     "year": 1930,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -6155,7 +6155,7 @@
     "brand": "PROTO",
     "model": "HuP One Clumsy Edition",
     "year": 1930,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -6165,7 +6165,7 @@
     "brand": "PROTO",
     "model": "HuP One Marco's Cab",
     "year": 1930,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -6175,7 +6175,7 @@
     "brand": "RAM",
     "model": "1500 Rebel TRX Concept",
     "year": 2017,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -6185,7 +6185,7 @@
     "brand": "RAM",
     "model": "1500 Rebel TRX Concept Enforcer Edition",
     "year": 2017,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -6305,7 +6305,7 @@
     "brand": "Ringbrothers",
     "model": "Dodge Charger \"Tusk\"",
     "year": 1969,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -6325,7 +6325,7 @@
     "brand": "Saleen",
     "model": "S7 Twin-Turbo",
     "year": 2005,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -6335,7 +6335,7 @@
     "brand": "Saleen",
     "model": "S7 Twin-Turbo Glacier Edition",
     "year": 2005,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -6345,7 +6345,7 @@
     "brand": "Saleen",
     "model": "S1 GT4 Cup",
     "year": 2020,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -6355,7 +6355,7 @@
     "brand": "Saleen",
     "model": "S7R",
     "year": 2000,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -6365,7 +6365,7 @@
     "brand": "Saleen",
     "model": "S1",
     "year": 2020,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -6375,7 +6375,7 @@
     "brand": "Saleen",
     "model": "S1 Icebreaker Edition",
     "year": 2020,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": false
   },
@@ -6385,7 +6385,7 @@
     "brand": "Shelby",
     "model": "GT500",
     "year": 1967,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -6395,7 +6395,7 @@
     "brand": "Shelby",
     "model": "GT500 American Edition",
     "year": 1967,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -6405,7 +6405,7 @@
     "brand": "Shelby",
     "model": "Cobra 427",
     "year": 1964,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -6415,7 +6415,7 @@
     "brand": "Shelby",
     "model": "GT500",
     "year": 1967,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": false
   },
@@ -6725,7 +6725,7 @@
     "brand": "W Motors",
     "model": "Lykan Hypersport",
     "year": 2017,
-    "country": "UAE",
+    "country": "uae",
     "era": "modern",
     "top_tier": true
   },
@@ -6735,7 +6735,7 @@
     "brand": "W Motors",
     "model": "Lykan Hypersport Chase Squad Ed.",
     "year": 2017,
-    "country": "UAE",
+    "country": "uae",
     "era": "modern",
     "top_tier": false
   },
@@ -6815,7 +6815,7 @@
     "brand": "Hoonigan",
     "model": "Ford Hoonicorn Mustang",
     "year": 1965,
-    "country": "USA",
+    "country": "usa",
     "era": "classic",
     "top_tier": true
   },
@@ -6845,7 +6845,7 @@
     "brand": "KTM",
     "model": "450 EXC Robbie Maddison Edition",
     "year": 2015,
-    "country": "Austria",
+    "country": "austria",
     "era": "modern",
     "top_tier": true
   },
@@ -6885,7 +6885,7 @@
     "brand": "Ford",
     "model": "F-150 Raptor Race Truck Red Bull Ed.",
     "year": 2017,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": true
   },
@@ -7265,7 +7265,7 @@
     "brand": "Porsche",
     "model": "911 GT3 RS Tribute to Carrera RS",
     "year": 2023,
-    "country": "Germany",
+    "country": "germany",
     "era": "modern",
     "top_tier": true
   },
@@ -7275,7 +7275,7 @@
     "brand": "PHAZR RC",
     "model": "Comet",
     "year": 2026,
-    "country": "France",
+    "country": "france",
     "era": "modern",
     "top_tier": false
   },
@@ -7285,7 +7285,7 @@
     "brand": "PHAZR RC",
     "model": "Rust Bucket",
     "year": 2026,
-    "country": "France",
+    "country": "france",
     "era": "modern",
     "top_tier": false
   },
@@ -7295,7 +7295,7 @@
     "brand": "PHAZR RC",
     "model": "Trickshot",
     "year": 2026,
-    "country": "France",
+    "country": "france",
     "era": "modern",
     "top_tier": true
   },
@@ -7305,7 +7305,7 @@
     "brand": "PHAZR RC",
     "model": "General",
     "year": 2026,
-    "country": "France",
+    "country": "france",
     "era": "modern",
     "top_tier": false
   },
@@ -7315,7 +7315,7 @@
     "brand": "PHAZR RC",
     "model": "Coyote",
     "year": 2026,
-    "country": "France",
+    "country": "france",
     "era": "modern",
     "top_tier": true
   },
@@ -7325,7 +7325,7 @@
     "brand": "PHAZR RC",
     "model": "Traxxas X-Maxx Ulitmate",
     "year": 2025,
-    "country": "France",
+    "country": "france",
     "era": "modern",
     "top_tier": true
   },
@@ -7335,7 +7335,7 @@
     "brand": "Apollo",
     "model": "Sport",
     "year": 2008,
-    "country": "Germany",
+    "country": "germany",
     "era": "modern",
     "top_tier": true
   },
@@ -7415,7 +7415,7 @@
     "brand": "W Motors",
     "model": "Fenyr Supersport",
     "year": 2021,
-    "country": "UAE",
+    "country": "uae",
     "era": "modern",
     "top_tier": true
   },
@@ -7425,7 +7425,7 @@
     "brand": "W Motors",
     "model": "Fenyr Supersport Radiant Ed.",
     "year": 2021,
-    "country": "UAE",
+    "country": "uae",
     "era": "modern",
     "top_tier": true
   },
@@ -7465,7 +7465,7 @@
     "brand": "Hennessey",
     "model": "Venom F5",
     "year": 2020,
-    "country": "USA",
+    "country": "usa",
     "era": "modern",
     "top_tier": true
   },
