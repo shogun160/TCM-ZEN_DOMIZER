@@ -114,10 +114,26 @@ function truncateForTwitch(nachricht) {
 // wirkt nur bis zum Absenden. Bitte nicht erneut auf "\n" umstellen.
 const ITEM_SEPARATOR = " | ";
 
+// Gefuellte Kreiszahlen U+278A (➊) bis U+2793 (➓) als Nummerierung vor jeder
+// Kategorie. Der Bereich deckt genau MAX_DRAW_ITEMS ab, es kann also keine
+// Nummer fehlen. Ein Zeichen je Ziffer - bewusst gewaehlt, weil Keycap-Emojis
+// (Ziffer + Variantenselektor + Umschliessungszeichen) drei Zeichen des
+// 500er-Limits kosten wuerden.
+const FIRST_ITEM_NUMBER_CODEPOINT = 0x278a;
+
+function itemNumber(index) {
+  if (index >= MAX_DRAW_ITEMS) return "";
+  return String.fromCodePoint(FIRST_ITEM_NUMBER_CODEPOINT + index);
+}
+
 export function buildMessage(items) {
   if (!Array.isArray(items) || items.length === 0) return "";
 
-  const teile = items.map(v => `${v.category}: ${formatVehicleName(v)}`);
+  const teile = items.map((v, i) => {
+    const nummer = itemNumber(i);
+    const prefix = nummer ? `${nummer} ` : "";
+    return `${prefix}${v.category}: ${formatVehicleName(v)}`;
+  });
   const nachricht = `\u{1F3B2} ZENdomizer: ${teile.join(ITEM_SEPARATOR)}`;
 
   return truncateForTwitch(nachricht);

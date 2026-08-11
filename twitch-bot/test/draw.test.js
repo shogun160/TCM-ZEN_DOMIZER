@@ -90,7 +90,7 @@ describe("buildMessage", () => {
       { category: "Drift", brand: "Nissan", model: "Silvia", year: null },
     ]);
     expect(nachricht).toBe(
-      "\uD83C\uDFB2 ZENdomizer: Hypercar: Pfister Comet (2021) | Drift: Nissan Silvia"
+      "\uD83C\uDFB2 ZENdomizer: \u278A Hypercar: Pfister Comet (2021) | \u278B Drift: Nissan Silvia"
     );
   });
 
