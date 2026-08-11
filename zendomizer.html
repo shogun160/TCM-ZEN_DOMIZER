@@ -973,7 +973,7 @@ select.filter-control {
             <button id="twitchSettingsToggle" class="filter-control" onclick="toggleTwitchSettingsPanel()">Twitch</button>
             <div id="twitchSettingsPanel" class="twitch-settings-panel" style="display:none;">
                 <label><input type="checkbox" id="twitchEnabled" onchange="saveTwitchSettings()"><span id="twitchEnabledLabel">Twitch settings label</span></label>
-                <button id="twitchConnectBtn" class="filter-control" onclick="openTwitchConnect()">Kanal verbinden</button>
+                <button id="twitchConnectBtn" class="filter-control" onclick="openTwitchConnect()">Connect channel</button>
                 <input type="password" id="twitchToken" oninput="saveTwitchSettings()" />
                 <label><input type="checkbox" id="twitchPin" onchange="saveTwitchSettings()"><span id="twitchPinLabel">Twitch pin label</span></label>
                 <input type="text" id="twitchWorkerUrl" oninput="saveTwitchSettings()" />
@@ -1174,10 +1174,14 @@ select.filter-control {
     const pinLabel = document.getElementById("twitchPinLabel");
     const workerInput = document.getElementById("twitchWorkerUrl");
     const testBtn = document.getElementById("twitchTestBtn");
+    const connectBtn = document.getElementById("twitchConnectBtn");
+    const tokenInput = document.getElementById("twitchToken");
     if (enabledLabel) enabledLabel.textContent = t("twitch_enable_label");
     if (pinLabel) pinLabel.textContent = t("twitch_pin_label");
     if (workerInput) workerInput.placeholder = t("twitch_worker_url_placeholder");
     if (testBtn) testBtn.textContent = t("twitch_test_button");
+    if (connectBtn) connectBtn.textContent = t("twitch_connect");
+    if (tokenInput) tokenInput.placeholder = t("twitch_token_label");
   }
 
     /*
