@@ -30,12 +30,14 @@ And of course a special thank also to the [motorfe.st project](https://github.co
   - 🌍 country  
   - 🏷️ brand  
   - ⏳ era (classic / modern)
-- 🧹 **hotkeys for power users**:
+- 🧹 **hotkeys for power users** (inactive while typing in a text field):
+  - `Enter` – start a draw, same as the GO button
   - `Shift + ?` – show help
   - `Shift + R` – reset blacklist & counter  
   - `Shift + X` – clear draw log  
   - `Shift + L` – show draw log in console
-  - `Cntrl + C` – copy draw to clipboard again
+  - `Shift + G` – toggle dev logging
+  - `C` – copy draw to clipboard again
 - 📋 **automatic copy to clipboard** - text output per category
 - **Twitch INtegration** - connect the ZENdomizer directly with you Twitch account / chatbox
 - 🇩🇪/🇬🇧 **multilanguage support** - german/english

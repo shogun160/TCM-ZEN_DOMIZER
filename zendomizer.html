@@ -1267,6 +1267,18 @@ select.filter-control {
     function isSameVehicle(a, b) {
       return !!a && !!b && a.brand === b.brand && a.model === b.model && a.year === b.year;
     }
+    // Die Hotkeys haengen global am document. Waehrend jemand in ein Textfeld tippt, duerfen
+    // sie nicht feuern: im Twitch-Token-Feld haette ein grosses "R" die Blacklist geleert,
+    // ein "X" das Ziehlog und ein "c" die Zwischenablage ueberschrieben.
+    // Checkboxen und Dropdowns sind bewusst NICHT ausgenommen - sonst waere "Filter setzen,
+    // dann Enter" kaputt, weil der Fokus noch auf dem Bedienelement liegt.
+    function isTypingTarget(el) {
+      if (!el) return false;
+      if (el.isContentEditable) return true;
+      if (el.tagName === 'TEXTAREA') return true;
+      if (el.tagName !== 'INPUT') return false;
+      return !['checkbox', 'radio', 'button', 'submit', 'reset', 'range', 'color', 'file'].includes(el.type);
+    }
     let recentDraws = {}; // 🆕 Merkt sich die letzten Fahrzeuge pro Kategorie
     let toastTimer = null;
     window.drawLog = [];
@@ -1712,7 +1724,7 @@ select.filter-control {
     // hinterlegt ist - kein separater "enabled"-Schalter mehr. Fehlt der
     // Token, wird hier bewusst still abgebrochen (kein Fehlertext): das ist
     // der Normalfall fuer alle, die Twitch gar nicht eingerichtet haben und
-    // wird nach jeder Ziehung automatisch aufgerufen (siehe drawRandomVehicles()).
+    // wird nach jeder Ziehung automatisch aufgerufen (siehe handleGo()).
     // Der explizite "Kanal verbinden"-Knopf (openTwitchConnect()) deckt den
     // Fall "Token fehlt" mit einer eigenen, sichtbaren Fehlermeldung ab.
     async function sendTwitchAnnouncement(draw, options = {}) {
@@ -1793,97 +1805,6 @@ select.filter-control {
       if (!drawExecuted) updateResetButtonState();
     }
     
-    function updateBrandDropdown() {
-      const brandSet = new Set(vehicles.map(v => v.brand));
-      const dropdown = document.getElementById("brandSelect");
-      [...brandSet].sort().forEach(brand => {
-        const opt = document.createElement("option");
-        opt.value = brand;
-        opt.innerText = brand;
-        dropdown.appendChild(opt);
-      });
-    }
-    function drawRandomVehicles() {
-      const filters = getCurrentFilters();
-      // 🛠️ Konsistenz-Fix: selectedOrder statt live Checkbox-Status verwenden -
-      // sonst fehlt hier z.B. "Jet" (hat keine Checkbox) und die Reihenfolge kann von der Klick-Reihenfolge abweichen.
-      const selectedCategories = selectedOrder.slice(0, 3);
-    
-      const resultsDiv = document.getElementById('results');
-      resultsDiv.innerHTML = '';
-    
-      if (selectedCategories.length < 1) {
-        resultsDiv.innerHTML = `<p>${t("min_two_categories")}</p>`;
-        return;
-      }
-      if (selectedCategories.length === 1) {
-        selectedCategories.push(selectedCategories[0], selectedCategories[0]); // Kategorie 2x duplizieren
-      } else if (selectedCategories.length === 2) {
-        selectedCategories.push(selectedCategories[0]); // Kategorie 1 duplizieren
-      }
-    
-      const chosen = [];
-    
-      for (let cat of selectedCategories) {
-        const result = drawVehicleForCategory(cat, filters, bikeFilterMode);
-        if (!result) continue;
-        const { vehicle, ignoredFilters } = result;
-        chosen.push({ ...vehicle, ignoredFilters });
-      }
-    
-      if (chosen.length !== 3) {
-        resultsDiv.innerHTML = "<p>⚠️ Nicht genügend Fahrzeuge gefunden.</p>";
-        return;
-      }
-    
-      lastSelection = chosen;
-      chosen.sort((a, b) => selectedCategories.indexOf(a.category) - selectedCategories.indexOf(b.category));
-    
-      resultsDiv.scrollIntoView({ behavior: 'smooth' });
-      copyToClipboard();
-    }
-
-    function repeatDraw() {
-      if (!lastSelection || lastSelection.length === 0) {
-        fillSlotBoxesWithResults();
-        return;
-      }
-    
-      const resultsDiv = document.getElementById('results');
-      const slots = resultsDiv.querySelectorAll('.slot-box');
-    
-      slots.forEach((slot, i) => {
-        const v = lastSelection[i];
-    
-        // Slot optisch aktivieren
-        slot.classList.remove('empty');
-        slot.classList.remove('slot-yellow', 'slot-blue', 'slot-orange', 'slot-magenta');
-    
-        const colorClass =
-          ['Street Tier 1', 'Street Tier 2', 'Hypercar', 'Drift'].includes(v.category) ? 'slot-yellow' :
-          ['Racing', 'AGP'].includes(v.category) ? 'slot-blue' :
-          ['Rally', 'Rally Raid', 'Motocross'].includes(v.category) ? 'slot-orange' :
-          ['Monster Truck', 'Jet'].includes(v.category) ? 'slot-magenta' :
-          '';
-    
-        // .slot-name gezielt füllen
-        const nameDiv = slot.querySelector('.slot-name');
-        if (nameDiv) {
-          nameDiv.textContent = formatVehicleName(v);
-        }
-    
-        // .slot-warning nur füllen, wenn Filter ignoriert wurden
-        const warnDiv = slot.querySelector('.slot-warning');
-        if (warnDiv) {
-          warnDiv.innerHTML = (v.ignoredFilters && v.ignoredFilters.length)
-            ? `${t("ignored_filters")} ${v.ignoredFilters.join(", ")}`
-            : '';
-        }
-      });
-    
-      resultsDiv.scrollIntoView({ behavior: 'smooth' });
-      copyToClipboard();
-    }
     
     function copyToClipboard(silent = false) {
       if (!lastSelection || lastSelection.length === 0) {
@@ -1904,80 +1825,7 @@ select.filter-control {
       });
     }
 
-    function handleCopy() {
-      if (!drawExecuted) return; // keine Aktion im Standby
-      copyToClipboard(); // nur wenn kategorien gezogen wurden
     
-      const btn = document.getElementById("copyBtn");
-      btn.textContent = "🅒";
-      btn.classList.add("clicked");
-    
-      setTimeout(() => {
-        btn.textContent = "Ⓒ";
-        btn.classList.remove("clicked");
-      }, 750); // Dauer halbiert
-    }
-    
-    function fillSlotBoxesWithResults(orderOverride = null) {
-      const filters = getCurrentFilters();
-      const categories = orderOverride || selectedOrder.slice(0, 3);
-    
-      if (categories.length < 1) {
-        showToast(t("min_two_categories"), "#f33");
-        return;
-      }
-      if (categories.length === 1) {
-        categories.push(categories[0], categories[0]); // Dupliziere Kategorie 2x
-      } else if (categories.length === 2) {
-        categories.push(categories[0]); // Dupliziere erste Kategorie
-      }
-    
-      const chosen = [];
-    
-      for (let cat of categories) {
-        const result = drawVehicleForCategory(cat, filters, bikeFilterMode);
-        if (!result) continue;
-        const { vehicle, ignoredFilters } = result;
-        chosen.push({ ...vehicle, ignoredFilters });
-      }
-    
-      if (chosen.length !== 3) {
-        showToast(t("not_enough_cars"), "#f33");
-        return;
-      }
-    
-      window.drawRound++;
-      localStorage.setItem("zendomizerDrawRound", window.drawRound);
-      lastSelection = chosen;
-    
-      const resultsDiv = document.getElementById('results');
-      const slots = resultsDiv.querySelectorAll('.slot-box');
-      slots.forEach((slot, i) => {
-        const v = chosen[i];
-        const nameDiv = slot.querySelector('.slot-name');
-        const warnDiv = slot.querySelector('.slot-warning');
-    
-        nameDiv.textContent = formatVehicleName(v);
-        warnDiv.innerHTML = v.ignoredFilters.length
-          ? `${t("ignored_filters")} ${v.ignoredFilters.join(', ')}`
-          : '';
-    
-        slot.classList.remove('empty', 'slot-yellow', 'slot-blue', 'slot-orange', 'slot-magenta');
-    
-        const colorClass =
-          ['Street Tier 1', 'Street Tier 2', 'Hypercar', 'Drift'].includes(v.category) ? 'slot-yellow' :
-          ['Racing', 'AGP'].includes(v.category) ? 'slot-blue' :
-          ['Rally', 'Rally Raid', 'Motocross'].includes(v.category) ? 'slot-orange' :
-          ['Monster Truck', 'Jet'].includes(v.category) ? 'slot-magenta' : '';
-    
-        slot.classList.add(colorClass);
-        slot.classList.add("flash");
-        setTimeout(() => slot.classList.remove("flash"), 800);
-      });
-    
-      copyToClipboard();
-    }
-
     function handleGo() {
       if (selectedOrder.length < 1) return;
       if (isDrawing) return; // Ziehung laeuft bereits - Doppelklick/Re-Entry ignorieren
@@ -2040,7 +1888,12 @@ select.filter-control {
     }
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') drawRandomVehicles();
+      if (isTypingTarget(e.target)) return;
+      // 🛠️ Bugfix: hier stand drawRandomVehicles(). Diese Altlast leerte #results per
+      // innerHTML und baute die Slot-Boxen nie wieder auf - Enter loeschte also die Anzeige,
+      // verbrauchte dabei drei Ziehungen aus der Blacklist und kopierte in die Zwischenablage.
+      // handleGo() ist derselbe Weg wie der GO-Knopf.
+      if (e.key === 'Enter') handleGo();
       if (e.key.toLowerCase() === 'c') copyToClipboard();
     });
 
@@ -2092,15 +1945,6 @@ select.filter-control {
       rerollSingleSlot(category, slotIndex);
     });
 
-    function clearResults() {
-      const boxes = document.querySelectorAll(".slot-box");
-      boxes.forEach(box => {
-        box.classList.remove("drawn");
-        box.querySelector(".slot-name").textContent = "";
-        // Wenn du die Kategorie behalten willst, diese Zeile weglassen
-        // box.querySelector(".slot-category").textContent = "";
-      });
-    }
     
     function fillSlotBox(index, category, flash = true) {
       const boxes = document.querySelectorAll(".slot-box");
@@ -2512,6 +2356,7 @@ select.filter-control {
       }, { once: true });
     });
     document.addEventListener("keydown", function (e) {
+      if (isTypingTarget(e.target)) return; // nicht waehrend des Tippens, siehe isTypingTarget()
       // SHIFT + ? → Hotkey-Legende anzeigen
       if (e.shiftKey && (e.key === '?' || e.key.toLowerCase() === 'h')) {
         showToast(t("hotkey_help"), "#0af", 30000);
