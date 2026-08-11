@@ -1,7 +1,7 @@
 // Prüft Fix 4: der Klick auf einen Slot rollt genau DIESEN Slot neu, auch wenn
 // dieselbe Kategorie mehrfach besetzt ist (Grand-Race-Rotationen, 1-2 Kategorien).
 // Führt den echten Klick-Handler und die echte rerollSingleSlot() aus zendomizer.html aus.
-import { extract, extractAt, HTML } from './harness.mjs';
+import { extract, extractAt, extractBlock, HTML } from './harness.mjs';
 
 let seed = 4711;
 Math.random = () => { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; };
@@ -64,11 +64,15 @@ function run(rotation, klickAufSlot) {
     copyToClipboard: () => {},
     setTimeout: () => {},
     window: { drawLog: [], drawRound: 1 },
+    console: { log() {}, warn() {} },
   };
 
   const keys = Object.keys(env);
   const handlerSrc = extractAt(HTML.indexOf("document.addEventListener('click', function(e) {"), 'Klick-Handler') + ');';
   const fn = new Function(...keys, `
+    ${extractBlock('const MAX_DRAW_LOG', ';')}
+    ${extract('persist')}
+    ${extract('appendDrawLog')}
     ${extract('rerollSingleSlot')}
     ${handlerSrc}
   `);

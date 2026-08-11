@@ -1073,7 +1073,7 @@ select.filter-control {
     
         btn.onclick = () => {
           currentLang = lang;
-          localStorage.setItem("zendomizerLang", lang);
+          persist("zendomizerLang", lang);
           applyTranslations();
           document.querySelectorAll(".lang-button").forEach(b => b.classList.remove("active"));
           btn.classList.add("active");
@@ -1272,6 +1272,46 @@ select.filter-control {
     // ein "X" das Ziehlog und ein "c" die Zwischenablage ueberschrieben.
     // Checkboxen und Dropdowns sind bewusst NICHT ausgenommen - sonst waere "Filter setzen,
     // dann Enter" kaputt, weil der Fokus noch auf dem Bedienelement liegt.
+    // Der Ziehlog bekommt drei Eintraege je Ziehung (~0,6 KB) und wurde nie beschnitten.
+    // Bei 100 Ziehungen am Tag ist die 5-MB-Quota des Browsers nach rund 80 Tagen erreicht -
+    // danach warf setItem() mitten in der Ziehung. 500 Eintraege sind rund 165 Ziehungen
+    // und damit mehr, als eine Session je braucht (Shift+L zeigt sie als Tabelle).
+    const MAX_DRAW_LOG = 500;
+
+    // Alle Schreibzugriffe laufen hierueber. localStorage kann voll sein oder komplett
+    // gesperrt (privates Fenster) - beides darf eine laufende Ziehung nicht abbrechen.
+    function persist(key, value) {
+      try {
+        localStorage.setItem(key, value);
+        return true;
+      } catch (err) {
+        // Groesster Posten ist der Ziehlog. Einmal halbieren und erneut versuchen, damit
+        // vor allem die Blacklist weiter gespeichert wird - ohne sie wiederholen sich
+        // Fahrzeuge nach einem Reload.
+        if (window.drawLog && window.drawLog.length > 1) {
+          window.drawLog = window.drawLog.slice(-Math.floor(window.drawLog.length / 2));
+          try {
+            localStorage.setItem("zendomizerDrawLog", JSON.stringify(window.drawLog));
+            localStorage.setItem(key, value);
+            return true;
+          } catch (zweiterVersuch) {
+            // faellt unten durch
+          }
+        }
+        console.warn(`⚠️ localStorage: "${key}" konnte nicht gespeichert werden`, err);
+        return false;
+      }
+    }
+
+    // Ziehlog fortschreiben und dabei deckeln
+    function appendDrawLog(entry) {
+      window.drawLog.push(entry);
+      if (window.drawLog.length > MAX_DRAW_LOG) {
+        window.drawLog = window.drawLog.slice(-MAX_DRAW_LOG);
+      }
+      persist("zendomizerDrawLog", JSON.stringify(window.drawLog));
+    }
+
     function isTypingTarget(el) {
       if (!el) return false;
       if (el.isContentEditable) return true;
@@ -1661,7 +1701,7 @@ select.filter-control {
 
     function saveTwitchSettings() {
       const token = (document.getElementById("twitchToken")?.value || "").trim();
-      localStorage.setItem("zendomizerTwitchToken", token);
+      persist("zendomizerTwitchToken", token);
 
       const statusEl = document.getElementById("twitchStatusMsg");
       if (statusEl) {
@@ -1837,7 +1877,7 @@ select.filter-control {
     
       // ✅ Durchgang hochzählen
       window.drawRound++;
-      localStorage.setItem("zendomizerDrawRound", window.drawRound);
+      persist("zendomizerDrawRound", window.drawRound);
     
       updateSlotBoxes(); // 🟢 Slotboxen mit Fragezeichen vorbereiten
     
@@ -1926,6 +1966,13 @@ select.filter-control {
       if (savedDrawLog) {
         try {
           window.drawLog = JSON.parse(savedDrawLog);
+          // Aeltere Staende koennen ein unbegrenzt gewachsenes Log mitbringen - hier einmalig
+          // kappen, sonst bliebe es fuer immer gross.
+          if (window.drawLog.length > MAX_DRAW_LOG) {
+            window.drawLog = window.drawLog.slice(-MAX_DRAW_LOG);
+            persist("zendomizerDrawLog", JSON.stringify(window.drawLog));
+            console.log(`🧾 drawlog auf ${MAX_DRAW_LOG} Eintraege gekuerzt.`);
+          }
           console.log("🧾 drawlog loaded from localStorage .");
         } catch (e) {
           console.warn("⚠️ Error whhile parsing drawLog:", e);
@@ -2033,7 +2080,7 @@ select.filter-control {
       }
       if (!recentDraws[category].some(r => isSameVehicle(r, vehicle))) {
         recentDraws[category].push(vehicle);
-        localStorage.setItem("zendomizerRecentDraws", JSON.stringify(recentDraws));
+        persist("zendomizerRecentDraws", JSON.stringify(recentDraws));
       }
 
       while (lastSelection.length < 3) {
@@ -2045,7 +2092,7 @@ select.filter-control {
     
       // ✅ Log-Eintrag ohne drawRound++ → stattdessen mit "(manual)"
       const manualLabel = `${window.drawRound} (manual)`;
-      window.drawLog.push({
+      appendDrawLog({
         durchgang: manualLabel,
         category: category,
         selected: formatVehicleName(vehicle),
@@ -2057,7 +2104,6 @@ select.filter-control {
         availableCount: vehicles.filter(v => v.category === category).length,
         timestamp: new Date().toLocaleString("de-DE")
       });
-      localStorage.setItem("zendomizerDrawLog", JSON.stringify(window.drawLog));
     
       const slot = document.querySelectorAll('.slot-box')[index];
       if (!slot) return;
@@ -2211,14 +2257,14 @@ select.filter-control {
         // erste Fahrzeug der neuen Runde blieb ungesperrt. In-place leeren behaelt die Referenz.
         carryOver = recent[recent.length - 1] || null; // zuletzt gezogen - eroeffnet die neue Runde nicht
         recent.length = 0;
-        localStorage.setItem("zendomizerRecentDraws", JSON.stringify(recentDraws));
+        persist("zendomizerRecentDraws", JSON.stringify(recentDraws));
       
         // 👉 2) Toast anzeigen
         //showToast(`🧹 Kategorie <b>${category}</b>: Alle Fahrzeuge wurden gezogen – Blacklist wurde zurückgesetzt.`, "#ffa500", 7000);
         showToast(t("blacklist_reset_notice", { category }), "#ffa500", 7000);
     
         // 👉 3) Vermerk im Ziehlog
-        window.drawLog.push({
+        appendDrawLog({
           durchgang: "-",
           category: category,
           selected: "Blacklist zurückgesetzt (Rotation vollständig)",
@@ -2228,7 +2274,6 @@ select.filter-control {
           availableCount: finalList.length,
           timestamp: new Date().toLocaleString("de-DE")
         });
-        localStorage.setItem("zendomizerDrawLog", JSON.stringify(window.drawLog));
       }
     
       // Nach einem Reset steht wieder der volle Pool bereit - nur das zuletzt gezogene Fahrzeug
@@ -2244,7 +2289,7 @@ select.filter-control {
       // 🔒 In Blacklist eintragen (nur wenn noch nicht drin)
       if (!recent.some(r => isSameVehicle(r, vehicle))) {
         recent.push(vehicle);
-        localStorage.setItem("zendomizerRecentDraws", JSON.stringify(recentDraws));
+        persist("zendomizerRecentDraws", JSON.stringify(recentDraws));
       }
     
       // 📢 Konsoleninfo (nur wenn Dev-Logging aktiv)
@@ -2269,7 +2314,7 @@ select.filter-control {
       else applied.push("All Vehicles");
     
       // 🧾 Ziehung loggen
-     window.drawLog.push({
+     appendDrawLog({
       durchgang: window.drawRound,
       category: category,
       selected: formatVehicleName(vehicle),
@@ -2279,7 +2324,6 @@ select.filter-control {
       availableCount: finalList.length,
       timestamp: new Date().toLocaleString("de-DE")
     });
-    localStorage.setItem("zendomizerDrawLog", JSON.stringify(window.drawLog));
     return { vehicle, ignoredFilters: ignored };
 }
 
@@ -2377,10 +2421,10 @@ select.filter-control {
         localStorage.removeItem("zendomizerRecentDraws");
         // 🔄 Zähler zurücksetzen
         window.drawRound = 0;
-        localStorage.setItem("zendomizerDrawRound", "0");
+        persist("zendomizerDrawRound", "0");
         showToast(t("blacklist_cleared"), "#f44336");
         console.log("🧹 reset recentDraws via hotkey.");
-        window.drawLog.push({
+        appendDrawLog({
           durchgang: 'RESET',
           category: '-',
           selected: '-',
@@ -2390,7 +2434,6 @@ select.filter-control {
           availableCount: '-',
           timestamp: new Date().toLocaleString("de-DE")
         });
-        localStorage.setItem("zendomizerDrawLog", JSON.stringify(window.drawLog));
       }
       // SHIFT + X → Ziehlog zurücksetzen
       if (e.shiftKey && e.key.toLowerCase() === 'x') {
@@ -2398,7 +2441,7 @@ select.filter-control {
         window.drawLog = [];
         window.recentDraws = {};
     
-        localStorage.setItem("zendomizerDrawRound", "0");
+        persist("zendomizerDrawRound", "0");
         localStorage.removeItem("zendomizerDrawLog");
         localStorage.removeItem("zendomizerRecentDraws");
     
