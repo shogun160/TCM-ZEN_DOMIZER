@@ -200,15 +200,28 @@ für den echten Inhalt des produktiven Namespace ist `--remote` nötig.
   Schreibfehler laut per `console.error` - vorher ging der frisch rotierte
   Refresh-Token in diesem Fall spurlos verloren, obwohl Twitch den alten
   bereits entwertet hatte, und der Bot fiel für alle Nutzer aus.
-  **Weiterhin nicht abgesichert:** laufen zwei `getValidAccessToken`-
-  Refreshes gleichzeitig, nutzen beide denselben Refresh-Token; da Twitch
-  den alten dabei entwertet, kann ein toter Token im KV (`bot_token`)
-  landen. Eine saubere Lösung bräuchte ein Durable Object als
-  Serialisierungspunkt - das steht außer Verhältnis zum Rest dieses Bots
-  und wurde bewusst nicht umgesetzt (siehe Kommentar an
-  `getValidAccessToken` in `src/twitch.js`). Tritt der Fall ein, muss
-  `TWITCH_BOT_INITIAL_REFRESH_TOKEN` manuell neu gesetzt und erneut per
-  `wrangler secret put` hinterlegt werden.
+- **Parallele Token-Rotation (entschärft seit 2026-08-11).** Twitch entwertet
+  den Refresh-Token bei jeder Nutzung. Liefen zwei Refreshes gleichzeitig,
+  konnte ein toter Token im KV (`bot_token`) landen - der Bot fiel dann beim
+  nächsten Refresh **für alle Kanäle** aus, bis
+  `TWITCH_BOT_INITIAL_REFRESH_TOKEN` von Hand neu gesetzt wurde. Drei
+  Maßnahmen greifen jetzt ineinander:
+  1. **Single-Flight:** Parallele Aufrufe innerhalb eines Worker-Isolates
+     teilen sich einen Refresh, statt zwei zu starten. Gebündelt wird nur der
+     Refresh - mehrere Kanäle ziehen weiterhin gleichzeitig und unabhängig.
+  2. **Selbstheilung:** Lehnt Twitch den eigenen Refresh-Token ab, wird KV
+     erneut gelesen; liegt dort inzwischen ein frisches Token, wird dieses
+     genutzt.
+  3. **Schreibschutz:** Steht in KV bereits ein Token mit späterem Ablauf,
+     wird der eigene, ältere Stand nicht darübergeschrieben.
+
+  **Verbleibendes Restrisiko:** Der Single-Flight wirkt nur je Isolate, und KV
+  ist eventual consistent - zwei Anfragen aus verschiedenen Rechenzentren
+  können weiterhin gleichzeitig refreshen. Der Bot fällt dadurch aber nicht
+  mehr dauerhaft aus, sondern verliert schlimmstenfalls eine einzelne Ziehung.
+  Vollständig ausschließen ließe sich das nur mit einem Durable Object als
+  Serialisierungspunkt (seit April 2025 auch im Free-Plan verfügbar, bislang
+  bewusst nicht umgesetzt).
 - **Mehrzeilige Chat-Nachrichten sind nicht möglich.** Am 2026-08-11 live
   geprüft: Die Twitch-Chat-API nimmt `\n` innerhalb einer Nachricht nicht an
   (der Chat ist historisch IRC-basiert, dort trennt `\n` Nachrichten

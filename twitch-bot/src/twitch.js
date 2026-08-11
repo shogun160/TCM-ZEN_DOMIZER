@@ -4,6 +4,24 @@
  */
 
 const TOKEN_KV_KEY = "bot_token";
+const ABLAUF_PUFFER_MS = 60_000;
+
+/**
+ * Laeuft in diesem Worker-Isolate bereits ein Refresh, haengen sich weitere
+ * Aufrufer an dessen Promise, statt einen zweiten Refresh zu starten
+ * ("Single-Flight"). Das ist der wichtigste Schutz, denn Twitch entwertet den
+ * refresh_token bei jeder Nutzung: zwei parallele Refreshes mit demselben
+ * Token machen einen davon tot.
+ *
+ * Wichtig: gebuendelt wird nur der REFRESH, nicht die Anfragen. Mehrere
+ * Kanaele ziehen weiterhin gleichzeitig und unabhaengig voneinander - sie
+ * teilen sich lediglich ein Token, statt es sich gegenseitig zu entwerten.
+ */
+let laufenderRefresh = null;
+
+function istVerwendbar(eintrag) {
+  return !!eintrag?.access_token && eintrag.expires_at > Date.now() + ABLAUF_PUFFER_MS;
+}
 
 /**
  * Liefert ein gueltiges Access-Token fuer den Bot-Account. Nutzt den in KV
@@ -15,27 +33,37 @@ const TOKEN_KV_KEY = "bot_token";
  * geschrieben - ohne das wuerde der Bot nach dem ersten Refresh dauerhaft
  * ausfallen.
  *
- * BEKANNTE EINSCHRAENKUNG (Befund B, Sicherheitsreview 2026-08-11): laufen
- * zwei Aufrufe dieser Funktion gleichzeitig (z.B. zwei parallele /announce-
- * Anfragen, deren gecachtes Token beide gleichzeitig als abgelaufen sehen),
- * nutzen beide denselben refresh_token fuer ihren Twitch-Aufruf. Da Twitch
- * den alten refresh_token dabei entwertet, gewinnt beim KV-put() am Ende
- * der letzte Schreibvorgang - der jeweils andere access_token bleibt zwar
- * fuer seine eigene laufende Anfrage gueltig, sein refresh_token ist danach
- * aber tot und wuerde beim naechsten Refresh-Versuch scheitern. Sauber
- * loesen liesse sich das nur mit einem Durable Object als Serialisierungs-
- * punkt - fuer diesen Bot bewusst nicht umgesetzt (siehe README.md,
- * Abschnitt "Bekannte Einschraenkungen").
+ * VERBLEIBENDE EINSCHRAENKUNG: Der Single-Flight wirkt nur innerhalb eines
+ * Isolates. Zwei Anfragen, die Cloudflare in verschiedenen Isolates oder
+ * Rechenzentren bedient, koennen weiterhin gleichzeitig refreshen - KV ist
+ * eventual consistent, ein frisch geschriebenes Token ist nicht sofort
+ * ueberall sichtbar. Fuer diesen Fall gibt es die Selbstheilung und den
+ * Schreibschutz unten: der Bot faellt dadurch nicht mehr dauerhaft aus,
+ * sondern verliert im schlechtesten Fall eine einzelne Ziehung. Vollstaendig
+ * ausschliessen liesse sich das nur mit einem Durable Object als
+ * Serialisierungspunkt (siehe README.md, "Bekannte Einschraenkungen").
  */
 export async function getValidAccessToken(env) {
   const stored = await env.TWITCH_TOKENS.get(TOKEN_KV_KEY, "json");
 
-  if (stored && stored.access_token && stored.expires_at > Date.now() + 60_000) {
+  if (istVerwendbar(stored)) {
     return stored.access_token;
   }
 
-  const refreshToken = stored?.refresh_token || env.TWITCH_BOT_INITIAL_REFRESH_TOKEN;
-  if (!refreshToken) {
+  if (!laufenderRefresh) {
+    // finally() gibt das Ergebnis unveraendert weiter und raeumt den Platzhalter
+    // in JEDEM Fall ab - auch nach einem Fehler, sonst haenge der naechste
+    // Aufruf dauerhaft am selben gescheiterten Promise.
+    laufenderRefresh = refreshBotToken(env, stored).finally(() => {
+      laufenderRefresh = null;
+    });
+  }
+  return laufenderRefresh;
+}
+
+async function refreshBotToken(env, stored) {
+  const verwendeterRefreshToken = stored?.refresh_token || env.TWITCH_BOT_INITIAL_REFRESH_TOKEN;
+  if (!verwendeterRefreshToken) {
     throw new Error(
       "Kein refresh_token vorhanden (weder in KV noch als TWITCH_BOT_INITIAL_REFRESH_TOKEN-Secret). " +
       "Einmalige OAuth-Erstautorisierung noetig - siehe twitch-bot/README.md."
@@ -46,7 +74,7 @@ export async function getValidAccessToken(env) {
     client_id: env.TWITCH_CLIENT_ID,
     client_secret: env.TWITCH_CLIENT_SECRET,
     grant_type: "refresh_token",
-    refresh_token: refreshToken,
+    refresh_token: verwendeterRefreshToken,
   });
 
   const res = await fetch("https://id.twitch.tv/oauth2/token", {
@@ -57,6 +85,20 @@ export async function getValidAccessToken(env) {
 
   if (!res.ok) {
     const errText = await res.text();
+
+    // Selbstheilung: Lehnt Twitch unseren refresh_token ab, hat ihn womoeglich
+    // ein anderer Worker bereits verbraucht - dann liegt in KV inzwischen ein
+    // frisches Token. Das ist genau der Fall, der den Bot frueher fuer alle
+    // Kanaele lahmgelegt hat, bis jemand von Hand eingegriffen hat.
+    const inzwischen = await env.TWITCH_TOKENS.get(TOKEN_KV_KEY, "json").catch(() => null);
+    if (istVerwendbar(inzwischen) && inzwischen.refresh_token !== verwendeterRefreshToken) {
+      console.warn(
+        "Bot-Token-Rotation: eigener refresh_token wurde abgelehnt, in KV lag aber bereits " +
+        "ein frisches Token (offenbar hat ein paralleler Aufruf rotiert). Dieses wird genutzt."
+      );
+      return inzwischen.access_token;
+    }
+
     throw new Error(`Twitch Token-Refresh fehlgeschlagen (${res.status}): ${errText}`);
   }
 
@@ -74,14 +116,27 @@ export async function getValidAccessToken(env) {
   // wird. console.error() macht den Ausfall trotzdem sichtbar, statt ihn
   // stillschweigend zu schlucken.
   try {
-    await env.TWITCH_TOKENS.put(
-      TOKEN_KV_KEY,
-      JSON.stringify({
-        access_token: data.access_token,
-        refresh_token: data.refresh_token,
-        expires_at: expiresAt,
-      })
-    );
+    // Schreibschutz: KV kennt kein Compare-and-Swap, es gewinnt schlicht der
+    // letzte Schreibvorgang. Liegt dort inzwischen ein Token, das SPAETER
+    // ablaeuft als unseres, stammt es aus einem juengeren Refresh - unseres
+    // darueberzuschreiben wuerde einen bereits entwerteten refresh_token
+    // festschreiben und den Bot beim naechsten Mal ausfallen lassen.
+    const inzwischen = await env.TWITCH_TOKENS.get(TOKEN_KV_KEY, "json");
+    if (inzwischen?.expires_at > expiresAt) {
+      console.warn(
+        "Bot-Token-Rotation: in KV liegt bereits ein neueres Token - der eigene, aeltere " +
+        "Stand wird NICHT geschrieben. Die laufende Anfrage nutzt ihr eigenes Access-Token."
+      );
+    } else {
+      await env.TWITCH_TOKENS.put(
+        TOKEN_KV_KEY,
+        JSON.stringify({
+          access_token: data.access_token,
+          refresh_token: data.refresh_token,
+          expires_at: expiresAt,
+        })
+      );
+    }
   } catch (err) {
     console.error(
       "Bot-Token-Rotation: Schreiben des neuen refresh_token in KV fehlgeschlagen - " +
