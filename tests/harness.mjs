@@ -17,7 +17,21 @@ function extract(name, { optional = false } = {}) {
     if (optional) return '';
     throw new Error(`Funktion ${name} nicht gefunden`);
   }
-  return extractAt(start, name);
+
+  // Erst die Parameterliste ueberspringen: bei "function f(draw, options = {})"
+  // wuerde die Klammer-Balance sonst am Default-Wert "{}" starten und die
+  // Funktion nach zwei Zeichen fuer beendet halten.
+  let i = start + `function ${name}`.length;
+  let runde = 0;
+  for (; i < HTML.length; i++) {
+    if (HTML[i] === '(') runde++;
+    else if (HTML[i] === ')') {
+      runde--;
+      if (runde === 0) { i++; break; }
+    }
+  }
+
+  return HTML.slice(start, i) + extractAt(i, name);
 }
 
 // Schneidet ab beliebiger Startposition bis zur passenden schließenden Klammer.

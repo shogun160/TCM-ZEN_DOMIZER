@@ -189,6 +189,65 @@ describe("POST /announce", () => {
     expect(antwort.status).toBe(400);
   });
 
+  // Das Frontend baut aus `code` seinen uebersetzten Toast - der Fehlertext
+  // selbst bleibt Detail fuer den Twitch-Dialog bzw. das Server-Log.
+  describe("Fehlercodes fuer das Frontend", () => {
+    async function antwortBei(interceptor) {
+      const e = testEnv();
+      await botTokenSetzen(e);
+      const token = await saveChannelToken(e, { channelLogin: "kanal_eins", channelId: "111" });
+      interceptor();
+      const antwort = await worker.fetch(anfrage({ token, draw: DRAW }), e);
+      return { antwort, daten: await antwort.json() };
+    }
+
+    it("meldet 'not_moderator', wenn Twitch das Senden mit 403 ablehnt", async () => {
+      const { daten } = await antwortBei(() =>
+        fetchMock.get("https://api.twitch.tv")
+          .intercept({ path: "/helix/chat/messages", method: "POST" })
+          .reply(403, "The sender is not permitted to send chat messages")
+      );
+      expect(daten.success).toBe(false);
+      expect(daten.code).toBe("not_moderator");
+      // Der Twitch-Text darf den Aufrufer nicht erreichen
+      expect(daten.error).not.toMatch(/permitted/);
+    });
+
+    it("meldet 'twitch_error' bei einem allgemeinen Ausfall", async () => {
+      const { daten } = await antwortBei(() =>
+        fetchMock.get("https://api.twitch.tv")
+          .intercept({ path: "/helix/chat/messages", method: "POST" })
+          .reply(500, "Internal Server Error")
+      );
+      expect(daten.code).toBe("twitch_error");
+    });
+
+    it("meldet 'automod_held', wenn AutoMod die Nachricht zurueckhaelt", async () => {
+      const { daten } = await antwortBei(() =>
+        fetchMock.get("https://api.twitch.tv")
+          .intercept({ path: "/helix/chat/messages", method: "POST" })
+          .reply(200, { data: [{ is_sent: false, drop_reason: { code: "automod_held", message: "held by AutoMod" } }] })
+      );
+      expect(daten.code).toBe("automod_held");
+    });
+
+    it("meldet 'message_dropped' bei einem sonstigen Ablehnungsgrund", async () => {
+      const { daten } = await antwortBei(() =>
+        fetchMock.get("https://api.twitch.tv")
+          .intercept({ path: "/helix/chat/messages", method: "POST" })
+          .reply(200, { data: [{ is_sent: false, drop_reason: { code: "channel_settings", message: "followers-only" } }] })
+      );
+      expect(daten.code).toBe("message_dropped");
+      expect(daten.error).toMatch(/followers-only/); // Detail bleibt fuer den Dialog erhalten
+    });
+
+    it("meldet weiterhin 'token_invalid' bei unbekanntem Kanal-Token", async () => {
+      const antwort = await worker.fetch(anfrage({ token: "erfunden", draw: DRAW }), testEnv());
+      expect(antwort.status).toBe(401);
+      expect((await antwort.json()).code).toBe("token_invalid");
+    });
+  });
+
   it("beantwortet GET mit 405", async () => {
     const antwort = await worker.fetch(new Request("https://bot.example.dev/announce"), testEnv());
     expect(antwort.status).toBe(405);

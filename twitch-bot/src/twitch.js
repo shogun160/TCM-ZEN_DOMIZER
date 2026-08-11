@@ -169,7 +169,12 @@ export async function sendChatMessage({ broadcasterId, senderId, message, client
   });
   if (!res.ok) {
     const errText = await res.text();
-    throw new Error(`Twitch Send-Chat-Message-API Fehler (${res.status}): ${errText}`);
+    const fehler = new Error(`Twitch Send-Chat-Message-API Fehler (${res.status}): ${errText}`);
+    // Der Status wandert mit, damit der Aufrufer "Bot ist kein Moderator" (403)
+    // von einem allgemeinen Ausfall unterscheiden kann - der Fehlertext selbst
+    // darf den Aufrufer nicht erreichen, er kann Teile der Anfrage spiegeln.
+    fehler.status = res.status;
+    throw fehler;
   }
   const data = await res.json();
   return data.data?.[0] || { is_sent: false };

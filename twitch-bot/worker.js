@@ -29,6 +29,18 @@ import { validateDraw, buildMessage, buildConnectedMessage, validateFilters } fr
 
 const PIN_DURATION_SECONDS = 1200; // 20 Minuten - Twitch-Maximum
 
+// Maschinenlesbare Fehlerursachen fuer das Frontend. Es baut daraus seinen
+// uebersetzten Toast (TWITCH_ERROR_KEYS in zendomizer.html); der Fehlertext aus
+// dieser Antwort ist nur Detail fuer den Twitch-Dialog. Neue Codes gehoeren in
+// beide Listen - tests/twitch-fehler.test.mjs prueft, dass keiner fehlt.
+const FEHLER_CODES = {
+  TOKEN_INVALID: "token_invalid",
+  NOT_MODERATOR: "not_moderator",
+  AUTOMOD_HELD: "automod_held",
+  MESSAGE_DROPPED: "message_dropped",
+  TWITCH_ERROR: "twitch_error",
+};
+
 export default {
   async fetch(request, env) {
     const pfad = new URL(request.url).pathname;
@@ -97,7 +109,7 @@ async function handleAnnounce(request, env, corsHeaders) {
     return json({
       success: false,
       error: "Kanal nicht verbunden. Bitte den Kanal in den Twitch-Einstellungen neu verbinden.",
-      code: "token_invalid",
+      code: FEHLER_CODES.TOKEN_INVALID,
     }, 401, corsHeaders);
   }
 
@@ -147,10 +159,16 @@ async function handleAnnounce(request, env, corsHeaders) {
     });
 
     if (!sendResult.is_sent) {
+      // `code` ist die maschinenlesbare Ursache, aus der das Frontend seinen
+      // uebersetzten Text baut (siehe TWITCH_ERROR_KEYS in zendomizer.html).
+      // `error` bleibt als lesbares Detail erhalten - es landet dort im
+      // Twitch-Dialog unter dem Token-Feld, nicht im Toast.
       const grund = sendResult.drop_reason?.message
         || "Unbekannter Grund (evtl. Bot nicht Moderator im Kanal?).";
+      const dropCode = sendResult.drop_reason?.code || "";
       return json({
         success: false,
+        code: dropCode.includes("automod") ? FEHLER_CODES.AUTOMOD_HELD : FEHLER_CODES.MESSAGE_DROPPED,
         error: `Nachricht wurde von Twitch nicht gesendet: ${grund}`,
       }, 200, corsHeaders);
     }
@@ -194,7 +212,12 @@ async function handleAnnounce(request, env, corsHeaders) {
     // enthalten (siehe src/twitch.js) - die kann Teile der eigenen Anfrage
     // spiegeln. Details deshalb nur ins Server-Log, nicht an den Aufrufer.
     console.error("Announce fehlgeschlagen:", err);
-    return json({ success: false, error: "Nachricht konnte nicht gesendet werden." }, 500, corsHeaders);
+    // 403 der Chat-API heisst: der Bot darf in diesem Kanal nicht schreiben -
+    // praktisch immer, weil er dort (nicht mehr) Moderator ist. Das ist der
+    // einzige Fall, den der Streamer selbst beheben kann, deshalb bekommt er
+    // einen eigenen Code. Der Fehlertext bleibt im Server-Log.
+    const code = err.status === 403 ? FEHLER_CODES.NOT_MODERATOR : FEHLER_CODES.TWITCH_ERROR;
+    return json({ success: false, code, error: "Nachricht konnte nicht gesendet werden." }, 500, corsHeaders);
   }
 }
 
