@@ -60,9 +60,12 @@ export function extractAt(start, label = 'Block') {
 
 // Schneidet ein Literal (Array, Map, ...) zwischen zwei Markern heraus - fuer
 // Konstanten wie ROTATION, die keine Funktion sind.
-export function extractBlock(startMarker, endMarker) {
+export function extractBlock(startMarker, endMarker, { optional = false } = {}) {
   const start = HTML.indexOf(startMarker);
-  if (start === -1) throw new Error(`Marker "${startMarker}" nicht gefunden`);
+  if (start === -1) {
+    if (optional) return '';
+    throw new Error(`Marker "${startMarker}" nicht gefunden`);
+  }
   const end = HTML.indexOf(endMarker, start + startMarker.length);
   if (end === -1) throw new Error(`Endmarker "${endMarker}" nach "${startMarker}" nicht gefunden`);
   return HTML.slice(start, end + endMarker.length);
@@ -70,21 +73,42 @@ export function extractBlock(startMarker, endMarker) {
 
 const JET_VEHICLE = { category: 'Jet', brand: 'Dassault Aviation', model: 'Alpha Jet – Red Bull Edition', year: null, country: null, era: null, bike: false, top_tier: false };
 
-export function createDrawer() {
+// opts.quotaBytes ahmt einen vollen localStorage nach: sobald die Summe aller Werte das
+// Limit ueberschreitet, wirft setItem() - so wie der Browser bei erschoepfter Quota.
+export function createDrawer({ quotaBytes = Infinity } = {}) {
   const store = {};
-  const localStorage = { setItem: (k, v) => { store[k] = v; }, getItem: (k) => store[k] ?? null };
+  const belegt = () => Object.values(store).reduce((n, v) => n + String(v).length, 0);
+  const localStorage = {
+    setItem: (k, v) => {
+      const neu = belegt() - String(store[k] ?? '').length + String(v).length;
+      if (neu > quotaBytes) {
+        const err = new Error('QuotaExceededError');
+        err.name = 'QuotaExceededError';
+        throw err;
+      }
+      store[k] = v;
+    },
+    getItem: (k) => store[k] ?? null,
+    removeItem: (k) => { delete store[k]; },
+    belegt,
+  };
   const win = { drawLog: [], drawRound: 0, devLoggingEnabled: false };
   const toasts = [];
+  const warnungen = [];
 
   const factory = new Function('deps', `
-    const { vehicles, localStorage, JET_VEHICLE, window, showToast, t, translateEra, translateCountry } = deps;
+    const { vehicles, localStorage, JET_VEHICLE, window, showToast, t, translateEra, translateCountry, console } = deps;
     let recentDraws = {};
     ${extract('shuffle')}
     ${extract('formatVehicleName')}
     ${extract('isSameVehicle', { optional: true })}
+    ${extract('persist', { optional: true })}
+    ${extract('appendDrawLog', { optional: true })}
+    ${extractBlock('const MAX_DRAW_LOG', ';', { optional: true })}
     ${extract('drawVehicleForCategory')}
     return {
       drawVehicleForCategory,
+      maxDrawLog: () => (typeof MAX_DRAW_LOG === 'undefined' ? null : MAX_DRAW_LOG),
       recent: (cat) => recentDraws[cat] ? recentDraws[cat].slice() : [],
       setRecent: (cat, list) => { recentDraws[cat] = list; },
       persisted: (cat) => {
@@ -105,9 +129,12 @@ export function createDrawer() {
     t: (key, vars = {}) => `${key}:${JSON.stringify(vars)}`,
     translateEra: (v) => v,
     translateCountry: (v) => v,
+    // Warnungen abfangen statt sie in die Testausgabe zu schuetten - der Quota-Fall
+    // warnt bewusst, das soll pruefbar sein und nicht als Fehler aussehen.
+    console: { log() {}, table() {}, warn: (...args) => warnungen.push(args.join(' ')) },
   });
 
-  return { ...api, toasts, win };
+  return { ...api, toasts, win, localStorage, warnungen };
 }
 
 export const id = (v) => `${v.brand}|${v.model}|${v.year}`;
