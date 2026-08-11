@@ -123,7 +123,9 @@ describe("handleAuthCallback", () => {
     expect(antwort.headers.get("Content-Type")).toContain("text/html");
 
     const html = await antwort.text();
-    const treffer = html.match(/data-token="([A-Za-z0-9_-]{43})"/);
+    // Der Token steht im Inhalt des code-Elements, nicht in einem
+    // data-Attribut - so gibt es ihn nur einmal auf der Seite.
+    const treffer = html.match(/<code id="token">([A-Za-z0-9_-]{43})<\/code>/);
     expect(treffer).not.toBeNull();
 
     const kanal = await resolveChannelByToken(e, treffer[1]);
@@ -315,5 +317,98 @@ describe("readStateCookie (Cookie-Header-Parsing)", () => {
       headers: { Cookie: "foo=bar; baz=qux" },
     });
     expect(readStateCookie(req)).toBeNull();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Sprache. Die Seiten dieses Flows sind die einzigen Texte, die der Worker
+// selbst anzeigt - sie sollen der im ZENdomizer eingestellten Sprache folgen.
+// Der Wert reist im State mit, weil Twitch nur diesen unveraendert zurueckgibt.
+// ---------------------------------------------------------------------------
+describe("Sprache im Auth-Flow", () => {
+  async function startMit(query) {
+    return handleAuthStart(
+      new Request(`https://bot.example.dev/auth/start${query}`),
+      { ...env, TWITCH_CLIENT_ID: "client123" }
+    );
+  }
+
+  it("stellt die Sprache dem State voran", async () => {
+    const antwort = await startMit("?lang=en");
+    const state = new URL(antwort.headers.get("Location")).searchParams.get("state");
+    expect(state.startsWith("en.")).toBe(true);
+    // Das Cookie traegt denselben vollstaendigen Wert - sonst schluege der
+    // Vergleich im Callback fehl.
+    expect(antwort.headers.get("Set-Cookie")).toContain(`${STATE_COOKIE_NAME}=${state};`);
+  });
+
+  it("faellt ohne Angabe und bei Unsinn auf Deutsch zurueck", async () => {
+    for (const query of ["", "?lang=", "?lang=klingon", "?lang=de"]) {
+      const antwort = await startMit(query);
+      const state = new URL(antwort.headers.get("Location")).searchParams.get("state");
+      expect(state.startsWith("de."), `bei "${query}"`).toBe(true);
+    }
+  });
+
+  it("liefert die Erfolgsseite in der Sprache des State", async () => {
+    const e = testEnv();
+    const state = `en.${generateToken()}`;
+    mockTokenTausch();
+    mockHelixUsers("streamer_en", "1234");
+
+    const antwort = await handleAuthCallback(callbackAnfrage({ code: "abc", state, cookieState: state }), e);
+    const html = await antwort.text();
+
+    expect(html).toContain('<html lang="en"');
+    expect(html).toContain("is now connected");
+    expect(html).toContain("Copy to clipboard");
+    expect(html).not.toContain("Zwischenablage");
+  });
+
+  it("liefert auch die Fehlerseiten uebersetzt", async () => {
+    const state = `en.${generateToken()}`;
+    // Cookie fehlt -> "Sitzung abgelaufen", trotzdem auf Englisch
+    const antwort = await handleAuthCallback(callbackAnfrage({ code: "abc", state }), testEnv());
+    const html = await antwort.text();
+
+    expect(antwort.status).toBe(400);
+    expect(html).toContain('<html lang="en"');
+    expect(html).toContain("Session expired");
+  });
+
+  it("bleibt bei manipulierter Sprache im State auf Deutsch", async () => {
+    const state = `<script>.${generateToken()}`;
+    const antwort = await handleAuthCallback(callbackAnfrage({ code: "abc", state }), testEnv());
+    const html = await antwort.text();
+
+    expect(html).toContain('<html lang="de"');
+    expect(html).not.toContain("<script>.");
+  });
+});
+
+describe("Token-Seite", () => {
+  it("bietet einen Knopf zum Kopieren an", async () => {
+    const e = testEnv();
+    const state = `de.${generateToken()}`;
+    mockTokenTausch();
+    mockHelixUsers("streamer_kopie", "555");
+
+    const html = await (await handleAuthCallback(callbackAnfrage({ code: "abc", state, cookieState: state }), e)).text();
+
+    expect(html).toContain('id="kopieren"');
+    expect(html).toContain("In die Zwischenablage kopieren");
+    expect(html).toContain("navigator.clipboard");
+  });
+
+  it("nennt den Token genau einmal", async () => {
+    const e = testEnv();
+    const state = `de.${generateToken()}`;
+    mockTokenTausch();
+    mockHelixUsers("streamer_einmal", "556");
+
+    const html = await (await handleAuthCallback(callbackAnfrage({ code: "abc", state, cookieState: state }), e)).text();
+    const token = html.match(/<code id="token">([A-Za-z0-9_-]{43})<\/code>/)[1];
+
+    expect(html.split(token).length - 1).toBe(1);
   });
 });

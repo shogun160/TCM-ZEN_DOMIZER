@@ -27,9 +27,24 @@ import { generateToken, saveChannelToken } from "./tokens.js";
 const STATE_COOKIE_NAME = "__Host-zd_state";
 const STATE_COOKIE_TTL_SECONDS = 600;
 
+// Die Oberflaechensprache reist im State mit ("de.<token>"). Sie muss den Umweg
+// ueber Twitch ueberstehen, und der State ist der einzige Wert, den Twitch
+// unveraendert zurueckgibt - so braucht es dafuer weder KV noch ein zweites
+// Cookie. generateToken() liefert base64url (A-Za-z0-9-_), der Punkt ist also
+// ein eindeutiger Trenner. Der Vergleich Cookie === Query bleibt davon
+// unberuehrt: verglichen wird weiterhin der vollstaendige Wert.
+const SPRACHEN = ["de", "en"];
+const STANDARD_SPRACHE = "de";
+
+function spracheAus(wert) {
+  return SPRACHEN.includes(wert) ? wert : STANDARD_SPRACHE;
+}
+
 export async function handleAuthStart(request, env) {
-  const origin = new URL(request.url).origin;
-  const state = generateToken();
+  const url = new URL(request.url);
+  const origin = url.origin;
+  const lang = spracheAus(url.searchParams.get("lang"));
+  const state = `${lang}.${generateToken()}`;
 
   const params = new URLSearchParams({
     client_id: env.TWITCH_CLIENT_ID,
@@ -65,14 +80,18 @@ export async function handleAuthCallback(request, env) {
   // der Cookie-Wert im Browser DES OPFERS - den bekommt der Angreifer weder
   // durch Raten noch durch Timing zu fassen, weil er ihn dem Server niemals
   // vorlegen kann (HttpOnly + SameSite=Lax + __Host-Praefix).
+  // Die Sprache steckt im State und wird vor dem Vergleich gelesen, damit auch
+  // die Fehlerseiten in der richtigen Sprache erscheinen. Der Wert ist an dieser
+  // Stelle noch ungeprueft - unkritisch, weil spracheAus() nur "de" oder "en"
+  // durchlaesst und die Sprache ausschliesslich die Anzeige steuert.
+  const lang = spracheAus(String(state || "").split(".")[0]);
+
   if (!state || !cookieState || cookieState !== state) {
-    return mitGeloeschtemStateCookie(htmlSeite(400, "Sitzung abgelaufen",
-      "Dieser Autorisierungsversuch ist abgelaufen oder wurde bereits verwendet. Bitte erneut starten."));
+    return mitGeloeschtemStateCookie(htmlSeite(400, lang, "abgelaufen"));
   }
 
   if (!code) {
-    return mitGeloeschtemStateCookie(htmlSeite(400, "Autorisierung unvollstaendig",
-      "Twitch hat keinen Autorisierungscode zurueckgegeben. Bitte den Vorgang erneut starten."));
+    return mitGeloeschtemStateCookie(htmlSeite(400, lang, "kein_code"));
   }
 
   let token, login;
@@ -95,12 +114,10 @@ export async function handleAuthCallback(request, env) {
     // Twitch gelieferten, also aussenstehend beeinflussbaren) Rohwerte.
     // Details landen stattdessen im Server-Log.
     console.error("auth callback fehlgeschlagen:", err);
-    return mitGeloeschtemStateCookie(htmlSeite(502, "Verbindung fehlgeschlagen",
-      "Die Anmeldung konnte nicht abgeschlossen werden. Bitte versuche es in ein paar Minuten erneut. " +
-      "Falls das Problem bestehen bleibt, kontaktiere den Botbetreiber."));
+    return mitGeloeschtemStateCookie(htmlSeite(502, lang, "fehlgeschlagen"));
   }
 
-  return mitGeloeschtemStateCookie(htmlSeite(200, "Kanal verbunden", null, { login, token }));
+  return mitGeloeschtemStateCookie(htmlSeite(200, lang, "verbunden", { login, token }));
 }
 
 /**
@@ -181,21 +198,103 @@ function escapeHtml(text) {
   ));
 }
 
-function htmlSeite(status, titel, text, erfolg = null) {
+// Die Seiten dieses Flows sind die einzigen Texte, die der Worker selbst
+// anzeigt - alles andere formuliert das Frontend. Sie muessen deshalb hier
+// zweisprachig vorliegen; welche Sprache gilt, reist im State mit (siehe oben).
+const TEXTE = {
+  de: {
+    verbunden_titel: "Kanal verbunden",
+    verbunden_intro: (login) => `Dein Kanal <strong>${login}</strong> ist jetzt verbunden.`,
+    token_intro: "Kopiere diesen Token in die Twitch-Einstellungen von ZENdomizer:",
+    kopieren: "In die Zwischenablage kopieren",
+    kopiert: "Kopiert!",
+    kopieren_fehler: "Kopieren nicht möglich - bitte von Hand markieren",
+    token_warnung: "Behandle den Token wie ein Passwort. Wer ihn hat, kann Ziehungen in deinen Chat posten. " +
+      "Du kannst ihn jederzeit erneuern, indem du diese Seite noch einmal durchläufst - der alte wird dabei ungültig.",
+    mod_hinweis: "Damit der Bot senden darf, muss er in deinem Chat Moderator sein:",
+    abgelaufen_titel: "Sitzung abgelaufen",
+    abgelaufen_text: "Dieser Autorisierungsversuch ist abgelaufen oder wurde bereits verwendet. " +
+      "Das passiert auch, wenn diese Seite neu geladen wurde. Starte die Verknüpfung erneut über das " +
+      "Twitch-Symbol im ZENdomizer - ein bereits erhaltener Token bleibt gültig.",
+    kein_code_titel: "Autorisierung unvollständig",
+    kein_code_text: "Twitch hat keinen Autorisierungscode zurückgegeben. Bitte den Vorgang erneut starten.",
+    fehlgeschlagen_titel: "Verbindung fehlgeschlagen",
+    fehlgeschlagen_text: "Die Anmeldung konnte nicht abgeschlossen werden. Bitte versuche es in ein paar Minuten " +
+      "erneut. Falls das Problem bestehen bleibt, kontaktiere den Botbetreiber.",
+  },
+  en: {
+    verbunden_titel: "Channel connected",
+    verbunden_intro: (login) => `Your channel <strong>${login}</strong> is now connected.`,
+    token_intro: "Copy this token into the Twitch settings of ZENdomizer:",
+    kopieren: "Copy to clipboard",
+    kopiert: "Copied!",
+    kopieren_fehler: "Copying failed - please select it manually",
+    token_warnung: "Treat this token like a password. Anyone who has it can post draws to your chat. " +
+      "You can renew it at any time by going through this page again - the old one becomes invalid.",
+    mod_hinweis: "For the bot to be allowed to send, it must be a moderator in your chat:",
+    abgelaufen_titel: "Session expired",
+    abgelaufen_text: "This authorization attempt has expired or was already used. This also happens if you " +
+      "reloaded this page. Start the connection again via the Twitch icon in ZENdomizer - a token you already " +
+      "received stays valid.",
+    kein_code_titel: "Authorization incomplete",
+    kein_code_text: "Twitch did not return an authorization code. Please start over.",
+    fehlgeschlagen_titel: "Connection failed",
+    fehlgeschlagen_text: "The sign-in could not be completed. Please try again in a few minutes. " +
+      "If the problem persists, contact the bot operator.",
+  },
+};
+
+function htmlSeite(status, lang, schluessel, erfolg = null) {
+  const s = TEXTE[lang] || TEXTE[STANDARD_SPRACHE];
+  const titel = s[`${schluessel}_titel`];
+
   const inhalt = erfolg
-    ? `<p>Dein Kanal <strong>${escapeHtml(erfolg.login)}</strong> ist jetzt verbunden.</p>
-       <p>Kopiere diesen Token in die Twitch-Einstellungen von ZENdomizer:</p>
-       <code data-token="${escapeHtml(erfolg.token)}">${escapeHtml(erfolg.token)}</code>
-       <p class="hinweis">Behandle den Token wie ein Passwort. Wer ihn hat, kann
-          Ziehungen in deinen Chat posten. Du kannst ihn jederzeit erneuern,
-          indem du diese Seite noch einmal durchlaeufst - der alte wird dabei
-          ungueltig.</p>
-       <p class="hinweis">Damit der Bot senden darf, muss er in deinem Chat
-          Moderator sein: <code>/mod ZENdomizerBot</code></p>`
-    : `<p>${escapeHtml(text)}</p>`;
+    ? `<p>${s.verbunden_intro(escapeHtml(erfolg.login))}</p>
+       <p>${escapeHtml(s.token_intro)}</p>
+       <code id="token">${escapeHtml(erfolg.token)}</code>
+       <p><button id="kopieren" type="button"
+                  data-kopiert="${escapeHtml(s.kopiert)}"
+                  data-fehler="${escapeHtml(s.kopieren_fehler)}">${escapeHtml(s.kopieren)}</button></p>
+       <p class="hinweis">${escapeHtml(s.token_warnung)}</p>
+       <p class="hinweis">${escapeHtml(s.mod_hinweis)} <code>/mod ZENdomizerBot</code></p>
+       <script>
+         (function () {
+           var knopf = document.getElementById("kopieren");
+           var token = document.getElementById("token");
+           var urspruenglich = knopf.textContent;
+           knopf.addEventListener("click", function () {
+             // Der Token steht im DOM, nicht in einem data-Attribut des Knopfs:
+             // so gibt es ihn nur einmal auf der Seite.
+             var text = token.textContent;
+             function melde(meldung) {
+               knopf.textContent = meldung;
+               setTimeout(function () { knopf.textContent = urspruenglich; }, 2000);
+             }
+             if (navigator.clipboard && navigator.clipboard.writeText) {
+               navigator.clipboard.writeText(text).then(
+                 function () { melde(knopf.dataset.kopiert); },
+                 function () { markiere(); }
+               );
+             } else {
+               markiere();
+             }
+             // Fallback ohne Clipboard-API (aelterer Browser, unsicherer Kontext):
+             // den Token markieren, damit Strg+C sofort greift.
+             function markiere() {
+               var auswahl = window.getSelection();
+               var bereich = document.createRange();
+               bereich.selectNodeContents(token);
+               auswahl.removeAllRanges();
+               auswahl.addRange(bereich);
+               melde(knopf.dataset.fehler);
+             }
+           });
+         })();
+       </script>`
+    : `<p>${escapeHtml(s[`${schluessel}_text`])}</p>`;
 
   return new Response(
-    `<!doctype html><html lang="de"><head><meta charset="utf-8">
+    `<!doctype html><html lang="${escapeHtml(lang)}"><head><meta charset="utf-8">
      <meta name="viewport" content="width=device-width,initial-scale=1">
      <title>${escapeHtml(titel)} - ZENdomizer</title>
      <style>
@@ -203,6 +302,9 @@ function htmlSeite(status, titel, text, erfolg = null) {
             background:#14121a;color:#eee;line-height:1.5}
        code{display:inline-block;background:#000;padding:.6rem .8rem;border-radius:.4rem;
             word-break:break-all;font-size:1.05rem}
+       button{background:#9146FF;color:#fff;border:0;border-radius:.4rem;padding:.6rem 1rem;
+              font:inherit;font-weight:600;cursor:pointer}
+       button:hover{background:#a76bff}
        .hinweis{color:#aaa;font-size:.9rem}
      </style></head>
      <body><h1>${escapeHtml(titel)}</h1>${inhalt}</body></html>`,

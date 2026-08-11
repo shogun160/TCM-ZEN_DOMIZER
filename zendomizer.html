@@ -108,23 +108,110 @@
       max-width: 420px; /* 2 Spalten à 120px + 1x gap (18px) + 18(test)*/
       margin-bottom: 10px;
     }
-    .twitch-settings-wrapper {
-      width: 100%;
-      max-width: 420px;
-      margin-bottom: 10px;
+    /* Twitch-Knopf links neben GO. Quadratisch auf Hoehe des GO-Knopfs, der Glow
+       kommt aus dem Bild selbst - beim Hover wird er nur verstaerkt. */
+    .twitch-icon-btn {
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      line-height: 0;
+      border-radius: 12px;
+      transition: transform 0.15s ease, filter 0.15s ease;
+      /* Nur dieser Knopf steht mittig zum GO-Knopf. Die Zeile bleibt insgesamt
+         auf flex-end (siehe .button-top), damit sich am uebrigen Layout nichts
+         aendert - align-self gilt allein hier. */
+      align-self: center;
     }
-    .twitch-settings-panel {
+    .twitch-icon-btn img {
+      width: 56px;
+      height: 56px;
+      display: block;
+      border-radius: 12px;
+    }
+    .twitch-icon-btn:hover img,
+    .twitch-icon-btn:focus-visible img {
+      filter: drop-shadow(0 0 10px #9146FF) brightness(1.15);
+    }
+    .twitch-icon-btn:hover {
+      transform: translateY(-2px);
+    }
+    /* Verbundener Kanal: dezenter Dauerglow, damit man den Zustand ohne Klick sieht */
+    .twitch-icon-btn.connected img {
+      box-shadow: 0 0 12px #9146FF;
+    }
+
+    .twitch-dialog-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .twitch-dialog {
+      position: relative;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      background-color: rgba(0, 0, 0, 0.6);
+      background-color: rgba(0, 0, 0, 0.92);
       border: 2px solid #9146FF; /* Twitch-Lila zur Unterscheidung von den gruenen Filtern */
       border-radius: 12px;
-      padding: 14px;
-      margin-top: 10px;
+      padding: 20px;
+      width: 100%;
+      max-width: 380px;
       box-sizing: border-box;
+      box-shadow: 0 0 24px rgba(145, 70, 255, 0.5);
     }
-    .twitch-settings-panel input[type="password"] {
+    .twitch-dialog h3 {
+      margin: 0 24px 4px 0;
+      color: #d9b3ff;
+      font-size: 18px;
+    }
+    .twitch-dialog label {
+      color: #d9b3ff;
+      font-size: 13px;
+    }
+    .twitch-dialog-close {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      background: none;
+      border: none;
+      color: #9146FF;
+      font-size: 26px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0 4px;
+    }
+    .twitch-dialog-close:hover { color: #d9b3ff; }
+    .twitch-dialog-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .twitch-dialog-btn {
+      background-color: rgba(0, 0, 0, 0.6);
+      color: #d9b3ff;
+      border: 2px solid #9146FF;
+      border-radius: 8px;
+      padding: 10px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .twitch-dialog-btn:hover { box-shadow: 0 0 10px #9146FF; }
+    .twitch-dialog-btn.danger {
+      color: #ff9d9d;
+      border-color: #ff5555;
+    }
+    .twitch-dialog-btn.danger:hover { box-shadow: 0 0 10px #ff5555; }
+
+    .twitch-dialog input[type="password"] {
       background-color: rgba(0, 0, 0, 0.6);
       color: #d9b3ff;
       border: 2px solid #9146FF;
@@ -135,15 +222,9 @@
       box-sizing: border-box;
       width: 100%;
     }
-    .twitch-settings-panel input[type="password"]::placeholder {
+    .twitch-dialog input[type="password"]::placeholder {
       color: #9146FF;
       opacity: 0.7;
-    }
-    #twitchSettingsToggle {
-      width: 100%;
-      max-width: 420px;
-      border-color: #9146FF;
-      color: #d9b3ff;
     }
     .twitch-status-msg {
       font-size: 12px;
@@ -582,15 +663,6 @@ select.filter-control {
      Flex-Kind mit margin-top:auto/margin-bottom:-80px), unabhaengig davon ob das Twitch-Panel
      auf- oder zugeklappt ist (unterschiedliche Hoehe wuerde bei Flex-Fluss sonst die GO-Position
      mitverschieben). */
-  .twitch-settings-wrapper {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 24px;
-    width: 260px;
-    max-width: 260px;
-  }
 }
 /* --- SLOTBOXEN (rechter Bereich) --- */
 .slot-box {
@@ -960,15 +1032,10 @@ select.filter-control {
 </div>
     <div class="center-panel">
         <div class="button-top">
+            <button id="twitchIconBtn" class="twitch-icon-btn" onclick="openTwitchDialog()" title="Twitch">
+                <img src="assets/pic/twitch-icon.png" alt="Twitch" />
+            </button>
             <button id="goBtn" class="start-btn" onclick="handleGo()">GO</button>
-        </div>
-        <div class="twitch-settings-wrapper">
-            <button id="twitchSettingsToggle" class="filter-control" onclick="toggleTwitchSettingsPanel()">Twitch</button>
-            <div id="twitchSettingsPanel" class="twitch-settings-panel" style="display:none;">
-                <button id="twitchConnectBtn" class="filter-control" onclick="openTwitchConnect()">Connect channel</button>
-                <input type="password" id="twitchToken" oninput="saveTwitchSettings()" />
-                <div id="twitchStatusMsg" class="twitch-status-msg"></div>
-            </div>
         </div>
     </div>
     <div class="right-panel">
@@ -1030,6 +1097,7 @@ select.filter-control {
     updateResetButtonState();
     updateGoButtonState();
     loadTwitchSettings();
+    updateTwitchDialogState(); // Glow am Twitch-Knopf, sobald ein Kanal verknuepft ist
   })
   .catch(err => {
     console.error("❌ Fehler beim Laden der Daten:", err);
@@ -1160,9 +1228,17 @@ select.filter-control {
 
   function updateTwitchLabels() {
     const connectBtn = document.getElementById("twitchConnectBtn");
+    const disconnectBtn = document.getElementById("twitchDisconnectBtn");
     const tokenInput = document.getElementById("twitchToken");
+    const tokenLabel = document.getElementById("twitchTokenLabel");
+    const dialogTitle = document.getElementById("twitchDialogTitle");
     if (connectBtn) connectBtn.textContent = t("twitch_connect");
+    if (disconnectBtn) disconnectBtn.textContent = t("twitch_disconnect");
     if (tokenInput) tokenInput.placeholder = t("twitch_token_label");
+    if (tokenLabel) tokenLabel.textContent = t("twitch_token_label");
+    if (dialogTitle) dialogTitle.textContent = t("twitch_dialog_title");
+    const closeBtn = document.getElementById("twitchCloseBtn");
+    if (closeBtn) closeBtn.title = t("twitch_close");
   }
 
     /*
@@ -1695,6 +1771,19 @@ select.filter-control {
     // ein selbst gehosteter Worker erfordert eine eigene Kopie dieser Datei.
     const DEFAULT_TWITCH_WORKER_URL = "https://zendomizer-twitch-bot.shogun160.workers.dev";
 
+    // Fehlercodes des Workers auf kurze, handlungsleitende Texte abbilden. Der
+    // Worker schickt nur den Code (siehe worker.js), formuliert wird hier - so
+    // erscheinen die Meldungen in der eingestellten Sprache. Ein unbekannter
+    // Code faellt auf "twitch_error" zurueck, damit eine neue Fehlerart nicht
+    // zu einem leeren Toast fuehrt.
+    const TWITCH_ERROR_KEYS = {
+      token_invalid: "twitch_err_not_connected",
+      not_moderator: "twitch_err_not_moderator",
+      automod_held: "twitch_err_automod",
+      message_dropped: "twitch_err_dropped",
+      twitch_error: "twitch_err_generic",
+    };
+
     function loadTwitchSettings() {
       const token = localStorage.getItem("zendomizerTwitchToken") || "";
       const tokenInput = document.getElementById("twitchToken");
@@ -1704,18 +1793,71 @@ select.filter-control {
     function saveTwitchSettings() {
       const token = (document.getElementById("twitchToken")?.value || "").trim();
       persist("zendomizerTwitchToken", token);
-
-      const statusEl = document.getElementById("twitchStatusMsg");
-      if (statusEl) {
-        statusEl.textContent = "";
-        statusEl.classList.remove("error");
-      }
+      setTwitchStatus("", false);
+      updateTwitchDialogState();
     }
 
-    function toggleTwitchSettingsPanel() {
-      const panel = document.getElementById("twitchSettingsPanel");
-      if (!panel) return;
-      panel.style.display = panel.style.display === "none" ? "flex" : "none";
+    function hatTwitchToken() {
+      return !!(localStorage.getItem("zendomizerTwitchToken") || "").trim();
+    }
+
+    // Der Dialog zeigt den Verknuepfungszustand: "Verknuepfung aufheben" gibt es
+    // nur, wenn ueberhaupt ein Token hinterlegt ist. Dasselbe Kriterium
+    // entscheidet ueber die Toasts nach einer Ziehung (siehe
+    // sendTwitchAnnouncement) - wer Twitch nicht nutzt, bekommt keine Meldungen.
+    function updateTwitchDialogState() {
+      const verknuepft = hatTwitchToken();
+
+      const trennen = document.getElementById("twitchDisconnectBtn");
+      if (trennen) trennen.style.display = verknuepft ? "block" : "none";
+
+      const iconBtn = document.getElementById("twitchIconBtn");
+      if (iconBtn) iconBtn.classList.toggle("connected", verknuepft);
+    }
+
+    function istTwitchDialogOffen() {
+      const backdrop = document.getElementById("twitchDialogBackdrop");
+      return !!backdrop && backdrop.style.display !== "none";
+    }
+
+    function openTwitchDialog() {
+      const backdrop = document.getElementById("twitchDialogBackdrop");
+      if (!backdrop) return;
+      loadTwitchSettings();
+      updateTwitchDialogState();
+      backdrop.style.display = "flex";
+    }
+
+    function closeTwitchDialog() {
+      const backdrop = document.getElementById("twitchDialogBackdrop");
+      if (backdrop) backdrop.style.display = "none";
+    }
+
+    // Nur ein Klick auf den Hintergrund schliesst - nicht einer im Dialog selbst.
+    function handleTwitchBackdropClick(e) {
+      if (e.target && e.target.id === "twitchDialogBackdrop") closeTwitchDialog();
+    }
+
+    // Hebt die Verknuepfung in DIESEM Browser auf: der Token wird geloescht,
+    // danach postet nichts mehr. Der Kanal bleibt beim Worker hinterlegt - ein
+    // erneutes "Account verknuepfen" stellt die Verbindung ohne neuen
+    // Twitch-Login wieder her, solange der alte Token noch gueltig ist.
+    function disconnectTwitch() {
+      localStorage.removeItem("zendomizerTwitchToken");
+      const tokenInput = document.getElementById("twitchToken");
+      if (tokenInput) tokenInput.value = "";
+      setTwitchStatus(t("twitch_disconnected"), false);
+      updateTwitchDialogState();
+      showToast(t("twitch_disconnected"), "#9146FF");
+    }
+
+    // Detailzeile im Dialog unter dem Token-Feld. Dort landet der technische
+    // Wortlaut, waehrend der Toast nur die kurze, handlungsleitende Fassung zeigt.
+    function setTwitchStatus(text, istFehler) {
+      const statusEl = document.getElementById("twitchStatusMsg");
+      if (!statusEl) return;
+      statusEl.textContent = text || "";
+      statusEl.classList.toggle("error", !!istFehler);
     }
 
     // "Kanal verbinden" hat zwei Aufgaben, je nachdem ob schon ein Token
@@ -1729,15 +1871,14 @@ select.filter-control {
     //     den frueheren separaten "Testnachricht senden"-Knopf.
     function openTwitchConnect() {
       saveTwitchSettings();
-      const token = localStorage.getItem("zendomizerTwitchToken") || "";
-      const statusEl = document.getElementById("twitchStatusMsg");
 
-      if (!token) {
-        if (statusEl) {
-          statusEl.textContent = t("twitch_token_missing");
-          statusEl.classList.add("error");
-        }
-        window.open(DEFAULT_TWITCH_WORKER_URL.replace(/\/+$/, "") + "/auth/start", "_blank", "noopener");
+      if (!hatTwitchToken()) {
+        setTwitchStatus(t("twitch_token_missing"), true);
+        // Die Sprache wandert mit: der Worker liefert seine Seiten sonst immer
+        // auf Deutsch, egal was im ZENdomizer eingestellt ist.
+        window.open(
+          `${DEFAULT_TWITCH_WORKER_URL.replace(/\/+$/, "")}/auth/start?lang=${encodeURIComponent(currentLang)}`,
+          "_blank", "noopener");
         return;
       }
 
@@ -1778,7 +1919,10 @@ select.filter-control {
 
       if (bikeFilterMode && bikeFilterMode !== "no_bike") daten.vehicleType = bikeFilterMode;
       if (filters.brand) daten.brand = filters.brand;
-      if (filters.country) daten.country = filters.country;
+      // Land wird hier schon uebersetzt mitgegeben: die Laendernamen stehen in
+      // translations/i18n.json, nicht im Worker - der kennt nur die festen
+      // Schluessel fuer Fahrzeugtyp und Zeitraum.
+      if (filters.country) daten.country = translateCountry(filters.country);
       if (filters.era) daten.era = filters.era;
 
       return Object.keys(daten).length ? daten : null;
@@ -1819,8 +1963,6 @@ select.filter-control {
 
       const pin = !isConnectedCheck;
 
-      const statusEl = document.getElementById("twitchStatusMsg");
-
       if (!isConnectedCheck && (!draw || draw.length === 0)) return;
 
       const body = isConnectedCheck ? { token, type, pin } : { token, draw, pin };
@@ -1828,7 +1970,12 @@ select.filter-control {
         const modifier = currentTwitchModifier();
         if (modifier) body.modifier = modifier;
         const filters = currentTwitchFilters();
-        if (filters) body.filters = filters;
+        if (filters) {
+          body.filters = filters;
+          // Der Worker setzt die Bezeichnungen fuer Fahrzeugtyp und Zeitraum
+          // selbst - dafuer braucht er die eingestellte Sprache.
+          body.lang = currentLang;
+        }
       }
 
       try {
@@ -1839,27 +1986,39 @@ select.filter-control {
         });
         const data = await res.json().catch(() => ({}));
 
-        if (res.status === 401) {
-          throw new Error(t("twitch_channel_not_connected"));
-        }
         if (!res.ok || !data.success) {
-          throw new Error(data.error || `HTTP ${res.status}`);
+          const fehler = new Error(data.error || `HTTP ${res.status}`);
+          fehler.code = data.code || (res.status === 401 ? "token_invalid" : "twitch_error");
+          throw fehler;
         }
 
-        if (statusEl) {
-          statusEl.textContent = data.pinned
-            ? t("twitch_sent_and_pinned")
-            : t("twitch_sent");
-          statusEl.classList.remove("error");
+        setTwitchStatus(data.pinned ? t("twitch_sent_and_pinned") : t("twitch_sent"), false);
+
+        // Die Verbindungspruefung hat ihr Ziel erreicht, sobald der Chat die
+        // Bestaetigung bekommen hat - der Dialog kann zu. Die Rueckmeldung
+        // uebernimmt dann der Toast, sonst waere sie mit dem Dialog verschwunden.
+        if (isConnectedCheck) {
+          updateTwitchDialogState();
+          showToast(t("twitch_connect_ok"), "#9146FF", 5000);
+          closeTwitchDialog();
+          return;
+        }
+        // Anpinnen ist Beiwerk - schlaegt nur das fehl, ist die Ziehung trotzdem
+        // im Chat. Ein Toast weist trotzdem darauf hin, weil sonst niemand merkt,
+        // dass die Nachricht nach kurzer Zeit im Verlauf verschwindet.
+        if (pin && !data.pinned) {
+          setTwitchStatus(`${t("twitch_sent")} - ${data.pinError || t("twitch_err_pin_failed")}`, false);
+          showToast(t("twitch_err_pin_failed"), "#ffa500", 6000);
         }
       } catch (err) {
         console.warn("⚠️ Twitch-Ankündigung fehlgeschlagen:", err);
-        if (statusEl) {
-          statusEl.textContent = `${t("twitch_send_error")}: ${err.message || err}`;
-          statusEl.classList.add("error");
-        }
-        // Bewusst kein showToast() hier - ein fehlgeschlagener Twitch-Post
-        // soll die normale Ziehung nicht stoeren oder unnoetig auffallen.
+
+        // Kurze, handlungsleitende Fassung in den Toast; der technische Wortlaut
+        // bleibt im Dialog unter dem Token-Feld stehen. Frueher gab es hier
+        // bewusst KEINEN Toast - der Fehler landete aber nur im zugeklappten
+        // Panel, sodass ein misslungener Post schlicht unbemerkt blieb.
+        showToast(t(TWITCH_ERROR_KEYS[err.code] || TWITCH_ERROR_KEYS.twitch_error), "#f44336", 8000);
+        setTwitchStatus(`${t("twitch_send_error")}: ${err.message || err}`, true);
       }
     }
 
@@ -1977,6 +2136,15 @@ select.filter-control {
     }
 
     document.addEventListener('keydown', (e) => {
+      // Escape schliesst den Twitch-Dialog - das geht bewusst VOR der
+      // Textfeld-Pruefung, damit es auch aus dem Token-Feld heraus wirkt.
+      if (e.key === 'Escape' && istTwitchDialogOffen()) {
+        closeTwitchDialog();
+        return;
+      }
+      // Bei offenem Dialog ruht der Rest: sonst zoege ein Enter im Dialog
+      // eine Ziehung, und "c" wuerde die Zwischenablage ueberschreiben.
+      if (istTwitchDialogOffen()) return;
       if (isTypingTarget(e.target)) return;
       // 🛠️ Bugfix: hier stand drawRandomVehicles(). Diese Altlast leerte #results per
       // innerHTML und baute die Slot-Boxen nie wieder auf - Enter loeschte also die Anzeige,
@@ -2449,6 +2617,7 @@ select.filter-control {
       }, { once: true });
     });
     document.addEventListener("keydown", function (e) {
+      if (istTwitchDialogOffen()) return; // Shift+R & Co. ruhen, solange der Dialog offen ist
       if (isTypingTarget(e.target)) return; // nicht waehrend des Tippens, siehe isTypingTarget()
       // SHIFT + ? → Hotkey-Legende anzeigen
       if (e.shiftKey && (e.key === '?' || e.key.toLowerCase() === 'h')) {
@@ -2508,5 +2677,23 @@ select.filter-control {
     });
   </script>
 <div id="toast" class="toast"></div>
+
+<!-- Twitch-Dialog: liegt bewusst ausserhalb der Spalten-Layouts, damit er ueber
+     allem schwebt und von keinem overflow abgeschnitten wird. -->
+<div id="twitchDialogBackdrop" class="twitch-dialog-backdrop" style="display:none;" onclick="handleTwitchBackdropClick(event)">
+  <div class="twitch-dialog" role="dialog" aria-modal="true" aria-labelledby="twitchDialogTitle">
+    <button id="twitchCloseBtn" class="twitch-dialog-close" onclick="closeTwitchDialog()">&times;</button>
+    <h3 id="twitchDialogTitle">Twitch</h3>
+
+    <label for="twitchToken" id="twitchTokenLabel">Kanal-Token</label>
+    <input type="password" id="twitchToken" oninput="saveTwitchSettings()" autocomplete="off" />
+    <div id="twitchStatusMsg" class="twitch-status-msg"></div>
+
+    <div class="twitch-dialog-buttons">
+      <button id="twitchConnectBtn" class="twitch-dialog-btn" onclick="openTwitchConnect()">Account verknüpfen</button>
+      <button id="twitchDisconnectBtn" class="twitch-dialog-btn danger" onclick="disconnectTwitch()">Verknüpfung aufheben</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>

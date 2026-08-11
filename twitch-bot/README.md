@@ -111,22 +111,44 @@ Worker schreibt den neuen Wert automatisch zurück in KV).
 
 1. Im eigenen Twitch-Chat einmalig eintippen: `/mod ZENdomizerBot` (oder wie
    der Bot-Account heißt).
-2. Im ZENdomizer-Panel auf den "Twitch"-Knopf klicken, dann auf
-   "Kanal verbinden" ("Connect channel"). Das öffnet in einem neuen Tab den
+2. Im ZENdomizer auf das **Twitch-Symbol links neben GO** klicken und im
+   Dialog auf "Account verknüpfen". Das öffnet in einem neuen Tab den
    Twitch-Login des Worker (`GET /auth/start`). Der angeforderte Scope ist
    leer - Twitch zeigt entsprechend "keine besonderen Berechtigungen" an.
 3. Nach der Bestätigung zeigt die Twitch-Seite den verbundenen Kanalnamen
    und einen Kanal-Token an. Diesen Token kopieren und in das Token-Feld im
-   ZENdomizer-Panel einfügen.
-4. Erneut auf "Kanal verbinden" klicken. Da jetzt ein Token hinterlegt ist,
-   sendet das den festen Bestätigungstext
+   Dialog einfügen.
+4. Erneut auf "Account verknüpfen" klicken. Da jetzt ein Token hinterlegt
+   ist, sendet das den festen Bestätigungstext
    `🎲 ZENdomizer connected. Let's race. 🏁` in den eigenen Chat (nicht
    angepinnt).
 
 Ab jetzt postet jede Ziehung automatisch (und angepinnt) ins Chat - es gibt
-keinen separaten Ein/Aus-Schalter mehr, das Vorhandensein eines gültigen
-Token im Panel genügt. Der Token wird nur lokal im Browser gespeichert
+keinen separaten Ein/Aus-Schalter, das Vorhandensein eines gültigen Token
+genügt. Am dauerhaften Leuchten des Twitch-Symbols ist zu sehen, dass ein
+Kanal verknüpft ist. Der Token wird nur lokal im Browser gespeichert
 (`localStorage`).
+
+**"Verknüpfung aufheben"** im Dialog entfernt den Token aus *diesem* Browser -
+danach postet nichts mehr. Der Kanal bleibt beim Worker hinterlegt, ein
+späteres "Account verknüpfen" mit demselben Token stellt die Verbindung ohne
+neuen Twitch-Login wieder her. Wirklich entzogen wird die Berechtigung erst,
+wenn der Betreiber `channel:<login>` im KV löscht (siehe unten).
+
+### Wenn etwas schiefgeht
+
+Schlägt das Posten nach einer Ziehung fehl, erscheint eine kurze Meldung als
+Toast - aber nur, wenn überhaupt ein Kanal verknüpft ist. Wer Twitch nicht
+nutzt, bekommt nie eine solche Meldung. Der technische Wortlaut steht im
+Twitch-Dialog unter dem Token-Feld.
+
+| Meldung | Ursache | Abhilfe |
+|---|---|---|
+| Kanal nicht verbunden | Token abgelaufen oder widerrufen | Über das Twitch-Symbol neu verknüpfen |
+| Bot ist kein Moderator | `/mod` wurde zurückgenommen | `/mod <BotName>` erneut eingeben |
+| Von AutoMod zurückgehalten | AutoMod des Kanals | Einstellung im Kanal prüfen |
+| Twitch nicht erreichbar | Worker oder Twitch gestört | Später erneut versuchen |
+| Anpinnen hat nicht geklappt | Bot darf nicht anpinnen | Nachricht ist trotzdem im Chat |
 
 Ein Kanal-Token bleibt gültig, bis er durch einen erneuten Durchlauf des
 Verbindungsschritts ersetzt wird oder der Betreiber ihn im KV löscht (siehe

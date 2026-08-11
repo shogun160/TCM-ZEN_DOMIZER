@@ -213,16 +213,37 @@ export function resolveModifier(key) {
 
 // Aktive Filter, sofern sie vom Standard abweichen. Fahrzeugtyp und Aera haben
 // feste Wertebereiche und kommen deshalb als Schluessel - wie der Modifikator.
-const FILTER_VEHICLE_TYPES = new Map([
-  ["bike", "Bikes only"],
-  ["all", "All vehicles"],
-  ["top_tier", "Top Tier"],
-  ["rc_cars", "RC Cars"],
-]);
-const FILTER_ERAS = new Map([
-  ["classic", "Classic"],
-  ["modern", "Modern"],
-]);
+// Zweisprachig, weil die Chat-Nachricht der im ZENdomizer eingestellten Sprache
+// folgen soll. Die Texte muessen zu translations/i18n.json passen (bike_yes,
+// bike_all, top_tier, rc_cars bzw. era_classic, era_modern) - genau das prueft
+// tests/twitch-filter.test.mjs im Hauptprojekt.
+const FILTER_VEHICLE_TYPES = {
+  de: new Map([
+    ["bike", "Nur Bikes"],
+    ["all", "Alle Fahrzeuge"],
+    ["top_tier", "Top Tier"],
+    ["rc_cars", "Nur RC-Cars"],
+  ]),
+  en: new Map([
+    ["bike", "Bikes only"],
+    ["all", "All vehicles"],
+    ["top_tier", "Top Tier"],
+    ["rc_cars", "RC Cars only"],
+  ]),
+};
+const FILTER_ERAS = {
+  de: new Map([
+    ["classic", "Klassisch"],
+    ["modern", "Modern"],
+  ]),
+  en: new Map([
+    ["classic", "Classic"],
+    ["modern", "Modern"],
+  ]),
+};
+
+const FILTER_SPRACHEN = ["de", "en"];
+const FILTER_STANDARD_SPRACHE = "en";
 
 // Marke und Land lassen sich nicht als Schluessel abbilden - sie stammen aus
 // cars/vehicles.json und aendern sich mit der Datenpflege. Sie laufen deshalb
@@ -241,14 +262,17 @@ function normalizeCountry(text) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
-export function validateFilters(filters) {
+export function validateFilters(filters, lang) {
   if (!filters || typeof filters !== "object" || Array.isArray(filters)) {
     return { ok: true, teile: [] };
   }
 
+  // Unbekannte Sprache faellt auf Englisch zurueck - das ist die Sprache der
+  // uebrigen Nachrichtenbausteine (Kategorien, Modifikatoren).
+  const sprache = FILTER_SPRACHEN.includes(lang) ? lang : FILTER_STANDARD_SPRACHE;
   const teile = [];
 
-  const typ = FILTER_VEHICLE_TYPES.get(filters.vehicleType);
+  const typ = FILTER_VEHICLE_TYPES[sprache].get(filters.vehicleType);
   if (typ) teile.push(typ);
 
   for (const feld of ["brand", "country"]) {
@@ -262,7 +286,7 @@ export function validateFilters(filters) {
     teile.push(feld === "country" ? normalizeCountry(wert) : wert);
   }
 
-  const era = FILTER_ERAS.get(filters.era);
+  const era = FILTER_ERAS[sprache].get(filters.era);
   if (era) teile.push(era);
 
   return { ok: true, teile };

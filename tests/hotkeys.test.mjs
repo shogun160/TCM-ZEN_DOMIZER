@@ -17,12 +17,18 @@ const CHECKBOX = el('INPUT', { type: 'checkbox' });
 const DROPDOWN = el('SELECT');
 const BODY = el('BODY');
 
-function sandbox() {
+function sandbox({ dialogOffen = false } = {}) {
   const listeners = [];
   const aufrufe = { handleGo: 0, copyToClipboard: 0, toasts: [] };
+  // Der Twitch-Dialog wird ueber style.display auf/zu gemacht - genau das liest
+  // istTwitchDialogOffen() im Produktivcode ab.
+  const backdrop = { style: { display: dialogOffen ? 'flex' : 'none' } };
 
   const deps = {
-    document: { addEventListener: (evt, fn) => { if (evt === 'keydown') listeners.push(fn); } },
+    document: {
+      addEventListener: (evt, fn) => { if (evt === 'keydown') listeners.push(fn); },
+      getElementById: (id) => (id === 'twitchDialogBackdrop' ? backdrop : null),
+    },
     handleGo: () => aufrufe.handleGo++,
     copyToClipboard: () => aufrufe.copyToClipboard++,
     showToast: (m) => aufrufe.toasts.push(m),
@@ -39,6 +45,8 @@ function sandbox() {
     ${extract('persist')}
     ${extract('appendDrawLog')}
     ${extract('isTypingTarget', { optional: true })}
+    ${extract('istTwitchDialogOffen', { optional: true })}
+    ${extract('closeTwitchDialog', { optional: true })}
     ${extractAt(HTML.indexOf("document.addEventListener('keydown', (e) => {"), 'Listener 1')});
     ${extractAt(HTML.indexOf('document.addEventListener("keydown", function (e) {'), 'Listener 2')});
     return { blacklistLeer: () => Object.keys(recentDraws).length === 0, drawRound: () => window.drawRound };
@@ -48,6 +56,7 @@ function sandbox() {
   return {
     ...api,
     aufrufe,
+    dialogOffen: () => backdrop.style.display !== 'none',
     press: (key, target, { shiftKey = false } = {}) => {
       for (const l of listeners) l({ key, shiftKey, target });
     },
@@ -110,6 +119,32 @@ function sandbox() {
   const s = sandbox();
   s.press('Enter', DROPDOWN);
   check('Enter mit Fokus auf einem Filter-Dropdown zieht', s.aufrufe.handleGo === 1, `handleGo ${s.aufrufe.handleGo}x`);
+}
+
+// --- Bei offenem Twitch-Dialog ruhen die Hotkeys ---------------------------
+{
+  const s = sandbox({ dialogOffen: true });
+  s.press('Enter', BODY);
+  check('Enter bei offenem Dialog zieht nicht', s.aufrufe.handleGo === 0,
+    `handleGo ${s.aufrufe.handleGo}x aufgerufen`);
+}
+{
+  const s = sandbox({ dialogOffen: true });
+  s.press('R', BODY, { shiftKey: true });
+  check('Shift+R bei offenem Dialog loescht die Blacklist nicht', !s.blacklistLeer(),
+    'Blacklist wurde geleert');
+}
+{
+  const s = sandbox({ dialogOffen: true });
+  s.press('Escape', TEXTFELD);
+  check('Escape schliesst den Dialog, auch aus dem Token-Feld heraus', !s.dialogOffen(),
+    'Dialog blieb offen');
+}
+{
+  const s = sandbox({ dialogOffen: false });
+  s.press('Escape', BODY);
+  check('Escape ohne offenen Dialog tut nichts', s.aufrufe.handleGo === 0 && s.aufrufe.toasts.length === 0,
+    'unerwartete Wirkung');
 }
 
 const failed = results.filter(r => !r.ok);
