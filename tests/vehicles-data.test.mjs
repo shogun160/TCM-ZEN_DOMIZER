@@ -56,7 +56,7 @@ for (const [feld, praefix] of [['country', 'country_'], ['era', 'era_']]) {
 }
 
 // --- Bestand unveraendert ----------------------------------------------------
-check('Fahrzeugbestand vollstaendig', VEHICLES.length === 748, `${VEHICLES.length} statt 748 Fahrzeuge`);
+check('Fahrzeugbestand vollstaendig', VEHICLES.length === 766, `${VEHICLES.length} statt 766 Fahrzeuge`);
 
 const failed = results.filter((r) => !r.ok);
 console.log(`\n${results.length - failed.length}/${results.length} bestanden`);

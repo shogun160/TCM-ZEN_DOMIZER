@@ -7323,7 +7323,7 @@
     "category": "Rally Raid",
     "bike": false,
     "brand": "PHAZR RC",
-    "model": "Traxxas X-Maxx Ulitmate",
+    "model": "Traxxas X-Maxx Ultimate",
     "year": 2025,
     "country": "france",
     "era": "modern",
@@ -7478,5 +7478,185 @@
     "country": "italy",
     "era": "modern",
     "top_tier": true
+  },
+  {
+    "category": "Street Tier 1",
+    "bike": false,
+    "brand": "Chevrolet",
+    "model": "Corvette",
+    "year": 1953,
+    "country": "usa",
+    "era": "classic",
+    "top_tier": false
+  },
+  {
+    "category": "Street Tier 1",
+    "bike": false,
+    "brand": "BMW",
+    "model": "507",
+    "year": 1955,
+    "country": "germany",
+    "era": "classic",
+    "top_tier": false
+  },
+  {
+    "category": "Street Tier 2",
+    "bike": false,
+    "brand": "Pontiac",
+    "model": "GTO The Judge LapMaster SE",
+    "year": 1969,
+    "country": "usa",
+    "era": "classic",
+    "top_tier": true
+  },
+  {
+    "category": "Street Tier 2",
+    "bike": false,
+    "brand": "Ringbrothers",
+    "model": "Chevrolet Loadmaster \"Enyo\"",
+    "year": 1942,
+    "country": "usa",
+    "era": "classic",
+    "top_tier": true
+  },
+  {
+    "category": "Hypercar",
+    "bike": false,
+    "brand": "Lamborghini",
+    "model": "Fenomeno",
+    "year": 2025,
+    "country": "italy",
+    "era": "modern",
+    "top_tier": false
+  },
+  {
+    "category": "Street Tier 1",
+    "bike": false,
+    "brand": "PHAZR RC",
+    "model": "Raycer 30",
+    "year": 2026,
+    "country": "france",
+    "era": "modern",
+    "top_tier": false
+  },
+  {
+    "category": "Hypercar",
+    "bike": false,
+    "brand": "Lamborghini",
+    "model": "Temerario Alleggerita Package",
+    "year": 2025,
+    "country": "italy",
+    "era": "modern",
+    "top_tier": true
+  },
+  {
+    "category": "Hypercar",
+    "bike": false,
+    "brand": "Bugatti",
+    "model": "Tourbillon",
+    "year": 2026,
+    "country": "france",
+    "era": "modern",
+    "top_tier": true
+  },
+  {
+    "category": "Street Tier 1",
+    "bike": false,
+    "brand": "Suzuki",
+    "model": "Jimny",
+    "year": 2018,
+    "country": "japan",
+    "era": "modern",
+    "top_tier": false
+  },
+  {
+    "category": "Rally Raid",
+    "bike": false,
+    "brand": "Suzuki",
+    "model": "Jimny Winch Edition",
+    "year": 2018,
+    "country": "japan",
+    "era": "modern",
+    "top_tier": false
+  },
+  {
+    "category": "Rally Raid",
+    "bike": false,
+    "brand": "Hyundai",
+    "model": "Crater Concept",
+    "year": 2025,
+    "country": "korea",
+    "era": "modern",
+    "top_tier": true
+  },
+  {
+    "category": "Rally Raid",
+    "bike": false,
+    "brand": "Mercedes-Benz",
+    "model": "G63 AMG 6x6",
+    "year": 2013,
+    "country": "germany",
+    "era": "modern",
+    "top_tier": false
+  },
+  {
+    "category": "Rally Raid",
+    "bike": false,
+    "brand": "Suzuki",
+    "model": "QuadRacer R450Z",
+    "year": 2008,
+    "country": "japan",
+    "era": "modern",
+    "top_tier": false
+  },
+  {
+    "category": "Rally Raid",
+    "bike": true,
+    "brand": "Honda",
+    "model": "Africa Twin Adventure Sports ES",
+    "year": 2021,
+    "country": "japan",
+    "era": "modern",
+    "top_tier": false
+  },
+  {
+    "category": "Rally",
+    "bike": false,
+    "brand": "Lamborghini",
+    "model": "Sterrato",
+    "year": 2022,
+    "country": "italy",
+    "era": "modern",
+    "top_tier": false
+  },
+  {
+    "category": "Hypercar",
+    "bike": false,
+    "brand": "Hennessy",
+    "model": "Chevrolet Camaro ZL1 \"The Exorcist\"",
+    "year": 2022,
+    "country": "usa",
+    "era": "modern",
+    "top_tier": false
+  },
+  {
+    "category": "Street Tier 2",
+    "bike": false,
+    "brand": "Ivory-Tower",
+    "model": "Ogmios Radiant Edition",
+    "year": 2025,
+    "country": "france",
+    "era": "modern",
+    "top_tier": false
+  },
+  {
+    "category": "Rally Raid",
+    "bike": false,
+    "brand": "PHAZR RC",
+    "model": "Croft Crawler",
+    "year": 2026,
+    "country": "france",
+    "era": "modern",
+    "top_tier": false
   }
 ]
