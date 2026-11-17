@@ -10,7 +10,7 @@
 Thanks to [@wbcolon](https://github.com/wbcolon) for integrating the Grandrace rotation and automatic matching categories.  
 And of course a special thank also to the [motorfe.st project](https://github.com/calamity-inc/motorfe.st/) for the rotation logic itself.
 
-**Version:** v2.7
+**Version:** v3
 **Carlist:** Season 11 – 17.11.2026
 
 👉 [Twitch](https://www.twitch.tv/xthepapapyr0) & [Discord](https://discord.gg/mJKXNPTG).
@@ -26,7 +26,7 @@ And of course a special thank also to the [motorfe.st project](https://github.co
 - 🎯 **advanced draw logic** with fallback system – ensures a valid result even with tight filters
 - 🔁 **blacklist system** prevents repeats by writing a blacklit to browsers internal storage – with automatic reset when all options are drawn
 - ⚙️ **available filters:**
-  - 🚗 only cars / 🔝 top tier cars / 🏍️ only bikes / 🚙 all vehicles  
+  - 🚗 only cars / 🔝 top tier cars / 🎮 RC Cars only / 🏍️ only bikes / 🚙 all vehicles
   - 🌍 country  
   - 🏷️ brand  
   - ⏳ era (classic / modern)
