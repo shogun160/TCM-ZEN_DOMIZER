@@ -1030,6 +1030,16 @@
     "top_tier": false
   },
   {
+    "category": "Street Tier 2",
+    "bike": false,
+    "brand": "Cadillac",
+    "model": "CT5-V Blackwing",
+    "year": 2025,
+    "country": "usa",
+    "era": "modern",
+    "top_tier": true
+  },
+  {
     "category": "Hypercar",
     "bike": false,
     "brand": "Chevrolet",
