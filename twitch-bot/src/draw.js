@@ -204,6 +204,7 @@ const MODIFIERS = new Map([
   ["pro_racing", { label: "Pro Racing", icon: "\u{1F3CE}️" }],
   ["air_only", { label: "Air Only", icon: "\u{1F6E9}️" }],
   ["special_weather", { label: "Special Weather", icon: "\u{1F327}️" }],
+  ["new", { label: "New", icon: "\u{1F195}" }],
 ]);
 
 export function resolveModifier(key) {
